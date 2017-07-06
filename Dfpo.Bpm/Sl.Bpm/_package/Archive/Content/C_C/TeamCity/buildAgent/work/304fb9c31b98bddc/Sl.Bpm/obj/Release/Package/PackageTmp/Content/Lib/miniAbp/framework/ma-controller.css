@@ -1,0 +1,24 @@
+﻿/****标题****/
+.ma-header {
+    position: relative;
+    overflow-x: hidden;
+}
+
+.ma-header > div {
+    display: inline-block;
+    margin-bottom: 0;
+    padding: 0 20px 10px 0;
+    margin-bottom: 1px;
+    margin-top: 10px;
+    font-size: 18px;
+    /*background-color: #eee;*/
+}
+.ma-header hr {
+    display: inline-block;
+    position: absolute;
+    top: 5px;
+    width: 100%;
+    height: 1px;
+    border: 0 none;
+    background-image: linear-gradient(90deg,rgba(0,0,0,.12) 0,transparent);
+}

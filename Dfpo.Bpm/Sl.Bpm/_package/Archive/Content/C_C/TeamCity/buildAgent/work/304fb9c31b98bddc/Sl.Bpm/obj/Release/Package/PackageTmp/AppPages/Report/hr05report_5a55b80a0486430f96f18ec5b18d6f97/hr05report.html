@@ -1,0 +1,103 @@
+﻿<!--劳动合同续签报表-->
+<div class="form-group ma-block">
+    <fm-Group-Head title="{{::base.title}}"></fm-Group-Head>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="container">
+                <div class="form-group">
+                    <div class="col-xs-12">
+                        <div class="ma-detailinfo">
+                            <div class="content">
+                                <div class="row">
+                                    <div class="form-group">
+                                        <div class="col-xs-4 cell">
+                                            <!--公司-->
+                                            <span class="col-xs-3 control-label " ng-bind="form.$pageLang.Company"></span>
+                                            <div class="col-xs-9">
+                                                <fm-text class="input-sm" fm-model="form.filter.company"></fm-text>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-4 cell">
+                                            <!--部门-->
+                                            <span class="col-xs-3 control-label" ng-bind="form.$pageLang.Department">{</span>
+                                            <div class="col-xs-9">
+                                                <fm-text class="input-sm" fm-model="form.filter.department"></fm-text>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-4 cell">
+                                            <!--合同类型-->
+                                            <span class="col-xs-3 control-label" ng-bind="form.$pageLang.ContractType"></span>
+                                            <div class="col-xs-9">
+                                                <fm-text class="input-sm" fm-model="form.filter.contractType"></fm-text>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group">
+
+                                        <div class="col-xs-4 cell">
+                                            <!--合同到期时间-->
+                                            <span class="col-xs-3 control-label" ng-bind="form.$pageLang.EffectiveDate"></span>
+                                            <div class="col-xs-9">
+                                                <fm-datetime class="input-sm"
+                                                             date fm-model="form.filter.applicationTimeStarts"
+                                                             fm-readonly></fm-datetime>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-4 cell">
+                                            <span class="col-xs-3 control-label"
+                                                  style="text-align:center;">——</span>
+                                            <div class="col-xs-9">
+                                                <fm-datetime class="input-sm" date fm-model="form.filter.applicationTimeEnds" fm-readonly></fm-datetime>
+                                            </div>
+                                        </div>
+                                       
+                                    </div>
+
+                                </div>
+                                <div class="row">
+                                    <div class="form-group">
+
+                                        <div class="col-xs-4 cell">
+                                            <!--申请时间-->
+                                            <span class="col-xs-3 control-label" ng-bind="form.$pageLang.ApplyDate"></span>
+                                            <div class="col-xs-9">
+                                                <fm-datetime class="input-sm"
+                                                             date fm-model="form.filter.applicationTimeStart"
+                                                             fm-readonly></fm-datetime>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-4 cell">
+                                            <span class="col-xs-3 control-label"
+                                                  style="text-align:center;">——</span>
+                                            <div class="col-xs-9">
+                                                <fm-datetime class="input-sm" date fm-model="form.filter.applicationTimeEnd" fm-readonly></fm-datetime>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group">
+                                <div class="col-xs-12" style="text-align:center;">
+                                    <button class="btn btn-primary" ng-click="form.select()" ng-bind="form.$pageLang.Query"></button>
+                                    <button class="btn btn-default" ng-click="form.clear()" ng-bind="form.$pageLang.Clear"></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12">
+                <fm-table view='GetHr05LaborContractRenewalReport' data="form.HR05Report" refreash-data="form.refreash" excel current-page-data="form.currentData"   page="{{form.page}}"
+                          filter="{Company:form.filter.company,Department:form.filter.department,ContractType:form.filter.contractType
+                          ,ApplicationTimeStart:form.filter.applicationTimeStart,ApplicationTimeEnd:form.filter.applicationTimeEnd ,ApplicationTimeStarts:form.filter.applicationTimeStarts,ApplicationTimeEnds:form.filter.applicationTimeEnds
+                          }"></fm-table>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,142 @@
+﻿<!--pur10非计划性产品指定供应商报表-->
+<div class="form-group ma-block">
+    <fm-Group-Head title="{{::base.title}}"></fm-Group-Head>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="container">
+                <div class="form-group">
+                    <div class="col-xs-12">
+                        <div class="ma-detailinfo">
+                            <div class="content">
+                                <div class="row">
+                                    <div class="col-xs-4 cell">
+                                        <span class="col-xs-4 control-label">申请单号</span>
+                                        <div class="col-xs-8">
+                                            <fm-text class="input-sm" fm-model="form.filter.SnNumber"></fm-text>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-4 cell">
+                                        <span class="col-xs-4 control-label">申请日期</span>
+                                        <div class="col-xs-8">
+                                            <fm-datetime class="input-sm" date fm-model="form.filter.ApplicationTimeStart"></fm-datetime>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-4 cell">
+                                        <span class="col-xs-4 control-label" style="text-align:center;">——</span>
+                                        <div class="col-xs-8">
+                                            <fm-datetime class="input-sm" date fm-model="form.filter.ApplicationTimeEnd"></fm-datetime>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-4 cell">
+                                        <span class="col-xs-4 control-label">公司</span>
+                                        <div class="col-xs-8">
+                                            <fm--select view="GetAllSusidaryInfo" class="input-sm" fm-model="form.filter.Area"></fm--select>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-4 cell">
+                                        <span class="col-xs-4 control-label">申请人</span>
+                                        <div class="col-xs-8">
+                                            <fm-text class="input-sm" fm-model="form.filter.Applicant"></fm-text>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-4 cell">
+                                        <span class="col-xs-4 control-label" style="text-align:center;">供应商</span>
+                                        <div class="col-xs-8">
+                                            <fm-data-select view="GetAllSupplierReport"
+                                                       class="input-sm"
+                                                       fm-model="form.filter.SupplierName"></fm-data-select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-4 cell">
+                                        <span class="col-xs-4 control-label">货币</span>
+                                        <div class="col-xs-8">
+                                            <fm-select view="GetCurrency"
+                                                       class="input-sm"
+                                                       fm-model="form.filter.currency"></fm-select>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-4 cell">
+                                        <!--状态-->
+                                        <span class="col-xs-4 control-label">状态</span>
+                                        <div class="col-xs-8">
+                                            <fm-select dataitem="HRRelated>PersonnelDemand>FormState"
+                                                       display-member="text"
+                                                       value-member="value"
+                                                       fm-model="form.filter.ProcStatus">
+                                            </fm-select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12" style="text-align:center;">
+                                <button class="btn btn-primary" ng-click="form.select()">{{:: 'Query' | translate}}</button>
+                                <button class="btn btn-default" ng-click="form.clear()">清空</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12">
+                <table class="table table-bordered table-detail">
+                    <thead>
+                        <tr>
+                            <th style="text-align: left; max-width: 300px;" ng-repeat="col in form.$columnText track by $index">{{col}}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in form.currentPageData track by $index">
+                            <td style="text-align: left; max-width: 300px" ng-repeat="col in form.$column ">
+                                <a ng-if="col === 'snNumber'" ng-click="form.openPage(item)">{{item[col]}}</a>
+                                <span ng-if="col !== 'snNumber'">{{item[col]}}</span>
+                            </td>
+
+                        </tr>
+                    </tbody>
+                    <tfoot style='background-color: #ADADAD'>
+                        <tr>
+                            <td style="text-align: left;">
+                                <span>Total</span>
+                            </td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>
+                                <span>{{Total}}</span>
+                            </td>
+                            <td></td>
+                            <td></td>
+                            <td>
+                                <span>{{TotalRmb}}</span>
+                            </td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr></tr>
+                    </tfoot>
+                </table>
+                <div class="col-xs-12">
+                    <div class="col-xs-2" style="text-align: left;" ng-if="form.paging.totalCount > 0">
+                        <button class="btn btn-info" ng-click="form.$exportExcel('GetPur10Report',form.filter, 'SnNumber', true)">导出</button>
+                    </div>
+                    <div class="col-xs-8" style="text-align: right;">
+                        <ma-pager ng-if="form.paging.totalCount >= form.paging.currentPage" current-page="form.paging.currentPage" load="form.load(true)" width="1000px" total-count="form.paging.totalCount" page-size="form.paging.pageSize"></ma-pager>
+                    </div>
+                    <div class="col-xs-2" style="text-align: right;">
+                        <span class="control-label" style="vertical-align: top; line-height: 32px;">{{ "Count" | translate}}：{{form.paging.totalCount}}</span> &nbsp;&nbsp;&nbsp;
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

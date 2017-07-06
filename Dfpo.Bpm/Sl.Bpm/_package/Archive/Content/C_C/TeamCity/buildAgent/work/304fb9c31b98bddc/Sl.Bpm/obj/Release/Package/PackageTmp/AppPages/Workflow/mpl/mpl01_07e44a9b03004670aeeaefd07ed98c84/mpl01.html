@@ -1,0 +1,637 @@
+﻿ <!--企业内部预警报告-->
+<fm-form-title sn-number="{{base.snNumber}}" apply-date="{{base.applyDate}}" sub-title='base.title' fm-model="base.areaCode"></fm-form-title>
+
+<!--js代码需要获取的hidden变量数据-->
+<fm-text class="input-sm"
+         state="{{'hidden'}}" style="display:none"
+         fm-model="form.mpl01.isYtoR"></fm-text>
+<!--申请人信息-->
+<fm-Group-Head title="{{ base.$pageLang.ApplicantInfo }}"></fm-Group-Head>
+
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--申请人名字-->
+            <span class="col-xs-2 control-label">{{ "ApplicantName" | translate }}</span>
+            <div class="col-xs-4">
+                <div class="input-group" style="width: 100%;">
+                    <span class="form-label">{{base.applicant.userName}}</span>
+                    <!--<span class="input-group-btn" ng-if="!taskid">
+                        <button class="btn btn-default" type="button" ng-click="base.$selectApplicant()">{{ "Choose" | translate }}</button>
+                    </span>-->
+                </div>
+            </div>
+            <!--申请人员工号-->
+            <span class="col-xs-2 control-label">{{ "ApplicantEmployeeNumber" | translate }}</span>
+            <div class="col-xs-4"><span class="form-label">{{base.applicant.employeeNumber}}</span></div>
+        </div>
+    </div>
+    <div class="form-group">
+        <!--申请人部门线-->
+        <div class="col-xs-12">
+            <span class="col-xs-2 control-label">{{ "ApplicantDepartment" | translate }}</span>
+            <div class="col-xs-10"><span class="form-label">{{base.applicant.departmentName}}</span></div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--申请人电话-->
+            <span class="col-xs-2 control-label">{{ "ApplicantContactNumber" | translate }}</span>
+            <div class="col-xs-4"><span class="form-label">{{base.applicant.contactNumber}}</span></div>
+            <!--申请人邮箱-->
+            <span class="col-xs-2 control-label">{{ "ApplicantEmail" | translate }}</span>
+            <div class="col-xs-4"><span class="form-label">{{base.applicant.emailAddress}}</span></div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--申请人手机-->
+            <span class="col-xs-2 control-label">{{ "ApplicantMobileNumber" | translate }}</span>
+            <div class="col-xs-4"><span class="form-label">{{base.applicant.mobileNumber}}</span></div>
+            <!--申请人直属领导-->
+            <span class="col-xs-2 control-label">{{ "ApplicantDirectManager" | translate }}</span>
+            <div class="col-xs-4"><span class="form-label">{{base.applicant.directManagerName}}</span></div>
+        </div>
+    </div>
+</div>
+
+
+<!--报告信息-->
+<fm-Group-Head title="{{ form.$pageLang.ReportInfo }}"></fm-Group-Head>
+
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--预警编号 -->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.WarningNumber"></span>
+            <div class="col-xs-4">
+                <fm-text required readonly
+                         fm-model="form.mpl01.warningNo"></fm-text>
+            </div>
+            <!--Visteon Global NL#-->
+            <span class="col-xs-2 control-label" ng-bind="form.$pageLang.VisteonGlobal"></span>
+            <div class="col-xs-4">
+                <fm-text fm-model="form.mpl01.visteonGlobalNo"></fm-text>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--优先级 -->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.Priority"></span>
+            <div class="col-xs-4">
+                <fm-select required
+                           ng-style="form.setcolor(form.mpl01.priority)"
+                           dataitem="MPL>NightLetter>Priority"
+                           fm-model="form.mpl01.priority"
+                           fm-normal="base.pageState==1 || (form.$nodeCode == 'MPL01_MP003' && base.pageState==2) || (form.$nodeCode == 'MPL01_MP004' && base.pageState==2)"></fm-select>
+            </div>
+            <!--发布时间-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.IssueDate"></span>
+            <div class="col-xs-4">
+                <fm-datetime date
+                             required
+                             field-name="{{form.$pageLang.IssueDate}}"
+                             state="{{form.$pageRight.StartNode}}"
+                             fm-model="form.mpl01.issueDate"></fm-datetime>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--公司名称 -->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.YfVePlant"></span>
+            <div class="col-xs-4">
+                <fm-select required
+                           field-name="{{form.$pageLang.YfVePlant}}"
+                           dataitem="MPL>NightLetter>NightLetterCompany"
+                           fm-model="form.mpl01.companyName"></fm-select>
+            </div>
+            <!--预警负责人-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.AccountableIndivdual"></span>
+            <div class="col-xs-4">
+                <fm-text required
+                         field-name="{{form.$pageLang.AccountableIndivdual}}"
+                         fm-model="form.mpl01.accountableIndivdual"></fm-text>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--再次更新时间 -->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.DateNextUpdate"></span>
+            <div class="col-xs-4">
+                <fm-datetime date
+                             required
+                             field-name="{{form.$pageLang.DateNextUpdate}}"
+                             state="{{form.$pageRight.StartNode}}"
+                             fm-model="form.mpl01.dateofNextUpdate"></fm-datetime>
+            </div>
+            <!--采购员-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.Buyer"></span>
+            <div class="col-xs-4">
+                <fm-text required
+                         field-name="{{form.$pageLang.Buyer}}"
+                         fm-model="form.mpl01.buyer"></fm-text>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--供应商代码 -->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.SupplierCode"></span>
+            <div class="col-xs-4">
+                <fm-text required
+                         field-name="{{form.$pageLang.SupplierCode}}"
+                         fm-model="form.mpl01.supplierCode"></fm-text>
+            </div>
+            <!--供应商名称-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.SupplierName"></span>
+            <div class="col-xs-4">
+                <fm-text required
+                         field-name="{{form.$pageLang.SupplierName}}"
+                         fm-model="form.mpl01.supplierName"></fm-text>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--供应商联络信息 -->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.SupplierContactInfo"></span>
+            <div class="col-xs-4">
+                <fm-text required
+                         field-name="{{form.$pageLang.SupplierContactInfo}}"
+                         fm-model="form.mpl01.supplierContactInfo"></fm-text>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <!--报告信息明细表-->
+        <table class="table table-bordered table-detail">
+            <thead>
+                <tr>
+                    <!--标记-->
+                    <th class="checktd">
+                        <input type="checkbox" class="uniform" ng-checked="form.mpl01rereportinfoAllChecked" ng-model="form.mpl01rereportinfoAllChecked"
+                               ng-click="form.$checkAll(form.mpl01rereportinfoAllChecked, form.mpl01rereportinfo)" />
+                    </th>
+                    <th style="width:150px;text-align:center;" class="required" ng-bind="form.$pageLang.PartName"></th> <!--科料名字-->
+                    <th style="width:150px;text-align:center;" class="required" ng-bind="form.$pageLang.EndCustomer"></th> <!--最终客户-->
+                    <th style="width:150px;text-align:center;" class="required" ng-bind="form.$pageLang.Vehicle"></th> <!--车型-->
+                    <th style="width:150px;text-align:center;" class="required" ng-bind="form.$pageLang.DatePlantStoppage"></th> <!--工厂停线时间-->
+                    <th style="width:150px;text-align:center;" class="required" ng-bind="form.$pageLang.CustomerLinedownDate"></th> <!--客户停线时间-->
+                    <th style="width:150px;text-align:center;" colspan="2" ng-bind="form.$pageLang.OkDelivery"></th> <!--解除供货风险-->
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="fm-detailinfo" ng-repeat="item in form.mpl01rereportinfo" ng-class="{ 'active': item.checked}" detail-name="报告信息">
+                    <td class="checktd">
+                        <input class="uniform"
+                               ng-if="base.pageState==1 || (form.$pageRight.StartNode == 'normal' && base.pageState==2)"
+                               type="checkbox" ng-model="item.checked" />
+                    </td>
+                    <td>
+                        <fm-text class="input-sm"
+                                 required
+                                 field-name="{{form.$pageLang.Description}}"
+                                 state="{{form.$pageRight.StartNode}}"
+                                 fm-blur="form.blur(item)"
+                                 fm-model="item.partName"></fm-text>
+                    </td>
+                    <td>
+                        <fm-text class="input-sm"
+                                 required
+                                 field-name="{{form.$pageLang.Description}}"
+                                 state="{{form.$pageRight.StartNode}}"
+                                 fm-model="item.endCustomer"></fm-text>
+                    </td>
+                    <td>
+                        <fm-text class="input-sm"
+                                 state="{{form.$pageRight.StartNode}}"
+                                 required
+                                 field-name="{{form.$pageLang.Description}}"
+                                 fm-model="item.vehicle"></fm-text>
+                    </td>
+                    <td style="width:150px;">
+                        <fm-datetime date
+                                     fm-normal="base.pageState==1 || (form.$nodeCode == 'MPL01_MP003' && base.pageState==2 && item.okForDelivery!=true) || (form.$nodeCode == 'MPL01_MP004' && base.pageState==2 && item.okForDelivery!=true)"
+                                     fm-disabled="item.okForDelivery"
+                                     required
+                                     field-name="{{form.$pageLang.Description}}"
+                                     state="{{form.$pageRight.StartNode}}"
+                                     class="input-sm"
+                                     fm-model="item.stoppageDate"></fm-datetime>
+                    </td>
+                    <td style="width:150px;">
+                        <fm-datetime date
+                                     fm-normal="base.pageState==1 || (form.$nodeCode == 'MPL01_MP003' && base.pageState==2 && item.okForDelivery!=true) || (form.$nodeCode == 'MPL01_MP004' && base.pageState==2 && item.okForDelivery!=true)"
+                                     fm-disabled="item.okForDelivery"
+                                     required
+                                     field-name="{{form.$pageLang.OccurrenceDate}}"
+                                     state="{{form.$pageRight.StartNode}}"
+                                     class="input-sm"
+                                     fm-model="item.customerLinedownDate"></fm-datetime>
+                    </td>
+                    <td style="width:80px;">
+                        <!--/解除供货风险时间-->
+                        <fm-datetime date
+                                     fm-normal="base.pageState==1 || (form.$nodeCode == 'MPL01_MP003' && base.pageState==2 && item.okForDelivery!=true) || (form.$nodeCode == 'MPL01_MP004' && base.pageState==2 && item.okForDelivery!=true)"
+                                     fm-disabled="item.okForDelivery"
+                                     field-name="{{form.$pageLang.OccurrenceDate}}"
+                                     state="{{form.$pageRight.StartNode}}"
+                                     class="input-sm"
+                                     fm-model="item.okForDeliveryDate"></fm-datetime>
+                    </td>
+                    <td style="width:70px;">
+                        <input class="uniform"
+                               ng-if="form.$nodeCode == 'MPL01_MP003'|| form.$nodeCode == 'MPL01_MP004'"
+                               ng-click="form.clickDelivery(item)"
+                               type="checkbox" ng-model="item.okForDelivery" />
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="99" style="text-align:right;">
+                        <input ng-if="base.pageState==1 || (form.$pageRight.StartNode == 'normal' && base.pageState==2) " type="button" class="btn btn-sm btn-info" ng-click="form.addrereportinfo();form.mpl01demand.push({})" value="{{ 'Add' |translate}}" />
+                        <input ng-if="base.pageState==1 || (form.$pageRight.StartNode == 'normal' && base.pageState==2) " type="button" class="btn btn-sm btn-danger" ng-click="form.deletereportinfo()" value="{{ 'Delete' |translate}}" />
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+<fm-Group-Head title="{{ form.$pageLang.ProblemBelongsType }}"></fm-Group-Head>
+<!--问题所属类型-->
+<div class="row">
+    <div class="form-group">
+<!--        <fm-checklist fm-model="form.mpl01.problemType" columncount="5"
+                      items="[{id:'0',text:'供应问题'},{id:'1',text:'客户订单问题'},{id:'2',text:'产能问题'},{id:'3',text:'供应商质量问题'},{id:'4',text:'伟世通质量问题'},{id:'5',text:'伟世通设计问题'},{id:'6',text:'客户设计问题'},{id:'7',text:'制造质量问题'},{id:'8',text:'制造过程问题'},{id:'9',text:'商务问题'},{id:'10',text:'付款问题'}]"></fm-checklist>-->
+            <fm-checklist fm-model="form.mpl01.problemType" columncount="5"
+                dataitem="MPL>NightLetter>ProblemType>ProblemTypeA"></fm-checklist>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <div class="col-xs-3">
+<!--              <fm-checklist fm-model="form.mpl01.problemType"
+                              items="[{id:'11',text:'其他问题，请详述'}]"></fm-checklist>-->
+                  <fm-checklist fm-model="form.mpl01.problemType"
+                    dataitem="MPL>NightLetter>ProblemType>ProblemTypeB"></fm-checklist>
+            </div>
+            <div class="col-xs-4">
+                <fm-text fm-model="form.mpl01.otherProblemTypeInfo"
+                         fm-required="form.mpl01.problemType.indexOf('11')>-1"
+                         field-name="{{form.$pageLang.OtherProblem}}"></fm-text>
+            </div>
+        </div>
+    </div>
+</div>
+<fm-Group-Head title="{{ form.$pageLang.BaseReason}}"></fm-Group-Head>
+<!--根本原因-->
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-4">
+            <fm-checklist fm-model="form.mpl01.rootCause"
+                        dataitem="MPL>NightLetter>RootCause>RootCauseA"
+                          required
+                          field-name="{{form.$pageLang.BaseReason}}"
+                          ></fm-checklist>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--积累的需求数量 -->
+            <span class="col-xs-2 control-label" ng-bind="form.$pageLang.ScheduleCum"></span>
+            <div class="col-xs-4">
+                <fm-text fm-model="form.mpl01.cumulativeNeedNumber"
+                         fm-required="form.mpl01.rootCause.indexOf('16')>-1"
+                         field-name="{{form.$pageLang.ScheduleCum}}"></fm-text>
+            </div>
+            <!--供应商积累的发货数量-->
+            <span class="col-xs-2 control-label" ng-bind="form.$pageLang.SupplierShippedCum"></span>
+            <div class="col-xs-4">
+                <fm-text fm-model="form.mpl01.cumulativeDeliveryNumber"
+                         fm-required="form.mpl01.rootCause.indexOf('16')>-1"
+                         field-name="{{form.$pageLang.SupplierShippedCum}}"></fm-text>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-2">
+            <fm-checklist fm-model="form.mpl01.rootCause"
+                          required
+                          field-name="{{form.$pageLang.BaseReason}}"
+                          dataitem="MPL>NightLetter>RootCause>RootCauseB"></fm-checklist>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--增长的数量 -->
+            <span class="col-xs-2 control-label" ng-bind="form.$pageLang.RequirementsIncreased"></span>
+            <div class="col-xs-4">
+                <fm-text fm-model="form.mpl01.addNumber"
+                         fm-required="form.mpl01.rootCause.indexOf('17')>-1"
+                         field-name="{{form.$pageLang.RequirementsIncreased}}"></fm-text>
+            </div>
+            <!--增长百分比-->
+            <span class="col-xs-2 control-label" ng-bind="form.$pageLang.Percentageincreased"></span>
+            <div class="col-xs-4">
+                <fm-text fm-model="form.mpl01.addPercentage"
+                         fm-required="form.mpl01.rootCause.indexOf('17')>-1"
+                         field-name="{{form.$pageLang.Percentageincreased}}"></fm-text>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <fm-checklist fm-model="form.mpl01.rootCause" columncount="5"
+                      required
+                      field-name="{{form.$pageLang.BaseReason}}"
+                      dataitem="MPL>NightLetter>RootCause>RootCauseC"></fm-checklist>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <div class="col-xs-2">
+                <fm-checklist fm-model="form.mpl01.rootCause"
+                              required
+                              field-name="{{form.$pageLang.BaseReason}}"
+                             dataitem="MPL>NightLetter>RootCause>RootCauseD"></fm-checklist>
+            </div>
+            <div class="col-xs-4">
+                <fm-select dataitem="MPL>NightLetter>QualityProblem"
+                           datacode="form.$state.isLoan"
+                           fm-disabled="form.mpl01.rootCause==undefined || form.mpl01.rootCause.indexOf('5ea7059e-90e4-4e87-b7cf-13fb87803445')<0"
+                           fm-required="form.mpl01.rootCause.indexOf('14')>-1"
+                           field-name="{{form.$pageLang.QualityProblem}}"
+                           fm-model="form.mpl01.qualityProblem"></fm-select>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <div class="col-xs-2">
+                <fm-checklist fm-model="form.mpl01.rootCause"
+                              required
+                              field-name="{{form.$pageLang.BaseReason}}"
+                              dataitem="MPL>NightLetter>RootCause>RootCauseE"></fm-checklist>
+            </div>
+            <div class="col-xs-4">
+                <fm-text fm-model="form.mpl01.otherRootCauseInfo"
+                         fm-required="form.mpl01.rootCause.indexOf('15')>-1"
+                         field-name="{{form.$pageLang.OtherProblem}}"></fm-text>
+            </div>
+        </div>
+    </div>
+</div>
+<fm-Group-Head title="{{ form.$pageLang.ExpectedEffect }}"></fm-Group-Head>
+<!--物料短缺造成的预期影响-->
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--造成对客户的交运延误 -->
+            <span class="col-xs-2 control-label" ng-bind="form.$pageLang.ShippingStatus"></span>
+            <div class="col-xs-4">
+                <fm-select dataitem="Common>YesOrNo"
+                           fm-model="form.mpl01.shipmentDelay"></fm-select>
+            </div>
+            <!--产生了额外运费来满足客户的需求? -->
+            <span class="col-xs-2 control-label" ng-bind="form.$pageLang.SupportCustomers"></span>
+            <div class="col-xs-4">
+                <fm-select dataitem="Common>YesOrNo"
+                           fm-model="form.mpl01.extraFreight"></fm-select>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--此次断料是否造成工厂生产计划重新调整 -->
+            <span class="col-xs-2 control-label" ng-bind="form.$pageLang.ReschedulingPlant"></span>
+            <div class="col-xs-4">
+                <fm-select dataitem="Common>YesOrNo"
+                           fm-model="form.mpl01.toReadjust"></fm-select>
+            </div>
+        </div>
+    </div>
+</div>
+
+<fm-Group-Head title="{{ form.$pageLang.MinNeedTotal }}"></fm-Group-Head>
+<!--最小需求量(汇总):-->
+<div class="row">
+    <div class="col-xs-12">
+        <table class="table table-bordered table-detail">
+            <thead>
+                <tr>
+                    <th style="width:150px;text-align:center;" class="required" ng-bind="form.$pageLang.Part"></th> <!--Part-->
+                    <th style="width:150px;text-align:center;" class="required" ng-bind="form.$pageLang.Daily"></th> <!--Daily*-->
+                    <th style="width:150px;text-align:center;" class="required" ng-bind="form.$pageLang.Weekly"></th> <!--Weekly*-->
+                    <th style="width:150px;text-align:center;" class="required" ng-bind="form.$pageLang.Monthly"></th> <!--Monthly*-->
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in form.mpl01demand" ng-class="{ 'active': item.checked}" detail-name="最小需求量">
+                    <td class="checktd" style="display:none">
+                        <input class="uniform"
+                               ng-if="base.pageState==1 || (form.$pageRight.StartNode == 'normal' && base.pageState==2)"
+                               type="checkbox" ng-model="item.checked" />
+                    </td>
+                    <td>
+                        <fm-text class="input-sm"
+                                 required
+                                 readonly
+                                 field-name="{{form.$pageLang.Description}}"
+                                 state="{{form.$pageRight.StartNode}}"
+                                 fm-model="item.partName"></fm-text>
+                    </td>
+                    <td style="width:150px;">
+                        <fm-number class="input-sm"
+                                   fm-normal="base.pageState==1 || (form.$nodeCode == 'MPL01_MP003' && base.pageState==2 && item.isRemove!=1) || (form.$nodeCode == 'MPL01_MP004' && base.pageState==2 && item.isRemove!=1)"
+                                   required
+                                   field-name="{{form.$pageLang.Daily}}"
+                                   fm-disabled="item.isRemove==1"
+                                   fm-model="item.daily"></fm-number>
+                    </td>
+                    <td style="width:150px;">
+                        <fm-number class="input-sm"
+                                   fm-normal="base.pageState==1 || (form.$nodeCode == 'MPL01_MP003' && base.pageState==2 && item.isRemove!=1) || (form.$nodeCode == 'MPL01_MP004' && base.pageState==2 && item.isRemove!=1)"
+                                   required
+                                   field-name="{{form.$pageLang.Weekly}}"
+                                   state="{{form.$pageRight.StartNode}}"
+                                   fm-disabled="item.isRemove==1"
+                                   fm-model="item.weekly"></fm-number>
+                    </td>
+                    <td style="width:150px;">
+                        <fm-number class="input-sm"
+                                   fm-normal="base.pageState==1 || (form.$nodeCode == 'MPL01_MP003' && base.pageState==2 && item.isRemove!=1) || (form.$nodeCode == 'MPL01_MP004' && base.pageState==2 && item.isRemove!=1)"
+                                   required
+                                   field-name="{{form.$pageLang.Monthly}}"
+                                   state="{{form.$pageRight.StartNode}}"
+                                   fm-disabled="item.isRemove==1"
+                                   fm-model="item.monthly"></fm-number>
+                        <fm-text class="input-sm"
+                                 state="{{'hidden'}}" style="display:none"
+                                 fm-model="item.gridOrder"></fm-text>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+        <tr>
+                <tr>
+                    <td colspan="99" style="text-align:right;">
+                        <!--<input ng-if="base.pageState==1 || (form.$pageRight.StartNode == 'normal' && base.pageState==2) " type="button" class="btn btn-sm btn-info" ng-click="form.mpl01demand.push({})" value="{{ 'Add' |translate}}" />-->
+                        <!--<input ng-if="base.pageState==1 || (form.$pageRight.StartNode == 'normal' && base.pageState==2) " type="button" class="btn btn-sm btn-danger" ng-click="form.deleteDemand()" value="{{ 'Delete' |translate}}" />-->
+                    </td>
+
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-4">
+            <span class="col-xs-4 control-label" ng-bind="form.$pageLang.OtherEffect"></span><!--其他影响,请详述: -->
+        </div>
+    </div>
+</div>
+<div class="form-group">
+    <div class="col-xs-12">
+        <fm-textarea fm-model="form.mpl01.otherEffects"></fm-textarea>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-4">
+            <!--牵制措施* -->
+            <span class="col-xs-3 control-label required" ng-bind="form.$pageLang.ContainmentActions "></span>
+        </div>
+    </div>
+</div>
+<div class="form-group">
+    <div class="col-xs-12">
+        <!--<div class="fm-detailinfo" ng-repeat="item in form.mpl01measures| orderBy :'time':true" detail-name="牵制措施">-->
+        <div class="fm-detailinfo" ng-repeat="item in form.mpl01measures" detail-name="牵制措施">
+            <div class="col-xs-1">
+                <input class="uniform"
+                       ng-if="base.pageState==1 || (form.$pageRight.StartNode == 'normal' && base.pageState==2)"
+                       type="checkbox" ng-model="item.checked" />
+            </div>
+            <div class="col-xs-3">
+                <fm-datetime datetime readonly
+                             state="{{form.$pageRight.StartNode}}"
+                             class="uneditable-input"
+                             fm-model="item.time"></fm-datetime>
+                <!--<label ng-model="item.time"></label>-->
+            </div>
+            <div class="col-xs-offset-4">
+                <fm-text class="input-sm"
+                         fm-normal="base.pageState==1 || (form.$nodeCode == 'MPL01_MP003' && base.pageState==2) || (form.$nodeCode == 'MPL01_MP004' && base.pageState==2)"
+                         required
+                         state="{{form.$pageRight.StartNode}}"
+                         fm-disabled="item.isold"
+                         fm-model="item.textA"></fm-text>
+                
+
+           </div>
+            </div>
+            
+
+            <!--<div class="col-xs-4">
+                <fm-text class="input-sm"
+                         fm-normal="base.pageState==1 || (form.$nodeCode == 'MPL01_MP003' && base.pageState==2) || (form.$nodeCode == 'MPL01_MP004' && base.pageState==2)"
+                         required
+                         state="{{form.$pageRight.StartNode}}"
+                         fm-model="item.textB"></fm-text>
+            </div>-->
+        </div>
+    </div>
+
+<div class="form-group">
+    <div class="col-xs-12">
+        <div align="right">
+            <input ng-if="base.pageState==1 || (form.$nodeCode == 'MPL01_MP003' && base.pageState==2) ||(form.$nodeCode == 'MPL01_MP004' && base.pageState==2) " type="button" class="btn btn-sm btn-info" ng-click="form.addmeasures()" value="{{ 'Add' |translate}}" />
+            <input ng-if="base.pageState==1" type="button" class="btn btn-sm btn-danger" ng-click="form.deleteMeasures()" value="{{ 'Delete' |translate}}" />
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-4">
+            <!--问题描述和状态-->
+            <span class="col-xs-4 control-label required" ng-bind="form.$pageLang.ConcernDescription"></span>
+        </div>
+    </div>
+</div>
+<div class="form-group">
+    <div class="col-xs-12">
+        <div class="col-xs-12">
+            <fm-textarea required
+                         field-name="{{form.$pageLang.ConcernDescription}}"
+                         fm-model="form.mpl01.problemDescriptionAndStatus"></fm-textarea>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-4">
+            <!--持久改进措施*-->
+            <span class="col-xs-4 control-label required" ng-bind="form.$pageLang.PermanentCorrectiveAction"></span>
+        </div>
+    </div>
+</div>
+<div class="form-group">
+    <div class="col-xs-12">
+        <div class="col-xs-12">
+            <fm-textarea required
+                         field-name="{{form.$pageLang.PermanentCorrectiveAction}}"
+                         fm-model="form.mpl01.persistentImprovementMeasures"></fm-textarea>
+        </div>
+    </div>
+</div>
+<fm-Group-Head title="{{ form.$pageLang.OtherAttachment }}" class="required"></fm-Group-Head>
+<!--其他附件-->
+<div class="row print-hide">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <div class="col-xs-12">
+                <fm-attachment form-files="form.$attachments"
+                               link-id="0"
+                               task-id='base.taskId'
+                               node-id="base.nodeId"
+                               draft-id="base.draftId"
+                               required
+                               field-name="{{'UploadAttachment' |translate}}"
+                               state="{{form.$pageRight.StartNode}}"
+                               fm-model="form.$state.UploadAttachment"
+                               button-name="{{ 'UploadAttachment' |translate}}"></fm-attachment>
+            </div>
+        </div>
+    </div>
+</div>

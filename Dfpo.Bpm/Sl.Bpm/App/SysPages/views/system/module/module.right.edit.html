@@ -1,0 +1,56 @@
+﻿<modal>
+    <modal-header>编辑模块访问权限</modal-header>
+    <ma-tabs>
+        <ma-panel data-title="{{ 'Basic' | translate}}" name="basic">
+            <ma-form name="moduleRightEdit">
+                <modal-body>
+                    <div class="form-group form-md-line-input">
+                        <div class="col-lg-2 control-label">{{ 'Type' | translate}}</div>
+                        <div class="col-lg-8">
+                            <fm-select fm-model="vm.model.type"
+                                       items="vm.moduleRightTypes"></fm-select>
+                        </div>
+                    </div>
+                    <div class="form-group form-md-line-input">
+                        <div class="col-lg-2 control-label">{{ 'Value' | translate}}</div>
+                        <div class="col-lg-8">
+                            <fm-text ng-if="vm.model.type==1 || !vm.model.type" fm-model="vm.model.value" disabled type="text" class="form-control"></fm-text>
+                            <fm-data-select ismulti ng-if="vm.model.type==2" group fm-model="vm.model.value"></fm-data-select>
+                            <fm-data-select ismulti ng-if="vm.model.type==3"
+                                            view="Sys_GellAllJobsUnderGroupId"
+                                            filter="{groupId:'e6e7c1c0-1836-40c5-889b-9bc763a4915e'}"
+                                            required
+                                            fm-model="vm.model.value"></fm-data-select>
+                            <fm-data-select ismulti ng-if="vm.model.type==4"
+                                            view="Sys_GetRoles"
+                                            required
+                                            fm-model="vm.model.value"></fm-data-select>
+                            <fm-data-select ng-if="vm.model.type > 4 && vm.model.type < 7"
+                                            joblevel
+                                            required
+                                            fm-model="vm.model.value"></fm-data-select>
+                        </div>
+                    </div>
+                    <div class="form-group form-md-line-input">
+                        <div class="col-lg-2 control-label">{{ 'Type' | translate}}</div>
+                        <div class="col-lg-8">
+                            <fm-radiolist items="vm.moduleRightControls"
+                                          fm-model="vm.model.right"></fm-radiolist>
+                        </div>
+                    </div>
+                </modal-body>
+                <modal-footer>
+                    <button class="btn btn-primary" type="submit" id="moduleRightEdit" ma-form-submit="vm.save()">{{ 'Save' | translate}}</button>
+                    <button type="button" class="btn btn-default" ng-click="$close()">{{ 'Cancel' | translate}}</button>
+                </modal-footer>
+            </ma-form>
+        </ma-panel>
+        <ma-panel data-title="{{ 'Advance' | translate}}" name="advance" ng-if="!!vm.model.id">
+            <br />
+            <modal-footer>
+                <button class="btn btn-danger" type="button" confirm-click="vm.delete()">{{ 'Delete' | translate}}</button>
+                <button type="button" class="btn btn-default" ng-click="$close()">{{ 'Cancel' | translate}}</button>
+            </modal-footer>
+        </ma-panel>
+    </ma-tabs>
+</modal>

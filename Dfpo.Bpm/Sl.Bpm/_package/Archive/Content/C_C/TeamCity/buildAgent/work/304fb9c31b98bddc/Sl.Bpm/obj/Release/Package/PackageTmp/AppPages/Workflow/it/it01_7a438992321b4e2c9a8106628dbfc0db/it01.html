@@ -1,0 +1,521 @@
+﻿<!--IT01应用变更请求审批流程-->
+<fm-form-title sn-number="{{base.snNumber}}" apply-date="{{base.applyDate}}" sub-title='base.title' fm-model="base.areaCode"></fm-form-title>
+<!--申请人信息-->
+<fm-Group-Head class="print-hide" title="{{ base.$pageLang.ApplicantInfo }}"></fm-Group-Head>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--申请人名字-->
+            <span class="col-xs-2 control-label">{{ "ApplicantName" | translate }}</span>
+            <div class="col-xs-4"><span class="form-label">{{base.applicant.userName}}</span></div>
+            <!--申请人员工号-->
+            <span class="col-xs-2 control-label">{{ "ApplicantEmployeeNumber" | translate }}</span>
+            <div class="col-xs-4"><span class="form-label">{{base.applicant.employeeNumber}}</span></div>
+        </div>
+    </div>
+    <div class="form-group">
+        <!--申请人部门线-->
+        <div class="col-xs-12">
+            <span class="col-xs-2 control-label">{{ "ApplicantDepartment" | translate }}</span>
+            <div class="col-xs-10"><span class="form-label">{{base.applicant.departmentName}}</span></div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--申请人电话-->
+            <span class="col-xs-2 control-label">{{ "ApplicantContactNumber" | translate }}</span>
+            <div class="col-xs-4"><span class="form-label">{{base.applicant.contactNumber}}</span></div>
+            <!--申请人邮箱-->
+            <span class="col-xs-2 control-label">{{ "ApplicantEmail" | translate }}</span>
+            <div class="col-xs-4"><span class="form-label">{{base.applicant.emailAddress}}</span></div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--申请人手机-->
+            <span class="col-xs-2 control-label">{{ "ApplicantMobileNumber" | translate }}</span>
+            <div class="col-xs-4"><span class="form-label">{{base.applicant.mobileNumber}}</span></div>
+            <!--申请人直属领导-->
+            <span class="col-xs-2 control-label">{{ "ApplicantDirectManager" | translate }}</span>
+            <div class="col-xs-4"><span class="form-label">{{base.applicant.directManagerName}}</span></div>
+        </div>
+    </div>
+</div>
+<fm-Group-Head title="{{ form.$pageLang.ApplicationInfo }}"></fm-Group-Head>
+<!--申请信息-->
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--Type-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.Type"></span>
+            <div class="col-xs-4">      
+                <fm-select dataitem="ITRelated>ACR>Type"
+                           required
+                           fm-readonly="base.applicant.groupId != 'DEPT00498MOT' && base.applicant.groupId != '1e6f69c8-4c2a-4c31-8b55-883ae7334b92'"
+                           fm-code="form.$state.isType"
+                           fm-model="form.it01.type"
+                           field-name="{{form.$pageLang.Type}}"></fm-select>
+            </div>
+        </div>
+    </div>
+</div>
+<div ng-if="form.$state.isType=='1'">
+
+    <div class="row">
+        <div class="form-group">
+            <div class="col-xs-12">
+                <!--Application-->
+                <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.Application"></span>
+                <div class="col-xs-4">
+                    <fm-select items="form.$state.expenseTypeSource"
+                               required
+                               fm-model="form.it01.application"
+                               field-name="{{form.$pageLang.Application}}"
+                               callback-func="form.chooseApproval(selectItem)"></fm-select>
+                </div>
+                <!--ActionType-->
+                <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.ActionType"></span>
+                <div class="col-xs-4">
+                    <fm-select dataitem="ITRelated>ACR>ACRActionType"
+                               required
+                               fm-model="form.it01.actionType"
+                               field-name="{{form.$pageLang.ActionType}}"></fm-select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" ng-if="form.it01.actionType!='D131610B-1DB0-4103-98B0-455F60306BC0'">
+        <div class="form-group">
+            <div class="col-xs-12">
+                <!--ACRNO1-->
+                <span class="col-xs-2 control-label " ng-bind="form.$pageLang.Acrrno"></span>
+                <div class="col-xs-4">
+                    <fm-text fm-model="form.it01.acrno"></fm-text>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" ng-if="form.it01.actionType=='D131610B-1DB0-4103-98B0-455F60306BC0'">
+        <div class="form-group">
+            <div class="col-xs-12">
+                <!--ACRNO2-->
+                <span class="col-xs-2 control-label " ng-bind="form.$pageLang.Acrrno"></span>
+                <div class="col-xs-4">
+                    <fm-data-select view="GetAllACRNO"
+                                    fm-model="form.it01.acrno"></fm-data-select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <fm-Group-Head title="{{ form.$pageLang.DescriptionRequirement }}"></fm-Group-Head>
+    <!--Description of Requirement -->
+    <div class="row">
+        <div class="form-group">
+            <div class="col-xs-12">
+                <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.DescriptionRequirement"></span>
+                <div class="col-xs-10">
+                    <fm-textarea required
+                                 fm-model="form.it01.descriptionRequirement"
+                                 field-name="{{form.$pageLang.DescriptionRequirement}}"></fm-textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+    <fm-Group-Head title="{{ form.$pageLang.CustomizedProfit }}"></fm-Group-Head>
+    <!--Customized Profit-->
+    <div class="row">
+        <div class="form-group">
+            <div class="col-xs-12">
+                <!--ReduceCost-->
+                <div class="col-xs-3">
+                    <fm-checklist fm-readonly="form.it01.actionType=='E88A28FA-8CCA-45E6-917F-128BC5B983CD'"
+                                  fm-model="form.it01.reduceCostYesNo"
+                                  items="[{id:'0',text:'ReduceCost'}]"></fm-checklist>
+                </div>
+                <div class="col-xs-9">
+                    <fm-text fm-readonly="form.it01.reduceCostYesNo!='0'"
+                             fm-model="form.it01.reduceCost"></fm-text>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group">
+            <div class="col-xs-12">
+                <!--Improve Efficiency-->
+                <div class="col-xs-3">
+                    <fm-checklist fm-readonly="form.it01.actionType=='E88A28FA-8CCA-45E6-917F-128BC5B983CD'"
+                                  fm-model="form.it01.improveEfficiencyYesNo"
+                                  items="[{id:'0',text:'Improve Efficiency'}]"></fm-checklist>
+                </div>
+                <div class="col-xs-9">
+                    <fm-text fm-readonly="form.it01.improveEfficiencyYesNo!='0'"
+                             fm-model="form.it01.improveEfficiency"></fm-text>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group">
+            <div class="col-xs-12">
+                <!--Risk Control-->
+                <div class="col-xs-3">
+                    <fm-checklist fm-readonly="form.it01.actionType=='E88A28FA-8CCA-45E6-917F-128BC5B983CD'"
+                                  fm-model="form.it01.riskControlYesNo"
+                                  items="[{id:'0',text:'Risk Control'}]"></fm-checklist>
+                </div>
+                <div class="col-xs-9">
+                    <fm-text fm-readonly="form.it01.riskControlYesNo!='0'"
+                             fm-model="form.it01.riskControl"></fm-text>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group">
+            <div class="col-xs-12">
+                <!--Standardize Processes-->
+                <div class="col-xs-3">
+                    <fm-checklist fm-readonly="form.it01.actionType=='E88A28FA-8CCA-45E6-917F-128BC5B983CD'"
+                                  fm-model="form.it01.standardizeProcessesYesNo"
+                                  items="[{id:'0',text:'Standardize Processes'}]"></fm-checklist>
+                </div>
+                <div class="col-xs-9">
+                    <fm-text fm-readonly="form.it01.standardizeProcessesYesNo!='0'"
+                             fm-model="form.it01.standardizeProcesses"></fm-text>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group">
+            <div class="col-xs-12">
+                <!--Other-->
+                <div class="col-xs-3">
+                    <fm-checklist fm-readonly="form.it01.actionType=='E88A28FA-8CCA-45E6-917F-128BC5B983CD'"
+                                  fm-model="form.it01.otherYesNo"
+                                  items="[{id:'0',text:'Other'}]"></fm-checklist>
+                </div>
+                <div class="col-xs-9">
+                    <fm-text fm-readonly="form.it01.otherYesNo!='0'"
+                             fm-model="form.it01.other"></fm-text>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group">
+            <div class="col-xs-12">
+                <!--提示：提示内容待确认-->
+                <span class="tip-text" ng-bind="form.$pageLang.Tip"></span>
+            </div>
+        </div>
+    </div>
+    <div class="row" ng-if="base.pageState != 1 && !!form.$pageRight.NewPricesNode">
+        <div class="form-group">
+            <div class="col-xs-12">
+                <!--是否产生新费用-->
+                <span class="col-xs-2 control-label"></span>
+                <div class="col-xs-4">
+                    <fm-checklist fm-model="form.it01.produceNewFee"
+                                  state="{{form.$pageRight.NewPricesNode}}"
+                                  field-name="{{form.$pageLang.ApplicationRange}}"
+                                  items="[{id:'0',text:'是否产生新费用'}]"></fm-checklist>
+                </div>
+                <!--费用预估-->
+                <span class="col-xs-2 control-label" ng-bind="form.$pageLang.FeeEstimate" ng-class="{required:form.it01.produceNewFee=='0'}"></span>
+                <div class="col-xs-4">
+                    <fm-number fm-readonly="form.it01.produceNewFee!=='0'"
+                               fm-required="form.it01.produceNewFee==0"
+                               cny
+                               field-name="{{form.$pageLang.FeeEstimate}}"
+                               state="{{form.$pageRight.NewPricesNode}}"
+                               fm-model="form.it01.feeEstimate"></fm-number>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group">
+            <div class="col-xs-12">
+                <!--回滚措施-->
+                <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.RollBackMeasure"></span>
+                <div class="col-xs-7">
+                    <fm-text fm-model="form.it01.RollBackMeasure"
+                             required
+                             field-name="{{form.$pageLang.RollBackMeasure}}"></fm-text>
+                </div>
+                <span class="tip-text">（如不需要，请解释原因）</span>
+            </div>
+        </div>
+    </div>
+    <div class="row" ng-if="base.pageState != 1&&form.$pageRight.NewPricesNode">
+        <div class="form-group">
+            <div class="col-xs-12">
+                <!--模板下载-->
+                <span class="col-xs-2 control-label" ng-bind="form.$pageLang.ModelDownLoad"></span>
+
+                <div class="col-xs-2">
+                    <fm-import-xls template="/AppPages/Workflow/pur01_1f125d65cc1841f7aa58742a3646740d/pur01.xlsx"
+                                   start-index="0"></fm-import-xls>
+                </div>
+                <span class="col-xs-2 control-label" ng-bind="form.$pageLang.ModelDownLoadTwo"></span>
+                <div class="col-xs-2">
+                    <fm-import-xls template="/AppPages/Workflow/pur01_1f125d65cc1841f7aa58742a3646740d/pur01.xlsx"
+                                   start-index="0"></fm-import-xls>
+                </div>
+                <span class="col-xs-2 control-label" ng-bind="form.$pageLang.ModelDownLoadThree"></span>
+                <div class="col-xs-2">
+                    <fm-import-xls template="/AppPages/Workflow/pur01_1f125d65cc1841f7aa58742a3646740d/pur01.xlsx"
+                                   start-index="0"></fm-import-xls>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--附件-->
+    <fm-Group-Head class="print-hide" title="{{ form.$pageLang.OtherAttachment }}"></fm-Group-Head>
+    <div class="print-hide row">
+        <div class="form-group">
+            <div class="col-xs-12">
+                <fm-attachment form-files="form.$attachments"
+                               link-id="0"
+                               task-id='base.taskId'
+                               node-id="base.nodeId"
+                               draft-id="base.draftId"
+                               state="{{form.$pageRight.StartNode}}"
+                               field-name="{{'UploadAttachment' |translate}}"
+                               fm-model="form.$state.UploadAttachment"
+                               button-name="{{ 'UploadAttachment' |translate}}"></fm-attachment>
+            </div>
+        </div>
+    </div>
+</div>
+<div ng-if="form.$state.isType=='2'">
+    <div class="row">
+        <div class="form-group">
+            <div class="col-xs-12">
+                <!--分类-->
+                <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.Classification"></span>
+                <div class="col-xs-4">
+                    <fm-select dataitem="ITRelated>ACR>Classification"
+                               required
+                               fm-model="form.it01.classification"
+                               field-name="{{form.$pageLang.Classification}}"></fm-select>
+                </div>
+                <!--分级-->
+                <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.Grade"></span>
+                <div class="col-xs-4">
+                    <fm-select dataitem="ITRelated>ACR>Grade"
+                               required
+                               fm-code="form.$state.isGrade"
+                               fm-model="form.it01.grade"
+                               field-name="{{form.$pageLang.Grade}}"></fm-select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group">
+            <div class="col-xs-12">
+                <!--跨部门-->
+                <div class="col-xs-2">
+                    <fm-checklist fm-model="form.it01.crossSector"
+                                  field-name="{{form.$pageLang.CrossSector}}"
+                                  items="[{id:'0',text:'跨部门'}]"></fm-checklist>
+                </div>
+                <div class="col-xs-4" ng-if="form.it01.crossSector=='0'" ng-class="{required:form.it01.crossSector=='0'}">
+                    <fm-job-select fm-model="form.it01.crossSectorApprover"
+                                   fm-required="form.it01.crossSector=='0'"
+                                   field-name="{{form.$pageLang.CrossSectorApprover}}"
+                                   callback-func="form.chooseApproval(selectItem)"></fm-job-select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" ng-if="form.it01.actionType!='D131610B-1DB0-4103-98B0-455F60306BC0'">
+        <div class="form-group">
+            <div class="col-xs-12">
+                <!--风险-->
+                <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.Risk"></span>
+                <div class="col-xs-4">
+                    <fm-text fm-model="form.it01.risk"
+                             required
+                             field-name="{{form.$pageLang.Risk}}"></fm-text>
+                </div>
+                <!--收益-->
+                <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.Profit"></span>
+                <div class="col-xs-4">
+                    <fm-text fm-model="form.it01.profit"
+                             required
+                             field-name="{{form.$pageLang.Profit}}"></fm-text>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group">
+            <div class="col-xs-12">
+                <!--回滚措施-->
+                <span class="col-xs-2 control-label" ng-bind="form.$pageLang.RollBackMeasureI" ng-class="{required:form.$state.isGrade!='3'}"></span>
+                <div class="col-xs-7">
+                    <fm-text fm-model="form.it01.rollBackMeasureI"
+                             fm-required="form.$state.isGrade=='3'"
+                             field-name="{{form.$pageLang.RollBackMeasureI}}"></fm-text>
+                </div>
+                <span class="tip-text" ng-bind="form.$pageLang.TipTwo"></span>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group">
+            <div class="col-xs-12">
+                <!--变更内容-->
+                <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.ChangeContent"></span>
+                <div class="col-xs-10">
+                    <fm-textarea required
+                                 fm-model="form.it01.changeContent"
+                                 field-name="{{form.$pageLang.ChangeContent}}"></fm-textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+        <fm-Group-Head title="{{ form.$pageLang.ChangeTestingReport }}" state="{{form.$pageRight.TestNode}}"ng-if="form.$pageRight.TestNode != 'hidden'"></fm-Group-Head>
+        <!--变更测试报告-->
+        <div class="row">
+            <div class="form-group">
+                <div class="col-xs-12">
+                    <!--测试环境-->
+                    <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.TestingEnvironment" ng-if="form.$pageRight.TestNode != 'hidden'"></span>
+                    <div class="col-xs-10">
+                        <fm-textarea required
+                                     fm-model="form.it01.testingEnvironment"
+                                     state="{{form.$pageRight.TestNode}}"
+                                     field-name="{{form.$pageLang.TestingEnvironment}}"></fm-textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group">
+                <div class="col-xs-12">
+                    <!--停机-->
+                    <div class="col-xs-2">
+                        <fm-checklist fm-model="form.it01.stop"
+                                      state="{{form.$pageRight.TestNode}}"
+                                      items="[{id:'0',text:'停机'}]"></fm-checklist>
+                    </div>
+                    <div class="col-xs-4" ng-if="form.it01.stop=='0'">
+                        <fm-text fm-model="form.it01.stopText"
+                                 state="{{form.$pageRight.TestNode}}"
+                                 field-name="{{form.$pageLang.Stop}}"></fm-text>
+                    </div>
+                    <!--停产-->
+                    <div class="col-xs-2">
+                        <fm-checklist fm-model="form.it01.stopProduce"
+                                      callback-func="form.clearDataThreee(selectItem, fmModel)"
+                                      state="{{form.$pageRight.TestNode}}"
+                                      items="[{id:'0',text:'停产'}]"></fm-checklist>
+                    </div>
+                    <div class="col-xs-4" ng-if="form.it01.stopProduce=='0'">
+                        <fm-text fm-model="form.it01.stopProduceText"
+                                 state="{{form.$pageRight.TestNode}}"
+                                 field-name="{{form.$pageLang.StopProduceText}}"></fm-text>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group">
+                <div class="col-xs-12">
+                    <!--描述-->
+                    <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.Description" ng-if="form.$pageRight.TestNode != 'hidden'"></span>
+                    <div class="col-xs-10">
+                        <fm-textarea required
+                                     fm-model="form.it01.description"
+                                     state="{{form.$pageRight.TestNode}}"
+                                     field-name="{{form.$pageLang.Description}}"></fm-textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <fm-Group-Head title="{{ form.$pageLang.ChangeReport}}" ng-if="form.$pageRight.ChangeNode != 'hidden'"></fm-Group-Head>
+        <!--变更报告-->
+        <div class="row">
+            <div class="form-group">
+                <div class="col-xs-12">
+                    <!--操作日期-->
+                    <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.OperationDate" ng-if="form.$pageRight.ChangeNode != 'hidden'"></span>
+                    <div class="col-xs-4">
+                        <fm-datetime field-name="{{form.$pageLang.OperationDate}}"
+                                     required
+                                     date
+                                     state="{{form.$pageRight.ChangeNode}}"
+                                     fm-model="form.it01.operationDate"></fm-datetime>
+                    </div>
+                    <!--方法-->
+                    <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.Way" ng-if="form.$pageRight.ChangeNode != 'hidden'"></span>
+                    <div class="col-xs-4">
+                        <fm-text fm-model="form.it01.way"
+                                 required
+                                 state="{{form.$pageRight.ChangeNode}}"
+                                 field-name="{{form.$pageLang.Way}}"></fm-text>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group">
+                <div class="col-xs-12">
+                    <!--耗费时间-->
+                    <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.TimeConsuming" ng-if="form.$pageRight.ChangeNode != 'hidden'"></span>
+                    <div class="col-xs-4">
+                        <fm-text fm-model="form.it01.timeConsuming"
+                                 required
+                                 state="{{form.$pageRight.ChangeNode}}"
+                                 field-name="{{form.$pageLang.TimeConsuming}}"></fm-text>
+                    </div>
+                    <!--状态-->
+                    <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.Status" ng-if="form.$pageRight.ChangeNode != 'hidden'"></span>
+                    <div class="col-xs-4">
+                        <fm-text fm-model="form.it01.status"
+                                 required
+                                 state="{{form.$pageRight.ChangeNode}}"
+                                 field-name="{{form.$pageLang.Status}}"></fm-text>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group">
+                <div class="col-xs-12">
+                    <!--步骤-->
+                    <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.Step" ng-if="form.$pageRight.ChangeNode != 'hidden'"></span>
+                    <div class="col-xs-10">
+                        <fm-textarea fm-model="form.it01.step"
+                                     required
+                                     state="{{form.$pageRight.ChangeNode}}"
+                                     field-name="{{form.$pageLang.Step}}"></fm-textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--附件-->
+        <fm-Group-Head class="print-hide" title="{{ form.$pageLang.OtherAttachment }}"></fm-Group-Head>
+        <div class="print-hide row">
+            <div class="form-group">
+                <div class="col-xs-12">
+                    <fm-attachment form-files="form.$attachments"
+                                   link-id="0"
+                                   task-id='base.taskId'
+                                   node-id="base.nodeId"
+                                   draft-id="base.draftId"
+                                   state="{{form.$pageRight.StartNode}}"
+                                   field-name="{{'UploadAttachment' |translate}}"
+                                   fm-model="form.$state.UploadAttachment"
+                                   button-name="{{ 'UploadAttachment' |translate}}"></fm-attachment>
+                </div>
+            </div>
+        </div>
+    </div>
+

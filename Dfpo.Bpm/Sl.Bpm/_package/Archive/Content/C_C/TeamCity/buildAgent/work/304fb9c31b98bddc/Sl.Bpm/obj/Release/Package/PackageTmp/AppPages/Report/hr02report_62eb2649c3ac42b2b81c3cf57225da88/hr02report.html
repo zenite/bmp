@@ -1,0 +1,209 @@
+﻿<!--外部课程申请报表-->
+<div class="form-group ma-block">
+    <fm-Group-Head title="{{::base.title}}"></fm-Group-Head>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="container">
+                <div class="form-group">
+                    <div class="col-xs-12">
+                        <div class="ma-detailinfo">
+                            <div class="content">
+                                <div class="row">
+                                    <div class="col-xs-4 cell">
+                                        <span class="col-xs-4 control-label">申请类型</span>
+                                        <div class="col-xs-8"> 
+                                            <fm-select view="GetExternalApplicationType" class="input-sm"
+                                                       fm-model="form.filter.courseApplyType"></fm-select>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-4 cell">
+                                        <span class="col-xs-4 control-label">参训人工号</span>
+                                        <div class="col-xs-8">
+                                            <fm-text class="input-sm" fm-model="form.filter.partWorkNo"></fm-text>
+                                        </div>
+                                    </div>
+                                     <div class="col-xs-4 cell">
+                                        <span class="col-xs-4 control-label">参训人姓名</span>
+                                        <div class="col-xs-8">
+                                            <fm-text class="input-sm"   fm-model="form.filter.partName"></fm-text>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-4 cell">
+                                        <span class="col-xs-4 control-label">参训人部门</span>
+                                        <div class="col-xs-8">
+                                            <fm-text class="input-sm" fm-model="form.filter.partDept"></fm-text>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-4 cell">
+                                        <span class="col-xs-4 control-label">参训人岗位</span>
+                                        <div class="col-xs-8">
+                                            <fm-text class="input-sm" fm-model="form.filter.partJob"></fm-text>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-4 cell">
+                                        <span class="col-xs-4 control-label">汇报对象</span>
+                                        <div class="col-xs-8">
+                                            <fm-text class="input-sm" fm-model="form.filter.partSupervisor"></fm-text>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-4 cell">
+                                        <span class="col-xs-4 control-label">培训机构</span>
+                                        <div class="col-xs-8">
+                                            <fm-text class="input-sm" fm-model="form.filter.courseProvider"></fm-text>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-4 cell">
+                                        <span class="col-xs-4 control-label">课程名称</span>
+                                        <div class="col-xs-8">
+                                            <fm-text class="input-sm" fm-model="form.filter.courseName"></fm-text>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-4 cell">
+                                        <span class="col-xs-4 control-label">联系电话</span>
+                                        <div class="col-xs-8">
+                                            <fm-text class="input-sm" fm-model="form.filter.courseProviderPhoneNumber"></fm-text>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-xs-4 cell">
+                                        <span class="col-xs-4 control-label">课程长度</span>
+                                        <div class="col-xs-6">
+                                            <fm-number   callback-func="form.CheckDay(data)" class="input-sm"
+                                                         fm-model="form.filter.courseDuration"></fm-number>
+                                        </div>
+                                        <span class="col-xs-2 control-label">天</span> 
+                                    </div>
+                                    <div class="col-xs-4 cell">
+                                        <span class="col-xs-4 control-label">总学时</span>
+                                        <div class="col-xs-6">
+                                            <fm-number integer  field-name="{{form.$pageLang.CreditHour}}" class="input-sm"
+                                                       fm-model="form.filter.creditHours"></fm-number> 
+                                        </div>
+                                        <span class="col-xs-2 control-label">小时</span> 
+                                    </div> 
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-xs-4 cell">
+                                        <span class="col-xs-4 control-label">日期</span>
+                                        <div class="col-xs-8">
+                                            <fm-datetime date    class="input-sm"
+                                                         fm-model="form.filter.startDate"></fm-datetime>
+                                        </div> 
+                                    </div>
+                                    <div class="col-xs-4 cell">
+                                        <span class="col-xs-4 control-label" style="text-align:center;">——</span>
+                                        <div class="col-xs-8">
+                                            <fm-datetime date class="input-sm"
+                                                         fm-model="form.filter.endDate"></fm-datetime>
+                                        </div> 
+                                    </div>
+                                </div>
+
+
+                                <div class="row">
+                                    <div class="col-xs-4 cell">
+                                        <span class="col-xs-4 control-label">学费</span>
+                                        <div class="col-xs-6">
+                                            <fm-number cny  class="input-sm"
+                                                       fm-model="form.filter.tuition"></fm-number>
+                                        </div>
+
+                                        <div class="col-xs-2">
+                                            <fm-select  view="GetCurrency" class="input-sm" display-member="code" 
+                                                       fm-model="form.filter.currency"></fm-select>
+                                        </div> 
+                                    </div>
+                                    <div class="col-xs-4 cell">
+                                        <span class="col-xs-4 control-label">书本和资料费</span>
+                                        <div class="col-xs-6">
+                                            <fm-number cny class="input-sm"
+                                                       fm-model="form.filter.materialFees"></fm-number>
+                                        </div>
+
+                                        <div class="col-xs-2">
+                                            <fm-select view="GetCurrency" class="input-sm" display-member="code" 
+                                                       fm-model="form.filter.currency"></fm-select>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-4 cell">
+                                        <span class="col-xs-4 control-label">其他费用</span>
+                                        <div class="col-xs-6">
+                                            <fm-number cny class="input-sm"
+                                                       fm-model="form.filter.otherFees"></fm-number>
+                                        </div>
+
+                                        <div class="col-xs-2">
+                                            <fm-select view="GetCurrency" class="input-sm" display-member="code" 
+                                                       fm-model="form.filter.currency"></fm-select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-4 cell">
+                                        <span class="col-xs-4 control-label">预计费用（是否大于10000）</span>
+                                        <div class="col-xs-8">
+                                            <!--<fm-radiolist class="input-sm" items="[{id:1,text:'是'},{id:0,text:'否'}]"
+                                                          fm-model="form.filter.expectedExpenses"></fm-radiolist>-->
+                                            <fm-radiolist dataitem="Common>YesOrNo"
+                                                          class="input-sm" detail
+                                                           display-member="text"
+                                                           value-member="value"
+                                                          fm-model="form.filter.expectedExpenses"></fm-radiolist>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-4 cell">
+                                        <span class="col-xs-4 control-label">{{:: 'CurrentStatus' | translate}}</span>
+                                        <div class="col-xs-8">
+                                            <fm-select class="input-sm" items="form.procStatusDetails" fm-model="form.filter.procStatus"></fm-select>
+                                        </div>
+                                    </div>
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12" style="text-align:center;">
+                                <button class="btn btn-primary" ng-click="form.select()">{{:: 'Query' | translate}}</button>
+                                <button class="btn btn-default" ng-click="form.clear()">清空</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12">
+                <fm-table view='GetHr02Report' data="form.hr02report" 
+                          refreash-data="form.refreash" 
+                          excel 
+                          page="{{form.pageInfo}}"
+                          current-page-data="form.currentData"  
+                          page-size-list
+                          filter="{CourseApplyType:form.filter.courseApplyType,
+                                    PartWorkNo:form.filter.partWorkNo,
+                                    PartName:form.filter.partName,
+                                    PartDept:form.filter.partDept,
+                                    PartJob:form.filter.partJob,
+                                    PartSupervisor:form.filter.partSupervisor,
+                                    CourseProvider:form.filter.courseProvider,
+                                    CourseName:form.filter.courseName,
+                                    CourseProviderPhoneNumber:form.filter.courseProviderPhoneNumber,
+                                    CourseDuration:form.filter.courseDuration,
+                                    CreditHours:form.filter.creditHours,
+                                    StartDate:form.filter.startDate,
+                                    EndDate:form.filter.endDate,
+                                    Tuition:form.filter.tuition,
+                                    MaterialFees:form.filter.materialFees,
+                                    OtherFees:form.filter.otherFees,
+                                    Currency:form.filter.currency,
+                                    ExpectedExpenses:form.filter.expectedExpenses,
+                                    ProcStatus:form.filter.procStatus,
+                                    }"></fm-table>
+            </div>
+        </div>
+    </div>
+</div>

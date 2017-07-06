@@ -1,0 +1,536 @@
+﻿<!--新供应商申请批准表2/2-->
+<fm-form-title sn-number="{{base.snNumber}}" apply-date="{{base.applyDate}}" sub-title='base.title' fm-model="base.areaCode"></fm-form-title>
+<!--<fm-Group-Head title="{{ base.$pageLang.PostByInfo }}"></fm-Group-Head>
+<fm-initiator jobid='base.jobId' userinfo='base.initiator' taskid='base.taskId'></fm-initiator>
+<fm-Group-Head title="{{ base.$pageLang.ApplicantInfo }}"></fm-Group-Head>
+<fm-applicant jobid='base.applicantJobId' userinfo='base.applicant' taskid='base.taskId' wfid='base.workflowId'></fm-applicant>-->
+<!--申请人信息-->
+<fm-Group-Head class="print-hide" title="{{ base.$pageLang.ApplicantInfo }}"></fm-Group-Head>
+
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--申请人名字-->
+            <span class="col-xs-2 control-label">{{ "ApplicantName" | translate }}</span>
+            <div class="col-xs-4">
+                <div class="input-group" style="width: 100%;">
+                    <span class="form-label">{{base.applicant.userName}}</span>
+                    <!--<span class="input-group-btn" ng-if="!base.taskid">
+                        <button class="btn btn-default" type="button" ng-click="base.$selectApplicant()">{{ "Choose" | translate }}</button>
+                    </span>-->
+                </div>
+            </div>
+            <!--申请人员工号-->
+            <span class="col-xs-2 control-label">{{ "ApplicantEmployeeNumber" | translate }}</span>
+            <div class="col-xs-4"><span class="form-label">{{base.applicant.employeeNumber}}</span></div>
+        </div>
+    </div>
+    <div class="form-group">
+        <!--申请人部门线-->
+        <div class="col-xs-12">
+            <span class="col-xs-2 control-label">{{ "ApplicantDepartment" | translate }}</span>
+            <div class="col-xs-10"><span class="form-label">{{base.applicant.departmentName}}</span></div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--申请人电话-->
+            <span class="col-xs-2 control-label">{{ "ApplicantContactNumber" | translate }}</span>
+            <div class="col-xs-4"><span class="form-label">{{base.applicant.contactNumber}}</span></div>
+            <!--申请人邮箱-->
+            <span class="col-xs-2 control-label">{{ "ApplicantEmail" | translate }}</span>
+            <div class="col-xs-4"><span class="form-label">{{base.applicant.emailAddress}}</span></div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--申请人手机-->
+            <span class="col-xs-2 control-label">{{ "ApplicantMobileNumber" | translate }}</span>
+            <div class="col-xs-4"><span class="form-label">{{base.applicant.mobileNumber}}</span></div>
+            <!--申请人直属领导-->
+            <span class="col-xs-2 control-label">{{ "ApplicantDirectManager" | translate }}</span>
+            <div class="col-xs-4"><span class="form-label">{{base.applicant.directManagerName}}</span></div>
+        </div>
+    </div>
+</div>
+
+<fm-Group-Head title="{{form.$pageLang.NewApplicantInfo }}"></fm-Group-Head>
+<!--新供应商信息-->
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--QAD中供应商代码 -->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.QadSupplicerCode"></span>
+            <div class="col-xs-4">
+                <div class="input-group">
+                    <fm-text required
+                             name="qadSupplicerCode"
+                             field-name="{{form.$pageLang.QadSupplicerCode}}"
+                             state="{{form.$pageRight.ManagementCode}}"
+                             fm-model="form.pur17.qadSupplicerCode"></fm-text>
+                    <span class="input-group-btn">
+                        <button ng-disabled="!form.pur17.newSupplierSnNumber" type="button" class="btn btn-info btn-sm" ng-click="form.checkNewSupplier()">{{form.$pageLang.CheckSupplier}}</button>
+                    </span>
+                </div>
+            </div>
+            <!--QAD中供应商名称 -->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.QadSupplicerName"></span>
+            <div class="col-xs-4">
+                <fm-text required
+                         disabled
+                         field-name="{{form.$pageLang.QadSupplicerName}}"
+                         fm-model="form.pur17.qadSupplicerName"></fm-text>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--供应商名称（工商注册）-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.SupplierNa"></span>
+            <div class="col-xs-4">
+                <fm-text required
+                         disabled
+                         field-name="{{form.$pageLang.SupplierNa}}"
+                         fm-model="form.pur17.supplierNa"></fm-text>
+            </div>
+            <!--供应商地址-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.SupplierAddress"></span>
+            <div class="col-xs-4">
+                <fm-text required
+                         disabled
+                         field-name="{{form.$pageLang.SupplierAddress}}"
+                         fm-model="form.pur17.supplierAddress"></fm-text>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--所属物料大类-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.Class"></span>
+            <div class="col-xs-4">
+                <fm-select required
+                           disabled
+                           field-name="{{form.$pageLang.Class}}"
+                           fm-code="form.$state.classCode"
+                           dataitem="PurchaseRelated>NewSupplier>SupplierCategory"
+                           fm-model="form.pur17.class"></fm-select>
+            </div>
+            <!--所属产品-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.Commodity"></span>
+            <div class="col-xs-4">
+                <fm-select required
+                           disabled
+                           dataitem
+                           field-name="{{form.$pageLang.Commodity}}"
+                           datacode="'PurchaseRelated>NewSupplier>SupplierCategory>'+form.$state.classCode"
+                           fm-model="form.pur17.commodity"></fm-select>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--申请类型-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.ApplicationType "></span>
+            <div class="col-xs-4">
+                <fm-select required
+                           disabled
+                           field-name="{{form.$pageLang.ApplicationType}}"
+                           dataitem="PurchaseRelated>NewSupplier>SupplierReqType"
+                           fm-model="form.pur17.applicationType"></fm-select>
+            </div>
+            <!-- 生产性/非生产性-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.Pn"></span>
+            <div class="col-xs-4">
+                <fm-select required
+                           disabled
+                           field-name="{{form.$pageLang.Pn}}"
+                           fm-code="form.$state.pnCode"
+                           dataitem="PurchaseRelated>NewSupplier>SupplierProdProperty"
+                           fm-model="form.pur17.pn"></fm-select>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--一次性/非一次性采购-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.Om"></span>
+            <div class="col-xs-4">
+                <fm-select required
+                           disabled
+                           field-name="{{form.$pageLang.Om}}"
+                           datacode="'PurchaseRelated>NewSupplier>SupplierProdProperty>'+form.$state.pnCode"
+                           dataitem
+                           fm-model="form.pur17.om"></fm-select>
+            </div>
+            <!--  制造地/发货地/商品/服务 -->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.ManufactureSide"></span>
+            <div class="col-xs-4">
+                <fm-select required
+                           disabled
+                           dataitem
+                           field-name="{{form.$pageLang.ManufactureSide}}"
+                           datacode="'PurchaseRelated>NewSupplier>SupplierServiceProperty>'+form.$state.pnCode"
+                           fm-model="form.pur17.manufactureSide"></fm-select>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--国内/国外-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.Gl"></span>
+            <div class="col-xs-4">
+                <fm-select required
+                           field-name="{{form.$pageLang.Gl}}"
+                           dataitem="PurchaseRelated>NewSupplier>SupplierLocation"
+                           fm-model="form.pur17.gl"
+                           state="{{form.$pageRight.StartNode}}"></fm-select>
+            </div>
+            <!-- 是否GSDB供应商 -->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.Gsdb"></span>
+            <div class="col-xs-4">
+                <fm-select required
+                           disabled
+                           field-name="{{form.$pageLang.Gsdb}}"
+                           dataitem="Common>YesOrNo"
+                           fm-model="form.pur17.gsdb"></fm-select>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--运输代理-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.ShipVia"></span>
+            <div class="col-xs-4">
+                <fm-select required
+                           field-name="{{form.$pageLang.ShipVia}}"
+                           state="{{form.$pageRight.StartNode}}"
+                           dataitem="PurchaseRelated>NewSupplier>SupplierShipVia"
+                           fm-model="form.pur17.shipVia"></fm-select>
+            </div>
+            <!-- 国家-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.Country"></span>
+            <div class="col-xs-4">
+                <fm-select required
+                           field-name="{{form.$pageLang.Country}}"
+                           state="{{form.$pageRight.StartNode}}"
+                           dataitem="PurchaseRelated>NewSupplier>Country"
+                           fm-model="form.pur17.country"></fm-select>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--行政省区-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.State"></span>
+            <div class="col-xs-4">
+                <fm-text required
+                         field-name="{{form.$pageLang.State}}"
+                         fm-model="form.pur17.state"
+                         state="{{form.$pageRight.StartNode}}"></fm-text>
+            </div>
+            <!-- 城市-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.City"></span>
+            <div class="col-xs-4">
+                <fm-text required
+                         field-name="{{form.$pageLang.City}}"
+                         fm-model="form.pur17.city"
+                         state="{{form.$pageRight.StartNode}}"></fm-text>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--邮政编码-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.Post"></span>
+            <div class="col-xs-4">
+                <fm-text required
+                         field-name="{{form.$pageLang.Post}}"
+                         fm-model="form.pur17.post"
+                         state="{{form.$pageRight.StartNode}}"></fm-text>
+            </div>
+            <!-- 电话-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.Telephone"></span>
+            <div class="col-xs-4">
+                <fm-text required
+                         field-name="{{form.$pageLang.Telephone}}"
+                         fm-model="form.pur17.telephone"
+                         state="{{form.$pageRight.StartNode}}"></fm-text>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--联系人-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.Attention"></span>
+            <div class="col-xs-4">
+                <fm-text required
+                         field-name="{{form.$pageLang.Attention}}"
+                         fm-model="form.pur17.attention"
+                         state="{{form.$pageRight.StartNode}}"></fm-text>
+            </div>
+            <!-- 传真-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.Fax"></span>
+            <div class="col-xs-4">
+                <fm-text required
+                         field-name="{{form.$pageLang.Fax}}"
+                         fm-model="form.pur17.fax"
+                         state="{{form.$pageRight.StartNode}}"></fm-text>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--货币-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.Currency"></span>
+            <div class="col-xs-4">
+                <fm-select required
+                           disabled
+                           field-name="{{form.$pageLang.Currency}}"
+                           view="GetCurrency"
+                           fm-model="form.pur17.currency"></fm-select>
+            </div>
+            <!--邮箱地址-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.EmailAddress"></span>
+            <div class="col-xs-4">
+                <fm-text required
+                         field-name="{{form.$pageLang.EmailAddress}}"
+                         fm-model="form.pur17.emailAddress"
+                         state="{{form.$pageRight.StartNode}}"></fm-text>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!-- 是否含税-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.Taxable"></span>
+            <div class="col-xs-4">
+                <fm-select required
+                           field-name="{{form.$pageLang.Taxable}}"
+                           dataitem="Common>YesOrNo"
+                           fm-model="form.pur17.yntaxable"
+                           state="{{form.$pageRight.StartNode}}"></fm-select>
+            </div>
+            <!--付款条件-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.CrTerms"></span>
+            <div class="col-xs-4">
+                <fm-select required
+                           field-name="{{form.$pageLang.CrTerms}}"
+                           dataitem="PurchaseRelated>NewSupplier>SupplierCrTerms"
+                           fm-model="form.pur17.crTerms"
+                           state="{{form.$pageRight.StartNode}}"></fm-select>
+            </div>
+        </div>
+    </div>
+</div>
+<fm-Group-Head title="{{ form.$pageLang.CnyBankAccountInformation }}"></fm-Group-Head>
+<!--CNY Bank Account Information 人民币银行信息-->
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--收款人 -->
+            <span class="col-xs-2 control-label" ng-bind="form.$pageLang.Payee"></span>
+            <div class="col-xs-4">
+                <fm-text fm-model="form.pur17.payeeRmb"
+                         state="{{form.$pageRight.StartNode}}"></fm-text>
+            </div>
+            <!--开户银行 -->
+            <span class="col-xs-2 control-label" ng-bind="form.$pageLang.BankBranch"></span>
+            <div class="col-xs-4">
+                <fm-text fm-model="form.pur17.bankBranchRmb"
+                         state="{{form.$pageRight.StartNode}}"></fm-text>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--银行地址 -->
+            <span class="col-xs-2 control-label" ng-bind="form.$pageLang.BankAddress"></span>
+            <div class="col-xs-4">
+                <fm-text fm-model="form.pur17.bankAddressRmb"
+                         state="{{form.$pageRight.StartNode}}"></fm-text>
+            </div>
+            <!--银行账号 -->
+            <span class="col-xs-2 control-label" ng-bind="form.$pageLang.AccountNO"></span>
+            <div class="col-xs-4">
+                <fm-text fm-model="form.pur17.accountNoRmb"
+                         state="{{form.$pageRight.StartNode}}"></fm-text>
+            </div>
+        </div>
+
+    </div>
+</div>
+<fm-Group-Head title="{{ form.$pageLang.ForeignBankInfo}}"></fm-Group-Head>
+<!--Foreign Currency Bank Account Information 外币银行信息-->
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--收款人 -->
+            <span class="col-xs-2 control-label" ng-bind="form.$pageLang.Payee"></span>
+            <div class="col-xs-4">
+                <fm-text fm-model="form.pur17.payee"
+                         state="{{form.$pageRight.StartNode}}"></fm-text>
+            </div>
+            <!--开户银行 -->
+            <span class="col-xs-2 control-label" ng-bind="form.$pageLang.BankBranch"></span>
+            <div class="col-xs-4">
+                <fm-text fm-model="form.hr12.bankBranch"
+                         state="{{form.$pageRight.StartNode}}"></fm-text>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--银行地址 -->
+            <span class="col-xs-2 control-label" ng-bind="form.$pageLang.BankAddress"></span>
+            <div class="col-xs-4">
+                <fm-text fm-model="form.pur17.bankAddress"
+                         state="{{form.$pageRight.StartNode}}"></fm-text>
+            </div>
+            <!--银行账号 -->
+            <span class="col-xs-2 control-label" ng-bind="form.$pageLang.AccountNO"></span>
+            <div class="col-xs-4">
+                <fm-text fm-model="form.pur17.accountNO"
+                         state="{{form.$pageRight.StartNode}}"></fm-text>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--Swift Code-->
+            <span class="col-xs-2 control-label" ng-bind="form.$pageLang.SwiftCode"></span>
+            <div class="col-xs-4">
+                <fm-text fm-model="form.pur17.swiftCode"
+                         state="{{form.$pageRight.StartNode}}"></fm-text>
+            </div>
+            <!--ABA Code -->
+            <span class="col-xs-2 control-label" ng-bind="form.$pageLang.AbaCode"></span>
+            <div class="col-xs-4">
+                <fm-text fm-model="form.pur17.abacode"
+                         state="{{form.$pageRight.StartNode}}"></fm-text>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--IBAN Code -->
+            <span class="col-xs-2 control-label" ng-bind="form.$pageLang.IbanCode"></span>
+            <div class="col-xs-10">
+                <fm-text fm-model="form.pur17.ibancode"
+                         state="{{form.$pageRight.StartNode}}"></fm-text>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--Reason申请原因-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.Reason"></span>
+            <div class="col-xs-10">
+                <fm-textarea required
+                             disabled
+                             field-name="{{form.$pageLang.Reason}}"
+                             fm-model="form.pur17.applicationReason"></fm-textarea>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--Remarks备注说明-->
+            <span class="col-xs-2 control-label" ng-bind="form.$pageLang.Remarks"></span>
+            <div class="col-xs-10">
+                <fm-textarea fm-model="form.pur17.remarks"
+                             state="{{form.$pageRight.StartNode}}"></fm-textarea>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--采购账号-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.PurchaseAcct"></span>
+            <div class="col-xs-4">
+                <fm-text required
+                         field-name="{{form.$pageLang.PurchaseAcct}}"
+                         fm-model="form.pur17.purchaseAcct"
+                         state="{{form.$pageRight.ApNode}}"></fm-text>
+            </div>
+            <!--应付账号-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.ApAcct"></span>
+            <div class="col-xs-4">
+                <fm-text required
+                         field-name="{{form.$pageLang.ApAcct}}"
+                         fm-model="form.pur17.apAcct"
+                         state="{{form.$pageRight.ApNode}}"></fm-text>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--银行代码-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.BankCode"></span>
+            <div class="col-xs-4">
+                <fm-text required
+                         field-name="{{form.$pageLang.BankCode}}"
+                         fm-model="form.pur17.bankCode"
+                         state="{{form.$pageRight.ApNode}}"></fm-text>
+            </div>
+        </div>
+    </div>
+</div>
+<!--附件-->
+<fm-Group-Head class="print-hide" title="{{ 'Attachment' |translate}}"></fm-Group-Head>
+<div class="print-hide row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <fm-attachment form-files="form.$attachments"
+                           link-id="0"
+                           task-id='base.taskId'
+                           node-id="base.nodeId"
+                           draft-id="base.draftId"
+                           state="{{form.$pageRight.StartNode}}"
+                           field-name="{{'UploadAttachment' |translate}}"
+                           fm-model="form.$state.UploadAttachment"
+                           button-name="{{ 'UploadAttachment' |translate}}"></fm-attachment>
+        </div>
+    </div>
+</div>
+
+
+

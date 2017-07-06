@@ -1,0 +1,160 @@
+﻿<!--人员需求报表-->
+<div class="form-group ma-block">
+    <fm-Group-Head title="{{::base.title}}"></fm-Group-Head>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="container">
+                <div class="form-group">
+                    <div class="col-xs-12">
+                        <div class="ma-detailinfo">
+                            <div class="content">
+                                <div class="row">
+                                    <div class="form-group">
+                                        <div class="col-xs-4 cell">
+                                            <!--表单编号-->
+                                            <span class="col-xs-3 control-label " ng-bind="form.$pageLang.SnNumber"></span>
+                                            <div class="col-xs-9">
+                                                <fm-text class="input-sm" fm-model="form.filter.snNumber"></fm-text>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-4 cell">
+                                            <!--公司名(缩写代码)-->
+                                            <span class="col-xs-3 control-label" ng-bind="form.$pageLang.AreaCode">{</span>
+                                            <div class="col-xs-9">
+                                                <fm-select view="GetAllCompany"
+                                                           display-member="id"
+                                                           value-member="id"
+                                                           fm-model="form.filter.areaCode" ismulti></fm-select>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-4 cell">
+                                            <!--部门-->
+                                            <span class="col-xs-3 control-label" ng-bind="form.$pageLang.Depart"></span>
+                                            <div class="col-xs-9">
+                                                <fm-data-select i-clear
+                                                                ismulti
+                                                                group fm-model="form.filter.depart"></fm-data-select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group">
+                                        <div class="col-xs-4 cell">
+                                            <!--招聘原因-->
+                                            <span class="col-xs-3 control-label " ng-bind="form.$pageLang.RecruitReason"></span>
+                                            <div class="col-xs-9">
+                                                <fm-text class="input-sm" fm-model="form.filter.recruitReason"></fm-text>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-4 cell">
+                                            <!--替换对象-->
+                                            <span class="col-xs-3 control-label" ng-bind="form.$pageLang.ResignTransferStaffName">{</span>
+                                            <div class="col-xs-9">
+                                                <fm-text class="input-sm" fm-model="form.filter.resignTransferStaffName"></fm-text>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-4 cell">
+                                            <!--招聘类型-->
+                                            <span class="col-xs-3 control-label" ng-bind="form.$pageLang.RecruitType"></span>
+                                            <div class="col-xs-9">
+                                                <fm-text class="input-sm" fm-model="form.filter.recruitType"></fm-text>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group">
+
+                                        <div class="col-xs-4 cell">
+                                            <!--提交日期-->
+                                            <span class="col-xs-3 control-label" ng-bind="form.$pageLang.SubDate"></span>
+                                            <div class="col-xs-9">
+                                                <fm-datetime class="input-sm"
+                                                             date fm-model="form.filter.subapplicationTimeStart"
+                                                             fm-readonly></fm-datetime>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-4 cell">
+                                            <span class="col-xs-3 control-label"
+                                                  style="text-align:center;">——</span>
+                                            <div class="col-xs-9">
+                                                <fm-datetime class="input-sm" date fm-model="form.filter.subapplicationTimeEnd" fm-readonly></fm-datetime>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-4 cell">
+                                            <!--招聘岗位-->
+                                            <span class="col-xs-3 control-label" ng-bind="form.$pageLang.RecruitPosition"></span>
+                                            <div class="col-xs-9">
+                                                <fm-text class="input-sm" fm-model="form.filter.recruitPosition"></fm-text>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="row">
+                                    <div class="form-group">
+
+                                        <div class="col-xs-4 cell">
+                                            <!--完成审批日期-->
+                                            <span class="col-xs-3 control-label" ng-bind="form.$pageLang.FinshDate"></span>
+                                            <div class="col-xs-9">
+                                                <fm-datetime class="input-sm"
+                                                             date fm-model="form.filter.finshapplicationTimeStart"
+                                                             fm-readonly></fm-datetime>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-4 cell">
+                                            <span class="col-xs-3 control-label"
+                                                  style="text-align:center;">——</span>
+                                            <div class="col-xs-9">
+                                                <fm-datetime class="input-sm" date fm-model="form.filter.finshapplicationTimeEnd" fm-readonly></fm-datetime>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-4 cell">
+                                            <!--岗位类别-->
+                                            <span class="col-xs-3 control-label" ng-bind="form.$pageLang.StaffType"></span>
+                                            <div class="col-xs-9">
+                                                <fm-text class="input-sm" fm-model="form.filter.staffType"></fm-text>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="row">
+                                    <div class="form-group">
+                                        <div class="col-xs-4 cell">
+                                            <!--流程状态-->
+                                            <span class="col-xs-3 control-label " ng-bind="form.$pageLang.State"></span>
+                                            <div class="col-xs-9">
+                                                <fm-select dataitem="HRRelated>PersonnelDemand>FormState"
+                                                           display-member="text"
+                                                           value-member="value"
+                                                           fm-model="form.filter.state">
+                                                </fm-select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group">
+                                <div class="col-xs-12" style="text-align:center;">
+                                    <button class="btn btn-primary" ng-click="form.select()" ng-bind="form.$pageLang.Query"></button>
+                                    <button class="btn btn-default" ng-click="form.clear()" ng-bind="form.$pageLang.Clear"></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12">
+                <fm-table view='GetHr03PersonnelDemandReport' data="form.HR03Report" refreash-data="form.refreash" excel current-page-data="form.currentData"   page="{{form.page}}"
+                          filter="{AreaCode:form.filter.areaCode,Depart:form.filter.depart,RecruitReason:form.filter.recruitReason,ResignTransferStaffName:form.filter.resignTransferStaffName,RecruitType:form.filter.recruitType,
+                          StaffType:form.filter.staffType,
+                         SubApplicationTimeStart:form.filter.subApplicationTimeStart,SubApplicationTimeEnd:form.filter.subapplicationTimeEnd,SnNumber:form.filter.snNumber,FinshapplicationTimeStart:form.filter.finshapplicationTimeStart,FinshapplicationTimeEnd:form.filter.finshapplicationTimeEnd,RecruitPosition:form.filter.recruitPosition,State:form.filter.state}"></fm-table>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,42 @@
+﻿<!--印签申报报表-->
+<div class="form-group ma-block">
+    <fm-Group-Head title="{{::base.title}}"></fm-Group-Head>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="container">
+                <div class="form-group">
+                    <div class="col-xs-12">
+                        <div class="ma-detailinfo">
+                            <div class="content">
+                                <div class="row">
+                                    <div class="form-group">
+                                        <div class="col-xs-4 cell">
+                                            <!--文件类型-->
+                                            <span class="col-xs-3 control-label " ng-bind="form.$pageLang.Filetype"></span>
+                                            <div class="col-xs-9">
+                                                <fm-select dataitem="Others>Signature>ReportType"
+                                                           fm-model="form.filter.filetype" 
+                                                          ></fm-select>
+                                               
+                                            </div>
+                                        </div>
+                                        
+                          
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12">
+                <fm-table ng-if="form.filter.filetype=='59a4d019-eef3-4187-a5c2-1e0d03d3f3ab'" view='GetOtr04ContractAgreementReport' data="form.Otr04Report" refreash-data="form.refreash" excel current-page-data="form.currentData" page="{{form.page}}"
+                           ></fm-table>
+                <fm-table ng-if="form.filter.filetype=='d6da145e-d3fa-4c3b-9bac-183dceec8930'" view='GetOtr04ResolutionReport' data="form.Otr04Report" refreash-data="form.refreash" excel current-page-data="form.currentData" page="{{form.page}}"></fm-table>
+                <fm-table ng-if="form.filter.filetype=='2a6c7f6e-4ace-4c2f-91c0-f3cfb115e3b8'" view='GetOtr04OthersReport' data="form.Otr04Report" refreash-data="form.refreash" excel current-page-data="form.currentData" page="{{form.page}}"></fm-table>
+            </div>
+        </div>
+    </div>
+</div>

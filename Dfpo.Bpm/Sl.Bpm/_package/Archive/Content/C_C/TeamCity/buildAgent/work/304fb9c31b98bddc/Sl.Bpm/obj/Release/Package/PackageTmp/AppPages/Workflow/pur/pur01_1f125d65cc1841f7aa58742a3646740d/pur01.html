@@ -1,0 +1,1133 @@
+﻿<!--PUR01初始定点/重新定点流程-->
+<fm-form-title sn-number="{{base.snNumber}}" apply-date="{{base.applyDate}}" sub-title='base.title' fm-model="base.areaCode"></fm-form-title>
+<fm-Group-Head title="{{ form.$pageLang.ProjectInfo }}"></fm-Group-Head>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--项目涉及子公司-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.ProjectinvolveCompany"></span>
+            <div class="col-xs-4">
+                <fm-select fm-model="form.pur01.projectinvolveCompany"
+                           view="GetAllPartCompanyPurOne"
+                           required
+                           state="{{form.$pageRight.StartNode}}"
+                           field-name="{{form.$pageLang.ProjectinvolveCompany}}"></fm-select>
+            </div>
+            <!--定点类型-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.Type"></span>
+            <div class="col-xs-4">
+                <fm-select fm-model="form.pur01.fixedpointType"
+                           dataitem="PurchaseRelated>InFReFPoint>FixedPointType"
+                           required
+                           state="{{form.$pageRight.StartNode}}"
+                           field-name="{{form.$pageLang.Type}}"></fm-select>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--零件号-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.PartNumber"></span>
+            <div class="col-xs-4">
+                <fm-text fm-model="form.pur01.partNumber"
+                         required
+                         state="{{form.$pageRight.StartNode}}"
+                         field-name="{{form.$pageLang.PartNumber}}"></fm-text>
+            </div>
+            <!--战略采购员-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.CommodityBuyer"></span>
+            <div class="col-xs-4">
+                <fm-select fm-model="form.pur01.commodityBuyer"
+                           view="getAllStrBuyer"
+                           required
+                           state="{{form.$pageRight.StartNode}}"
+                           field-name="{{form.$pageLang.CommodityBuyer}}"></fm-select>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--零件描述-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.PartDescription"></span>
+            <div class="col-xs-4">
+                <fm-text fm-model="form.pur01.partDescription"
+                         required
+                         state="{{form.$pageRight.StartNode}}"
+                         field-name="{{form.$pageLang.PartDescription}}"></fm-text>
+            </div>
+            <!--项目采购员-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.ProgramBuyer"></span>
+            <div class="col-xs-4">
+                <fm-select fm-model="form.pur01.programBuyer"
+                           view="GetBuyer"
+                           required
+                           state="{{form.$pageRight.StartNode}}"
+                           field-name="{{form.$pageLang.ProgramBuyer}}"></fm-select>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--供应商名称-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.SupplierName"></span>
+            <div class="col-xs-4">
+                <fm-data-select fm-model="form.pur01.supplierName"
+                                view="GetSupplierKeyName"
+                                filter="{areaCode:form.pur01.projectinvolveCompany}"
+                                Size="xlg"
+                                field-name="{{form.$pageLang.SupplierCode}}"
+                                callback-func="form.chooseSupplierCode(selectItem)"
+                                state="{{form.$pageRight.StartNode}}"
+                                required></fm-data-select>
+            </div>
+            <!--供应商代码-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.SupplierCode"></span>
+            <div class="col-xs-4">
+                <fm-data-select fm-model="form.pur01.supplierCode"
+                                view="GetSupplierKeyCode"
+                                filter="{areaCode:base.areaCode}"
+                                Size="xlg"
+                                readonly
+                                field-name="{{form.$pageLang.SupplierCode}}"
+                                callback-func="form.chooseSupplierCode(selectItem)"
+                                state="{{form.$pageRight.StartNode}}"
+                                required></fm-data-select>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--供应商生产地-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.SupplierMfgCountry"></span>
+            <div class="col-xs-4">
+                <fm-text fm-model="form.pur01.supplierMfgCountry"
+                         required
+                         state="{{form.$pageRight.StartNode}}"
+                         field-name="{{form.$pageLang.SupplierMfgCountry}}"></fm-text>
+            </div>
+            <!--项目代码-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.ProgramCode"></span>
+            <div class="col-xs-4">
+                <fm-datatext-select fm-model="form.pur01.programCode"
+                                    fm-text-model="form.pur01.programCodeText"
+                                    required
+                                    Size="lg"
+                                    callback-func="form.chooseProjectName(selectItem)"
+                                    view="GetAllProjectShowCode"
+                                    field-name="{{form.$pageLang.ProgramCode}}"
+                                    placeholder="（如无法选到,可手输）"></fm-datatext-select>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--客户-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.Customer"></span>
+            <div class="col-xs-4">
+                <fm-text fm-model="form.pur01.customer"
+                         required
+                         state="{{form.$pageRight.StartNode}}"
+                         field-name="{{form.$pageLang.Customer}}"></fm-text>
+            </div>
+            <!--项目名称-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.ProgramName"></span>
+            <div class="col-xs-4">
+                <fm-text fm-model="form.pur01.programName"
+                         required
+                         state="{{form.$pageRight.StartNode}}"
+                         field-name="{{form.$pageLang.ProgramName}}"></fm-text>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--采购类型-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.SourceType"></span>
+            <div class="col-xs-4">
+                <fm-select fm-model="form.pur01.sourceType"
+                           dataitem="PurchaseRelated>InFReFPoint>Type"
+                           required
+                           state="{{form.$pageRight.StartNode}}"
+                           field-name="{{form.$pageLang.SourceType}}"></fm-select>
+            </div>
+            <!--设计中心-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.DesignCenter"></span>
+            <div class="col-xs-4">
+                <fm-select fm-model="form.pur01.designCenter"
+                           dataitem="PurchaseRelated>InFReFPoint>DesignCenter"
+                           required
+                           state="{{form.$pageRight.StartNode}}"
+                           field-name="{{form.$pageLang.DesignCenter}}"></fm-select>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--年采购金额(￥CNY 000's)-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.AnnualTurnover"></span>
+            <div class="col-xs-3">
+                <fm-number class="input-sm"
+                           field-name="{{form.$pageLang.AnnualTurnover}}"
+                           cny
+                           required
+                           state="{{form.$pageRight.StartNode}}"
+                           fm-model="form.pur01.annualTurnover"></fm-number>
+            </div>
+            <span class="col-xs-1" ng-bind="form.$pageLang.KiloRmb"></span>
+        </div>
+    </div>
+</div>
+<fm-Group-Head title="{{ form.$pageLang.Inorder }}"></fm-Group-Head>
+<!--为保证竞标价格的竞争力，请附带产品报价明细和分析：-->
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--选择项-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.Choose"></span>
+            <div class="col-xs-4">
+                <fm-select fm-model="form.pur01.chooseItemOne"
+                           dataitem="PurchaseRelated>InFReFPoint>SelectItem"
+                           required
+                           fm-code="form.$state.isKeep"
+                           state="{{form.$pageRight.StartNode}}"
+                           field-name="{{form.$pageLang.Choose}}"></fm-select>
+
+            </div>
+            <!--有几家供应商报价-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.SuppliersQuoted " ng-if="form.$state.isKeep=='1'"></span>
+            <div class="col-xs-4" ng-if="form.$state.isKeep=='1'">
+                <fm-select fm-model="form.pur01.suppliersQuoted"
+                           dataitem="PurchaseRelated>InFReFPoint>SupplierSpricesNum"
+                           fm-required="form.$state.isKeep=1"
+                           state="{{form.$pageRight.StartNode}}"
+                           field-name="{{form.$pageLang.SuppliersQuoted}}"></fm-select>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+<div class="row" ng-if="form.$state.isKeep==1">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--生产件单价-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.ProductionPiecePrice" ng-if="form.$state.isKeep=='1'"></span>
+            <div class="col-xs-3" ng-if="form.$state.isKeep=='1'">
+                <fm-number fm-model="form.pur01.productionPiecePrice"
+                           fm-required="form.$state.isKeep=1"
+                           cny
+                           state="{{form.$pageRight.StartNode}}"
+                           field-name="{{form.$pageLang.ProductionPiecePrice}}"></fm-number>
+            </div>
+            <div class="col-xs-1" ng-if="form.$state.isKeep=='1'">
+                <fm-select fm-model="form.pur01.productionPiecePricecurrency"
+                           view="GetCurrency"
+                           fm-required="form.$state.isKeep=1"
+                           state="{{form.$pageRight.StartNode}}"
+                           field-name="{{form.$pageLang.Currency}}"></fm-select>
+            </div>
+            <!--单位-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.UnitofMeasure" ng-if="form.$state.isKeep=='1'"></span>
+            <div class="col-xs-4" ng-if="form.$state.isKeep=='1'">
+                <fm-text fm-model="form.pur01.unitofMeasure"
+                         fm-required="form.$state.isKeep=1"
+                         state="{{form.$pageRight.StartNode}}"
+                         field-name="{{form.$pageLang.UnitofMeasure}}"></fm-text>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" ng-if="form.$state.isKeep=='1'">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--样件单价-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.ProductionPcPrice" ng-if="form.$state.isKeep=='1'"></span>
+            <div class="col-xs-3">
+                <fm-number fm-model="form.pur01.productionPcPrice"
+                           fm-required="form.$state.isKeep=1"
+                           cny
+                           state="{{form.$pageRight.StartNode}}"
+                           field-name="{{form.$pageLang.ProductionPcPrice}}"></fm-number>
+            </div>
+            <div class="col-xs-1">
+                <fm-select fm-model="form.pur01.productionPcPriceCurrency"
+                           view="GetCurrency"
+                           fm-required="form.$state.isKeep=1"
+                           state="{{form.$pageRight.StartNode}}"
+                           field-name="{{form.$pageLang.Currency}}"></fm-select>
+            </div>
+            <!--售后件单价-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.SrvcPrice"></span>
+            <div class="col-xs-3">
+                <fm-number fm-model="form.pur01.srvcPrice"
+                           fm-required="form.$state.isKeep=1"
+                           cny
+                           state="{{form.$pageRight.StartNode}}"
+                           field-name="{{form.$pageLang.SrvcPrice}}"></fm-number>
+            </div>
+            <div class="col-xs-1">
+                <fm-select fm-model="form.pur01.saleCurrency"
+                           view="GetCurrency"
+                           fm-required="form.$state.isKeep=1"
+                           state="{{form.$pageRight.StartNode}}"
+                           field-name="{{form.$pageLang.Currency}}"></fm-select>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--备注-->
+            <span class="col-xs-2 control-label" ng-class="{required:form.$state.isKeep=='2'}" ng-bind="form.$pageLang.Comments"></span>
+            <div class="col-xs-10">
+                <fm-textarea fm-model="form.pur01.comments"
+                             fm-required="form.$state.isKeep=='2'"
+                             field-name="{{form.$pageLang.Comments}}"></fm-textarea>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--协议年度降价率-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.Agreement"></span>
+            <div class="col-xs-10">
+                <table class="table table-bordered table-detail">
+                    <thead>
+                        <tr>
+                            <th style="width: 20%; text-align:center;" ng-bind="form.$pageLang.SecondYear"></th> <!--第二年-->
+                            <th style="width: 20%; text-align:center;" ng-bind="form.$pageLang.ThirdYear"></th>  <!--第三年-->
+                            <th style="width: 20%; text-align:center;" ng-bind="form.$pageLang.FourthYear"></th> <!--第四年-->
+                            <th style="width: 20%; text-align:center;" ng-bind="form.$pageLang.FifthYear"></th>  <!--第五年-->
+                            <th style="width: 20%; text-align:center;" ng-bind="form.$pageLang.SixthYear"></th>  <!--第六年-->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="auto-style1">
+                                <fm-text fm-model="form.pur01.yeartwo"
+                                         required
+                                         unit="%"
+                                         state="{{form.$pageRight.StartNode}}"
+                                         field-name="{{form.$pageLang.SecondYear}}"></fm-text>
+                            </td>
+                            <td class="auto-style1">
+                                <fm-text fm-model="form.pur01.yearthree"
+                                         required
+                                         unit="%"
+                                         state="{{form.$pageRight.StartNode}}"
+                                         field-name="{{form.$pageLang.ThirdYear}}"></fm-text>
+                            </td>
+                            <td class="auto-style1">
+                                <fm-text fm-model="form.pur01.yearfour"
+                                         required
+                                         unit="%"
+                                         state="{{form.$pageRight.StartNode}}"
+                                         field-name="{{form.$pageLang.FourthYear}}"></fm-text>
+                            </td>
+                            <td class="auto-style1">
+                                <fm-text fm-model="form.pur01.yearfive"
+                                         required
+                                         unit="%"
+                                         state="{{form.$pageRight.StartNode}}"
+                                         field-name="{{form.$pageLang.FifthYear}}"></fm-text>
+                            </td>
+                            <td class="auto-style1">
+                                <fm-text fm-model="form.pur01.yearsix"
+                                         required
+                                         unit="%"
+                                         state="{{form.$pageRight.StartNode}}"
+                                         field-name="{{form.$pageLang.SixthYear}}"></fm-text>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--单价中包装费用 -->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.Price"></span>
+            <div class="col-xs-4">
+                <fm-select fm-model="form.pur01.supplierPckgPcPrice"
+                           dataitem="PurchaseRelated>InFReFPoint>SpriceBackFee"
+                           required
+                           state="{{form.$pageRight.StartNode}}"
+                           field-name="{{form.$pageLang.Price}}"></fm-select>
+            </div>
+        </div>
+    </div>
+</div>
+<fm-Group-Head title="{{ form.$pageLang.SupplierPrice }}"></fm-Group-Head>
+<!--多家供应商／重新定点零件单价信息-->
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--选择项-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.Choose"></span>
+            <div class="col-xs-4">
+                <fm-select fm-model="form.pur01.chooseItemEight"
+                           dataitem="PurchaseRelated>InFReFPoint>SelectItem"
+                           required
+                           fm-code="form.$state.isMore"
+                           state="{{form.$pageRight.StartNode}}"
+                           field-name="{{form.$pageLang.Choose}}"></fm-select>
+            </div>
+            <!--供应商代码 2nd-->
+            <span class="col-xs-2 control-label" ng-bind="form.$pageLang.IncumbentCode" ng-if="form.$state.isMore=='1'"></span>
+            <div class="col-xs-4" ng-if="form.$state.isMore=='1'">
+                <fm-text fm-model="form.pur01.incumbentCode"
+                         state="{{form.$pageRight.StartNode}}"></fm-text>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" ng-if="form.$state.isMore=='1'">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--c 2nd-->
+            <span class="col-xs-2 control-label " ng-bind="form.$pageLang.IncumbentPcPrice"></span>
+            <div class="col-xs-3">
+                <fm-number fm-model="form.pur01.incumbentPcPrice"
+                           state="{{form.$pageRight.StartNode}}"
+                           cny></fm-number>
+            </div>
+            <div class="col-xs-1">
+                <fm-select fm-model="form.pur01.incumbentPcPriceCurrency"
+                           view="GetCurrency"
+                           state="{{form.$pageRight.StartNode}}"
+                           field-name="{{form.$pageLang.ExpenseType}}"></fm-select>
+            </div>
+            <!--供应商名称 2nd-->
+            <span class="col-xs-2 control-label " ng-bind="form.$pageLang.IncumbentName"></span>
+            <div class="col-xs-4">
+                <fm-text fm-model="form.pur01.incumbentName"
+                         state="{{form.$pageRight.StartNode}}"></fm-text>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" ng-if="form.$state.isMore=='1'">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--供应商1供货份额 ％-->
+            <span class="col-xs-2 control-label " ng-bind="form.$pageLang.BusinessSupplier1"></span>
+            <div class="col-xs-4">
+                <fm-number fm-model="form.pur01.businessSupplierOne"
+                           max-value="100"
+                           min-value="0"
+                           unit="%"
+                           state="{{form.$pageRight.StartNode}}"></fm-number>
+            </div>
+            <!--工厂-->
+            <span class="col-xs-2 control-label" ng-bind="form.$pageLang.Plants"></span>
+            <div class="col-xs-4">
+                <fm-text fm-model="form.pur01.plants"
+                         state="{{form.$pageRight.StartNode}}"></fm-text>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" ng-if="form.$state.isMore=='1'">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--供应商2供货份额 ％-->
+            <span class="col-xs-2 control-label" ng-bind="form.$pageLang.BusinessSupplier2"></span>
+            <div class="col-xs-4">
+                <fm-number fm-model="form.pur01.businessSupplierTwo"
+                           state="{{form.$pageRight.StartNode}}"
+                           max-value="100"
+                           min-value="0"
+                           unit="%"></fm-number>
+            </div>
+            <!--工厂-->
+            <span class="col-xs-2 control-label" ng-bind="form.$pageLang.Plants"></span>
+            <div class="col-xs-4">
+                <fm-text fm-model="form.pur01.plantsTwo"
+                         state="{{form.$pageRight.StartNode}}"></fm-text>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--备注-->
+            <span class="col-xs-2 control-label " ng-class="{required:form.$state.isMore=='2'}" ng-bind="form.$pageLang.Comments"></span>
+            <div class="col-xs-10">
+                <fm-textarea fm-model="form.pur01.commentsTwo"
+                             fm-required="form.$state.isMore=='2'"
+                             field-name="{{form.$pageLang.Comments}}"></fm-textarea>
+            </div>
+        </div>
+    </div>
+</div>
+<fm-Group-Head title="{{ form.$pageLang.ProductMouldDetail }}"></fm-Group-Head>
+<!--为保证竞标价格的竞争力，请附带模具报价明细分析：-->
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--选择项-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.Choose"></span>
+            <div class="col-xs-4">
+                <fm-select fm-model="form.pur01.chooseItemThree"
+                           fm-code="form.$state.isCompanyBooking"
+                           dataitem="PurchaseRelated>InFReFPoint>SelectItem"
+                           required
+                           state="{{form.$pageRight.StartNode}}"
+                           field-name="{{form.$pageLang.Choose}}"></fm-select>
+
+            </div>
+
+
+        </div>
+    </div>
+</div>
+<div class="row" ng-if="form.$state.isCompanyBooking=='1'">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--成品件周期（周）-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.FinishedProductTiming"></span>
+            <div class="col-xs-4">
+                <fm-number fm-model="form.pur01.finishedProductTiming"
+                           fm-required="form.$state.isCompanyBooking === '1'"
+                           state="{{form.$pageRight.StartNode}}"
+                           field-name="{{form.$pageLang.FinishedProductTiming}}"></fm-number>
+            </div>
+            <!--样品件周期（周）-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.SampleTiming"></span>
+            <div class="col-xs-4">
+                <fm-number fm-model="form.pur01.sampleTiming"
+                           fm-required="form.$state.isCompanyBooking === '1'"
+                           state="{{form.$pageRight.StartNode}}"
+                           field-name="{{form.$pageLang.SampleTiming}}"></fm-number>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" ng-if="form.$state.isCompanyBooking=='1'">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--模具成本-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.ToolCost"></span>
+            <div class="col-xs-3">
+                <fm-number fm-model="form.pur01.toolCost"
+                           fm-required="form.$state.isCompanyBooking === '1'"
+                           cny
+                           state="{{form.$pageRight.StartNode}}"
+                           field-name="{{form.$pageLang.ToolCost}}"></fm-number>
+            </div>
+            <div class="col-xs-1">
+                <fm-select fm-model="form.pur01.toolCostCurrency"
+                           view="GetCurrency"
+                           fm-required="form.$state.isCompanyBooking === '1'"
+                           state="{{form.$pageRight.StartNode}}"
+                           field-name="{{form.$pageLang.Currency}}"></fm-select>
+            </div>
+            <!--模具穴数-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.Cavities"></span>
+            <div class="col-xs-4">
+                <fm-number fm-model="form.pur01.noCavities"
+                           fm-required="form.$state.isCompanyBooking === '1'"
+                           state="{{form.$pageRight.StartNode}}"
+                           field-name="{{form.$pageLang.Cavities}}"></fm-number>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" ng-if="form.$state.isCompanyBooking=='1'">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--正常周产能-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.Norm"></span>
+            <div class="col-xs-4">
+                <fm-number fm-model="form.pur01.nornmCapacity"
+                           fm-required="form.$state.isCompanyBooking === '1'"
+                           state="{{form.$pageRight.StartNode}}"
+                           field-name="{{form.$pageLang.Norm}}"></fm-number>
+            </div>
+            <!--最高周产能-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.Max"></span>
+            <div class="col-xs-4">
+                <fm-number fm-model="form.pur01.maxCapacity"
+                           fm-required="form.$state.isCompanyBooking === '1'"
+                           state="{{form.$pageRight.StartNode}}"
+                           field-name="{{form.$pageLang.Max}}"></fm-number>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--备注-->
+            <span class="col-xs-2 control-label" ng-class="{required:form.$state.isCompanyBooking=='2'}" ng-bind="form.$pageLang.Comments"></span>
+            <div class="col-xs-10">
+                <fm-textarea fm-model="form.pur01.commentsFour"
+                             fm-required="form.$state.isCompanyBooking=='2'"
+                             field-name="{{form.$pageLang.Comments}}"></fm-textarea>
+            </div>
+        </div>
+    </div>
+</div>
+<fm-Group-Head title="{{ form.$pageLang.ChangeInfoAgain }}"></fm-Group-Head>
+<!--重新定点零件模具信息-->
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--选择项-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.Choose"></span>
+            <div class="col-xs-4">
+                <fm-select fm-model="form.pur01.chooseItemFour"
+                           fm-code="form.$state.isRefresh"
+                           dataitem="Common>YesOrNo"
+                           required
+                           state="{{form.$pageRight.StartNode}}"
+                           field-name="{{form.$pageLang.Choose}}"></fm-select>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" ng-if="form.$state.isRefresh=='1'">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--模具-->
+            <span class="col-xs-2 control-label " ng-bind="form.$pageLang.ToolDescription"></span>
+            <div class="col-xs-4">
+                <fm-text fm-model="form.pur01.toolDescription"
+                         state="{{form.$pageRight.StartNode}}"></fm-text>
+            </div>
+            <!--工厂3-->
+            <span class="col-xs-2 control-label" ng-bind="form.$pageLang.Plant"></span>
+            <div class="col-xs-4">
+                <fm-text fm-model="form.pur01.plantThree"
+                         state="{{form.$pageRight.StartNode}}"></fm-text>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" ng-if="form.$state.isRefresh=='1'">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--是否备模-->
+            <span class="col-xs-2 control-label " ng-bind="form.$pageLang.ToolingSupplement"></span>
+            <div class="col-xs-4">
+                <fm-select fm-model="form.pur01.toolingSupplement"
+                           dataitem="Common>YesOrNo"
+                           state="{{form.$pageRight.StartNode}}"
+                           field-name="{{form.$pageLang.ExpenseType}}"></fm-select>
+            </div>
+            <!--项目编号-->
+            <span class="col-xs-2 control-label" ng-bind="form.$pageLang.ProjectNumber"></span>
+            <div class="col-xs-4">
+                <fm-text fm-model="form.pur01.projectNumber"
+                         state="{{form.$pageRight.StartNode}}"></fm-text>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" ng-if="form.$state.isRefresh=='1'">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--工程师姓名-->
+            <span class="col-xs-2 control-label" ng-bind="form.$pageLang.EngineerName"></span>
+            <div class="col-xs-4">
+                <fm-text fm-model="form.pur01.engineerName"
+                         state="{{form.$pageRight.StartNode}}"></fm-text>
+            </div>
+            <!--模具图号-->
+            <span class="col-xs-2 control-label" ng-bind="form.$pageLang.PreviousTooling "></span>
+            <div class="col-xs-4">
+                <fm-text fm-model="form.pur01.previousTooling"
+                         state="{{form.$pageRight.StartNode}}"></fm-text>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" ng-if="form.$state.isRefresh=='1'">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--排列号-->
+            <span class="col-xs-2 control-label" ng-bind="form.$pageLang.LineNumber"></span>
+            <div class="col-xs-4">
+                <fm-text fm-model="form.pur01.lineNumber"
+                         state="{{form.$pageRight.StartNode}}"></fm-text>
+            </div>
+            <!--工程师电话-->
+            <span class="col-xs-2 control-label" ng-bind="form.$pageLang.EngineerPhone"></span>
+            <div class="col-xs-4">
+                <fm-text fm-model="form.pur01.engineerPhone"
+                         state="{{form.$pageRight.StartNode}}"></fm-text>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" ng-if="form.$state.isRefresh=='1'">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--模具订单-->
+            <span class="col-xs-2 control-label" ng-bind="form.$pageLang.PrvToolingOrder"></span>
+            <div class="col-xs-10">
+                <fm-text fm-model="form.pur01.prvToolingOrder"
+                         state="{{form.$pageRight.StartNode}}"></fm-text>
+            </div>
+        </div>
+    </div>
+</div>
+<fm-Group-Head title="{{ form.$pageLang.AccessoriesDetail }}"></fm-Group-Head>
+<!--为保证竞标价格的竞争力，请附带工程费用明细和分析：-->
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--选择项-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.Choose"></span>
+            <div class="col-xs-4">
+                <fm-select fm-model="form.pur01.chooseItemFive"
+                           fm-code="form.$state.isFree"
+                           dataitem="PurchaseRelated>InFReFPoint>SelectItem"
+                           required
+                           state="{{form.$pageRight.StartNode}}"
+                           field-name="{{form.$pageLang.Choose}}"></fm-select>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" ng-if="form.$state.isFree=='1'">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--工程费用-->
+            <span class="col-xs-2 control-label" ng-bind="form.$pageLang.EngineeringCost"></span>
+            <div class="col-xs-3">
+                <fm-number fm-model="form.pur01.engineeringCost"
+                           cny
+                           state="{{form.$pageRight.StartNode}}"></fm-number>
+            </div>
+            <div class="col-xs-1">
+                <fm-select fm-model="form.pur01.engineeringCostCurrency"
+                           view="GetCurrency"
+                           state="{{form.$pageRight.StartNode}}"
+                           field-name="{{form.$pageLang.ExpenseType}}"></fm-select>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--备注-->
+            <span class="col-xs-2 control-label" ng-class="{required:form.$state.isFree=='2'}" ng-bind="form.$pageLang.Comments"></span>
+            <div class="col-xs-10">
+                <fm-textarea fm-model="form.pur01.commentsfive"
+                             fm-required="form.$state.isFree=='2'"
+                             field-name="{{form.$pageLang.Comments}}"></fm-textarea>
+            </div>
+        </div>
+    </div>
+</div>
+<fm-Group-Head title="{{ form.$pageLang.MoldPackaging  }}"></fm-Group-Head>
+<!--模具／包装辅料分摊明细-->
+<fm-Group-Head title="{{ form.$pageLang.Mould}}" class="detail"></fm-Group-Head>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--选择项-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.Choose"></span>
+            <div class="col-xs-4">
+                <fm-select fm-model="form.pur01.chooseItemSix"
+                           fm-code="form.$state.isModel"
+                           dataitem="Common>YesOrNo"
+                           required
+                           state="{{form.$pageRight.StartNode}}"
+                           field-name="{{form.$pageLang.Choose}}"></fm-select>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" ng-if="form.$state.isModel=='1'">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--数量-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.Partsat"></span>
+            <div class="col-xs-4">
+                <fm-number fm-model="form.pur01.partsat"
+                           fm-required="form.$state.isCompanyBooking === '1'"
+                           state="{{form.$pageRight.StartNode}}"
+                           field-name="{{form.$pageLang.Partsat}}"></fm-number>
+            </div>
+            <!--单价-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.PerPart "></span>
+            <div class="col-xs-3">
+                <fm-number fm-model="form.pur01.perPart"
+                           fm-required="form.$state.isCompanyBooking === '1'"
+                           cny
+                           state="{{form.$pageRight.StartNode}}"
+                           field-name="{{form.$pageLang.PerPart}}"></fm-number>
+            </div>
+            <div class="col-xs-1">
+                <fm-select fm-model="form.pur01.perPartCurrency"
+                           view="GetCurrency"
+                           fm-required="form.$state.isCompanyBooking === '1'"
+                           state="{{form.$pageRight.StartNode}}"
+                           field-name="{{form.$pageLang.Currency}}"></fm-select>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="row" ng-if="form.$state.isModel=='1'">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--分摊时间-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.Time"></span>
+            <div class="col-xs-4">
+                <fm-number fm-model="form.pur01.time"
+                           fm-required="form.$state.isCompanyBooking === '1'"
+                           unit="年 "
+                           state="{{form.$pageRight.StartNode}}"
+                           field-name="{{form.$pageLang.Time}}"></fm-number>
+
+            </div>
+            <!--模具总价-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.TotalToolingAmortizeds "></span>
+            <div class="col-xs-4">
+                <fm-number fm-model="form.pur01.totalToolingAmortizeds"
+                           fm-required="form.$state.isCompanyBooking === '1'"
+                           cny
+                           state="{{form.$pageRight.StartNode}}"
+                           field-name="{{form.$pageLang.TotalToolingAmortizeds}}"></fm-number>
+            </div>
+        </div>
+    </div>
+</div>
+<fm-Group-Head title="{{ form.$pageLang.PackagingAccessories}}" class="detail"></fm-Group-Head>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--选择项-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.Choose"></span>
+            <div class="col-xs-4">
+                <fm-select fm-model="form.pur01.chooseItemSeven"
+                           fm-code="form.$state.isMaterial"
+                           dataitem="Common>YesOrNo"
+                           required
+                           state="{{form.$pageRight.StartNode}}"
+                           field-name="{{form.$pageLang.Choose}}"></fm-select>
+            </div>
+            <!--单价2-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.PerPart" ng-if="form.$state.isMaterial=='1'"></span>
+            <div class="col-xs-3" ng-if="form.$state.isMaterial=='1'">
+                <fm-number fm-model="form.pur01.perPartTwo"
+                           fm-required="form.$state.isCompanyBooking === '1'"
+                           cny
+                           state="{{form.$pageRight.StartNode}}"
+                           field-name="{{form.$pageLang.PerPart}}"></fm-number>
+            </div>
+            <div class="col-xs-1" ng-if="form.$state.isMaterial=='1'">
+                <fm-select fm-model="form.pur01.perPartTwoCurrency"
+                           view="GetCurrency"
+                           fm-required="form.$state.isCompanyBooking === '1'"
+                           state="{{form.$pageRight.StartNode}}"
+                           field-name="{{form.$pageLang.Currency}}"></fm-select>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" ng-if="form.$state.isMaterial=='1'">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--特殊分摊标准-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.SpecificAmortizationCriteria"></span>
+            <div class="col-xs-10">
+                <fm-text fm-model="form.pur01.specificAmortizationCriteria"
+                         fm-required="form.$state.isCompanyBooking === '1'"
+                         state="{{form.$pageRight.StartNode}}"
+                         field-name="{{form.$pageLang.SpecificAmortizationCriteria}}"></fm-text>
+            </div>
+        </div>
+    </div>
+</div>
+<fm-Group-Head title="{{ form.$pageLang.WhetherToMeet}}" class="detail"></fm-Group-Head>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.Choose"></span>
+            <div class="col-xs-4">
+                <fm-select fm-model="form.pur01.noExplainRecapDescription"
+                           fm-code="form.$state.isExplainReason"
+                           required
+                           dataitem="PurchaseRelated>InFReFPoint>SelectItem"
+                           state="{{form.$pageRight.StartNode}}"
+                           field-name="{{form.$pageLang.ExpenseType}}"></fm-select>
+            </div>
+            <span class="tip-text" ng-bind="form.$pageLang.Summary"></span>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--首选供应商批准单号-->
+            <span class="col-xs-2 control-label" ng-bind="form.$pageLang.CommodityNum"></span>
+            <div class="col-xs-4">
+                <fm-data-select view="GetAllNSARReqNo"
+                                fm-model="form.pur01.commodityNum"></fm-data-select>
+            </div>
+        </div>
+    </div>
+</div>
+<fm-Group-Head title="{{ form.$pageLang.EvaluationCriteria }}" class="required"></fm-Group-Head>
+<!--供应商评估标准（包括财务分析的定点概述）-->
+<div class="row">
+    <div class="form-group">
+        <fm-checklist fm-model="form.pur01.evaluationCriteria"
+                      required
+                      columncount="5"
+                      field-name="{{form.$pageLang.evaluationCriteria}}"
+                      items="[{id:'0',text:'最低的到厂价格'},{id:'1',text:'币种因素'},{id:'2',text:'YFVES新供应商'},{id:'3',text:'长期协议'},{id:'4',text:'厂品服务供应商/技术'},{id:'5',text:'项目时间节点问题'},{id:'6',text:'净现值分析'}]"></fm-checklist>
+    </div>
+</div>
+<div>
+    <fm-Group-Head title="{{ form.$pageLang.ApplicationRange }}" class="required"></fm-Group-Head>
+</div>
+<!--标准应用范围-->
+<div class="row">
+    <div class="form-group">
+        <fm-checklist fm-model="form.pur01.standardApplicationRange"
+                      required
+                      columncount="4"
+                      field-name="{{form.$pageLang.ApplicationRange}}"
+                      items="[{id:'0',text:'年度降价'},{id:'1',text:'长期合同'},{id:'2',text:'供应商可管理额外事务'},{id:'3',text:'记分卡等级较高且到厂价格最低'}]"></fm-checklist>
+
+    </div>
+</div>
+<p style="padding:10px 0px 10px 28px;">计分卡指标和财物等级评估：如供应商总体等级为黄或红、未通过TS16949认证、或者财物等级低于C（包括等于C），请附《非首选供应商申请批准表》。</p>
+<fm-Group-Head title="{{ form.$pageLang.GeneralLevel }}"></fm-Group-Head>
+<!--总体等级-->
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--供应商是否通过ISO TS16949认证？-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.DoesThe"></span>
+            <div class="col-xs-4">
+                <fm-select fm-model="form.pur01.doesThe"
+                           dataitem="Common>YesOrNo"
+                           fm-code="form.$state.isPass"
+                           required
+                           state="{{form.$pageRight.StartNode}}"
+                           field-name="{{form.$pageLang.DoesThe}}"></fm-select>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="row" ng-if="form.$state.isPass === '2'">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--如果没有通过，是否有相应计划？-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.Plan"></span>
+            <div class="col-xs-4">
+                <fm-select fm-model="form.pur01.plan"
+                           dataitem="Common>YesOrNo"
+                           required
+                           state="{{form.$pageRight.StartNode}}"
+                           field-name="{{form.$pageLang.Plan}}"></fm-select>
+            </div>
+            <div class="col-xs-4">
+                <fm-datetime field-name="{{form.$pageLang.datetime}}"
+                             required
+                             date
+                             callback-func="form.getSumThisTotalInvoice(item)"
+                             fm-model="form.pur01.datetime"></fm-datetime>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--供应商是否通过 ISO 14000认证？-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.DoeTheSupplier"></span>
+            <div class="col-xs-4">
+                <fm-select fm-model="form.pur01.doeTheSupplier"
+                           dataitem="Common>YesOrNo"
+                           fm-code="form.$state.isSupplierPass"
+                           required
+                           state="{{form.$pageRight.StartNode}}"
+                           field-name="{{form.$pageLang.DoeTheSupplier}}"></fm-select>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="row" ng-if="form.$state.isSupplierPass === '2'">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--如果没有通过，是否有相应计划？-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.Plan"></span>
+            <div class="col-xs-4">
+                <fm-select fm-model="form.pur01.plantwo"
+                           dataitem="Common>YesOrNo"
+                           required
+                           state="{{form.$pageRight.StartNode}}"
+                           field-name="{{form.$pageLang.Plan}}"></fm-select>
+            </div>
+            <div class="col-xs-4">
+                <fm-datetime field-name="{{form.$pageLang.datetime}}"
+                             required
+                             date
+                             callback-func="form.getSumThisTotalInvoice(item)"
+                             fm-model="form.pur01.datetimetwo"></fm-datetime>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--质量-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.Quality"></span>
+            <div class="col-xs-4">
+                <fm-select fm-model="form.pur01.quality"
+                           dataitem="PurchaseRelated>InFReFPoint>ColorSelect"
+                           required
+                           state="{{form.$pageRight.StartNode}}"
+                           field-name="{{form.$pageLang.Quality}}"></fm-select>
+            </div>
+            <!--商务-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.Business"></span>
+            <div class="col-xs-4">
+                <fm-select fm-model="form.pur01.business"
+                           dataitem="PurchaseRelated>InFReFPoint>ColorSelect"
+                           required
+                           state="{{form.$pageRight.StartNode}}"
+                           field-name="{{form.$pageLang.Business}}"></fm-select>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--供货-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.Delivery"></span>
+            <div class="col-xs-4">
+                <fm-select fm-model="form.pur01.delivery"
+                           dataitem="PurchaseRelated>InFReFPoint>ColorSelect"
+                           required
+                           state="{{form.$pageRight.StartNode}}"
+                           field-name="{{form.$pageLang.Delivery}}"></fm-select>
+            </div>
+            <!--技术-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.Technology"></span>
+            <div class="col-xs-4">
+                <fm-select fm-model="form.pur01.technology"
+                           dataitem="PurchaseRelated>InFReFPoint>ColorSelect"
+                           required
+                           state="{{form.$pageRight.StartNode}}"
+                           field-name="{{form.$pageLang.Technology}}"></fm-select>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--新供应商现场评估-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.NewEvaluation"></span>
+            <div class="col-xs-4">
+                <fm-select fm-model="form.pur01.newEvaluation"
+                           dataitem="PurchaseRelated>InFReFPoint>ColorSelect"
+                           required
+                           state="{{form.$pageRight.StartNode}}"
+                           field-name="{{form.$pageLang.NewEvaluation}}"></fm-select>
+            </div>
+            <!--供应商是否具备EDI／DDL能力-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.DoesCapability"></span>
+            <div class="col-xs-4">
+                <fm-select fm-model="form.pur01.doesCapability"
+                           dataitem="Common>YesOrNo"
+                           required
+                           state="{{form.$pageRight.StartNode}}"
+                           field-name="{{form.$pageLang.DoesCapability}}"></fm-select>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--财务等级-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.Rating"></span>
+            <div class="col-xs-4">
+                <fm-select fm-model="form.pur01.rating"
+                           dataitem="PurchaseRelated>InFReFPoint>FinanceRate"
+                           required
+                           state="{{form.$pageRight.StartNode}}"
+                           field-name="{{form.$pageLang.Rating}}"></fm-select>
+            </div>
+        </div>
+    </div>
+</div>
+<fm-Group-Head title="{{ form.$pageLang.MeetingMinutes }}"></fm-Group-Head>
+<div class="print-hide row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <fm-attachment form-files="form.$attachments"
+                           link-id="0"
+                           task-id='base.taskId'
+                           node-id="base.nodeId"
+                           draft-id="base.draftId"
+                           fm-required="(form.pur05.reason || '').split(',').indexOf('0') >= 0||(form.pur05.reason || '').split(',').indexOf('1') >= 0"
+                           state="{{form.$pageRight.StartNode}}"
+                           field-name="{{ 'Attachment' |translate}}"
+                           fm-model="form.$state.UploadAttachment"
+                           button-name="上传会议纪要"></fm-attachment>
+        </div>
+    </div>
+</div>
+<!--附件-->
+<fm-Group-Head class="print-hide" title="{{ 'Attachment' |translate}}"></fm-Group-Head>
+<div class="print-hide row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <div class="col-xs-4">
+                <fm-attachment form-files="form.$attachments"
+                               link-id="0"
+                               task-id='base.taskId'
+                               node-id="base.nodeId"
+                               draft-id="base.draftId"
+                               state="{{form.$pageRight.StartNode}}"
+                               field-name="{{'UploadAttachment' |translate}}"
+                               fm-model="form.$state.UploadAttachment"
+                               button-name="{{ 'UploadAttachment' |translate}}"></fm-attachment>
+            </div>
+            <div class="col-xs-4"></div>
+            <!--表格模板下载-->
+            <div class="col-xs-4">
+                <fm-import-xls template="/AppPages/Workflow/pur/pur01_1f125d65cc1841f7aa58742a3646740d/pur01.xlsx"
+                               class="hide-import"
+                               start-index="0"></fm-import-xls>
+            </div>
+        </div>
+    </div>
+</div>

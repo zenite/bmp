@@ -1,0 +1,206 @@
+﻿
+<fm-form-title sn-number="{{base.snNumber}}" apply-date="{{base.applyDate}}" sub-title='base.title' fm-model="base.areaCode"></fm-form-title>
+<fm-Group-Head class="print-hide" title="{{ base.$pageLang.PostByInfo }}"></fm-Group-Head>
+<fm-initiator class="print-hide" jobid='base.jobId' userinfo='base.initiator' taskid='base.taskId'></fm-initiator>
+
+<fm-Group-Head title="{{ base.$pageLang.ApplicantInfo }}"></fm-Group-Head>
+<fm-applicant jobid='base.applicantJobId' userinfo='base.applicant' taskid='base.taskId' wfid="base.workflowId"></fm-applicant>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--类别-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.Type"></span>
+            <div class="col-xs-4">
+                <fm-select fm-model="form.fin11.type"
+                           required
+                           field-name="{{form.$pageLang.Type}}"
+                           callback-func="form.chooseAccounts(selectItem)"
+                           dataitem="Finance>UnproductiveMaterialRequistion>Type"></fm-select>
+            </div>
+            <!--使用部门-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.UsingDept"></span>
+            <div class="col-xs-4">
+                <fm-data-select multi
+                                field-name="{{form.$pageLang.UsingDept}}"
+                                state="{{form.$pageRight.StartNode}}"
+                                group
+                                fm-model="form.fin11.usingDept"
+                                required></fm-data-select>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <div ng-if="base.areaCode=='YFVSJ' && base.Area=='SHTC'">
+                <!--项目-->
+                <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.Project"></span>
+                <div class="col-xs-4">
+                    <fm-data-select view="GetAllProjectNumbers"
+                                    required
+                                    field-name="{{form.$pageLang.Project}}"
+                                    fm-model="form.fin11.projectCode">
+                    </fm-data-select>
+                </div>
+            </div>
+
+            <!--领料地点-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.Location"></span>
+            <div class="col-xs-4">
+                <fm-text fm-model="form.fin11.location"
+                         required
+                         readonly></fm-text>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .fm-form-block .normal[detail],
+    .fm-form-block .normal[detail] .fm-text-shadetext,
+    .fm-form-block .normal[detail] input:not([type="button"]):not([type="submit"]),
+    .fm-form-block .normal[detail] textarea {
+        background-color: white !important;
+    }
+
+    .normal[detail],
+    .normal[detail] .fm-text-shadetext,
+    .normal[detail] input:not([type="button"]):not([type="submit"]),
+    .normal[detail] textarea {
+        background-color: white !important;
+    }
+</style>
+
+
+<div class="row">
+    <div class="col-xs-12">
+        <table class="table table-bordered table-detail">
+            <thead>
+                <tr style="background-color:#0066cc">
+                    <th class="checktd"><input type="checkbox" class="uniform" ng-checked="form.fin11sAllChecked" ng-model="form.fin11sAllChecked" ng-click="form.selectAll(form.fin11sAllChecked, form.fin11s)" /></th> <!--标记-->
+                    <th style="width:50px;text-align:center;" ng-bind="form.$pageLang.No"></th> <!--序列-->
+                    <th style="width:150px;text-align:center;" ng-bind="form.$pageLang.PartNo"></th> <!--零件号-->
+                    <th style="width:150px;text-align:center;" ng-bind="form.$pageLang.PartName"></th> <!--零件名称-->
+                    <th style="width:150px;text-align:center;" ng-bind="form.$pageLang.ReqQty"></th> <!--零件数量-->
+                    <th style="width:150px;text-align:center;" ng-bind="form.$pageLang.whLocation"></th> <!--库位-->
+                    <th style="width:150px;text-align:center;" ng-bind="form.$pageLang.LotNo"></th> <!--批号-->
+                    <th style="width:150px;text-align:center;" ng-bind="form.$pageLang.ActQty"></th> <!--实领数-->
+                    <th style="width:150px;text-align:center;" ng-bind="form.$pageLang.UseApplication"></th> <!--用途-->
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in form.fin11s" ng-class="{ 'active': item.checked}" detail-name="{{form.$pageLang.BusinessEntertainmentExpensesReimbursementList}}">
+                    <td class="checktd">
+                        <input class="uniform"
+                               ng-if="base.pageState==1 || (form.$pageRight.StartNode == 'normal' && base.pageState==2) "
+                               type="checkbox" ng-model="item.checked" />
+                    </td>
+                    <td>
+                        <fm-number ng-if="item.gridOrder!=null"
+                                   fm-model="item.gridOrder"></fm-number>
+                        <span ng-if="item.gridOrder == null">{{$index + 1}}</span>
+                    </td>
+                    <td>
+                        <fm-text field-name="{{form.$pageLang.PartNo}}"
+                                 required
+                                 fm-model="item.partNo"></fm-text>
+                    </td>
+                    <td>
+                        <fm-text field-name="{{form.$pageLang.PartName}}"
+                                 required
+                                 fm-model="item.partName"></fm-text>
+                    </td>
+                    <td>
+                        <fm-number field-name="{{form.$pageLang.ReqQty}}"
+                                   class="input-sm"
+                                   required
+                                   cny detail
+                                   fm-model="item.reqQty"></fm-number>
+                    </td>
+                    <td>
+                        <fm-text field-name="{{form.$pageLang.whLocation}}"
+                                 required
+                                 fm-disabled="form.$pageRight.nD07!='normal'"
+                                 fm-normal="form.$pageRight.nD07=='normal'"
+                                 fm-model="item.whLocation"></fm-text>
+                    </td>
+                    <td>
+                        <fm-text field-name="{{form.$pageLang.LotNo}}"
+                                 required
+                                 fm-disabled="form.$pageRight.nD07!='normal'"
+                                 fm-normal="form.$pageRight.nD07=='normal'"
+                                 fm-model="item.lotNo"></fm-text>
+                    </td>
+                    <td>
+                        <fm-number field-name="{{form.$pageLang.ActQty}}"
+                                   class="input-sm"
+                                   required
+                                   cny detail
+                                   fm-disabled="form.$pageRight.nD07!='normal'"
+                                   fm-normal="form.$pageRight.nD07=='normal'"
+                                   fm-model="item.actQty"></fm-number>
+                    </td>
+                    <td>
+                        <fm-text field-name="{{form.$pageLang.UseApplication}}"
+                                 fm-model="item.useApplication"></fm-text>
+                    </td>
+                </tr>
+
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="99" style="text-align:left;">
+                        <table style="width:100%;">
+                            <tr>
+                                <!--<td style="text-align:right;border:0px;">
+                                    <fm-import-xls ng-if="base.pageState==1 || (form.$pageRight.StartNode == 'normal' && base.pageState==2)"
+                                                   template="/AppPages/Workflow/fin11_cf121bc49dd44911a0e376f3e4fd4705/Template.xls"
+                                                   start-index="0"
+                                                   columns="['partNo','partName','reqQty','whLocation','lotNo','actQty','useApplication']"
+                                                   callback-func="form.getlength(data)"></fm-import-xls>
+                                    </td>-->
+                                <td style="text-align:right;border:0px;">
+                                    <fm-import-advance config="form.import"
+                                                       ng-if="base.pageState==1 || (form.$pageRight.StartNode == 'normal' && base.pageState==2)"
+                                                       form-files="form.$attachments"
+                                                       link-id="2"
+                                                       task-id='base.taskId'
+                                                       callback-func="form.importD(importData)"></fm-import-advance>
+                                </td>
+                                <td style="text-align:right;border:0px;width:10%;">
+                                    <input ng-if="base.pageState==1 || (form.$pageRight.StartNode == 'normal' && base.pageState==2)" type="button" class="btn btn-sm btn-info" ng-click="form.add()" value="{{form.$pageLang.Add}}" />
+                                    <input ng-if="base.pageState==1 || (form.$pageRight.StartNode == 'normal' && base.pageState==2)" type="button" class="btn btn-sm btn-danger" ng-click="form.delete()" value="{{form.$pageLang.Delete}}" />
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--账号-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.Account"></span>
+            <div class="col-xs-4">
+                <fm-text fm-model="form.fin11.accounts"
+                         required
+                         field-name="{{form.$pageLang.Account}}"
+                         fm-disabled="form.$pageRight.nD05!='normal'"
+                         fm-normal="form.$pageRight.nD05=='normal'"></fm-text>
+            </div>
+            <!--成本中心-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.CostCenter "></span>
+            <div class="col-xs-4">
+                <fm-text fm-model="form.fin11.costCenter"
+                         required
+                         field-name="{{form.$pageLang.CostCenter}}"
+                         fm-disabled="form.$pageRight.nD05!='normal'"
+                         fm-normal="form.$pageRight.nD05=='normal'"></fm-text>
+            </div>
+        </div>
+    </div>
+</div>

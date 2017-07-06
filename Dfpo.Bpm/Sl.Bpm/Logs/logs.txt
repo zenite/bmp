@@ -1,0 +1,707 @@
+Fatal 06/26/2017 12:03:34 944 运行时发生未被捕获的异常。
+System.Data.SqlClient.SqlException (0x80131904): 找不到列 "dbo" 或用户定义的函数或聚合 "dbo.L"，或者名称不明确。
+   在 System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   在 System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   在 System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   在 System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   在 System.Data.SqlClient.SqlCommand.RunExecuteNonQueryTds(String methodName, Boolean async, Int32 timeout, Boolean asyncWrite)
+   在 System.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(TaskCompletionSource`1 completion, String methodName, Boolean sendToPipe, Int32 timeout, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   在 System.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   在 Sl.Bpm.Engine.Db.DBHelper.ExecuteSql(String sql) 位置 D:\Sl.Bpm\Sl.Bpm\Sl.Bpm.Engine\DBHelper\DBHelper.cs:行号 136
+   在 Sl.Bpm.Application.Service.SystemSv.<>c.<ExecuteScript>b__88_0(String r) 位置 D:\Sl.Bpm\Sl.Bpm\Sl.Bpm.Application\Service\SystemSv.cs:行号 669
+   在 Castle.Core.Internal.CollectionExtensions.ForEach[T](IEnumerable`1 items, Action`1 action)
+   在 Sl.Bpm.Application.Service.SystemSv.ExecuteScript(String script) 位置 D:\Sl.Bpm\Sl.Bpm\Sl.Bpm.Application\Service\SystemSv.cs:行号 669
+   在 Sl.Bpm.Application.Service.SystemSv.InitializeSystem(String enterpriseAccessId, String userAccessId, String serviceAddress, String account, String password, String enterpriseId) 位置 D:\Sl.Bpm\Sl.Bpm\Sl.Bpm.Application\Service\SystemSv.cs:行号 618
+   在 Sl.Bpm.Application.Controllers.AccountController.Initialize(InitializeViewModel model, String returnUrl) 位置 D:\Sl.Bpm\Shtn.bpm\Sl.Bpm\Application\Controllers\AccountController.cs:行号 50
+   在 lambda_method(Closure , ControllerBase , Object[] )
+   在 System.Web.Mvc.ActionMethodDispatcher.Execute(ControllerBase controller, Object[] parameters)
+   在 System.Web.Mvc.ReflectedActionDescriptor.Execute(ControllerContext controllerContext, IDictionary`2 parameters)
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionMethod(ControllerContext controllerContext, ActionDescriptor actionDescriptor, IDictionary`2 parameters)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<BeginInvokeSynchronousActionMethod>b__39(IAsyncResult asyncResult, ActionInvocation innerInvokeState)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`2.CallEndDelegate(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethod(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3d()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass46.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3f()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass33.<BeginInvokeActionMethodWithFilters>b__32(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.CallEndDelegate(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethodWithFilters(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass21.<>c__DisplayClass2b.<BeginInvokeAction>b__1c()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass21.<BeginInvokeAction>b__1e(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.CallEndDelegate(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeAction(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Controller.<BeginExecuteCore>b__1d(IAsyncResult asyncResult, ExecuteCoreState innerState)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncVoid`1.CallEndDelegate(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   在 System.Web.Mvc.Controller.EndExecuteCore(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Controller.<BeginExecute>b__15(IAsyncResult asyncResult, Controller controller)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncVoid`1.CallEndDelegate(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   在 System.Web.Mvc.Controller.EndExecute(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Controller.System.Web.Mvc.Async.IAsyncController.EndExecute(IAsyncResult asyncResult)
+   在 System.Web.Mvc.MvcHandler.<BeginProcessRequest>b__5(IAsyncResult asyncResult, ProcessRequestState innerState)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncVoid`1.CallEndDelegate(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   在 System.Web.Mvc.MvcHandler.EndProcessRequest(IAsyncResult asyncResult)
+   在 System.Web.Mvc.MvcHandler.System.Web.IHttpAsyncHandler.EndProcessRequest(IAsyncResult result)
+   在 System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   在 System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+ClientConnectionId:68583e2a-a062-455e-ae74-13e0ad838b9d
+Error Number:4121,State:1,Class:16
+
+
+Error 06/26/2017 12:04:59 91 用户不存在
+MiniAbp.UserFriendlyException: 用户不存在
+   在 Sl.Bpm.Application.Cache.PermissionCache.GetUserPermissions(String userId) 位置 D:\Sl.Bpm\Sl.Bpm\Sl.Bpm.Application\Cache\PermissionCache.cs:行号 79
+   在 Sl.Bpm.Application.Service.PermissionSv.GetUserPermissions() 位置 D:\Sl.Bpm\Sl.Bpm\Sl.Bpm.Application\Service\PermissionSv.cs:行号 39
+   在 Castle.Proxies.PermissionSvProxy.GetUserPermissions_callback()
+   在 Castle.Proxies.Invocations.IPermissionSv_GetUserPermissions.InvokeMethodOnTarget()
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Sl.Bpm.Application.Base.LanguageInspector.Intercept(IInvocation invocation) 位置 D:\Sl.Bpm\Sl.Bpm\Sl.Bpm.Application\Base\LanguageInspector.cs:行号 28
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 MiniAbp.Authorization.Interceptors.AuthorizationInterceptor.Intercept(IInvocation invocation) 位置 D:\Sl.Bpm\Sl.Bpm\Infrastructure\MiniAbp\Authorization\Interceptors\AuthorizationInterceptor.cs:行号 27
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 MiniAbp.Domain.Uow.UnitOfWorkInterceptor.Intercept(IInvocation invocation) 位置 D:\Sl.Bpm\Sl.Bpm\Infrastructure\MiniAbp\Domain\Uow\UnitOfWorkInterceptor.cs:行号 29
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Castle.Proxies.PermissionSvProxy.GetUserPermissions()
+
+
+Error 06/26/2017 12:05:16 400 用户不存在
+MiniAbp.UserFriendlyException: 用户不存在
+   在 Sl.Bpm.Application.Cache.PermissionCache.GetUserPermissions(String userId) 位置 D:\Sl.Bpm\Sl.Bpm\Sl.Bpm.Application\Cache\PermissionCache.cs:行号 79
+   在 Sl.Bpm.Application.Service.PermissionSv.GetUserPermissions() 位置 D:\Sl.Bpm\Sl.Bpm\Sl.Bpm.Application\Service\PermissionSv.cs:行号 39
+   在 Castle.Proxies.PermissionSvProxy.GetUserPermissions_callback()
+   在 Castle.Proxies.Invocations.IPermissionSv_GetUserPermissions.InvokeMethodOnTarget()
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Sl.Bpm.Application.Base.LanguageInspector.Intercept(IInvocation invocation) 位置 D:\Sl.Bpm\Sl.Bpm\Sl.Bpm.Application\Base\LanguageInspector.cs:行号 28
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 MiniAbp.Authorization.Interceptors.AuthorizationInterceptor.Intercept(IInvocation invocation) 位置 D:\Sl.Bpm\Sl.Bpm\Infrastructure\MiniAbp\Authorization\Interceptors\AuthorizationInterceptor.cs:行号 27
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 MiniAbp.Domain.Uow.UnitOfWorkInterceptor.Intercept(IInvocation invocation) 位置 D:\Sl.Bpm\Sl.Bpm\Infrastructure\MiniAbp\Domain\Uow\UnitOfWorkInterceptor.cs:行号 29
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Castle.Proxies.PermissionSvProxy.GetUserPermissions()
+
+
+Error 06/26/2017 13:17:12 4 调用的目标发生了异常。
+System.Reflection.TargetInvocationException: 调用的目标发生了异常。 ---> System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 Sl.Bpm.Application.Service.ModuleSv.DeleteModule(ModuleEditDto module) 位置 D:\Sl.Bpm\Sl.Bpm\Sl.Bpm.Application\Service\ModuleSv.cs:行号 126
+   在 Castle.Proxies.ModuleSvProxy.DeleteModule_callback(ModuleEditDto module)
+   在 Castle.Proxies.Invocations.IModuleSv_DeleteModule.InvokeMethodOnTarget()
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Sl.Bpm.Application.Base.LanguageInspector.Intercept(IInvocation invocation) 位置 D:\Sl.Bpm\Sl.Bpm\Sl.Bpm.Application\Base\LanguageInspector.cs:行号 28
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 MiniAbp.Authorization.Interceptors.AuthorizationInterceptor.Intercept(IInvocation invocation) 位置 D:\Sl.Bpm\Sl.Bpm\Infrastructure\MiniAbp\Authorization\Interceptors\AuthorizationInterceptor.cs:行号 27
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 MiniAbp.Domain.Uow.UnitOfWorkInterceptor.Intercept(IInvocation invocation) 位置 D:\Sl.Bpm\Sl.Bpm\Infrastructure\MiniAbp\Domain\Uow\UnitOfWorkInterceptor.cs:行号 29
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Castle.Proxies.ModuleSvProxy.DeleteModule(ModuleEditDto module)
+   --- 内部异常堆栈跟踪的结尾 ---
+   在 System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   在 System.Reflection.RuntimeMethodInfo.UnsafeInvokeInternal(Object obj, Object[] parameters, Object[] arguments)
+   在 System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.MethodBase.Invoke(Object obj, Object[] parameters)
+   在 MiniAbp.Web.Route.ServiceController.Invoke(MethodInfo method, Object instance, Object param) 位置 D:\Sl.Bpm\Sl.Bpm\Infrastructure\MiniAbp.Web\Route\ServiceController.cs:行号 63
+   在 MiniAbp.Web.Route.ServiceController.Execute(String serviceName, String methodName, Object param) 位置 D:\Sl.Bpm\Sl.Bpm\Infrastructure\MiniAbp.Web\Route\ServiceController.cs:行号 48
+   在 MiniAbp.Web.Route.YRequestHandler.ApiService(String service, String method, Object param) 位置 D:\Sl.Bpm\Sl.Bpm\Infrastructure\MiniAbp.Web\Route\YRequestHandler.cs:行号 23
+
+
+Error 06/26/2017 13:17:13 663 调用的目标发生了异常。
+System.Reflection.TargetInvocationException: 调用的目标发生了异常。 ---> System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 Sl.Bpm.Application.Service.ModuleSv.DeleteModule(ModuleEditDto module) 位置 D:\Sl.Bpm\Sl.Bpm\Sl.Bpm.Application\Service\ModuleSv.cs:行号 126
+   在 Castle.Proxies.ModuleSvProxy.DeleteModule_callback(ModuleEditDto module)
+   在 Castle.Proxies.Invocations.IModuleSv_DeleteModule.InvokeMethodOnTarget()
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Sl.Bpm.Application.Base.LanguageInspector.Intercept(IInvocation invocation) 位置 D:\Sl.Bpm\Sl.Bpm\Sl.Bpm.Application\Base\LanguageInspector.cs:行号 28
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 MiniAbp.Authorization.Interceptors.AuthorizationInterceptor.Intercept(IInvocation invocation) 位置 D:\Sl.Bpm\Sl.Bpm\Infrastructure\MiniAbp\Authorization\Interceptors\AuthorizationInterceptor.cs:行号 27
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 MiniAbp.Domain.Uow.UnitOfWorkInterceptor.Intercept(IInvocation invocation) 位置 D:\Sl.Bpm\Sl.Bpm\Infrastructure\MiniAbp\Domain\Uow\UnitOfWorkInterceptor.cs:行号 29
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Castle.Proxies.ModuleSvProxy.DeleteModule(ModuleEditDto module)
+   --- 内部异常堆栈跟踪的结尾 ---
+   在 System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   在 System.Reflection.RuntimeMethodInfo.UnsafeInvokeInternal(Object obj, Object[] parameters, Object[] arguments)
+   在 System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.MethodBase.Invoke(Object obj, Object[] parameters)
+   在 MiniAbp.Web.Route.ServiceController.Invoke(MethodInfo method, Object instance, Object param) 位置 D:\Sl.Bpm\Sl.Bpm\Infrastructure\MiniAbp.Web\Route\ServiceController.cs:行号 63
+   在 MiniAbp.Web.Route.ServiceController.Execute(String serviceName, String methodName, Object param) 位置 D:\Sl.Bpm\Sl.Bpm\Infrastructure\MiniAbp.Web\Route\ServiceController.cs:行号 48
+   在 MiniAbp.Web.Route.YRequestHandler.ApiService(String service, String method, Object param) 位置 D:\Sl.Bpm\Sl.Bpm\Infrastructure\MiniAbp.Web\Route\YRequestHandler.cs:行号 23
+
+
+Error 06/26/2017 16:09:29 993 There were build erros, please modify your code. 2 Errors:
+Line: 0 - 生成 Win32 资源时出错: 拒绝访问。 
+Line: 0 - 无法删除用于默认 Win32 资源的临时文件“c:\Program Files (x86)\IIS Express\CSCAE97807AEAB84E15BE57AB3960A6EEB9.TMP”-- 系统找不到指定的文件。 
+MiniAbp.UserFriendlyException: There were build erros, please modify your code. 2 Errors:
+Line: 0 - 生成 Win32 资源时出错: 拒绝访问。 
+Line: 0 - 无法删除用于默认 Win32 资源的临时文件“c:\Program Files (x86)\IIS Express\CSCAE97807AEAB84E15BE57AB3960A6EEB9.TMP”-- 系统找不到指定的文件。 
+   在 Sl.Bpm.Application.Service.ModuleSv.Invoke(PageInvokeDto dto) 位置 D:\Sl.Bpm\Sl.Bpm\Sl.Bpm.Application\Service\ModuleSv.cs:行号 176
+   在 Castle.Proxies.ModuleSvProxy.Invoke_callback(PageInvokeDto dto)
+   在 Castle.Proxies.Invocations.IModuleSv_Invoke.InvokeMethodOnTarget()
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Sl.Bpm.Application.Base.LanguageInspector.Intercept(IInvocation invocation) 位置 D:\Sl.Bpm\Sl.Bpm\Sl.Bpm.Application\Base\LanguageInspector.cs:行号 28
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 MiniAbp.Authorization.Interceptors.AuthorizationInterceptor.Intercept(IInvocation invocation) 位置 D:\Sl.Bpm\Sl.Bpm\Infrastructure\MiniAbp\Authorization\Interceptors\AuthorizationInterceptor.cs:行号 27
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 MiniAbp.Domain.Uow.UnitOfWorkInterceptor.Intercept(IInvocation invocation) 位置 D:\Sl.Bpm\Sl.Bpm\Infrastructure\MiniAbp\Domain\Uow\UnitOfWorkInterceptor.cs:行号 29
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Castle.Proxies.ModuleSvProxy.Invoke(PageInvokeDto dto)
+
+
+Error 06/26/2017 16:09:31 621 There were build erros, please modify your code. 2 Errors:
+Line: 0 - 生成 Win32 资源时出错: 拒绝访问。 
+Line: 0 - 无法删除用于默认 Win32 资源的临时文件“c:\Program Files (x86)\IIS Express\CSCBF93239E721D4AA4B55178AF9CBF9DA.TMP”-- 系统找不到指定的文件。 
+MiniAbp.UserFriendlyException: There were build erros, please modify your code. 2 Errors:
+Line: 0 - 生成 Win32 资源时出错: 拒绝访问。 
+Line: 0 - 无法删除用于默认 Win32 资源的临时文件“c:\Program Files (x86)\IIS Express\CSCBF93239E721D4AA4B55178AF9CBF9DA.TMP”-- 系统找不到指定的文件。 
+   在 Sl.Bpm.Application.Service.ModuleSv.Invoke(PageInvokeDto dto) 位置 D:\Sl.Bpm\Sl.Bpm\Sl.Bpm.Application\Service\ModuleSv.cs:行号 176
+   在 Castle.Proxies.ModuleSvProxy.Invoke_callback(PageInvokeDto dto)
+   在 Castle.Proxies.Invocations.IModuleSv_Invoke.InvokeMethodOnTarget()
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Sl.Bpm.Application.Base.LanguageInspector.Intercept(IInvocation invocation) 位置 D:\Sl.Bpm\Sl.Bpm\Sl.Bpm.Application\Base\LanguageInspector.cs:行号 28
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 MiniAbp.Authorization.Interceptors.AuthorizationInterceptor.Intercept(IInvocation invocation) 位置 D:\Sl.Bpm\Sl.Bpm\Infrastructure\MiniAbp\Authorization\Interceptors\AuthorizationInterceptor.cs:行号 27
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 MiniAbp.Domain.Uow.UnitOfWorkInterceptor.Intercept(IInvocation invocation) 位置 D:\Sl.Bpm\Sl.Bpm\Infrastructure\MiniAbp\Domain\Uow\UnitOfWorkInterceptor.cs:行号 29
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Castle.Proxies.ModuleSvProxy.Invoke(PageInvokeDto dto)
+
+
+Error 06/26/2017 16:09:32 778 There were build erros, please modify your code. 2 Errors:
+Line: 0 - 生成 Win32 资源时出错: 拒绝访问。 
+Line: 0 - 无法删除用于默认 Win32 资源的临时文件“c:\Program Files (x86)\IIS Express\CSC96A2D0AF5443F882DAE8AD99B24A4.TMP”-- 系统找不到指定的文件。 
+MiniAbp.UserFriendlyException: There were build erros, please modify your code. 2 Errors:
+Line: 0 - 生成 Win32 资源时出错: 拒绝访问。 
+Line: 0 - 无法删除用于默认 Win32 资源的临时文件“c:\Program Files (x86)\IIS Express\CSC96A2D0AF5443F882DAE8AD99B24A4.TMP”-- 系统找不到指定的文件。 
+   在 Sl.Bpm.Application.Service.ModuleSv.Invoke(PageInvokeDto dto) 位置 D:\Sl.Bpm\Sl.Bpm\Sl.Bpm.Application\Service\ModuleSv.cs:行号 176
+   在 Castle.Proxies.ModuleSvProxy.Invoke_callback(PageInvokeDto dto)
+   在 Castle.Proxies.Invocations.IModuleSv_Invoke.InvokeMethodOnTarget()
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Sl.Bpm.Application.Base.LanguageInspector.Intercept(IInvocation invocation) 位置 D:\Sl.Bpm\Sl.Bpm\Sl.Bpm.Application\Base\LanguageInspector.cs:行号 28
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 MiniAbp.Authorization.Interceptors.AuthorizationInterceptor.Intercept(IInvocation invocation) 位置 D:\Sl.Bpm\Sl.Bpm\Infrastructure\MiniAbp\Authorization\Interceptors\AuthorizationInterceptor.cs:行号 27
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 MiniAbp.Domain.Uow.UnitOfWorkInterceptor.Intercept(IInvocation invocation) 位置 D:\Sl.Bpm\Sl.Bpm\Infrastructure\MiniAbp\Domain\Uow\UnitOfWorkInterceptor.cs:行号 29
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Castle.Proxies.ModuleSvProxy.Invoke(PageInvokeDto dto)
+
+
+Debug 06/26/2017 16:39:15 966 {"Count":0,"ArrayFields":[],"NameString":[],"FieldString":[]}
+
+
+Error 06/26/2017 16:39:28 855 调用的目标发生了异常。
+System.Reflection.TargetInvocationException: 调用的目标发生了异常。 ---> System.Exception: 审批 没有处理人
+   在 Sl.Bpm.Engine.WfdWorkflow.Post(IPostParameter parameter, ArrayList arrSql) 位置 D:\Sl.Bpm\Sl.Bpm\Sl.Bpm.Engine\WfdWorkflow.cs:行号 271
+   在 Sl.Bpm.Engine.WfdWorkflow.Submit(EngParameter parameter, ArrayList arrSql) 位置 D:\Sl.Bpm\Sl.Bpm\Sl.Bpm.Engine\WfdWorkflow.cs:行号 71
+   在 Sl.Bpm.Application.Service.TaskSv.Event_Submit(TaskworkflowDto input) 位置 D:\Sl.Bpm\Sl.Bpm\Sl.Bpm.Application\Service\TaskSv.cs:行号 720
+   在 Castle.Proxies.TaskSvProxy.Event_Submit_callback(TaskworkflowDto input)
+   在 Castle.Proxies.Invocations.ITaskSv_Event_Submit.InvokeMethodOnTarget()
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Sl.Bpm.Application.Base.LanguageInspector.Intercept(IInvocation invocation) 位置 D:\Sl.Bpm\Sl.Bpm\Sl.Bpm.Application\Base\LanguageInspector.cs:行号 28
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 MiniAbp.Authorization.Interceptors.AuthorizationInterceptor.Intercept(IInvocation invocation) 位置 D:\Sl.Bpm\Sl.Bpm\Infrastructure\MiniAbp\Authorization\Interceptors\AuthorizationInterceptor.cs:行号 27
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 MiniAbp.Domain.Uow.UnitOfWorkInterceptor.Intercept(IInvocation invocation) 位置 D:\Sl.Bpm\Sl.Bpm\Infrastructure\MiniAbp\Domain\Uow\UnitOfWorkInterceptor.cs:行号 29
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Castle.Proxies.TaskSvProxy.Event_Submit(TaskworkflowDto input)
+   --- 内部异常堆栈跟踪的结尾 ---
+   在 System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   在 System.Reflection.RuntimeMethodInfo.UnsafeInvokeInternal(Object obj, Object[] parameters, Object[] arguments)
+   在 System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.MethodBase.Invoke(Object obj, Object[] parameters)
+   在 MiniAbp.Web.Route.ServiceController.Invoke(MethodInfo method, Object instance, Object param) 位置 D:\Sl.Bpm\Sl.Bpm\Infrastructure\MiniAbp.Web\Route\ServiceController.cs:行号 63
+   在 MiniAbp.Web.Route.ServiceController.Execute(String serviceName, String methodName, Object param) 位置 D:\Sl.Bpm\Sl.Bpm\Infrastructure\MiniAbp.Web\Route\ServiceController.cs:行号 48
+   在 MiniAbp.Web.Route.YRequestHandler.ApiService(String service, String method, Object param) 位置 D:\Sl.Bpm\Sl.Bpm\Infrastructure\MiniAbp.Web\Route\YRequestHandler.cs:行号 23
+
+
+Debug 06/26/2017 16:39:47 165 {"Count":0,"ArrayFields":[],"NameString":[],"FieldString":[]}
+
+
+Error 06/26/2017 16:40:22 358 调用的目标发生了异常。
+System.Reflection.TargetInvocationException: 调用的目标发生了异常。 ---> System.Exception: 执行超时已过期。完成操作之前已超时或服务器未响应。 
+语句已终止。
+   在 Sl.Bpm.Engine.WfdWorkflow.Post(IPostParameter parameter, ArrayList arrSql) 位置 D:\Sl.Bpm\Sl.Bpm\Sl.Bpm.Engine\WfdWorkflow.cs:行号 271
+   在 Sl.Bpm.Engine.WfdWorkflow.Submit(EngParameter parameter, ArrayList arrSql) 位置 D:\Sl.Bpm\Sl.Bpm\Sl.Bpm.Engine\WfdWorkflow.cs:行号 71
+   在 Sl.Bpm.Application.Service.TaskSv.Event_Submit(TaskworkflowDto input) 位置 D:\Sl.Bpm\Sl.Bpm\Sl.Bpm.Application\Service\TaskSv.cs:行号 720
+   在 Castle.Proxies.TaskSvProxy.Event_Submit_callback(TaskworkflowDto input)
+   在 Castle.Proxies.Invocations.ITaskSv_Event_Submit.InvokeMethodOnTarget()
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Sl.Bpm.Application.Base.LanguageInspector.Intercept(IInvocation invocation) 位置 D:\Sl.Bpm\Sl.Bpm\Sl.Bpm.Application\Base\LanguageInspector.cs:行号 28
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 MiniAbp.Authorization.Interceptors.AuthorizationInterceptor.Intercept(IInvocation invocation) 位置 D:\Sl.Bpm\Sl.Bpm\Infrastructure\MiniAbp\Authorization\Interceptors\AuthorizationInterceptor.cs:行号 27
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 MiniAbp.Domain.Uow.UnitOfWorkInterceptor.Intercept(IInvocation invocation) 位置 D:\Sl.Bpm\Sl.Bpm\Infrastructure\MiniAbp\Domain\Uow\UnitOfWorkInterceptor.cs:行号 29
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Castle.Proxies.TaskSvProxy.Event_Submit(TaskworkflowDto input)
+   --- 内部异常堆栈跟踪的结尾 ---
+   在 System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   在 System.Reflection.RuntimeMethodInfo.UnsafeInvokeInternal(Object obj, Object[] parameters, Object[] arguments)
+   在 System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.MethodBase.Invoke(Object obj, Object[] parameters)
+   在 MiniAbp.Web.Route.ServiceController.Invoke(MethodInfo method, Object instance, Object param) 位置 D:\Sl.Bpm\Sl.Bpm\Infrastructure\MiniAbp.Web\Route\ServiceController.cs:行号 63
+   在 MiniAbp.Web.Route.ServiceController.Execute(String serviceName, String methodName, Object param) 位置 D:\Sl.Bpm\Sl.Bpm\Infrastructure\MiniAbp.Web\Route\ServiceController.cs:行号 48
+   在 MiniAbp.Web.Route.YRequestHandler.ApiService(String service, String method, Object param) 位置 D:\Sl.Bpm\Sl.Bpm\Infrastructure\MiniAbp.Web\Route\YRequestHandler.cs:行号 23
+
+
+Debug 06/26/2017 17:30:27 137 {"Count":0,"ArrayFields":[],"NameString":[],"FieldString":[]}
+
+
+Error 06/26/2017 17:31:17 16 调用的目标发生了异常。
+System.Reflection.TargetInvocationException: 调用的目标发生了异常。 ---> System.Exception: 执行超时已过期。完成操作之前已超时或服务器未响应。 
+语句已终止。
+   在 Sl.Bpm.Engine.WfdWorkflow.Post(IPostParameter parameter, ArrayList arrSql) 位置 D:\Sl.Bpm\Sl.Bpm\Sl.Bpm.Engine\WfdWorkflow.cs:行号 271
+   在 Sl.Bpm.Engine.WfdWorkflow.Submit(EngParameter parameter, ArrayList arrSql) 位置 D:\Sl.Bpm\Sl.Bpm\Sl.Bpm.Engine\WfdWorkflow.cs:行号 71
+   在 Sl.Bpm.Application.Service.TaskSv.Event_Submit(TaskworkflowDto input) 位置 D:\Sl.Bpm\Sl.Bpm\Sl.Bpm.Application\Service\TaskSv.cs:行号 720
+   在 Castle.Proxies.TaskSvProxy.Event_Submit_callback(TaskworkflowDto input)
+   在 Castle.Proxies.Invocations.ITaskSv_Event_Submit.InvokeMethodOnTarget()
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Sl.Bpm.Application.Base.LanguageInspector.Intercept(IInvocation invocation) 位置 D:\Sl.Bpm\Sl.Bpm\Sl.Bpm.Application\Base\LanguageInspector.cs:行号 28
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 MiniAbp.Authorization.Interceptors.AuthorizationInterceptor.Intercept(IInvocation invocation) 位置 D:\Sl.Bpm\Sl.Bpm\Infrastructure\MiniAbp\Authorization\Interceptors\AuthorizationInterceptor.cs:行号 27
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 MiniAbp.Domain.Uow.UnitOfWorkInterceptor.Intercept(IInvocation invocation) 位置 D:\Sl.Bpm\Sl.Bpm\Infrastructure\MiniAbp\Domain\Uow\UnitOfWorkInterceptor.cs:行号 29
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Castle.Proxies.TaskSvProxy.Event_Submit(TaskworkflowDto input)
+   --- 内部异常堆栈跟踪的结尾 ---
+   在 System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   在 System.Reflection.RuntimeMethodInfo.UnsafeInvokeInternal(Object obj, Object[] parameters, Object[] arguments)
+   在 System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.MethodBase.Invoke(Object obj, Object[] parameters)
+   在 MiniAbp.Web.Route.ServiceController.Invoke(MethodInfo method, Object instance, Object param) 位置 D:\Sl.Bpm\Sl.Bpm\Infrastructure\MiniAbp.Web\Route\ServiceController.cs:行号 63
+   在 MiniAbp.Web.Route.ServiceController.Execute(String serviceName, String methodName, Object param) 位置 D:\Sl.Bpm\Sl.Bpm\Infrastructure\MiniAbp.Web\Route\ServiceController.cs:行号 48
+   在 MiniAbp.Web.Route.YRequestHandler.ApiService(String service, String method, Object param) 位置 D:\Sl.Bpm\Sl.Bpm\Infrastructure\MiniAbp.Web\Route\YRequestHandler.cs:行号 23
+
+
+Debug 06/26/2017 17:31:22 654 {"Count":0,"ArrayFields":[],"NameString":[],"FieldString":[]}
+
+
+Error 06/27/2017 09:05:14 844 There were build erros, please modify your code. 2 Errors:
+Line: 0 - 生成 Win32 资源时出错: 拒绝访问。 
+Line: 0 - 无法删除用于默认 Win32 资源的临时文件“c:\Program Files (x86)\IIS Express\CSC2044A351FFEA47E0AFE673D5E0AE224.TMP”-- 系统找不到指定的文件。 
+MiniAbp.UserFriendlyException: There were build erros, please modify your code. 2 Errors:
+Line: 0 - 生成 Win32 资源时出错: 拒绝访问。 
+Line: 0 - 无法删除用于默认 Win32 资源的临时文件“c:\Program Files (x86)\IIS Express\CSC2044A351FFEA47E0AFE673D5E0AE224.TMP”-- 系统找不到指定的文件。 
+   在 Sl.Bpm.Application.Service.ModuleSv.Invoke(PageInvokeDto dto) 位置 D:\Sl.Bpm\Sl.Bpm\Sl.Bpm.Application\Service\ModuleSv.cs:行号 176
+   在 Castle.Proxies.ModuleSvProxy.Invoke_callback(PageInvokeDto dto)
+   在 Castle.Proxies.Invocations.IModuleSv_Invoke.InvokeMethodOnTarget()
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Sl.Bpm.Application.Base.LanguageInspector.Intercept(IInvocation invocation) 位置 D:\Sl.Bpm\Sl.Bpm\Sl.Bpm.Application\Base\LanguageInspector.cs:行号 28
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 MiniAbp.Authorization.Interceptors.AuthorizationInterceptor.Intercept(IInvocation invocation) 位置 D:\Sl.Bpm\Sl.Bpm\Infrastructure\MiniAbp\Authorization\Interceptors\AuthorizationInterceptor.cs:行号 27
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 MiniAbp.Domain.Uow.UnitOfWorkInterceptor.Intercept(IInvocation invocation) 位置 D:\Sl.Bpm\Sl.Bpm\Infrastructure\MiniAbp\Domain\Uow\UnitOfWorkInterceptor.cs:行号 29
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Castle.Proxies.ModuleSvProxy.Invoke(PageInvokeDto dto)
+
+
+Error 06/27/2017 09:05:25 883 There were build erros, please modify your code. 2 Errors:
+Line: 0 - 生成 Win32 资源时出错: 拒绝访问。 
+Line: 0 - 无法删除用于默认 Win32 资源的临时文件“c:\Program Files (x86)\IIS Express\CSCAB1F36C6856463F96D9E64F7B9EB45.TMP”-- 系统找不到指定的文件。 
+MiniAbp.UserFriendlyException: There were build erros, please modify your code. 2 Errors:
+Line: 0 - 生成 Win32 资源时出错: 拒绝访问。 
+Line: 0 - 无法删除用于默认 Win32 资源的临时文件“c:\Program Files (x86)\IIS Express\CSCAB1F36C6856463F96D9E64F7B9EB45.TMP”-- 系统找不到指定的文件。 
+   在 Sl.Bpm.Application.Service.ModuleSv.Invoke(PageInvokeDto dto) 位置 D:\Sl.Bpm\Sl.Bpm\Sl.Bpm.Application\Service\ModuleSv.cs:行号 176
+   在 Castle.Proxies.ModuleSvProxy.Invoke_callback(PageInvokeDto dto)
+   在 Castle.Proxies.Invocations.IModuleSv_Invoke.InvokeMethodOnTarget()
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Sl.Bpm.Application.Base.LanguageInspector.Intercept(IInvocation invocation) 位置 D:\Sl.Bpm\Sl.Bpm\Sl.Bpm.Application\Base\LanguageInspector.cs:行号 28
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 MiniAbp.Authorization.Interceptors.AuthorizationInterceptor.Intercept(IInvocation invocation) 位置 D:\Sl.Bpm\Sl.Bpm\Infrastructure\MiniAbp\Authorization\Interceptors\AuthorizationInterceptor.cs:行号 27
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 MiniAbp.Domain.Uow.UnitOfWorkInterceptor.Intercept(IInvocation invocation) 位置 D:\Sl.Bpm\Sl.Bpm\Infrastructure\MiniAbp\Domain\Uow\UnitOfWorkInterceptor.cs:行号 29
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Castle.Proxies.ModuleSvProxy.Invoke(PageInvokeDto dto)
+
+
+Debug 06/27/2017 09:08:26 233 {"Count":0,"ArrayFields":[],"NameString":[],"FieldString":[]}
+
+
+Debug 06/27/2017 09:08:31 250 {"Count":11,"ArrayFields":[{"Name":"syscurrenttime","Value":"2017-06-27 09:08:30.877","Index":0,"ValueType":"datetime","TableName":"","FieldName":"","IsPrimayField":false},{"Name":"systoday","Value":"2017/6/27","Index":0,"ValueType":"datetime","TableName":"","FieldName":"","IsPrimayField":false},{"Name":"systaskid","Value":"602C4BA1-B951-4E2B-B7ED-12BE9141C532","Index":0,"ValueType":"varchar","TableName":"","FieldName":"","IsPrimayField":false},{"Name":"sysinitiator","Value":"a56e26d6-3a1b-45db-b449-c40b58d9b69f","Index":0,"ValueType":"varchar","TableName":"","FieldName":"","IsPrimayField":false},{"Name":"sysapplicant","Value":"a56e26d6-3a1b-45db-b449-c40b58d9b69f","Index":0,"ValueType":"varchar","TableName":"","FieldName":"","IsPrimayField":false},{"Name":"sysinitiatorgroupcode","Value":"","Index":0,"ValueType":"varchar","TableName":"","FieldName":"","IsPrimayField":false},{"Name":"sysapplicantgroupcode","Value":"","Index":0,"ValueType":"varchar","TableName":"","FieldName":"","IsPrimayField":false},{"Name":"sysinitiatorjoblevel","Value":"0","Index":0,"ValueType":"int","TableName":"","FieldName":"","IsPrimayField":false},{"Name":"sysapplicantjoblevel","Value":"0","Index":0,"ValueType":"int","TableName":"","FieldName":"","IsPrimayField":false},{"Name":"syslocation","Value":null,"Index":0,"ValueType":"varchar","TableName":"","FieldName":"","IsPrimayField":false},{"Name":"syscurrentjoblevel","Value":"0","Index":0,"ValueType":"int","TableName":"","FieldName":"","IsPrimayField":false}],"NameString":["syscurrenttime","systoday","systaskid","sysinitiator","sysapplicant","sysinitiatorgroupcode","sysapplicantgroupcode","sysinitiatorjoblevel","sysapplicantjoblevel","syslocation","syscurrentjoblevel"],"FieldString":[""]}
+
+
+Error 06/27/2017 09:08:46 161 请在系统-全局配置中配置:emailServerIsOpen的记录！
+MiniAbp.UserFriendlyException: 请在系统-全局配置中配置:emailServerIsOpen的记录！
+   在 Sl.Bpm.Application.Cache.CacheManager.GetSettingByName(String name, String enterpriseId) 位置 D:\Sl.Bpm\Sl.Bpm\Sl.Bpm.Application\Cache\CacheManager.cs:行号 56
+   在 Sl.Bpm.Application.Cache.CacheManager.get_EmailServerIsOpen() 位置 D:\Sl.Bpm\Sl.Bpm\Sl.Bpm.Application\Cache\CacheManager.cs:行号 30
+   在 Sl.Bpm.Application.Service.TaskSv.SendInformMsg(String taskId, EngParameter paras) 位置 D:\Sl.Bpm\Sl.Bpm\Sl.Bpm.Application\Service\TaskSv.cs:行号 1608
+   在 Sl.Bpm.Application.Service.TaskSv.Event_Submit(TaskworkflowDto input) 位置 D:\Sl.Bpm\Sl.Bpm\Sl.Bpm.Application\Service\TaskSv.cs:行号 730
+   在 Castle.Proxies.TaskSvProxy.Event_Submit_callback(TaskworkflowDto input)
+   在 Castle.Proxies.Invocations.ITaskSv_Event_Submit.InvokeMethodOnTarget()
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Sl.Bpm.Application.Base.LanguageInspector.Intercept(IInvocation invocation) 位置 D:\Sl.Bpm\Sl.Bpm\Sl.Bpm.Application\Base\LanguageInspector.cs:行号 28
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 MiniAbp.Authorization.Interceptors.AuthorizationInterceptor.Intercept(IInvocation invocation) 位置 D:\Sl.Bpm\Sl.Bpm\Infrastructure\MiniAbp\Authorization\Interceptors\AuthorizationInterceptor.cs:行号 27
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 MiniAbp.Domain.Uow.UnitOfWorkInterceptor.Intercept(IInvocation invocation) 位置 D:\Sl.Bpm\Sl.Bpm\Infrastructure\MiniAbp\Domain\Uow\UnitOfWorkInterceptor.cs:行号 29
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Castle.Proxies.TaskSvProxy.Event_Submit(TaskworkflowDto input)
+
+
+Debug 06/27/2017 09:09:42 451 {"Count":0,"ArrayFields":[],"NameString":[],"FieldString":[]}
+
+
+Debug 06/27/2017 09:09:45 659 {"Count":11,"ArrayFields":[{"Name":"syscurrenttime","Value":"2017-06-27 09:09:45.591","Index":0,"ValueType":"datetime","TableName":"","FieldName":"","IsPrimayField":false},{"Name":"systoday","Value":"2017/6/27","Index":0,"ValueType":"datetime","TableName":"","FieldName":"","IsPrimayField":false},{"Name":"systaskid","Value":"1FD0BC31-FA61-4D76-AC9F-03D311930D6B","Index":0,"ValueType":"varchar","TableName":"","FieldName":"","IsPrimayField":false},{"Name":"sysinitiator","Value":"a56e26d6-3a1b-45db-b449-c40b58d9b69f","Index":0,"ValueType":"varchar","TableName":"","FieldName":"","IsPrimayField":false},{"Name":"sysapplicant","Value":"a56e26d6-3a1b-45db-b449-c40b58d9b69f","Index":0,"ValueType":"varchar","TableName":"","FieldName":"","IsPrimayField":false},{"Name":"sysinitiatorgroupcode","Value":"","Index":0,"ValueType":"varchar","TableName":"","FieldName":"","IsPrimayField":false},{"Name":"sysapplicantgroupcode","Value":"","Index":0,"ValueType":"varchar","TableName":"","FieldName":"","IsPrimayField":false},{"Name":"sysinitiatorjoblevel","Value":"0","Index":0,"ValueType":"int","TableName":"","FieldName":"","IsPrimayField":false},{"Name":"sysapplicantjoblevel","Value":"0","Index":0,"ValueType":"int","TableName":"","FieldName":"","IsPrimayField":false},{"Name":"syslocation","Value":null,"Index":0,"ValueType":"varchar","TableName":"","FieldName":"","IsPrimayField":false},{"Name":"syscurrentjoblevel","Value":"0","Index":0,"ValueType":"int","TableName":"","FieldName":"","IsPrimayField":false}],"NameString":["syscurrenttime","systoday","systaskid","sysinitiator","sysapplicant","sysinitiatorgroupcode","sysapplicantgroupcode","sysinitiatorjoblevel","sysapplicantjoblevel","syslocation","syscurrentjoblevel"],"FieldString":[""]}
+
+
+Error 06/27/2017 09:23:38 859 参数计数不匹配。
+System.Reflection.TargetParameterCountException: 参数计数不匹配。
+   在 System.Reflection.RuntimeMethodInfo.InvokeArgumentsCheck(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.MethodBase.Invoke(Object obj, Object[] parameters)
+   在 MiniAbp.Web.Route.ServiceController.Invoke(MethodInfo method, Object instance, Object param) 位置 D:\Sl.Bpm\Sl.Bpm\Infrastructure\MiniAbp.Web\Route\ServiceController.cs:行号 59
+   在 MiniAbp.Web.Route.ServiceController.Execute(String serviceName, String methodName, Object param) 位置 D:\Sl.Bpm\Sl.Bpm\Infrastructure\MiniAbp.Web\Route\ServiceController.cs:行号 48
+   在 MiniAbp.Web.Route.YRequestHandler.ApiService(String service, String method, Object param) 位置 D:\Sl.Bpm\Sl.Bpm\Infrastructure\MiniAbp.Web\Route\YRequestHandler.cs:行号 23
+
+
+Error 06/28/2017 13:40:24 11 用户不存在
+MiniAbp.UserFriendlyException: 用户不存在
+   在 Sl.Bpm.Application.Cache.PermissionCache.GetUserPermissions(String userId) 位置 D:\Sl.Bpm\Sl.Bpm\Sl.Bpm.Application\Cache\PermissionCache.cs:行号 79
+   在 Sl.Bpm.Application.Service.PermissionSv.GetUserPermissions() 位置 D:\Sl.Bpm\Sl.Bpm\Sl.Bpm.Application\Service\PermissionSv.cs:行号 39
+   在 Castle.Proxies.PermissionSvProxy.GetUserPermissions_callback()
+   在 Castle.Proxies.Invocations.IPermissionSv_GetUserPermissions.InvokeMethodOnTarget()
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Sl.Bpm.Application.Base.LanguageInspector.Intercept(IInvocation invocation) 位置 D:\Sl.Bpm\Sl.Bpm\Sl.Bpm.Application\Base\LanguageInspector.cs:行号 28
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 MiniAbp.Authorization.Interceptors.AuthorizationInterceptor.Intercept(IInvocation invocation) 位置 D:\Sl.Bpm\Sl.Bpm\Infrastructure\MiniAbp\Authorization\Interceptors\AuthorizationInterceptor.cs:行号 27
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 MiniAbp.Domain.Uow.UnitOfWorkInterceptor.Intercept(IInvocation invocation) 位置 D:\Sl.Bpm\Sl.Bpm\Infrastructure\MiniAbp\Domain\Uow\UnitOfWorkInterceptor.cs:行号 29
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Castle.Proxies.PermissionSvProxy.GetUserPermissions()
+
+
+Error 06/28/2017 13:40:35 543 用户不存在
+MiniAbp.UserFriendlyException: 用户不存在
+   在 Sl.Bpm.Application.Cache.PermissionCache.GetUserPermissions(String userId) 位置 D:\Sl.Bpm\Sl.Bpm\Sl.Bpm.Application\Cache\PermissionCache.cs:行号 79
+   在 Sl.Bpm.Application.Service.PermissionSv.GetUserPermissions() 位置 D:\Sl.Bpm\Sl.Bpm\Sl.Bpm.Application\Service\PermissionSv.cs:行号 39
+   在 Castle.Proxies.PermissionSvProxy.GetUserPermissions_callback()
+   在 Castle.Proxies.Invocations.IPermissionSv_GetUserPermissions.InvokeMethodOnTarget()
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Sl.Bpm.Application.Base.LanguageInspector.Intercept(IInvocation invocation) 位置 D:\Sl.Bpm\Sl.Bpm\Sl.Bpm.Application\Base\LanguageInspector.cs:行号 28
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 MiniAbp.Authorization.Interceptors.AuthorizationInterceptor.Intercept(IInvocation invocation) 位置 D:\Sl.Bpm\Sl.Bpm\Infrastructure\MiniAbp\Authorization\Interceptors\AuthorizationInterceptor.cs:行号 27
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 MiniAbp.Domain.Uow.UnitOfWorkInterceptor.Intercept(IInvocation invocation) 位置 D:\Sl.Bpm\Sl.Bpm\Infrastructure\MiniAbp\Domain\Uow\UnitOfWorkInterceptor.cs:行号 29
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Castle.Proxies.PermissionSvProxy.GetUserPermissions()
+
+
+Error 06/28/2017 13:41:12 505 用户不存在
+MiniAbp.UserFriendlyException: 用户不存在
+   在 Sl.Bpm.Application.Cache.PermissionCache.GetUserPermissions(String userId) 位置 D:\Sl.Bpm\Sl.Bpm\Sl.Bpm.Application\Cache\PermissionCache.cs:行号 79
+   在 Sl.Bpm.Application.Service.PermissionSv.GetUserPermissions() 位置 D:\Sl.Bpm\Sl.Bpm\Sl.Bpm.Application\Service\PermissionSv.cs:行号 39
+   在 Castle.Proxies.PermissionSvProxy.GetUserPermissions_callback()
+   在 Castle.Proxies.Invocations.IPermissionSv_GetUserPermissions.InvokeMethodOnTarget()
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Sl.Bpm.Application.Base.LanguageInspector.Intercept(IInvocation invocation) 位置 D:\Sl.Bpm\Sl.Bpm\Sl.Bpm.Application\Base\LanguageInspector.cs:行号 28
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 MiniAbp.Authorization.Interceptors.AuthorizationInterceptor.Intercept(IInvocation invocation) 位置 D:\Sl.Bpm\Sl.Bpm\Infrastructure\MiniAbp\Authorization\Interceptors\AuthorizationInterceptor.cs:行号 27
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 MiniAbp.Domain.Uow.UnitOfWorkInterceptor.Intercept(IInvocation invocation) 位置 D:\Sl.Bpm\Sl.Bpm\Infrastructure\MiniAbp\Domain\Uow\UnitOfWorkInterceptor.cs:行号 29
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Castle.Proxies.PermissionSvProxy.GetUserPermissions()
+
+
+Error 06/28/2017 13:41:26 831 用户不存在
+MiniAbp.UserFriendlyException: 用户不存在
+   在 Sl.Bpm.Application.Cache.PermissionCache.GetUserPermissions(String userId) 位置 D:\Sl.Bpm\Sl.Bpm\Sl.Bpm.Application\Cache\PermissionCache.cs:行号 79
+   在 Sl.Bpm.Application.Service.PermissionSv.GetUserPermissions() 位置 D:\Sl.Bpm\Sl.Bpm\Sl.Bpm.Application\Service\PermissionSv.cs:行号 39
+   在 Castle.Proxies.PermissionSvProxy.GetUserPermissions_callback()
+   在 Castle.Proxies.Invocations.IPermissionSv_GetUserPermissions.InvokeMethodOnTarget()
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Sl.Bpm.Application.Base.LanguageInspector.Intercept(IInvocation invocation) 位置 D:\Sl.Bpm\Sl.Bpm\Sl.Bpm.Application\Base\LanguageInspector.cs:行号 28
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 MiniAbp.Authorization.Interceptors.AuthorizationInterceptor.Intercept(IInvocation invocation) 位置 D:\Sl.Bpm\Sl.Bpm\Infrastructure\MiniAbp\Authorization\Interceptors\AuthorizationInterceptor.cs:行号 27
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 MiniAbp.Domain.Uow.UnitOfWorkInterceptor.Intercept(IInvocation invocation) 位置 D:\Sl.Bpm\Sl.Bpm\Infrastructure\MiniAbp\Domain\Uow\UnitOfWorkInterceptor.cs:行号 29
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Castle.Proxies.PermissionSvProxy.GetUserPermissions()
+
+
+Fatal 06/28/2017 13:43:46 824 运行时发生未被捕获的异常。
+System.Web.HttpException (0x80004005): 禁止路径“/App/SysPages/Layout.cshtml”。
+   在 System.Web.HttpForbiddenHandler.ProcessRequest(HttpContext context)
+   在 System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   在 System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+
+
+Error 06/28/2017 15:51:35 685 调用的目标发生了异常。
+System.Reflection.TargetInvocationException: 调用的目标发生了异常。 ---> System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 Sl.Bpm.Application.Service.ModuleSv.GetPageLanguages(IdAndDisplayLanguagesDto input) 位置 D:\Sl.Bpm\Sl.Bpm\Sl.Bpm.Application\Service\ModuleSv.cs:行号 1172
+   在 Castle.Proxies.ModuleSvProxy.GetPageLanguages_callback(IdAndDisplayLanguagesDto input)
+   在 Castle.Proxies.Invocations.IModuleSv_GetPageLanguages.InvokeMethodOnTarget()
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Sl.Bpm.Application.Base.LanguageInspector.Intercept(IInvocation invocation) 位置 D:\Sl.Bpm\Sl.Bpm\Sl.Bpm.Application\Base\LanguageInspector.cs:行号 28
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 MiniAbp.Authorization.Interceptors.AuthorizationInterceptor.Intercept(IInvocation invocation) 位置 D:\Sl.Bpm\Sl.Bpm\Infrastructure\MiniAbp\Authorization\Interceptors\AuthorizationInterceptor.cs:行号 27
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 MiniAbp.Domain.Uow.UnitOfWorkInterceptor.Intercept(IInvocation invocation) 位置 D:\Sl.Bpm\Sl.Bpm\Infrastructure\MiniAbp\Domain\Uow\UnitOfWorkInterceptor.cs:行号 29
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Castle.Proxies.ModuleSvProxy.GetPageLanguages(IdAndDisplayLanguagesDto input)
+   --- 内部异常堆栈跟踪的结尾 ---
+   在 System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   在 System.Reflection.RuntimeMethodInfo.UnsafeInvokeInternal(Object obj, Object[] parameters, Object[] arguments)
+   在 System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.MethodBase.Invoke(Object obj, Object[] parameters)
+   在 MiniAbp.Web.Route.ServiceController.Invoke(MethodInfo method, Object instance, Object param) 位置 D:\Sl.Bpm\Sl.Bpm\Infrastructure\MiniAbp.Web\Route\ServiceController.cs:行号 63
+   在 MiniAbp.Web.Route.ServiceController.Execute(String serviceName, String methodName, Object param) 位置 D:\Sl.Bpm\Sl.Bpm\Infrastructure\MiniAbp.Web\Route\ServiceController.cs:行号 48
+   在 MiniAbp.Web.Route.YRequestHandler.ApiService(String service, String method, Object param) 位置 D:\Sl.Bpm\Sl.Bpm\Infrastructure\MiniAbp.Web\Route\YRequestHandler.cs:行号 23
+
+
+Error 06/28/2017 15:53:34 691 调用的目标发生了异常。
+System.Reflection.TargetInvocationException: 调用的目标发生了异常。 ---> System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 Sl.Bpm.Application.Service.ModuleSv.GetPageLanguages(IdAndDisplayLanguagesDto input) 位置 D:\Sl.Bpm\Sl.Bpm\Sl.Bpm.Application\Service\ModuleSv.cs:行号 1172
+   在 Castle.Proxies.ModuleSvProxy.GetPageLanguages_callback(IdAndDisplayLanguagesDto input)
+   在 Castle.Proxies.Invocations.IModuleSv_GetPageLanguages.InvokeMethodOnTarget()
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Sl.Bpm.Application.Base.LanguageInspector.Intercept(IInvocation invocation) 位置 D:\Sl.Bpm\Sl.Bpm\Sl.Bpm.Application\Base\LanguageInspector.cs:行号 28
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 MiniAbp.Authorization.Interceptors.AuthorizationInterceptor.Intercept(IInvocation invocation) 位置 D:\Sl.Bpm\Sl.Bpm\Infrastructure\MiniAbp\Authorization\Interceptors\AuthorizationInterceptor.cs:行号 27
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 MiniAbp.Domain.Uow.UnitOfWorkInterceptor.Intercept(IInvocation invocation) 位置 D:\Sl.Bpm\Sl.Bpm\Infrastructure\MiniAbp\Domain\Uow\UnitOfWorkInterceptor.cs:行号 29
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Castle.Proxies.ModuleSvProxy.GetPageLanguages(IdAndDisplayLanguagesDto input)
+   --- 内部异常堆栈跟踪的结尾 ---
+   在 System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   在 System.Reflection.RuntimeMethodInfo.UnsafeInvokeInternal(Object obj, Object[] parameters, Object[] arguments)
+   在 System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.MethodBase.Invoke(Object obj, Object[] parameters)
+   在 MiniAbp.Web.Route.ServiceController.Invoke(MethodInfo method, Object instance, Object param) 位置 D:\Sl.Bpm\Sl.Bpm\Infrastructure\MiniAbp.Web\Route\ServiceController.cs:行号 63
+   在 MiniAbp.Web.Route.ServiceController.Execute(String serviceName, String methodName, Object param) 位置 D:\Sl.Bpm\Sl.Bpm\Infrastructure\MiniAbp.Web\Route\ServiceController.cs:行号 48
+   在 MiniAbp.Web.Route.YRequestHandler.ApiService(String service, String method, Object param) 位置 D:\Sl.Bpm\Sl.Bpm\Infrastructure\MiniAbp.Web\Route\YRequestHandler.cs:行号 23
+
+
+Error 06/29/2017 08:57:59 818 用户不存在
+MiniAbp.UserFriendlyException: 用户不存在
+   在 Sl.Bpm.Application.Cache.PermissionCache.GetUserPermissions(String userId) 位置 D:\Sl.Bpm\Sl.Bpm\Sl.Bpm.Application\Cache\PermissionCache.cs:行号 79
+   在 Sl.Bpm.Application.Service.PermissionSv.GetUserPermissions() 位置 D:\Sl.Bpm\Sl.Bpm\Sl.Bpm.Application\Service\PermissionSv.cs:行号 39
+   在 Castle.Proxies.PermissionSvProxy.GetUserPermissions_callback()
+   在 Castle.Proxies.Invocations.IPermissionSv_GetUserPermissions.InvokeMethodOnTarget()
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Sl.Bpm.Application.Base.LanguageInspector.Intercept(IInvocation invocation) 位置 D:\Sl.Bpm\Sl.Bpm\Sl.Bpm.Application\Base\LanguageInspector.cs:行号 28
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 MiniAbp.Authorization.Interceptors.AuthorizationInterceptor.Intercept(IInvocation invocation) 位置 D:\Sl.Bpm\Sl.Bpm\Infrastructure\MiniAbp\Authorization\Interceptors\AuthorizationInterceptor.cs:行号 27
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 MiniAbp.Domain.Uow.UnitOfWorkInterceptor.Intercept(IInvocation invocation) 位置 D:\Sl.Bpm\Sl.Bpm\Infrastructure\MiniAbp\Domain\Uow\UnitOfWorkInterceptor.cs:行号 29
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Castle.Proxies.PermissionSvProxy.GetUserPermissions()
+
+
+Error 07/03/2017 13:57:54 534 调用的目标发生了异常。
+System.Reflection.TargetInvocationException: 调用的目标发生了异常。 ---> System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 Sl.Bpm.Application.Service.ModuleSv.GetPageLanguages(IdAndDisplayLanguagesDto input) 位置 D:\Sl.Bpm\Sl.Bpm\Sl.Bpm.Application\Service\ModuleSv.cs:行号 1172
+   在 Castle.Proxies.ModuleSvProxy.GetPageLanguages_callback(IdAndDisplayLanguagesDto input)
+   在 Castle.Proxies.Invocations.IModuleSv_GetPageLanguages.InvokeMethodOnTarget()
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Sl.Bpm.Application.Base.LanguageInspector.Intercept(IInvocation invocation) 位置 D:\Sl.Bpm\Sl.Bpm\Sl.Bpm.Application\Base\LanguageInspector.cs:行号 28
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 MiniAbp.Authorization.Interceptors.AuthorizationInterceptor.Intercept(IInvocation invocation) 位置 D:\Sl.Bpm\Sl.Bpm\Infrastructure\MiniAbp\Authorization\Interceptors\AuthorizationInterceptor.cs:行号 27
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 MiniAbp.Domain.Uow.UnitOfWorkInterceptor.Intercept(IInvocation invocation) 位置 D:\Sl.Bpm\Sl.Bpm\Infrastructure\MiniAbp\Domain\Uow\UnitOfWorkInterceptor.cs:行号 29
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Castle.Proxies.ModuleSvProxy.GetPageLanguages(IdAndDisplayLanguagesDto input)
+   --- 内部异常堆栈跟踪的结尾 ---
+   在 System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   在 System.Reflection.RuntimeMethodInfo.UnsafeInvokeInternal(Object obj, Object[] parameters, Object[] arguments)
+   在 System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.MethodBase.Invoke(Object obj, Object[] parameters)
+   在 MiniAbp.Web.Route.ServiceController.Invoke(MethodInfo method, Object instance, Object param) 位置 D:\Sl.Bpm\Sl.Bpm\Infrastructure\MiniAbp.Web\Route\ServiceController.cs:行号 63
+   在 MiniAbp.Web.Route.ServiceController.Execute(String serviceName, String methodName, Object param) 位置 D:\Sl.Bpm\Sl.Bpm\Infrastructure\MiniAbp.Web\Route\ServiceController.cs:行号 48
+   在 MiniAbp.Web.Route.YRequestHandler.ApiService(String service, String method, Object param) 位置 D:\Sl.Bpm\Sl.Bpm\Infrastructure\MiniAbp.Web\Route\YRequestHandler.cs:行号 23
+
+
+Error 07/03/2017 13:58:49 987 调用的目标发生了异常。
+System.Reflection.TargetInvocationException: 调用的目标发生了异常。 ---> System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 Sl.Bpm.Application.Service.ModuleSv.GetPageLanguages(IdAndDisplayLanguagesDto input) 位置 D:\Sl.Bpm\Sl.Bpm\Sl.Bpm.Application\Service\ModuleSv.cs:行号 1172
+   在 Castle.Proxies.ModuleSvProxy.GetPageLanguages_callback(IdAndDisplayLanguagesDto input)
+   在 Castle.Proxies.Invocations.IModuleSv_GetPageLanguages.InvokeMethodOnTarget()
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Sl.Bpm.Application.Base.LanguageInspector.Intercept(IInvocation invocation) 位置 D:\Sl.Bpm\Sl.Bpm\Sl.Bpm.Application\Base\LanguageInspector.cs:行号 28
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 MiniAbp.Authorization.Interceptors.AuthorizationInterceptor.Intercept(IInvocation invocation) 位置 D:\Sl.Bpm\Sl.Bpm\Infrastructure\MiniAbp\Authorization\Interceptors\AuthorizationInterceptor.cs:行号 27
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 MiniAbp.Domain.Uow.UnitOfWorkInterceptor.Intercept(IInvocation invocation) 位置 D:\Sl.Bpm\Sl.Bpm\Infrastructure\MiniAbp\Domain\Uow\UnitOfWorkInterceptor.cs:行号 29
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Castle.Proxies.ModuleSvProxy.GetPageLanguages(IdAndDisplayLanguagesDto input)
+   --- 内部异常堆栈跟踪的结尾 ---
+   在 System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   在 System.Reflection.RuntimeMethodInfo.UnsafeInvokeInternal(Object obj, Object[] parameters, Object[] arguments)
+   在 System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.MethodBase.Invoke(Object obj, Object[] parameters)
+   在 MiniAbp.Web.Route.ServiceController.Invoke(MethodInfo method, Object instance, Object param) 位置 D:\Sl.Bpm\Sl.Bpm\Infrastructure\MiniAbp.Web\Route\ServiceController.cs:行号 63
+   在 MiniAbp.Web.Route.ServiceController.Execute(String serviceName, String methodName, Object param) 位置 D:\Sl.Bpm\Sl.Bpm\Infrastructure\MiniAbp.Web\Route\ServiceController.cs:行号 48
+   在 MiniAbp.Web.Route.YRequestHandler.ApiService(String service, String method, Object param) 位置 D:\Sl.Bpm\Sl.Bpm\Infrastructure\MiniAbp.Web\Route\YRequestHandler.cs:行号 23
+
+
+Error 07/06/2017 14:27:16 527 调用的目标发生了异常。
+System.Reflection.TargetInvocationException: 调用的目标发生了异常。 ---> System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 Sl.Bpm.Application.Service.ModuleSv.GetPageLanguages(IdAndDisplayLanguagesDto input) 位置 D:\Sl.Bpm\Sl.Bpm\Sl.Bpm.Application\Service\ModuleSv.cs:行号 1172
+   在 Castle.Proxies.ModuleSvProxy.GetPageLanguages_callback(IdAndDisplayLanguagesDto input)
+   在 Castle.Proxies.Invocations.IModuleSv_GetPageLanguages.InvokeMethodOnTarget()
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Sl.Bpm.Application.Base.LanguageInspector.Intercept(IInvocation invocation) 位置 D:\Sl.Bpm\Sl.Bpm\Sl.Bpm.Application\Base\LanguageInspector.cs:行号 28
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 MiniAbp.Authorization.Interceptors.AuthorizationInterceptor.Intercept(IInvocation invocation) 位置 D:\Sl.Bpm\Sl.Bpm\Infrastructure\MiniAbp\Authorization\Interceptors\AuthorizationInterceptor.cs:行号 27
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 MiniAbp.Domain.Uow.UnitOfWorkInterceptor.Intercept(IInvocation invocation) 位置 D:\Sl.Bpm\Sl.Bpm\Infrastructure\MiniAbp\Domain\Uow\UnitOfWorkInterceptor.cs:行号 29
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Castle.Proxies.ModuleSvProxy.GetPageLanguages(IdAndDisplayLanguagesDto input)
+   --- 内部异常堆栈跟踪的结尾 ---
+   在 System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   在 System.Reflection.RuntimeMethodInfo.UnsafeInvokeInternal(Object obj, Object[] parameters, Object[] arguments)
+   在 System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.MethodBase.Invoke(Object obj, Object[] parameters)
+   在 MiniAbp.Web.Route.ServiceController.Invoke(MethodInfo method, Object instance, Object param) 位置 D:\Sl.Bpm\Sl.Bpm\Infrastructure\MiniAbp.Web\Route\ServiceController.cs:行号 63
+   在 MiniAbp.Web.Route.ServiceController.Execute(String serviceName, String methodName, Object param) 位置 D:\Sl.Bpm\Sl.Bpm\Infrastructure\MiniAbp.Web\Route\ServiceController.cs:行号 48
+   在 MiniAbp.Web.Route.YRequestHandler.ApiService(String service, String method, Object param) 位置 D:\Sl.Bpm\Sl.Bpm\Infrastructure\MiniAbp.Web\Route\YRequestHandler.cs:行号 23
+
+
+Error 07/06/2017 14:27:20 606 调用的目标发生了异常。
+System.Reflection.TargetInvocationException: 调用的目标发生了异常。 ---> System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 Sl.Bpm.Application.Service.ModuleSv.GetPageLanguages(IdAndDisplayLanguagesDto input) 位置 D:\Sl.Bpm\Sl.Bpm\Sl.Bpm.Application\Service\ModuleSv.cs:行号 1172
+   在 Castle.Proxies.ModuleSvProxy.GetPageLanguages_callback(IdAndDisplayLanguagesDto input)
+   在 Castle.Proxies.Invocations.IModuleSv_GetPageLanguages.InvokeMethodOnTarget()
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Sl.Bpm.Application.Base.LanguageInspector.Intercept(IInvocation invocation) 位置 D:\Sl.Bpm\Sl.Bpm\Sl.Bpm.Application\Base\LanguageInspector.cs:行号 28
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 MiniAbp.Authorization.Interceptors.AuthorizationInterceptor.Intercept(IInvocation invocation) 位置 D:\Sl.Bpm\Sl.Bpm\Infrastructure\MiniAbp\Authorization\Interceptors\AuthorizationInterceptor.cs:行号 27
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 MiniAbp.Domain.Uow.UnitOfWorkInterceptor.Intercept(IInvocation invocation) 位置 D:\Sl.Bpm\Sl.Bpm\Infrastructure\MiniAbp\Domain\Uow\UnitOfWorkInterceptor.cs:行号 29
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Castle.Proxies.ModuleSvProxy.GetPageLanguages(IdAndDisplayLanguagesDto input)
+   --- 内部异常堆栈跟踪的结尾 ---
+   在 System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   在 System.Reflection.RuntimeMethodInfo.UnsafeInvokeInternal(Object obj, Object[] parameters, Object[] arguments)
+   在 System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.MethodBase.Invoke(Object obj, Object[] parameters)
+   在 MiniAbp.Web.Route.ServiceController.Invoke(MethodInfo method, Object instance, Object param) 位置 D:\Sl.Bpm\Sl.Bpm\Infrastructure\MiniAbp.Web\Route\ServiceController.cs:行号 63
+   在 MiniAbp.Web.Route.ServiceController.Execute(String serviceName, String methodName, Object param) 位置 D:\Sl.Bpm\Sl.Bpm\Infrastructure\MiniAbp.Web\Route\ServiceController.cs:行号 48
+   在 MiniAbp.Web.Route.YRequestHandler.ApiService(String service, String method, Object param) 位置 D:\Sl.Bpm\Sl.Bpm\Infrastructure\MiniAbp.Web\Route\YRequestHandler.cs:行号 23
+
+
+Error 07/06/2017 14:27:24 993 调用的目标发生了异常。
+System.Reflection.TargetInvocationException: 调用的目标发生了异常。 ---> System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 Sl.Bpm.Application.Service.ModuleSv.GetPageLanguages(IdAndDisplayLanguagesDto input) 位置 D:\Sl.Bpm\Sl.Bpm\Sl.Bpm.Application\Service\ModuleSv.cs:行号 1172
+   在 Castle.Proxies.ModuleSvProxy.GetPageLanguages_callback(IdAndDisplayLanguagesDto input)
+   在 Castle.Proxies.Invocations.IModuleSv_GetPageLanguages.InvokeMethodOnTarget()
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Sl.Bpm.Application.Base.LanguageInspector.Intercept(IInvocation invocation) 位置 D:\Sl.Bpm\Sl.Bpm\Sl.Bpm.Application\Base\LanguageInspector.cs:行号 28
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 MiniAbp.Authorization.Interceptors.AuthorizationInterceptor.Intercept(IInvocation invocation) 位置 D:\Sl.Bpm\Sl.Bpm\Infrastructure\MiniAbp\Authorization\Interceptors\AuthorizationInterceptor.cs:行号 27
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 MiniAbp.Domain.Uow.UnitOfWorkInterceptor.Intercept(IInvocation invocation) 位置 D:\Sl.Bpm\Sl.Bpm\Infrastructure\MiniAbp\Domain\Uow\UnitOfWorkInterceptor.cs:行号 29
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Castle.Proxies.ModuleSvProxy.GetPageLanguages(IdAndDisplayLanguagesDto input)
+   --- 内部异常堆栈跟踪的结尾 ---
+   在 System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   在 System.Reflection.RuntimeMethodInfo.UnsafeInvokeInternal(Object obj, Object[] parameters, Object[] arguments)
+   在 System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.MethodBase.Invoke(Object obj, Object[] parameters)
+   在 MiniAbp.Web.Route.ServiceController.Invoke(MethodInfo method, Object instance, Object param) 位置 D:\Sl.Bpm\Sl.Bpm\Infrastructure\MiniAbp.Web\Route\ServiceController.cs:行号 63
+   在 MiniAbp.Web.Route.ServiceController.Execute(String serviceName, String methodName, Object param) 位置 D:\Sl.Bpm\Sl.Bpm\Infrastructure\MiniAbp.Web\Route\ServiceController.cs:行号 48
+   在 MiniAbp.Web.Route.YRequestHandler.ApiService(String service, String method, Object param) 位置 D:\Sl.Bpm\Sl.Bpm\Infrastructure\MiniAbp.Web\Route\YRequestHandler.cs:行号 23
+
+
+Error 07/06/2017 14:27:27 424 调用的目标发生了异常。
+System.Reflection.TargetInvocationException: 调用的目标发生了异常。 ---> System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 Sl.Bpm.Application.Service.ModuleSv.GetPageLanguages(IdAndDisplayLanguagesDto input) 位置 D:\Sl.Bpm\Sl.Bpm\Sl.Bpm.Application\Service\ModuleSv.cs:行号 1172
+   在 Castle.Proxies.ModuleSvProxy.GetPageLanguages_callback(IdAndDisplayLanguagesDto input)
+   在 Castle.Proxies.Invocations.IModuleSv_GetPageLanguages.InvokeMethodOnTarget()
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Sl.Bpm.Application.Base.LanguageInspector.Intercept(IInvocation invocation) 位置 D:\Sl.Bpm\Sl.Bpm\Sl.Bpm.Application\Base\LanguageInspector.cs:行号 28
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 MiniAbp.Authorization.Interceptors.AuthorizationInterceptor.Intercept(IInvocation invocation) 位置 D:\Sl.Bpm\Sl.Bpm\Infrastructure\MiniAbp\Authorization\Interceptors\AuthorizationInterceptor.cs:行号 27
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 MiniAbp.Domain.Uow.UnitOfWorkInterceptor.Intercept(IInvocation invocation) 位置 D:\Sl.Bpm\Sl.Bpm\Infrastructure\MiniAbp\Domain\Uow\UnitOfWorkInterceptor.cs:行号 29
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Castle.Proxies.ModuleSvProxy.GetPageLanguages(IdAndDisplayLanguagesDto input)
+   --- 内部异常堆栈跟踪的结尾 ---
+   在 System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   在 System.Reflection.RuntimeMethodInfo.UnsafeInvokeInternal(Object obj, Object[] parameters, Object[] arguments)
+   在 System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.MethodBase.Invoke(Object obj, Object[] parameters)
+   在 MiniAbp.Web.Route.ServiceController.Invoke(MethodInfo method, Object instance, Object param) 位置 D:\Sl.Bpm\Sl.Bpm\Infrastructure\MiniAbp.Web\Route\ServiceController.cs:行号 63
+   在 MiniAbp.Web.Route.ServiceController.Execute(String serviceName, String methodName, Object param) 位置 D:\Sl.Bpm\Sl.Bpm\Infrastructure\MiniAbp.Web\Route\ServiceController.cs:行号 48
+   在 MiniAbp.Web.Route.YRequestHandler.ApiService(String service, String method, Object param) 位置 D:\Sl.Bpm\Sl.Bpm\Infrastructure\MiniAbp.Web\Route\YRequestHandler.cs:行号 23
+
+
+Error 07/06/2017 15:06:34 816 调用的目标发生了异常。
+System.Reflection.TargetInvocationException: 调用的目标发生了异常。 ---> System.InvalidOperationException: 超时时间已到。超时时间已到，但是尚未从池中获取连接。出现这种情况可能是因为所有池连接均在使用，并且达到了最大池大小。
+   在 System.Data.ProviderBase.DbConnectionFactory.TryGetConnection(DbConnection owningConnection, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal oldConnection, DbConnectionInternal& connection)
+   在 System.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   在 System.Data.ProviderBase.DbConnectionClosed.TryOpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   在 System.Data.SqlClient.SqlConnection.TryOpenInner(TaskCompletionSource`1 retry)
+   在 System.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry)
+   在 System.Data.SqlClient.SqlConnection.Open()
+   在 MiniAbp.Ado.Uow.AdoUnitOfWork.BeginUow() 位置 D:\Sl.Bpm\Sl.Bpm\Infrastructure\MiniAbp.Ado\Uow\AdoUnitOfWork.cs:行号 25
+   在 MiniAbp.Domain.Uow.UnitOfWorkBase.Begin(UnitOfWorkOptions options) 位置 D:\Sl.Bpm\Sl.Bpm\Infrastructure\MiniAbp\Domain\Uow\UnitOfWorkBase.cs:行号 62
+   在 MiniAbp.Domain.Uow.UnitOfWorkManager.Begin(UnitOfWorkOptions options) 位置 D:\Sl.Bpm\Sl.Bpm\Infrastructure\MiniAbp\Domain\Uow\UnitOfWorkManager.cs:行号 40
+   在 MiniAbp.Domain.Uow.UnitOfWorkInterceptor.Intercept(IInvocation invocation) 位置 D:\Sl.Bpm\Sl.Bpm\Infrastructure\MiniAbp\Domain\Uow\UnitOfWorkInterceptor.cs:行号 27
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Castle.Proxies.SystemSvProxy.GetLangs(IdInput`1 input)
+   --- 内部异常堆栈跟踪的结尾 ---
+   在 System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   在 System.Reflection.RuntimeMethodInfo.UnsafeInvokeInternal(Object obj, Object[] parameters, Object[] arguments)
+   在 System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.MethodBase.Invoke(Object obj, Object[] parameters)
+   在 MiniAbp.Web.Route.ServiceController.Invoke(MethodInfo method, Object instance, Object param) 位置 D:\Sl.Bpm\Sl.Bpm\Infrastructure\MiniAbp.Web\Route\ServiceController.cs:行号 63
+   在 MiniAbp.Web.Route.ServiceController.Execute(String serviceName, String methodName, Object param) 位置 D:\Sl.Bpm\Sl.Bpm\Infrastructure\MiniAbp.Web\Route\ServiceController.cs:行号 48
+   在 MiniAbp.Web.Route.YRequestHandler.ApiService(String service, String method, Object param) 位置 D:\Sl.Bpm\Sl.Bpm\Infrastructure\MiniAbp.Web\Route\YRequestHandler.cs:行号 23
+
+
+Error 07/06/2017 15:06:34 817 调用的目标发生了异常。
+System.Reflection.TargetInvocationException: 调用的目标发生了异常。 ---> System.InvalidOperationException: 超时时间已到。超时时间已到，但是尚未从池中获取连接。出现这种情况可能是因为所有池连接均在使用，并且达到了最大池大小。
+   在 System.Data.ProviderBase.DbConnectionFactory.TryGetConnection(DbConnection owningConnection, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal oldConnection, DbConnectionInternal& connection)
+   在 System.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   在 System.Data.ProviderBase.DbConnectionClosed.TryOpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   在 System.Data.SqlClient.SqlConnection.TryOpenInner(TaskCompletionSource`1 retry)
+   在 System.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry)
+   在 System.Data.SqlClient.SqlConnection.Open()
+   在 MiniAbp.Ado.Uow.AdoUnitOfWork.BeginUow() 位置 D:\Sl.Bpm\Sl.Bpm\Infrastructure\MiniAbp.Ado\Uow\AdoUnitOfWork.cs:行号 25
+   在 MiniAbp.Domain.Uow.UnitOfWorkBase.Begin(UnitOfWorkOptions options) 位置 D:\Sl.Bpm\Sl.Bpm\Infrastructure\MiniAbp\Domain\Uow\UnitOfWorkBase.cs:行号 62
+   在 MiniAbp.Domain.Uow.UnitOfWorkManager.Begin(UnitOfWorkOptions options) 位置 D:\Sl.Bpm\Sl.Bpm\Infrastructure\MiniAbp\Domain\Uow\UnitOfWorkManager.cs:行号 40
+   在 MiniAbp.Domain.Uow.UnitOfWorkInterceptor.Intercept(IInvocation invocation) 位置 D:\Sl.Bpm\Sl.Bpm\Infrastructure\MiniAbp\Domain\Uow\UnitOfWorkInterceptor.cs:行号 27
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Castle.Proxies.ModuleSvProxy.GetAllModule()
+   --- 内部异常堆栈跟踪的结尾 ---
+   在 System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   在 System.Reflection.RuntimeMethodInfo.UnsafeInvokeInternal(Object obj, Object[] parameters, Object[] arguments)
+   在 System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.MethodBase.Invoke(Object obj, Object[] parameters)
+   在 MiniAbp.Web.Route.ServiceController.Invoke(MethodInfo method, Object instance, Object param) 位置 D:\Sl.Bpm\Sl.Bpm\Infrastructure\MiniAbp.Web\Route\ServiceController.cs:行号 59
+   在 MiniAbp.Web.Route.ServiceController.Execute(String serviceName, String methodName, Object param) 位置 D:\Sl.Bpm\Sl.Bpm\Infrastructure\MiniAbp.Web\Route\ServiceController.cs:行号 48
+   在 MiniAbp.Web.Route.YRequestHandler.ApiService(String service, String method, Object param) 位置 D:\Sl.Bpm\Sl.Bpm\Infrastructure\MiniAbp.Web\Route\YRequestHandler.cs:行号 23
+
+
+Error 07/06/2017 15:06:40 127 调用的目标发生了异常。
+System.Reflection.TargetInvocationException: 调用的目标发生了异常。 ---> System.Data.SqlClient.SqlException: 在与 SQL Server 建立连接时出现与网络相关的或特定于实例的错误。未找到或无法访问服务器。请验证实例名称是否正确并且 SQL Server 已配置为允许远程连接。 (provider: Named Pipes Provider, error: 40 - 无法打开到 SQL Server 的连接) ---> System.ComponentModel.Win32Exception: 找不到网络路径。
+   --- 内部异常堆栈跟踪的结尾 ---
+   在 System.Data.SqlClient.SqlInternalConnectionTds..ctor(DbConnectionPoolIdentity identity, SqlConnectionString connectionOptions, SqlCredential credential, Object providerInfo, String newPassword, SecureString newSecurePassword, Boolean redirectedUserInstance, SqlConnectionString userConnectionOptions, SessionData reconnectSessionData, DbConnectionPool pool, String accessToken, Boolean applyTransientFaultHandling)
+   在 System.Data.SqlClient.SqlConnectionFactory.CreateConnection(DbConnectionOptions options, DbConnectionPoolKey poolKey, Object poolGroupProviderInfo, DbConnectionPool pool, DbConnection owningConnection, DbConnectionOptions userOptions)
+   在 System.Data.ProviderBase.DbConnectionFactory.CreatePooledConnection(DbConnectionPool pool, DbConnection owningObject, DbConnectionOptions options, DbConnectionPoolKey poolKey, DbConnectionOptions userOptions)
+   在 System.Data.ProviderBase.DbConnectionPool.CreateObject(DbConnection owningObject, DbConnectionOptions userOptions, DbConnectionInternal oldConnection)
+   在 System.Data.ProviderBase.DbConnectionPool.UserCreateRequest(DbConnection owningObject, DbConnectionOptions userOptions, DbConnectionInternal oldConnection)
+   在 System.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, UInt32 waitForMultipleObjectsTimeout, Boolean allowCreate, Boolean onlyOneCheckConnection, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   在 System.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   在 System.Data.ProviderBase.DbConnectionFactory.TryGetConnection(DbConnection owningConnection, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal oldConnection, DbConnectionInternal& connection)
+   在 System.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   在 System.Data.ProviderBase.DbConnectionClosed.TryOpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   在 System.Data.SqlClient.SqlConnection.TryOpenInner(TaskCompletionSource`1 retry)
+   在 System.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry)
+   在 System.Data.SqlClient.SqlConnection.Open()
+   在 MiniAbp.Ado.Uow.AdoUnitOfWork.BeginUow() 位置 D:\Sl.Bpm\Sl.Bpm\Infrastructure\MiniAbp.Ado\Uow\AdoUnitOfWork.cs:行号 25
+   在 MiniAbp.Domain.Uow.UnitOfWorkBase.Begin(UnitOfWorkOptions options) 位置 D:\Sl.Bpm\Sl.Bpm\Infrastructure\MiniAbp\Domain\Uow\UnitOfWorkBase.cs:行号 62
+   在 MiniAbp.Domain.Uow.UnitOfWorkManager.Begin(UnitOfWorkOptions options) 位置 D:\Sl.Bpm\Sl.Bpm\Infrastructure\MiniAbp\Domain\Uow\UnitOfWorkManager.cs:行号 40
+   在 MiniAbp.Domain.Uow.UnitOfWorkInterceptor.Intercept(IInvocation invocation) 位置 D:\Sl.Bpm\Sl.Bpm\Infrastructure\MiniAbp\Domain\Uow\UnitOfWorkInterceptor.cs:行号 27
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Castle.Proxies.WorkflowSvProxy.GetAllCategory(PageInput pageInput)
+   --- 内部异常堆栈跟踪的结尾 ---
+   在 System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   在 System.Reflection.RuntimeMethodInfo.UnsafeInvokeInternal(Object obj, Object[] parameters, Object[] arguments)
+   在 System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.MethodBase.Invoke(Object obj, Object[] parameters)
+   在 MiniAbp.Web.Route.ServiceController.Invoke(MethodInfo method, Object instance, Object param) 位置 D:\Sl.Bpm\Sl.Bpm\Infrastructure\MiniAbp.Web\Route\ServiceController.cs:行号 63
+   在 MiniAbp.Web.Route.ServiceController.Execute(String serviceName, String methodName, Object param) 位置 D:\Sl.Bpm\Sl.Bpm\Infrastructure\MiniAbp.Web\Route\ServiceController.cs:行号 48
+   在 MiniAbp.Web.Route.YRequestHandler.ApiService(String service, String method, Object param) 位置 D:\Sl.Bpm\Sl.Bpm\Infrastructure\MiniAbp.Web\Route\YRequestHandler.cs:行号 23
+
+

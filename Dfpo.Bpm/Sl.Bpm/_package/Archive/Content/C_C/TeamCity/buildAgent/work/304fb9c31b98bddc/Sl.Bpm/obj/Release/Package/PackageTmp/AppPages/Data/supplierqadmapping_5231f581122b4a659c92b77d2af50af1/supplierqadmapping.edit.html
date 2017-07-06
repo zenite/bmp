@@ -1,0 +1,131 @@
+﻿<ma-tabs>
+    <ma-panel data-title="{{ 'Basic' | translate}}" name="basic">
+        <modal-body fm-cache>
+            <div class="form-group form-md-line-input">
+                <div class="col-lg-4 control-label">子公司代码:</div>
+                <div class="col-lg-6">
+                    <fm-select class="input-sm"
+                               field-name="子公司代码"
+                               required
+                               i-clear
+                               fm-model="form.dialog.subsidiaryCode"
+                               items="[{id:'YFVIC',text:'YFVIC'},{id:'YFVSJ',text:'YFVSJ'},{id:'SHTC',text:'SHTC'},{id:'NJTC',text:'NJTC'},{id:'YFVAY',text:'YFVAY'},{id:'YFVSX',text:'YFVSX'}]"></fm-select>
+                </div>
+            </div>
+            <div class="form-group form-md-line-input">
+                <div class="col-lg-4 control-label">币种:</div>
+                <div class="col-lg-6">
+                    <fm-select class="input-sm"
+                               view="GetCurrency"
+                               required
+                               field-name="币种"
+                               fm-model="form.dialog.currency"></fm-select>
+                </div>
+            </div>
+            <div class="form-group form-md-line-input">
+                <div class="col-lg-4 control-label">供应商性质:</div>
+                <div class="col-lg-6">
+                    <fm-select class="input-sm"
+                               field-name="供应商性质"
+                               required
+                               dataitem="PurchaseRelated>NewSupplier>SupplierProdProperty"
+                               fm-model="form.dialog.productionOrNon"></fm-select>
+                </div>
+            </div>
+            <div class="form-group form-md-line-input">
+                <div class="col-lg-4 control-label">PurAccount:</div>
+                <div class="col-lg-6">
+                    <fm-text class="input-sm"
+                             field-name="PurAccount"
+                             fm-model="form.dialog.purAccount"></fm-text>
+                    <!--<fm-data-select class="input-sm"
+                                    view="GetCostCenterAccount"
+                                    field-name="PurAccount"
+                                    fm-model="form.dialog.purAccount"
+                                    callback-func="form.selectPurAccount(selectItem)"></fm-data-select>-->
+                </div>
+            </div>
+            <div class="form-group form-md-line-input">
+                <div class="col-lg-4 control-label">PurSubAccount:</div>
+                <div class="col-lg-6">
+                    <fm-text class="input-sm"
+                             field-name="PurSubAccount"
+                             fm-model="form.dialog.purSubsidiaryAccount"></fm-text>
+                    <!--<fm-data-select class="input-sm"
+                                    view="GetCostCenterAccount"
+                                    field-name="PurSubAccount"
+                                    fm-model="form.dialog.purSubsidiaryAccount"></fm-data-select>-->
+                </div>
+            </div>
+            <div class="form-group form-md-line-input">
+                <div class="col-lg-4 control-label">PurCostCenter:</div>
+                <div class="col-lg-6">
+                    <fm-text class="input-sm"
+                             field-name="PurCostCenter"
+                             fm-model="form.dialog.purCostCenter"></fm-text>
+                </div>
+            </div>
+            <div class="form-group form-md-line-input">
+                <div class="col-lg-4 control-label">ApAccount:</div>
+                <div class="col-lg-6">
+                    <fm-text class="input-sm"
+                             field-name="ApAccount"
+                             fm-model="form.dialog.apAccount"></fm-text>
+                    <!--<fm-data-select class="input-sm"
+                                    view="GetCostCenterAccount"
+                                    field-name="ApAccount"
+                                    fm-model="form.dialog.apAccount"
+                                    callback-func="form.selectApAccount(selectItem)"></fm-data-select>-->
+                </div>
+            </div>
+            <div class="form-group form-md-line-input">
+                <div class="col-lg-4 control-label">ApSubAccount:</div>
+                <div class="col-lg-6">
+                    <fm-text class="input-sm"
+                             field-name="ApSubAccount"
+                             fm-model="form.dialog.apSubsidiaryAccount"></fm-text>
+                    <!--<fm-data-select class="input-sm"
+                                    view="GetCostCenterAccount"
+                                    field-name="ApSubAccount"
+                                    fm-model="form.dialog.apSubsidiaryAccount"></fm-data-select>-->
+                </div>
+            </div>
+            <div class="form-group form-md-line-input">
+                <div class="col-lg-4 control-label">ApCostCenter:</div>
+                <div class="col-lg-6">
+                    <fm-text class="input-sm"
+                             field-name="ApCostCenter"
+                             fm-model="form.dialog.apCostCenter"></fm-text>
+                </div>
+            </div>
+            <div class="form-group form-md-line-input">
+                <div class="col-lg-4 control-label">银行:</div>
+                <div class="col-lg-6">
+                    <fm-text class="input-sm"
+                             required
+                             field-name="银行"
+                             fm-model="form.dialog.bank"></fm-text>
+                </div>
+            </div>
+            <!--<div class="form-group form-md-line-input">
+                <div class="col-lg-4 control-label">是否启用:</div>
+                <div class="col-lg-6">
+                    <fm-radiolist class="input-sm" field-name="是否启用" required
+                                  items="[{id:1,text:'是'},{id:0,text:'否'}]"
+                                  fm-model="form.dialog.isEnable"></fm-radiolist>
+                </div>
+            </div>-->
+        </modal-body>
+        <modal-footer>
+            <button class="btn btn-primary" type="submit" id="categoryEdit" ng-click="form.$save(form.dialog)">{{'Save' | translate}}</button>
+            <button type="button" class="btn btn-default" ng-click="$close()">{{ 'Cancel' | translate}}</button>
+        </modal-footer>
+    </ma-panel>
+    <ma-panel data-title="{{ 'Advance' | translate}}" name="advance" ng-if="!!form.dialog">
+        <br />
+        <modal-footer>
+            <button class="btn btn-danger" type="button" confirm-click="form.$delete(form.dialog)">{{ 'Delete' | translate}}</button>
+            <button type="button" class="btn btn-default" ng-click="$close()">{{ 'Cancel' | translate}}</button>
+        </modal-footer>
+    </ma-panel>
+</ma-tabs>

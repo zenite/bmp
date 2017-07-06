@@ -1,0 +1,38 @@
+﻿
+<ma-tabs>
+    <ma-panel data-title="{{ 'Basic' | translate}}" name="basic">
+        <modal-body fm-cache>
+            <div class="form-group form-md-line-input">
+                <div class="col-lg-4 control-label">公司名称:</div>
+                <div class="col-lg-6">
+                    <fm-select field-name="公司名称"
+                               view="GetAllCompany"
+                               display-member="text"
+                               value-member="id"
+                               fm-model="form.dialog.company"></fm-select>
+                </div>
+            </div>
+            <div class="form-group form-md-line-input">
+                <div class="col-lg-4 control-label">联系人:</div>
+                <div class="col-lg-6">
+                    <fm-data-select class="input-sm" ismulti field-name="联系人"
+                                    view="GetAllJobName"
+                                    i-clear
+                                    fm-model="form.dialog.contacts"></fm-data-select>
+                </div>
+            </div>
+        </modal-body>
+        <modal-footer>
+            <button class="btn btn-primary" type="submit" id="categoryEdit" ng-click="form.$save(form.dialog)">{{ base.$pageLang.Save}}</button>
+            <button type="button" class="btn btn-default" ng-click="$close()">{{ base.$pageLang.Cancel}}</button>
+        </modal-footer>
+    </ma-panel>
+    <ma-panel data-title="{{ 'Advance' | translate}}" name="advance" ng-if="!!form.dialog">
+        <br />
+        <modal-footer>
+            <button class="btn btn-danger" type="button" confirm-click="form.$delete(form.dialog)">{{ 'Delete' | translate}}</button>
+            <button type="button" class="btn btn-default" ng-click="$close()">{{ 'Cancel' | translate}}</button>
+        </modal-footer>
+    </ma-panel>
+</ma-tabs>
+

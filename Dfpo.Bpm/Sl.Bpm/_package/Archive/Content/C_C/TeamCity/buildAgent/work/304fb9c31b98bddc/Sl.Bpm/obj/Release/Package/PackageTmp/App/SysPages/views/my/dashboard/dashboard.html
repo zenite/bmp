@@ -1,0 +1,84 @@
+﻿<div class="container-ui" ng-controller="syspages.views.my.dashboard as vm">
+
+    <!--我收藏的流程-->
+    <!--<ma-header>{{ 'CommonWorkflow' | translate}}</ma-header>-->
+    <h3 style="color: rgba(0,0,0,0.5);margin-top: 0px;margin-bottom: 3px;">{{ 'CommonWorkflow' | translate}}</h3><hr style="margin-top: 0px;" />
+    <div class="dashboard-block load_1">
+        <div class="page-blank-div favourite_load" ng-if="!vm.favouriteList || vm.favouriteList.length == 0" style="height: 117px;margin-bottom: 20px;">
+            <div class="content-div">
+                <span class="content-label" style="">尚未添加常用流程</span>
+            </div>
+            <div class="more-info">
+                <span class="link-label" ui-sref="my.workflowcenter.raise">点击跳转至流程页面&nbsp;<i class="icon-angle-right"></i>（点击流程右上角☆即可标记）</span>
+            </div>
+        </div>
+        <div class="row" ng-if="vm.favouriteList.length > 0">
+            <div class="col-md-3 col-sm-4 col-lg-2" ng-repeat="i in vm.favouriteList track by $index" ng-if="permissions[i.id]">
+                <div class="my-card" ng-click="vm.openModule(i)">
+                    <div class="card-body">
+                        <div class="card-content">
+                            <h2>{{i.name}}</h2>
+                        </div>
+                        <div class="colorblock"><div ng-style="{'background-color':mainIcons[$index % 6].color}"></div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <!--待我审批的流程-->
+        <div class="dashboard-block col-xs-12 col-md-6 col-lg-6">
+            <div class="load_2">
+                <div class="page-blank-div" ng-if="!vm.pendinghandleList || vm.pendinghandleList.length == 0" style="height: 330px;">
+                    <div class="content-div"><span class="content-label">当前没有待办流程</span></div>
+                    <!--<span class="link-label">更多</span>-->
+                </div>
+                <div class="page-content-div" ng-if="vm.pendinghandleList.length > 0" style="height: 330px;">
+                    <div class="main-title" style="color: rgb(251, 150, 120);">
+                        <span><i class="icon-paper-clip"></i>&nbsp;{{ 'MyPendingHandleWf' | translate}}</span>
+                    </div>
+                    <div class="page-list-div">
+                        <ul>
+                            <li ng-repeat="item in vm.pendinghandleList track by $index">
+                                <span class="item-label"><span class="">{{item.submitter}}</span> 发起了<span class="link-label" ng-click="vm.approveWorkflow(item)">{{item.sn}}</span>{{item.workflowName}}<span ng-if="!!item.areaCode">({{item.areaCode}})</span></span>
+                                <span class="footer-label text-muted"><small>{{item.recvTime | moment}}</small></span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="more-info">
+                        <span class="text-muted" ui-sref="my.workflowcenter.pendinghandle">查看更多&nbsp;<i class="icon-angle-right"></i></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--我发起的流程-->
+        <div class="dashboard-block col-xs-12 col-md-6 col-lg-6 ">
+            <div class="load_3">
+                <div class="page-blank-div" ng-if="!vm.myraisedList || vm.myraisedList.length == 0" style="height: 330px;">
+                    <div class="content-div">
+                        <span class="content-label" style="">当前没有发起流程</span>
+                    </div>
+                    <div class="more-info">
+                        <span class="link-label">发起新流程&nbsp;<i class="icon-angle-right"></i></span>
+                    </div>
+                </div>
+                <div class="page-content-div" ng-if="vm.myraisedList.length > 0" style="height: 330px;">
+                    <div class="main-title" style="color:rgb(1, 192, 200);">
+                        <span><i class="icon-star-empty"></i>&nbsp;{{ 'MyRaisedWf' | translate}}</span>
+                    </div>
+                    <div class="page-list-div">
+                        <ul>
+                            <li ng-repeat="item in vm.myraisedList  track by $index">
+                                <span class="item-label">我发起了<span class="link-label" ng-click="vm.checkoutWorkflow(item)">{{item.sn}}</span>{{item.workflowName}}<span ng-if="!!item.areaCode">({{item.areaCode}})</span></span>
+                                <span class="footer-label text-muted"><small>{{item.creationTime | moment}}</small></span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="more-info">
+                        <span class="" ui-sref="my.workflowcenter.myraised">查看更多&nbsp;<i class="icon-angle-right"></i></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

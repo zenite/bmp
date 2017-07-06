@@ -1,0 +1,175 @@
+﻿<div ng-controller="syspages.views.my.workflowcenter.mycopied as vm">
+    <ma-header>{{ 'CopyMeWf' | translate}}</ma-header>
+    <div class="row">
+        <div class="modal-user">
+            <div class="">
+                <fm-category isall fm-model="vm.moduleIds" items="vm.moduleTypes" code-member="moduleCount" display-member="moduleName" value-member="moduleId" callback-func="vm.loadColumnConfig()"></fm-category>
+            </div>
+            <div class="panel" style="background-color: #f1f1f1;">
+                <button class="btn btn-info btn-sm" ng-click="vm.show()">{{ 'FilterCondition' | translate}}</button>
+                <div class="panel-heading" ng-if="!!vm.showSearch">
+                    <div class="row search-condition">
+                        <div class="col-xs-3">
+                            <div class="input-group wf-search">
+                                <span class="input-group-addon input-sm">{{ 'Sn' | translate}}</span>
+                                <fm-text fm-model="vm.filter.sn" i-clear fm-placeholder="{{ 'Sn' | translate}}" keydown fm-blur="vm.selectS()"></fm-text>
+                            </div>
+                        </div>
+                        <!--<div class="col-xs-3">
+                            <div class="input-group wf-search">
+                                <span class="input-group-addon input-sm">开始时间</span>
+                                <fm-datetime class="form-control input-sm" date fm-model="vm.filter.searchStartTime" fm-readonly></fm-datetime>
+                            </div>
+                        </div>
+                        <div class="col-xs-3">
+                            <div class="input-group wf-search">
+                                <span class="input-group-addon input-sm">结束时间</span>
+                                <fm-datetime class="form-control input-sm" date fm-model="vm.filter.searchEndTime" fm-readonly></fm-datetime>
+                            </div>
+                        </div>-->
+                        <div class="col-xs-3">
+                            <div class="input-group wf-search">
+                                <span class="input-group-addon input-sm">{{ 'Creator' | translate}}</span>
+                                <fm-text fm-model="vm.filter.creator" i-clear fm-placeholder="{{ 'Creator' | translate}}" keydown fm-blur="vm.selectS()"></fm-text>
+                            </div>
+                        </div>
+                        <div class="col-xs-3">
+                            <div class="input-group wf-search">
+                                <span class="input-group-addon input-sm">{{ 'CC' | translate}}</span>
+                                <fm-text fm-model="vm.filter.cc" i-clear fm-placeholder="{{ 'CC' | translate}}" keydown fm-blur="vm.selectS()"></fm-text>
+                            </div>
+                        </div>
+                        <div class="col-xs-3">
+                            <div class="input-group wf-search">
+                                <span class="input-group-addon input-sm">{{ 'WorkflowName' | translate}}</span>
+                                <fm-text fm-model="vm.filter.workflowName" i-clear fm-placeholder="{{ 'WorkflowName' | translate}}" keydown fm-blur="vm.selectS()"></fm-text>
+                            </div>
+                        </div>
+                        <div class="col-xs-3">
+                            <div class="input-group wf-search">
+                                <span class="input-group-addon input-sm">{{ 'AreaCode' | translate}}</span>
+                                <fm-text fm-model="vm.filter.areaCode" i-clear fm-placeholder="{{ 'AreaCode' | translate}}" keydown fm-blur="vm.selectS()"></fm-text>
+                            </div>
+                        </div>
+                        <div class="col-xs-3">
+                            <div class="input-group wf-search">
+                                <span class="input-group-addon input-sm">{{ 'CurrentStatus' | translate}}</span>
+                                <fm-select class="form-control input-sm" items="vm.taskStatus" fm-model="vm.filter.currentStatus" fm-blur="vm.selectS()"></fm-select>
+                            </div>
+                        </div>
+                        <div class="col-xs-3" ng-repeat="col in vm.columnLists">
+                            <div class="input-group wf-search">
+                                <span class="input-group-addon input-sm">{{col.name}}</span>
+                                <fm-text fm-model="vm.filter[col.value]" i-clear fm-placeholder="{{col.name}}" keydown fm-blur="vm.selectS()"></fm-text>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12" style="text-align: center;">
+                            <button class="btn btn-info btn-xs" ng-click="vm.selectS()">{{:: 'Query' | translate}}</button>
+                            <button class="btn btn-default btn-xs" ng-click="vm.clearS()">{{:: 'Clear' | translate}}</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-body" style="min-height: 330px; position: relative;">
+                    <div class="sp-table" ng-if="vm.models.length > 0" style=" display: flex;" >
+                        <div class="sp-tablecolumn">
+                            <div class="sp-tablecell">
+                                <table class="table sortable table-striped table-hover table-condensed">
+                                    <thead>
+                                        <tr>
+                                            <th class="order both" name="TaskNumber">{{ 'TaskNumber' | translate}}</th>
+                                            <th class="order both" name="WorkflowName" ng-if="!vm.moduleIds">{{ 'WorkflowName' | translate}}</th>
+                                            <th class="order both" name="sn">{{ 'Sn' | translate}}</th>
+                                            <th class="order both" name="Creator">{{ 'Creator' | translate}}</th>
+                                            <th class="order both" name="CreationDate">{{ 'CreationDate' | translate}}</th>
+                                            <th class="order both" name="CC">{{ 'CC' | translate}}</th>
+                                            <th class="order both" name="CCDate">{{ 'CCDate' | translate}}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="task in vm.models track by $index">
+                                            <td>{{task.refId}}</td>
+                                            <td ng-if="!vm.moduleIds">
+                                                <span class="taskcolumn">{{task.workflowName}}</span>
+                                            </td>
+                                            <td>
+                                                <a class="ink-label ng-binding" ng-click="vm.edit(task)">
+                                                    {{task.sn}}
+                                                    <span ng-if="!!task.areaCode">({{task.areaCode}})</span>
+                                                </a>
+                                            </td>
+                                            <td>{{task.submitter}}</td>
+                                            <td>
+                                                <span class="taskcolumn" title="{{task.creationTime | date:'yyyy-MM-dd HH:mm:ss'}}">{{task.creationTime | date:'yyyy-MM-dd HH:mm'}}</span>
+                                            </td>
+                                            <td>{{task.copyFromUserName}}</td>
+                                            <td>{{task.copyCreationTime | date : 'yyyy-MM-dd HH:mm'}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!--
+                        -->
+                        <div class="sp-tablecolumn sp-scrolltable" ng-if="vm.columnLists.length > 0 && !!vm.moduleIds">
+                            <div class="sp-tablecell">
+                                <table class="table table-striped table-hover table-condensed">
+                                    <thead>
+                                        <tr>
+                                            <th style="max-width: 300px;" ng-repeat="aa in vm.columnLists track by $index">{{aa.name}}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="task in vm.models track by $index">
+                                            <td style="max-width: 300px;" ng-repeat="cc in vm.columnLists track by $index" ng-if="vm.columnLists.length > 0">
+                                                <span class="taskcolumn" title="{{task[cc.value]}}">{{task[cc.value]}}</span>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!--
+                        -->
+                        <div class="sp-tablecolumn">
+                            <div class="sp-tablecell">
+                                <table class="table sortable table-striped table-hover table-condensed">
+                                    <thead>
+                                        <tr>
+                                            <th class="order both" name="procUserName" style="max-width: 300px;">{{ 'CurrentStatus' | translate}}</th>
+                                            <th>{{ 'Operation' | translate}}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="task in vm.models track by $index">
+                                            <td style="max-width: 300px;">
+                                                <span class="taskcolumn" title="{{task.finishedTime | date:'yyyy-MM-dd HH:mm:ss'}}">{{task.taskTitle}}</span>
+                                            </td>
+                                            <td>
+                                                <i title="标记" class="fa-effect-boris cursor-pointer text-warning" ng-class="{true:'icon icon-star',false:'icon icon-star-empty',null:'icon icon-star-empty'}[task.isMarked]" ng-click="vm.mark(task)"></i>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-if="vm.paging.totalCount === undefined">
+                        <div class="content-spinner-bar">
+                            <div class="bounce1"></div>
+                            <div class="bounce2"></div>
+                            <div class="bounce3"></div>
+                        </div>
+                    </div>
+                    <div ng-if="vm.paging.totalCount === 0" style="text-align: center;">
+                        <span class="span1" style="position: absolute; height: 100%; width: 100%; left: 0; top: calc(50% - 14px); font-size: 28px; color: #353535;">{{ 'NoCopied' | translate}}</span>
+                    </div>
+                    <div ng-if="vm.paging.totalCount > vm.paging.pageSize">
+                        <ma-pager current-page="vm.paging.currentPage" load="vm.load()" total-count="vm.paging.totalCount" page-size="vm.paging.pageSize"></ma-pager>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,174 @@
+﻿<div class="form-group ma-block">
+    <fm-Group-Head title="{{::base.title}}"></fm-Group-Head>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="container">
+                <div class="form-group">
+                    <div class="col-xs-12">
+                        <div class="ma-detailinfo">
+                            <div class="content">
+                                <div class="row">
+                                    <div class="form-group">
+                                        <div class="col-xs-4 cell">
+                                            <!--申请单号-->
+                                            <span class="col-xs-3 control-label required" ng-bind="form.$pageLang.SnNumber"></span>
+                                            <div class="col-xs-9">
+                                                <fm-text class="input-sm" fm-model="form.filter.snNumber"></fm-text>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-4 cell">
+                                            <!--合同类型-->
+                                            <span class="col-xs-3 control-label" ng-bind="form.$pageLang.ContractType"></span>
+                                            <div class="col-xs-9">
+                                                <fm-select class="input-sm" dataitem="Sales>ContractReview>ContractType" value-member="value" fm-model="form.filter.contractType"></fm-select>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-4 cell">
+                                            <!--缔约公司主体-->
+                                            <span class="col-xs-3 control-label" ng-bind="form.$pageLang.ContractCompanyOurParty"></span>
+                                            <div class="col-xs-9">
+                                                <fm-select class="input-sm" view="GetAllCompany" fm-model="form.filter.contractCompanyOurParty"></fm-select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group">
+                                        <div class="col-xs-4 cell">
+                                            <!--缔约方（他方）-->
+                                            <span class="col-xs-3 control-label required" ng-bind="form.$pageLang.ContractCompanyOtherParty"></span>
+                                            <div class="col-xs-9">
+                                                <fm-text class="input-sm" fm-model="form.filter.contractCompanyOtherParty"></fm-text>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-4 cell">
+                                            <!--合同金额-->
+                                            <span class="col-xs-3 control-label" ng-bind="form.$pageLang.ContractAmount"></span>
+                                            <div class="col-xs-9">
+                                                <fm-number class="input-sm" fm-model="form.filter.contractAmount"></fm-number>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-4 cell">
+                                            <!--业务类型-->
+                                            <span class="col-xs-3 control-label" ng-bind="form.$pageLang.BusinessType"></span>
+                                            <div class="col-xs-9">
+                                                <fm-select class="input-sm" dataitem="Sales>ContractReview>BusinessType" value-member="value" fm-model="form.filter.businessType"></fm-select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group">
+                                        <div class="col-xs-4 cell">
+                                            <!--零件号-->
+                                            <span class="col-xs-3 control-label " ng-bind="form.$pageLang.PartNumber"></span>
+                                            <div class="col-xs-9">
+                                                <fm-text class="input-sm" fm-model="form.filter.partNumber"></fm-text>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-4 cell">
+                                            <!--零件描述-->
+                                            <span class="col-xs-3 control-label " ng-bind="form.$pageLang.PartDescription"></span>
+                                            <div class="col-xs-9">
+                                                <fm-text class="input-sm" fm-model="form.filter.partDescription"></fm-text>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-4 cell">
+                                            <!--适用车型-->
+                                            <span class="col-xs-3 control-label " ng-bind="form.$pageLang.AppliedCarModel"></span>
+                                            <div class="col-xs-9">
+                                                <fm-text class="input-sm" fm-model="form.filter.appliedCarModel"></fm-text>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group">
+                                        <div class="col-xs-4 cell">
+                                            <!--合同编号-->
+                                            <span class="col-xs-3 control-label " ng-bind="form.$pageLang.ContractNo"></span>
+                                            <div class="col-xs-9">
+                                                <fm-text class="input-sm" fm-model="form.filter.contractNo"></fm-text>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-4 cell">
+                                            <!--合同日期-->
+                                            <span class="col-xs-3 control-label " ng-bind="form.$pageLang.ContractTime"></span>
+                                            <div class="col-xs-9">
+                                                <fm-datetime class="input-sm" date fm-model="form.filter.contractTimeStart" fm-readonly></fm-datetime>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-4 cell">
+                                            <span class="col-xs-3 control-label " style="text-align:center;">——</span>
+                                            <div class="col-xs-9">
+                                                <fm-datetime class="input-sm" date fm-model="form.filter.contractTimeEnd" fm-readonly></fm-datetime>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group">
+                                        <div class="col-xs-4 cell">
+                                            <!--模具摊销-->
+                                            <span class="col-xs-3 control-label " ng-bind="form.$pageLang.ToolingAmortizataion"></span>
+                                            <div class="col-xs-9">
+                                                <fm-text class="input-sm" fm-model="form.filter.toolingAmortizataion"></fm-text>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-4 cell">
+                                            <!--请求日期-->
+                                            <span class="col-xs-3 control-label" ng-bind="form.$pageLang.ApplicatnDate"></span>
+                                            <div class="col-xs-9">
+                                                <fm-datetime class="input-sm" date fm-model="form.filter.applicationTimeStart" fm-readonly></fm-datetime>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-4 cell">
+                                            <span class="col-xs-3 control-label" style="text-align:center;">——</span>
+                                            <div class="col-xs-9">
+                                                <fm-datetime class="input-sm" date fm-model="form.filter.applicationTimeEnd" fm-readonly></fm-datetime>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group">
+                                        <div class="col-xs-12" style="text-align:center;">
+                                            <button class="btn btn-primary" ng-click="form.select()">{{:: 'Query' | translate}}</button>
+                                            <button class="btn btn-default" ng-click="form.clear()">{{form.$pageLang.Clear}}</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12">
+                <fm-table view='GetSale02Report' data="form.sale02report"
+                          refreash-data="form.refreash"
+                          width="2000px"
+                          excel
+                          page="{{form.pageInfo}}"
+                          current-page-data="form.currentData"
+                          filter="{SnNumber:form.filter.snNumber,
+                                   ContractType:form.filter.contractType,
+                                   ContractCompanyOurParty:form.filter.contractCompanyOurParty,
+                                   ContractCompanyOtherParty:form.filter.contractCompanyOtherParty,
+                                   ContractAmount:form.filter.contractAmount,
+                                   BusinessType:form.filter.businessType,
+                                   PartNumber:form.filter.partNumber,
+                                   PartDescription:form.filter.partDescription,
+                                   AppliedCarModel:form.filter.appliedCarModel,
+                                   ContractNo:form.filter.contractNo,
+                                   ContractTimeStart:form.filter.contractTimeStart,
+                                   ContractTimeEnd:form.filter.contractTimeEnd,
+                                   ToolingAmortizataion:form.filter.toolingAmortizataion,
+                                   ApplicationTimeStart:form.filter.applicationTimeStart,
+                                   ApplicationTimeEnd:form.filter.applicationTimeEnd}"></fm-table>
+            </div>
+        </div>
+    </div>
+</div>

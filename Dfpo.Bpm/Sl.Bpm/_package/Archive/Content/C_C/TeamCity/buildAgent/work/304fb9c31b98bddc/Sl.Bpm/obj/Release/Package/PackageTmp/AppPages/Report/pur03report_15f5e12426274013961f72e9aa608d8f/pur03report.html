@@ -1,0 +1,14 @@
+﻿<div class="form-group ma-block">
+    <fm-group-head title="{{::base.title}}"></fm-group-head>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="container">
+
+            </div>
+            <div class="col-xs-12">
+                <fm-table view='GetPur03Report' data="form.pur03report" refreash-data="form.refreash" excel current-page-data="form.currentData" width="1800px"
+                          page="{{form.page}}" sortable filter="{AreaCode:form.filter.areaCode}" page-size-list all-column-filter></fm-table>
+            </div>
+        </div>
+    </div>
+</div>

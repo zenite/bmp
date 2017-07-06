@@ -1,0 +1,267 @@
+﻿<!--应用UAT&上线请求流程-->
+
+<fm-form-title sn-number="{{base.snNumber}}" apply-date="{{base.applyDate}}" sub-title='base.title' fm-model="base.areaCode"></fm-form-title>
+<fm-Group-Head class="print-hide" title="{{ base.$pageLang.ApplicantInfo }}"></fm-Group-Head>
+    
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--申请人名字-->
+            <span class="col-xs-2 control-label">{{ "ApplicantName" | translate }}</span>
+            <div class="col-xs-4">
+                <div class="input-group" style="width: 100%;">
+                    <span class="form-label">{{base.applicant.userName}}</span>
+                <!--    <span class="input-group-btn" ng-if="!taskid">
+                        <button class="btn btn-default" type="button" ng-click="base.$selectApplicant()">{{ "Choose" | translate }}</button>
+                    </span>-->
+                </div>
+            </div>
+            <!--申请人员工号-->
+            <span class="col-xs-2 control-label">{{ "ApplicantEmployeeNumber" | translate }}</span>
+            <div class="col-xs-4"><span class="form-label">{{base.applicant.employeeNumber}}</span></div>
+        </div>
+    </div>
+    <div class="form-group">
+        <!--申请人部门线-->
+        <div class="col-xs-12">
+            <span class="col-xs-2 control-label">{{ "ApplicantDepartment" | translate }}</span>
+            <div class="col-xs-10"><span class="form-label">{{base.applicant.departmentName}}</span></div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--申请人手机-->
+            <span class="col-xs-2 control-label">{{ "ApplicantMobileNumber" | translate }}</span>
+            <div class="col-xs-4"><span class="form-label">{{base.applicant.mobileNumber}}</span></div>
+            <!--申请人电话-->
+            <span class="col-xs-2 control-label">{{ "ApplicantContactNumber" | translate }}</span>
+            <div class="col-xs-4"><span class="form-label">{{base.applicant.contactNumber}}</span></div>
+
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--申请人邮箱-->
+            <span class="col-xs-2 control-label">{{ "ApplicantEmail" | translate }}</span>
+            <div class="col-xs-4"><span class="form-label">{{base.applicant.emailAddress}}</span></div>
+            <!--申请人直属领导-->
+            <span class="col-xs-2 control-label">{{ "ApplicantDirectManager" | translate }}</span>
+            <div class="col-xs-4"><span class="form-label">{{base.applicant.directManagerName}}</span></div>
+        </div>
+    </div>
+</div>
+
+
+<fm-Group-Head title="{{ base.$pageLang.ApplicationInfo }}"></fm-Group-Head>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--EstimatedGoLiveDate-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.EstimatedGoLiveDate"></span>
+            <div class="col-xs-4">
+                  <fm-datetime field-name="{{form.$pageLang.PleaseSelectTheTime}}"
+                           date
+                           required
+                            state="{{form.$pageRight.StartNode}}"
+                           fm-model="form.it02.estimatedGoLiveDate"
+                           fm-placeholder="{{form.$pageLang.PleaseSelectTheTime}}"
+                      ></fm-datetime>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+      
+            <!--ApplicationChangeRequest-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.ApplicationChangeRequest"></span>
+            <div class="col-xs-4">
+                <fm-data-select href="/SysPages/SnNumber/{Text}/"
+                                field-name="{{form.$pageLang.ApplicationChangeRequest}}"
+                                state="{{form.$pageRight.StartNode}}"
+                                view="GetApplicationChangeRequest"
+                                required  
+                                fm-model="form.it02.applicationChangeRequest"
+                                callback-func="form.after_choose(selectItem)"
+                                fm-placeholder="{{form.$pageLang.PleaseSelect}}"></fm-data-select>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--Application-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.Application"></span>
+            <div class="col-xs-4">
+                <fm-text  class="input-sm"
+                    field-name="{{form.$pageLang.Application}}"
+                    fm-model="form.it02.application" 
+                    readonly
+                    required   
+                    fm-placeholder="{{form.$pageLang.UnitBudget}}"></fm-text>   
+            </div>
+            <!--ActionType-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.ActionType"></span>
+            <div class="col-xs-4">
+                <fm-text fm-model="form.it02.actionType" class="input-sm"
+                         readonly
+                         required
+                         field-name="{{form.$pageLang.ActionType}}"
+                         state="{{form.$pageRight.StartNode}}" ></fm-text>
+                
+              
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--Applicant-->
+            <span class="col-xs-2 control-label  required" ng-bind="form.$pageLang.Applicant"></span>
+            <div class="col-xs-4">
+                <fm-text fm-model="form.it02.applicant" class="input-sm"
+                         readonly
+                         field-name="{{form.$pageLang.Applicant}}"
+                         required
+                        ></fm-text>
+            </div>
+            <!--ITEngineer-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.ItEngineer"></span>
+            <div class="col-xs-4">
+                <fm-text fm-model="form.it02.itEngineer" class="input-sm"
+                         readonly 
+                         field-name="{{form.$pageLang.ItEngineer}}"
+                        ></fm-text>
+            </div>
+        </div>
+    </div>
+</div>
+<fm-Group-Head title="{{ form.$pageLang.UserAcceptanceTest }}"></fm-Group-Head>
+<div class="row">
+    <div class="col-xs-12">
+        <table class="table table-bordered table-detail">
+            <thead>
+                <tr  >
+                    <th style="text-align: center; padding-left: 0px; width: 50px;" class="checktd">
+
+                        <input type="checkbox" class="uniform"
+                               ng-checked="formit02uatAllChecked"
+                               ng-model="form.it02uatAllChecked"
+                               ng-if=" form.$pageRight.AcrnO2 === 'normal'||base.pageState==1"
+                               state="{{form.$pageRight.StartNode}}"
+                               ng-click="form.$checkAll(form.it02uatAllChecked, form.it02uat)"/>
+
+                        <strong class="input-sm" ng-if="form.$pageRight.AcrnO2 !== 'normal'&&base.pageState!==1" >序号</strong>
+                    </th> <!--NO-->
+                    <th style="width:150px; text-align:center;" class="required" ng-bind="form.$pageLang.Content"></th> <!--Content-->
+                    <th style="width:150px;text-align:center;" class="required" ng-bind="form.$pageLang.TestBy"></th> <!--TestBy-->
+                    <th style="width:300px;text-align:center;" class="required"  ng-bind="form.$pageLang.Result"></th> <!--Result-->
+                    <th style="width:200px;text-align:center;" class="required"  ng-bind="form.$pageLang.ConfirmedBy"></th> <!--ConfirmedBy-->
+                    <th style="width:200px;text-align:center;" class="required" ng-bind="form.$pageLang.Date"></th> <!--Date-->
+                    <th style="width:200px;text-align:center;" class="required" ng-bind="form.$pageLang.Comments"></th> <!--Comments-->
+                </tr>
+                
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in form.it02uat" ng-class="{'active': item.checked}" class="checktd"  detail-name="{{form.$pageLang.BusinessEntertainmentExpensesReimbursementList}}">
+                    <td class="checktd" >
+                          <input  class="uniform "
+                               ng-if="form.$pageRight.AcrnO2 === 'normal'||base.pageState==1"
+                               type="checkbox"
+                               ng-model="item.checked" />
+                        <strong class="input-sm" ng-if="form.$pageRight.AcrnO2 !== 'normal'&&base.pageState!=1">{{ $index + 1}}</strong>
+                    </td>
+                    <td >
+                        <fm-text class="input-sm"
+                            fm-model="item.content" 
+                            state="{{form.isstae}}"
+                            field-name="{{form.$pageLang.Content}}"
+                            required
+                           ></fm-text>
+                    </td>
+                    <td >
+                        <fm-text class="input-sm"
+                                fm-model="item.result"
+                                state="{{form.isstae}}"
+                                 required
+                                 field-name="{{form.$pageLang.TestBy}}"
+                              ></fm-text>
+                    </td>
+                    <td >
+                        <fm-select  class="input-sm"
+                            fm-model="item.testBy"
+                             state="{{form.isstae}}"
+                            dataitem="ITRelated>ApplicationUATGolive>Result"
+                            display-member="text"
+                            value-member="id"
+                            mustleaf
+                            required
+                            field-name="{{form.$pageLang.Result}}"
+                           ></fm-select>
+                    </td>
+                    <td >
+                        <fm-text fm-model="item.confirmedBy" class="input-sm"
+                            state="{{form.isstae}}"
+                            field-name="{{form.$pageLang.ConfirmedBy}}"
+                            required
+                       ></fm-text>
+                    </td>
+                    <td >
+                        <fm-datetime class="input-sm"
+                            date
+                            field-name="{{form.$pageLang.Date}}"
+                            state="{{form.isstae}}"
+                            required
+                           
+                            fm-model="item.date"></fm-datetime>
+                    </td>
+                    <td >
+                        <fm-text fm-model="item.comments"  class="input-sm"
+                                 field-name="{{form.$pageLang.Comments}}"
+                                 state="{{form.isstae}}"
+                                 required
+                           ></fm-text>
+                    </td>
+                </tr>   
+            </tbody>
+            <tfoot>
+                <tr >
+                    <td colspan="7" style="text-align:right;">
+                        <input type="button" class="btn btn-sm btn-info" ng-click="form.add()"  ng-if="form.$pageRight.AcrnO2 === 'normal'||base.pageState==1" value="{{form.$pageLang.Add}}" />
+                        <input type="button" class="btn btn-sm btn-danger" ng-click="form.delete()" value="{{form.$pageLang.Delete}}"   ng-if="form.$pageRight.AcrnO2 === 'normal'||base.pageState==1"/>
+                    </td>
+                </tr>
+
+
+            </tfoot>
+        </table>
+    </div>
+</div>
+<span  style="color:red">提示：待确认</span>
+<!--附件-->
+<fm-Group-Head class="print-hide" title="{{ 'Attachment' |translate}}"></fm-Group-Head>
+<div class="print-hide row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--<span class="col-xs-2 control-label required">附件</span>-->
+ 
+                <fm-attachment form-files="form.$attachments"
+                               link-id="0"
+                               task-id='base.taskId'
+                               node-id="base.nodeId"
+                               draft-id="base.draftId"
+                               state="{{form.$pageRight.StartNode}}"
+                               field-name="{{'UploadAttachment' |translate}}"
+                               fm-model="form.$state.UploadAttachment"
+                               button-name="{{ 'UploadAttachment' |translate}}"></fm-attachment>
+            </div>
+
+    </div>
+</div>
+
+
+

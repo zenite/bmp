@@ -1,0 +1,62 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sl.Bpm", "Sl.Bpm\Sl.Bpm.csproj", "{764A2C17-03D6-4CFA-AAEB-381955F935FB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sl.Bpm.DbUpgrade", "Sl.Bpm.DbUpgrade\Sl.Bpm.DbUpgrade.csproj", "{A8289ABD-71C7-414C-96AF-54646E300EA5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{D282A51B-91C9-47B5-91F0-8C489FAE8238}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sl.Bpm.SapHelper", "Sl.Bpm.SapHelper\Sl.Bpm.SapHelper.csproj", "{F6BC83E0-D1B6-4CE0-9A7C-547F7A7D7880}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+		UNIT|Any CPU = UNIT|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{764A2C17-03D6-4CFA-AAEB-381955F935FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{764A2C17-03D6-4CFA-AAEB-381955F935FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{764A2C17-03D6-4CFA-AAEB-381955F935FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{764A2C17-03D6-4CFA-AAEB-381955F935FB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{764A2C17-03D6-4CFA-AAEB-381955F935FB}.UNIT|Any CPU.ActiveCfg = Release|Any CPU
+		{764A2C17-03D6-4CFA-AAEB-381955F935FB}.UNIT|Any CPU.Build.0 = Release|Any CPU
+		{A8289ABD-71C7-414C-96AF-54646E300EA5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8289ABD-71C7-414C-96AF-54646E300EA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A8289ABD-71C7-414C-96AF-54646E300EA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A8289ABD-71C7-414C-96AF-54646E300EA5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A8289ABD-71C7-414C-96AF-54646E300EA5}.UNIT|Any CPU.ActiveCfg = Release|Any CPU
+		{A8289ABD-71C7-414C-96AF-54646E300EA5}.UNIT|Any CPU.Build.0 = Release|Any CPU
+		{F6BC83E0-D1B6-4CE0-9A7C-547F7A7D7880}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F6BC83E0-D1B6-4CE0-9A7C-547F7A7D7880}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F6BC83E0-D1B6-4CE0-9A7C-547F7A7D7880}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F6BC83E0-D1B6-4CE0-9A7C-547F7A7D7880}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F6BC83E0-D1B6-4CE0-9A7C-547F7A7D7880}.UNIT|Any CPU.ActiveCfg = Release|Any CPU
+		{F6BC83E0-D1B6-4CE0-9A7C-547F7A7D7880}.UNIT|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{A8289ABD-71C7-414C-96AF-54646E300EA5} = {D282A51B-91C9-47B5-91F0-8C489FAE8238}
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 4
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = http://shatfs.ad.shalu.com:38080/tfs/shalu
+		SccProjectUniqueName0 = Sl.Bpm\\Sl.Bpm.csproj
+		SccProjectName0 = Sl.Bpm
+		SccLocalPath0 = Sl.Bpm
+		SccLocalPath1 = .
+		SccProjectUniqueName2 = Sl.Bpm.SapHelper\\Sl.Bpm.SapHelper.csproj
+		SccProjectName2 = Sl.Bpm.SapHelper
+		SccLocalPath2 = Sl.Bpm.SapHelper
+		SccProjectUniqueName3 = Sl.Bpm.DbUpgrade\\Sl.Bpm.DbUpgrade.csproj
+		SccProjectTopLevelParentUniqueName3 = Dfpo.Bpm.sln
+		SccProjectName3 = Sl.Bpm.DbUpgrade
+		SccLocalPath3 = Sl.Bpm.DbUpgrade
+	EndGlobalSection
+EndGlobal

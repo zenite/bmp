@@ -1,0 +1,166 @@
+﻿<!--非计划产品指定供应商申请-->
+<fm-form-title sn-number="{{base.snNumber}}" apply-date="{{base.applyDate}}" sub-title='base.title' fm-model="base.areaCode"></fm-form-title>
+<!--<fm-Group-Head class="print-hide" title="{{ base.$pageLang.PostByInfo }}"></fm-Group-Head>
+<fm-initiator class="print-hide" jobid='base.jobId' userinfo='base.initiator' taskid='base.taskId'></fm-initiator>
+<!--发起人信息-->
+<fm-Group-Head class="print-hide" title="{{ base.$pageLang.ApplicantInfo }}"></fm-Group-Head>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--申请人名字-->
+            <span class="col-xs-2 control-label">{{ "ApplicantName" | translate }}</span>
+            <div class="col-xs-4"><span class="form-label">{{base.applicant.userName}}</span></div>
+            <!--申请人员工号-->
+            <span class="col-xs-2 control-label">{{ "ApplicantEmployeeNumber" | translate }}</span>
+            <div class="col-xs-4"><span class="form-label">{{base.applicant.employeeNumber}}</span></div>
+        </div>
+    </div>
+    <div class="form-group">
+        <!--申请人部门线-->
+        <div class="col-xs-12">
+            <span class="col-xs-2 control-label">{{ "ApplicantDepartment" | translate }}</span>
+            <div class="col-xs-10"><span class="form-label">{{base.applicant.departmentName}}</span></div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--申请人电话-->
+            <span class="col-xs-2 control-label">{{ "ApplicantContactNumber" | translate }}</span>
+            <div class="col-xs-4"><span class="form-label">{{base.applicant.contactNumber}}</span></div>
+            <!--申请人邮箱-->
+            <span class="col-xs-2 control-label">{{ "ApplicantEmail" | translate }}</span>
+            <div class="col-xs-4"><span class="form-label">{{base.applicant.emailAddress}}</span></div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--申请人手机-->
+            <span class="col-xs-2 control-label">{{ "ApplicantMobileNumber" | translate }}</span>
+            <div class="col-xs-4"><span class="form-label">{{base.applicant.mobileNumber}}</span></div>
+            <!--申请人直属领导-->
+            <span class="col-xs-2 control-label">{{ "ApplicantDirectManager" | translate }}</span>
+            <div class="col-xs-4"><span class="form-label">{{base.applicant.directManagerName}}</span></div>
+        </div>
+    </div>
+</div>
+<fm-Group-Head title="{{ form.$pageLang.RelatedProducts }}"></fm-Group-Head>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--描述-->
+            <span class="col-xs-2 control-label" ng-bind="form.$pageLang.Description"></span>
+            <div class="col-xs-4">
+                <fm-text fm-model="form.pur10.description"
+                         state="{{form.$pageRight.StartNode}}"></fm-text>
+            </div>
+            <!--项目/成本中心-->
+            <span class="col-xs-2 control-label" ng-bind="form.$pageLang.Center"></span>
+            <div class="col-xs-4">
+                <fm-text fm-model="form.pur10.costCente"
+                         state="{{form.$pageRight.StartNode}}"></fm-text>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--供应商名称-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.SupplierName"></span>
+            <div class="col-xs-4">
+                <fm-datatext-select fm-model="form.pur10.supplierName" fm-text-model="form.pur10.supplierNameText"
+                                    required
+                                    Size="xlg"
+                                    view="GetBelongsSubsidiarySupplierInfo"
+                                    field-name="{{form.$pageLang.SupplierName}}"
+                                    placeholder="（如无法选到,可手输）"></fm-datatext-select>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <table class="table table-bordered table-detail">
+                <thead>
+                    <tr>
+                        <th style="width: 25%; text-align:center;" ng-bind="form.$pageLang.TotalAmount"></th> <!--总金额-->
+                        <th style="width: 25%; text-align:center;" ng-bind="form.$pageLang.Currency"></th> <!--币种-->
+                        <th style="width: 25%; text-align:center;" ng-bind="form.$pageLang.Rate"></th> <!--汇率-->
+                        <th style="width: 25%; text-align:center;" ng-bind="form.$pageLang.RmbTotall"></th> <!--RMB合计-->
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="auto-style1">
+                            <fm-number cny
+                                       field-name="{{form.$pageLang.TotalAmount}}"
+                                       state="{{form.$pageRight.StartNode}}"
+                                       fm-model="form.pur10.totalAmount"
+                                       fm-blur="form.getsumRmbTotal()"
+                                       fm-required="form.pur10.currency!=null"></fm-number>
+                        </td>
+                        <td class="auto-style1">
+                            <fm-select view="GetCurrency"
+                                       field-name="{{form.$pageLang.Currency}}"
+                                       callback-func="form.chooseRate(selectItem)"
+                                       class="input-sm"
+                                       fm-required="form.pur10.totalAmount!=null"
+                                       state="{{form.$pageRight.StartNode}}"
+                                       fm-model="form.pur10.currency"></fm-select>
+                        </td>
+                        <td class="auto-style1">
+                            <fm-number class="input-sm"
+                                       readonly
+                                       scale="6"
+                                       display-scale="6"
+                                       field-name="{{form.$pageLang.Description}}"
+                                       state="{{form.$pageRight.StartNode}}"
+                                       fm-model="form.pur10.rate"></fm-number>
+                        </td>
+                        <td class="auto-style1">
+                            <fm-number fm-model="form.pur10.rmbtotal"
+                                       state="{{form.$pageRight.ACRStatus}}"
+                                       required
+                                       readonly
+                                       cny
+                                       field-name="{{form.$pageLang.MoneyAmount}}"></fm-number>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<fm-Group-Head title="{{form.$pageLang.Reason }}"></fm-Group-Head>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <span class="col-xs-2 control-label " ng-bind="form.$pageLang.Reason"></span>
+            <div class="col-xs-10">
+                <fm-textarea fm-model="form.pur10.reasonsDescription"></fm-textarea>
+            </div>
+        </div>
+    </div>
+</div>
+<!--附件-->
+<fm-Group-Head class="print-hide" title="{{ 'Attachment' |translate}}"></fm-Group-Head>
+<div class="print-hide row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--    <span class="col-xs-2 control-label required">附件</span>-->
+            <div class="col-xs-12">
+                <fm-attachment form-files="form.$attachments"
+                               link-id="0"
+                               task-id='base.taskId'
+                               node-id="base.nodeId"
+                               draft-id="base.draftId"
+                               state="{{form.$pageRight.StartNode}}"
+                               field-name="{{'UploadAttachment' |translate}}"
+                               fm-model="form.$state.UploadAttachment"
+                               button-name="{{ 'UploadAttachment' |translate}}"></fm-attachment>
+            </div>
+        </div>
+    </div>
+</div>

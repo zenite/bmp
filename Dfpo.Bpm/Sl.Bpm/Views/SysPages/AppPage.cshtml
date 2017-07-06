@@ -1,0 +1,114 @@
+﻿@using System.Web.Optimization
+
+@{
+    Layout = null;
+    var isPdf = ViewBag.isPdf == "1" || ViewBag.isPrint == "1";
+}
+
+<!DOCTYPE html>
+<html ng-app="appPage">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/gif" href="../../Content/Images/AppTitle.png">
+    <title>@if (!isPdf)
+    { @Html.Raw("{{title}}");
+    }</title>
+    @Styles.Render("~/SysPages/Css")
+
+</head>
+<body class="@if (isPdf)
+             { @Html.Raw("print-theme");}
+             else
+             { @Html.Raw("my-theme-deep");} print-preview body-login" ng-controller="PageCtrl as vm">
+    <div class="container form-container">
+        <div class="form-horizontal container page_content fm-form-block entire-block content-on-load">
+            <div class="fm-content" page-state="{{base.pageState}}" page-language="{{base.language}}">
+                <!--此处会加载表单内容-->
+            </div>
+            <!--审批中时显示, 退回到发起人时显示, 不为自动发起的第一个节点时显示-->
+            <div ng-if="(base.pageState == 2 || (!!base.taskId && base.pageState != 3)) && !base.isFromAutoPost">
+                <fm-Group-Head title="{{ 'TaskApproval' | translate}}"></fm-Group-Head><!--审批意见-->
+                <div class="form-group">
+                    <div class="col-xs-12">
+                        <fm-textarea fm-model="base.memo" normal i-clear ismulti placeholder="请填写审批意见">
+                        </fm-textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group">
+                    <div class="col-xs-12 form-error-list">
+                        <ul>
+                            <li class="col-lg-12" ng-repeat="e in form.$errors"><span ng-bind="e.msg"></span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group form-buttons">
+                    <div class="col-xs-12" style="text-align: center;">
+                        <button id="{{btn.id}}"
+                                ng-repeat="btn in base.actionButtons"
+                                class="btn btn-info"
+                                ng-click="base.submit(btn)"
+                                ng-bind="btn.name"></button>
+                        <input type="button" class="btn btn-default" value="{{ 'Close' | translate}}" ng-click="base.close()" />
+                    </div>
+                </div>
+            </div>
+            <fm-Group-Head title="{{ 'ApprovalRecord' | translate }}" ng-if="base.pageState!=1 || !!base.taskId"></fm-Group-Head>
+            <fm-approve-history task-id="base.taskId" ng-if="base.pageState!=1 || !!base.taskId" approve-history="base.approveHistory"></fm-approve-history>
+        </div>
+    </div>
+    @Scripts.Render("~/SysPages/Js")
+
+    <script type="text/javascript">
+        angular.module('appPage', ['mabp', 'app.shared', 'angularFileUpload', 'pascalprecht.translate'])
+            .config([
+                '$translateProvider', function($translateProvider) {
+                    $translateProvider.translations('en', mabp.localization['Bpm.en']);
+                    $translateProvider.translations('zh-CN', mabp.localization['Bpm.zh-CN']);
+                    $translateProvider.preferredLanguage('zh-CN');
+                }
+            ]).controller('PageCtrl',
+            ['mabp.app.module', 'mabp.app.task', '$compile', '$scope', '$timeout', 'formHelper', 'appSession', '$rootScope', '$pageDialog',
+                function(service, taskService, $compile, $scope, $timeout, formHelper, session, $rootScope, $pageDialog) {
+                    session.endLoad = function(result) {
+                        formHelper.sessionEndload($rootScope, result);
+                        var vm = this;
+                        vm.isLoaded = false;
+                        var pa = !!_shared.escape2Html('@ViewBag.param')?_shared.escape2Html('@ViewBag.param'):null;
+                        var param =JSON.parse(pa);
+                        vm.pageInfo = {
+                            isPrint: '@ViewBag.isPrint' === '1',
+                            nodeId: '@ViewBag.nodeId',
+                            pageId: '@ViewBag.pageId',
+                            jobId: '@ViewBag.jobId',
+                            applicantJobId: '@ViewBag.jobId', // 申请人JobId
+                            draftId: '@ViewBag.draftId', //若为草稿打开则存在DraftId
+                            procId: '@ViewBag.procId', //若为某一步打开则存在步骤Id
+                            taskId: '@ViewBag.taskId',
+                            nodeType: @ViewBag.nodeType,
+                            nextProcId:'',
+                            areaCode: '@ViewBag.areaCode',
+                            displayLanguages: '@ViewBag.displayLanguages',
+                            param: param,
+                            isPdf: @ViewBag.isPdf,
+                            topic: '@ViewBag.topic',
+                            isWaiting:'@ViewBag.isWaiting',
+                            isNewTab: true,  //是否新窗口打开
+                            close: function () { window.close(); }
+                        }
+                        //初始化容器对象
+                        var base = $scope.base = formHelper.buildBase(vm.pageInfo);
+                        console.log('taskId:' + base.taskId);
+                        //初始化表单对象
+                        var form = $scope.form = formHelper.buildForm($scope);
+                        formHelper.pageStart(base, form, $scope, $rootScope);
+                    }
+                }
+            ]);
+    </script>
+</body>
+</html>

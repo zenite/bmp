@@ -1,0 +1,203 @@
+﻿<!--FIN03.固定资产报废报告-->
+<fm-form-title sn-number="{{base.snNumber}}" apply-date="{{base.applyDate}}" sub-title='base.title' fm-model="base.areaCode"></fm-form-title>
+<fm-group-head title="{{ base.$pageLang.PostByInfo }}"></fm-group-head>
+<fm-initiator jobid='base.jobId' userinfo='base.initiator' taskid='base.taskId'></fm-initiator>
+<fm-group-head title="{{ form.$pageLang.AssetDetail }}"></fm-group-head>
+<div class="row">
+    <div class="col-xs-12">
+        <table class="table table-bordered table-detail">
+            <thead>
+                <tr>
+                    <!--勾选框-->
+                    <th ng-if="base.pageState==1" class="checktd"><input type="checkbox" class="uniform" ng-checked="form.fin03sAllChecked" ng-model="form.fin03sAllChecked" ng-click="form.$checkAll(form.fin03sAllChecked, form.fin03s)" /></th>
+                    <!--固定资产编号-->
+                    <th style="width: 9%; text-align: center; border: 0px;" class="required" ng-bind="form.$pageLang.FixAssetId"></th>
+                    <!--固定资产名称-->
+                    <th style="text-align: center; border: 0px;" ng-bind="form.$pageLang.FixAssetsName"></th>
+                    <!--原值RMB-->
+                    <th style="width: 7%; text-align: center; border: 0px;" class="required" ng-bind="form.$pageLang.CostValue"></th>
+                    <!--净值RMB-->
+                    <th style="width: 7%; text-align: center; border: 0px;" class="required" ng-bind="form.$pageLang.NetValue"></th>
+                    <!--责任人-->
+                    <th style="width: 7%; text-align: center; border: 0px;" ng-bind="form.$pageLang.ChiefEngineer"></th>
+                    <!--使用地点-->
+                    <th style="width: 8%; text-align: center; border: 0px;" ng-bind="form.$pageLang.Location"></th>
+                    <!--是否属于设备-->
+                    <th style="width: 5%; text-align: center; border: 0px;" ng-bind="form.$pageLang.IsEquipment"></th>
+                    <!--设备编号-->
+                    <th style="width: 7%; text-align: center; border: 0px;" ng-bind="form.$pageLang.EquipmentNo"></th>
+                    <!--是否海关监管-->
+                    <th style="width: 5%; text-align: center; border: 0px;" class="required" ng-bind="form.$pageLang.IsCustControl"></th>
+                    <!--监管到期日-->
+                    <th style="width: 8%; text-align: center; border: 0px;" class="required" ng-bind="form.$pageLang.ControlExpire"></th>
+                    <!--是否回收利用-->
+                    <th style="width: 5%; text-align: center; border: 0px;" class="required" ng-bind="form.$pageLang.IsRecover"></th>
+                    <!--接收部门-->
+                    <th style="width: 15%; text-align: center; border: 0px;" ng-bind="form.$pageLang.ReceiveDept"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in form.fin03s" ng-class="{ 'active': item.checked}" detail-name="{{form.$pageLang.Fare}}">
+                    <td ng-if="base.pageState==1" class="checktd">
+                        <input class="uniform" type="checkbox" ng-model="item.checked" />
+                    </td>
+                    <td>
+                        <!--固定资产编号-->
+                        <fm-data-select field-name="{{form.$pageLang.FixAssetId}}"
+                                        view="GetAllFixAssetIds"
+                                        filter="{areaCode: base.areaCode}"
+                                        ng-if="base.pageState == 1 "
+                                        class="input-sm" style="width:95px"
+                                        required
+                                        callback-func="form.chooseFixAssetId(selectItem,item)"
+                                        fm-model="item.fixAssetId"></fm-data-select>
+                        <fm-text ng-if="base.pageState != 1 "
+                                 readonly
+                                 class="input-sm"
+                                 fm-model="item.fixAssetId"></fm-text>
+                    </td>
+                    <td>
+                        <!--固定资产名称 带出-->
+                        <fm-text field-name="{{form.$pageLang.FixAssetsName}}"
+                                 readonly
+                                 class="input-sm"
+                                 fm-model="item.fixAssetName"></fm-text>
+                    </td>
+                    <td>
+                        <!--原值RMB-->
+                        <fm-number class="input-sm"
+                                   cny
+                                   fm-required="(base.nodeId =='c0d7d350-d23f-4765-8b0f-a4f3e85642b9'||base.nodeId == 'c68cb5e7-b886-4e67-a4c8-c017420c7056'||base.pageState == 1)"
+                                   state="{{ (base.nodeId =='c0d7d350-d23f-4765-8b0f-a4f3e85642b9'||base.nodeId == 'c68cb5e7-b886-4e67-a4c8-c017420c7056')?'normal':form.$pageRight.StartNode}}"
+                                   field-name="{{form.$pageLang.CostValue}}"
+                                   fm-model="item.costValue"
+                                   callback-func="form.sum(data)"></fm-number>
+                    </td>
+                    <td>
+                        <!--净值RMB-->
+                        <fm-number class="input-sm"
+                                   cny
+                                   fm-required="(base.nodeId =='c0d7d350-d23f-4765-8b0f-a4f3e85642b9'||base.nodeId == 'c68cb5e7-b886-4e67-a4c8-c017420c7056'||base.pageState == 1)"
+                                   state="{{ (base.nodeId =='c0d7d350-d23f-4765-8b0f-a4f3e85642b9'||base.nodeId == 'c68cb5e7-b886-4e67-a4c8-c017420c7056')?'normal':form.$pageRight.StartNode}}"
+                                   field-name="{{form.$pageLang.NetValue}}"
+                                   fm-model="item.netValue"
+                                   callback-func="form.sum(data)"></fm-number>
+
+                    </td>
+                    <td>
+                        <!--责任人  带出-->
+                        <fm-text field-name="{{form.$pageLang.ChiefEngineer}}"
+                                 readonly
+                                 class="input-sm"
+                                 fm-model="item.chiefEngineer"></fm-text>
+                    </td>
+                    <td>
+                        <!--使用地点  带出-->
+                        <fm-text field-name="{{form.$pageLang.Location}}"
+                                 readonly
+                                 class="input-sm"
+                                 fm-model="item.location"></fm-text>
+                    </td>
+                    <td>
+                        <!--是否属于设备 带出-->
+                        <fm-text field-name="{{form.$pageLang.IsEquipment}}"
+                                 readonly
+                                 class="input-sm"
+                                 fm-model="item.isEquipment"></fm-text>
+                    </td>
+                    <td>
+                        <!--设备编号-->
+                        <fm-text field-name="{{form.$pageLang.EquipmentNo}}"
+                                 fm-required="item.isEquipment=='是'"
+                                 class="input-sm"
+                                 fm-model="item.equipmentNo"></fm-text>
+
+                    </td>
+                    <td>
+                        <!--是否海关监管-->
+                        <fm-select field-name="{{form.$pageLang.IsCustControl}}"
+                                   required
+                                   fm-code="form.$state.isCustControl"
+                                   dataitem="Common>YesOrNo"
+                                   fm-model="item.isCustControl"></fm-select>
+                    </td>
+                    <td>
+                        <!--监管到期日-->
+                        <fm-datetime field-name="{{form.$pageLang.ControlExpire}}"
+                                     date
+                                     required
+                                     fm-disabled="item.isCustControl == '51B9F2E4-FBE9-400A-A789-A296E30177BF'"
+                                     fm-model="item.controlExpire"></fm-datetime>
+                    </td>
+                    <td>
+                        <!--是否回收利用-->
+                        <fm-select field-name="{{form.$pageLang.IsRecover}}"
+                                   required
+                                   fm-code="form.$state.isRecover"
+                                   dataitem="Common>YesOrNo"
+                                   fm-model="item.isRecover"></fm-select>
+                    </td>
+                    <td>
+                        <!--接收部门-->
+                        <fm-data-select field-name="{{form.$pageLang.ReceiveDept}}"
+                                        fm-disabled="item.isRecover !== 'D17A7445-9082-4A80-80E4-F47B4D19049E'"
+                                        required
+                                        group
+                                        fm-model="item.receiveDept"></fm-data-select>
+
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td style="text-align: right;" colspan="99">
+                        <input ng-if="base.pageState==1 || (form.$pageRight.StartNode == 'normal' && base.pageState==2)" type="button" class="btn btn-sm btn-info" ng-click="form.fin03s.push({})" value="{{form.$pageLang.Add}}" />
+                        <input ng-if="base.pageState==1 || (form.$pageRight.StartNode == 'normal' && base.pageState==2)" type="button" class="btn btn-sm btn-danger" ng-click="form.delete()" value="{{form.$pageLang.Delete}}" />
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <span class="col-xs-2 control-label" ng-bind="form.$pageLang.totalcost"></span>
+            <div class="col-xs-4">
+                <fm-number cny
+                           readonly
+                           fm-model="form.fin03.totalCost"></fm-number>
+            </div>
+            <span class="col-xs-2 control-label" ng-bind="form.$pageLang.totalnet"></span>
+            <div class="col-xs-4">
+                <fm-number cny
+                           readonly
+                           fm-model="form.fin03.totalNet"></fm-number>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <!--报废原因清理过程及结果：-->
+    <span class="col-xs-12 text-left required" ng-bind="form.$pageLang.scrappeddesc"></span>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <fm-textarea field-name="{{form.$pageLang.scrappeddesc}}"
+                         fm-model="form.fin03.scrappedDesc"
+                         required></fm-textarea>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <span class="col-xs-12 text-left" ng-bind="form.$pageLang.remark"></span>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <fm-textarea fm-model="form.fin03.remark"></fm-textarea>
+        </div>
+    </div>
+</div>

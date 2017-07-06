@@ -1,0 +1,382 @@
+﻿@using System.Web.Optimization
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html ng-app="mplReport">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+    <style type="text/css">
+            /** {
+                font-family: arial,'微软雅黑';
+            }*/
+
+            table {
+                border: 2px solid rgba(54, 54, 54, 0.59);
+                border-spacing: 0;
+                border-collapse: collapse;
+                /*font-size: 12px;*/
+                line-height: 100%;
+                /*width: 1000px;*/
+                word-break: break-all;
+            }
+
+            table > tbody > tr > td,
+            table > thead > tr > td {
+                min-width: 80px;
+                border: 2px solid rgba(54, 54, 54, 0.59);
+                padding: 0px;
+                margin: 0px;
+                -moz-box-sizing: border-box;
+                box-sizing: border-box;
+                border-spacing: 0px;
+                padding: 5px 8px;
+                border-collapse: collapse;
+                /*font-size: 12px;*/
+            }
+
+            table > thead > tr > td {
+                font-weight: bold;
+            }
+
+            table > tbody > tr:first-child > td,
+            table > thead > tr:first-child > td {
+                border-top: 1px;
+            }
+
+            table > tbody > tr > td:first-child,
+            table > thead > tr > td:first-child {
+                /*border-left: 1px;*/
+            }
+
+            td {
+                /*font-size: 12px;*/
+                color: #000000;
+                line-height: 100%;
+            }
+
+        /*.weight {
+                text-weight: bold;
+            }*/
+    </style>
+</head>
+<body>
+    <div ng-controller="mplReportCtrl as vm" style="width: 100%; background-color: #dfdfdf">
+        <div style="width: 80%">
+            <br />
+            <h2 style="text-align: center;">YFVE Internal Nightletter/ 延锋伟世通企业内部预警报告</h2>
+            <table class="table" style="width: 100%;">
+                <tr style="text-align: center;">
+                    <td colspan="5" style="width: 25%;">
+                        <strong>Nightletter No.<br />预警编号</strong>
+                    </td>
+                    <td colspan="5" style="width: 25%;">
+                        <strong>Visteon Global&nbsp;NL#</strong>
+                    </td>
+                    <td colspan="5" style="width: 25%;">
+                        <strong>Priority<br />优先级</strong>
+                    </td>
+                    <td colspan="5" style="width: 25%;">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td colspan="5" style="width: 25%;"><span ng-bind="form.mpl01.warningNo"></span></td>
+                    <td colspan="5" style="width: 25%;"><span ng-bind="form.mpl01.visteonGlobalNo"></span></td>
+                    <td colspan="5" style="width: 25%;">
+                        <select style="width: 100%;" disabled ng-model="form.mpl01.priority">
+                            <option value="D233EA83-5C2E-4230-8608-D3AF3A23CF2F">R</option>
+                            <option value="A6407BAA-2ABC-44EB-AC0E-0AB60DB2F6D4">Y</option>
+                            <option value="210798B1-716D-423C-AD8B-A5FABA779893">G</option>
+                        </select>
+                    </td>
+                    <td colspan="5" style="width: 25%;"></td>
+                </tr>
+                <tr style="text-align: center;">
+                    <td colspan="5" style="width: 25%;">
+                        <strong>Issue Date<br />发布时间</strong>
+                    </td>
+                    <td colspan="5" style="width: 25%;">
+                        <strong>YFVE Plant<br />公司名字</strong>
+                    </td>
+                    <td colspan="5" style="width: 25%;">
+                        <strong>Accountable Indivdual<br />预警负责人</strong>
+                    </td>
+                    <td colspan="5" style="width: 25%;">
+                        <strong>Date of Next Update<br />再次更新时间</strong>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="5" style="width: 25%;">
+                        <fm-datetime disabled date fm-model="form.mpl01.issueDate"></fm-datetime>
+                    </td>
+                    <td colspan="5" style="width: 25%;">
+                        <select ng-model="form.mpl01.companyName" disabled style="width: 100%;">
+                            <option value="040c4c17-6004-4597-b29f-6dbedf71031d">YFVCQ</option>
+                            <option value="7726fac0-a1b1-4d16-943b-3b6d8063c2e5">YFVXZ</option>
+                            <option value="b34dfbf8-c924-401b-9769-bb16a6ce0a52">YFVSX</option>
+                            <option value="CCE103C4-8AAB-43F2-B67C-C80CE0FE4DE3">YFVSJ</option>
+                            <option value="09FA31B9-5EC7-43B7-94D9-AD2F71BEF8C1">YFVCC</option>
+                        </select>
+                    </td>
+                    <td colspan="5" style="width: 25%;">
+                        <span ng-bind="form.mpl01.accountableIndivdual"></span>
+                    </td>
+                    <td colspan="5" style="width: 25%;">
+                        <fm-datetime date
+                                     disabled
+                                     fm-model="form.mpl01.dateofNextUpdate"></fm-datetime>
+                    </td>
+                </tr>
+                <tr style="text-align: center;">
+                    <td colspan="5" style="width: 25%;">
+                        <strong>Buyer<br />采购员</strong>
+                    </td>
+                    <td colspan="5" style="width: 25%;">
+                        <strong>Supplier Code<br />供应商代码</strong>
+                    </td>
+                    <td colspan="5" style="width: 25%;">
+                        <strong>Supplier Name<br />供应商名称</strong>
+                    </td>
+                    <td colspan="5" style="width: 25%;">
+                        <strong>Supplier Contact Info.<br />供应商联络信息</strong>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="5" style="width: 25%;">
+                        <span ng-bind="form.mpl01.buyer"></span>
+                    </td>
+                    <td colspan="5" style="width: 25%;">
+                        <span ng-bind="form.mpl01.supplierCode"></span>
+                    </td>
+                    <td colspan="5" style="width: 25%;"><span ng-bind="form.mpl01.supplierName"></span></td>
+                    <td colspan="5" style="width: 25%;"><span ng-bind="form.mpl01.supplierContactInfo"></span></td>
+                </tr>
+                <tr style="text-align: center;">
+                    <td style="width: 17%" colspan="3">
+                        <strong>Part Name<br />料件名字</strong>
+                    </td>
+                    <td style="width: 18%" colspan="4">
+                        <strong>End Customer<br />最终客户</strong>
+                    </td>
+                    <td style="width: 15%" colspan="3">
+                        <strong>Vehicle<br />车型</strong>
+                    </td>
+                    <td style="width: 16%" colspan="3">
+                        <strong>Date of expected Plant stoppage<br />工厂停线时间</strong>
+                    </td>
+                    <td style="width: 14%" colspan="3">
+                        <strong>Customer Linedown Date<br />客户停线时间</strong>
+                    </td>
+                    <td style="width: 20%" colspan="4">
+                        <strong>OK For Delivery<br />解除供货风险</strong>
+                    </td>
+                </tr>
+                <tr ng-repeat="i in form.mpl01rereportinfo">
+                    <td colspan="3"><span ng-bind="i.partName"></span></td>
+                    <td colspan="4"><span ng-bind="i.endCustomer"></span></td>
+                    <td colspan="3"><span ng-bind="i.vehicle"></span></td>
+                    <td colspan="3">
+                        @*<span ng-bind="i.stoppageDate"></span>*@
+                        <fm-datetime date
+                                     disabled
+                                     fm-model="i.stoppageDate"></fm-datetime>
+                    </td>
+                    <td colspan="3">
+                        @*<span ng-bind="i.customerLinedownDate"></span>*@
+                        <fm-datetime date
+                                     disabled
+                                     fm-model="i.customerLinedownDate"></fm-datetime>
+                    </td>
+                    <td colspan="4">
+                        <fm-datetime date
+                                     disabled
+                                     fm-model="i.okForDeliveryDate"></fm-datetime>
+                    </td>
+                </tr>
+                <tr><td colspan="20">&nbsp;</td></tr>
+                <tr>
+                    <td colspan="10"><strong>Concern Type 问题所属类型</strong></td>
+                    <td colspan="10"><strong>Root Cause 根本原因</strong></td>
+                </tr>
+                <tr>
+                    <td colspan="10">
+                        <fm-checklist disabled
+                                      fm-model="form.mpl01.problemType"
+                                      items="[{id:'0',text:'Supply issue 供应问题'},{id:'1',text:'Customers release issue 客户订单问题'},{id:'2',text:'Capacity issue 产能问题'},
+                                      {id:'3',text:'Supplier Quality 供应商质量问题'},{id:'5',text:'Visteon Design 伟世通设计问题'},
+                                      {id:'6',text:'Customer Design 客户设计问题'},{id:'7',text:'MFG Quality 制造质量问题'},{id:'8',text:'MFG Process 制造过程问题'},
+                                      {id:'9',text:'Commercial issue 商务问题'},{id:'10',text:'Payment Issues 付款问题'}]"></fm-checklist>
+                        <fm-checklist disabled
+                                      fm-model="form.mpl01.problemType"
+                                      items="[{id:'11',text:'Others, please indicate 其他原因,请详述：'}]"></fm-checklist>
+                        <textarea rows="3" disabled style="width: 100%;" ng-model="form.mpl01.otherProblemTypeInfo"></textarea>
+                    </td>
+                    <td colspan="10">
+                        <fm-checklist disabled
+                                      fm-model="form.mpl01.rootCause"
+                                      items="[{id:'16',text:'Supplier behind Schedule 供应商交货晚于计划所要求的时间'}]"></fm-checklist>
+
+                        &nbsp;&nbsp;<span class="col-xs-2 control-label">Schedule Cum 累积的需求数量：</span>
+                        <input type="text" disabled ng-model="form.mpl01.cumulativeNeedNumber" /><br />
+
+                        &nbsp;&nbsp;<span>Supplier Shipped Cum 供应商累积的发货数量：</span>
+                        <input type="text" disabled ng-model="form.mpl01.cumulativeDeliveryNumber" /><br />
+
+                        <fm-checklist disabled
+                                      fm-model="form.mpl01.rootCause"
+                                      items="[{id:'17',text:'Customers release increase 客户订单增加'}]"></fm-checklist>
+
+                        &nbsp;&nbsp;<span>Requirements increased 增长数量：</span>
+                        <input type="text" disabled ng-model="form.mpl01.addNumber" /><br />
+
+                        &nbsp;&nbsp;<span>Percentage increased 增长百分比：</span>
+                        <input type="text" disabled ng-model="form.mpl01.addPercentage" /><br />
+
+                        <fm-checklist fm-model="form.mpl01.rootCause" disabled
+                                      items="[{id:'3',text:'Supplier\'s capacity issue 供应商产能问题'},{id:'4',text:'Machine breakdown at the supplier 供应商设备停产'},
+                                      {id:'5',text:'Supplier not able to meet the spec 供应商的产品不符合规格要求'},{id:'6',text:'Lead time issue 采购周期问题'},
+                                      {id:'7',text:'SPQ issue 标准包装问题'},{id:'8',text:'MOQ issue 最小起订量问题'},{id:'9',text:'Transportation delay 运输延迟'},
+                                      {id:'10',text:'Cum disagreement 累计数量差异'},{id:'11',text:'Incorrect BOM BOM不正确'},{id:'12',text:'Payment issue 付款问题'},
+                                      {id:'13',text:'Stock loss 库存丢失'}]"></fm-checklist>
+                        <fm-checklist fm-model="form.mpl01.rootCause"
+                                      disabled
+                                      items="[{id:'14',text:'Quality issue 质量问题'}]"></fm-checklist>
+                        <select disabled ng-model="form.mpl01.qualityProblem">
+                            <option value="8ABCA8C6-25F1-4ED5-9936-AB01279C90B6">Supplier 供应商</option>
+                            <option value="46C24CA8-C532-4ABA-B0AC-97AE4CA3CE15">YFVE 工厂</option>
+                        </select>
+
+                        <fm-checklist fm-model="form.mpl01.rootCause"
+                                      disabled
+                                      items="[{id:'15',text:'Others, please indicate 其他原因,请详述：'}]"></fm-checklist>
+                        <textarea rows="3" disabled style="width: 100%;" ng-model="form.mpl01.otherRootCauseInfo"></textarea>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="20">
+                        <strong>Impact 物料短缺造成的预期影响</strong>
+                    </td>
+                </tr>
+                <tr style="border-bottom: none;">
+                    <td colspan="20" style="border-bottom:none">
+                        <span>Shipping status to Customers, behind? 造成对客户的交运延误？</span>
+                        <select ng-model="form.mpl01.shipmentDelay" disabled>
+                            <option value="D17A7445-9082-4A80-80E4-F47B4D19049E">Yes 是</option>
+                            <option value="51B9F2E4-FBE9-400A-A789-A296E30177BF">No 否</option>
+                        </select><br />
+
+                        <span>Is premium freight already being used to support customers? 产生了额外运费来满足客户的需求?</span>
+                        <select ng-model="form.mpl01.extraFreight" disabled>
+                            <option value="D17A7445-9082-4A80-80E4-F47B4D19049E">Yes 是</option>
+                            <option value="51B9F2E4-FBE9-400A-A789-A296E30177BF">No 否</option>
+                        </select><br />
+
+                        <span>Has shortage already resulted in production re-scheduling in Plant? 此次断料是否造成工厂生产计划重新调整?</span>
+                        <select ng-model="form.mpl01.toReadjust" disabled>
+                            <option value="D17A7445-9082-4A80-80E4-F47B4D19049E">Yes 是</option>
+                            <option value="51B9F2E4-FBE9-400A-A789-A296E30177BF">No 否</option>
+                        </select><br /><br />
+                        <span>Minimum Requirements (Summary) 最小需求量(汇总)：</span>
+                    </td>
+                </tr>
+                <tr style="border-top: none;">
+                    <td colspan="20" style="border-top: none; width: 100%;">
+                        <table style="width: 100%;">
+                            <tr ng-repeat="i in form.mpl01demand">
+                                <td style="width: 10%"><span>Part</span></td>
+                                <td style="width: 10%"><span ng-bind="i.partName"></span></td>
+                                <td style="width: 15%"><span>Daily</span></td>
+                                <td style="width: 15%"><span ng-bind="i.daily"></span></td>
+                                <td style="width: 10%"><span>Weekly</span></td>
+                                <td style="width: 10%"><span ng-bind="i.weekly"></span></td>
+                                <td style="width: 15%"><span>Monthly</span></td>
+                                <td style="width: 15%"><span ng-bind="i.monthly"></span></td>
+                            </tr>
+                        </table>
+                        <br />
+                        <span>Others, please indicate 其他影响,请详述：</span><br />
+                        <textarea rows="5" disabled style="width: 100%;" ng-model="form.mpl01.otherEffects"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="20"><strong>Containment Actions 牵制措施</strong></td>
+                </tr>
+                <tr>
+                    <td colspan="20" style="width: 100%;">
+                        <table style="width: 100%;">
+                            <tr ng-repeat="i in form.mpl01measures">
+                                <td style="width: 20%">
+                                    <fm-datetime datetime disabled
+                                                 fm-model="i.time"></fm-datetime>
+                                </td>
+                                <td style="width: 80%;"><span ng-bind="i.textA"></span></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="20"><strong>Concern Description & Status 问题描述和状态</strong></td>
+                </tr>
+                <tr>
+                    <td colspan="20">
+                        <textarea rows="5" disabled style="width: 100%;" ng-model="form.mpl01.problemDescriptionAndStatus"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="20"><strong>Permanent Corrective Action 持久改进措施</strong></td>
+                </tr>
+                <tr>
+                    <td colspan="20">
+                        <textarea rows="5" disabled style="width: 100%;" ng-model="form.mpl01.persistentImprovementMeasures"></textarea>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+    </div>
+    @Scripts.Render("~/SysPages/Js")
+    <script type="text/javascript">
+        angular.module('mplReport', ['mabp', 'app.shared', 'angularFileUpload', 'datePicker', 'pascalprecht.translate'])
+            .config([
+                '$translateProvider', function ($translateProvider) {
+                    $translateProvider.translations('en', mabp.localization['Bpm.en']);
+                    $translateProvider.translations('zh-CN', mabp.localization['Bpm.zh-CN']);
+                    $translateProvider.preferredLanguage('zh-CN');
+                }
+            ]).controller('mplReportCtrl',
+            [
+                'mabp.app.module', 'mabp.app.task', '$compile', '$scope', '$timeout', 'formHelper', 'appSession', '$rootScope', '$pageDialog',
+                function (service, taskService, $compile, $scope, $timeout, formHelper, session, $rootScope, $pageDialog) {
+                    session.endLoad = function () {
+                        var vm = this;
+                        vm.isLoaded = false;
+                        vm.pageInfo = {
+                            isPrint: '@ViewBag.isPrint' === '1',
+                            nodeId: '@ViewBag.nodeId',
+                            pageId: '@ViewBag.pageId',
+                            jobId: '@ViewBag.jobId',
+                            applicantJobId: '@ViewBag.jobId', // 申请人JobId
+                            draftId: '@ViewBag.draftId', //若为草稿打开则存在DraftId
+                            procId: '@ViewBag.procId', //若为某一步打开则存在步骤Id
+                            taskId: '@ViewBag.taskId',
+                            nodeType: '@ViewBag.nodeType',
+                            nextProcId: '',
+                            areaCode: '@ViewBag.areaCode',
+                            close: function () { window.close(); }
+                        }
+                        //初始化容器对象
+                        var base = $scope.base = formHelper.buildBase(vm.pageInfo);
+                        console.log('taskId:' + base.taskId);
+                        //初始化表单对象
+                        var form = $scope.form = formHelper.buildForm($scope);
+                        formHelper.pageStart(base, form, $scope, $rootScope);
+                    }
+                }
+            ]);
+    </script>
+</body>
+</html>

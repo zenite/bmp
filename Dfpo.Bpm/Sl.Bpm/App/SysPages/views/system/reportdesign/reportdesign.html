@@ -1,0 +1,33 @@
+﻿<div class="container-ui" ng-controller="syspages.views.enterprise.reportdesign as vm">
+    <cmd>
+        <span class="btn btn-success" ng-click="vm.edit()">{{ 'CreateReport' | translate}}</span>
+    </cmd>
+    <div class="row report_content">
+        <div class="col-xs-12" ng-show="vm.isLoaded && (!vm.models || vm.models.length == 0)">{{ 'NoReportYetClickUpperRightToAdd' | translate}}</div>
+        <list-view ng-hide="vm.isLoaded && (!vm.models || vm.models.length == 0)" head="{{ 'Report' | translate}}" models="vm.models" paging="vm.paging" load="vm.load">
+            
+            <div class="content-blocker">
+                <div class="col-md-3 col-sm-4 col-lg-2" ng-repeat="i in vm.models">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="visual">
+                                <i class="icon icon-8x icon-window-alt"></i>
+                            </div>
+                            <div class="card-content">
+                                <h4>{{i.name}}</h4>
+                                <p>
+                                    {{ 'Type' | translate}}: {{i.type}}<br />{{ 'Description' | translate}}: {{i.description}}<br />{{i.creationTime | date:'yyyy-MM-dd'}}
+                                </p>
+
+                            </div>
+                        </div>
+                        <div class="card-actions">
+                            <span class="btn btn-primary btn-sm" ng-click="vm.designFixFormat(i)" role="button">{{ 'DesignReportFormat' | translate}} &raquo;</span>
+                            <span class="btn btn-default btn-sm" role="button" ng-click="vm.edit(i)">{{ 'Edit' | translate}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </list-view>
+    </div>
+</div>

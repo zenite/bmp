@@ -1,0 +1,123 @@
+﻿<!--内部人才推荐报表-->
+<div class="form-group ma-block">
+    <fm-Group-Head title="{{::base.title}}"></fm-Group-Head>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="container">
+                <div class="form-group">
+                    <div class="col-xs-12">
+                        <div class="ma-detailinfo">
+                            <div class="content">
+                                <div class="row">
+                                    <div class="form-group">
+                                        <div class="col-xs-4 cell">
+                                            <!--工号-->
+                                            <span class="col-xs-3 control-label " ng-bind="form.$pageLang.EmployeeNumber"></span>
+                                            <div class="col-xs-9">
+                                                <fm-text class="input-sm" fm-model="form.filter.employeeNumber"></fm-text>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-4 cell">
+                                            <!--推荐人姓名-->
+                                            <span class="col-xs-3 control-label" ng-bind="form.$pageLang.Name">{</span>
+                                            <div class="col-xs-9">
+                                                <fm-text class="input-sm" fm-model="form.filter.name"></fm-text>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-4 cell">
+                                            <!--候选人现公司-->
+                                            <span class="col-xs-3 control-label" ng-bind="form.$pageLang.CandidateCurrentCompany"></span>
+                                            <div class="col-xs-9">
+                                                <fm-text class="input-sm" fm-model="form.filter.candidateCurrentCompany"></fm-text>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group">
+                                        <div class="col-xs-4 cell">
+                                            <!--推荐岗位-->
+                                            <span class="col-xs-3 control-label " ng-bind="form.$pageLang.RcommendJob"></span>
+                                            <div class="col-xs-9">
+                                                <fm-text class="input-sm" fm-model="form.filter.rcommendJob"></fm-text>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-4 cell">
+                                            <!--是否YF-->
+                                            <span class="col-xs-3 control-label" ng-bind="form.$pageLang.IsCandidateInYfVisteon">{</span>
+                                            <div class="col-xs-9">
+                                                <fm-text class="input-sm" fm-model="form.filter.isCandidateInYfVisteon"></fm-text>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-4 cell">
+                                            <!--是否现为本司员工-->
+                                            <span class="col-xs-3 control-label" ng-bind="form.$pageLang.IsWasCandidateInVendorCompany"></span>
+                                            <div class="col-xs-9">
+                                                <fm-text class="input-sm" fm-model="form.filter.isWasCandidateInVendorCompany"></fm-text>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group">
+
+                                        <div class="col-xs-4 cell">
+                                            <!--推荐时间-->
+                                            <span class="col-xs-3 control-label" ng-bind="form.$pageLang.RecommendedTime"></span>
+                                            <div class="col-xs-9">
+                                                <fm-datetime class="input-sm"
+                                                             date fm-model="form.filter.applicationTimeStart"
+                                                             fm-readonly></fm-datetime>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-4 cell">
+                                            <span class="col-xs-3 control-label"
+                                                  style="text-align:center;">——</span>
+                                            <div class="col-xs-9">
+                                                <fm-datetime class="input-sm" date fm-model="form.filter.applicationTimeEnd" fm-readonly></fm-datetime>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-4 cell">
+                                            <!--是否曾为本司员工-->
+                                            <span class="col-xs-3 control-label " ng-bind="form.$pageLang.WasCandidateInVendorCompany"></span>
+                                            <div class="col-xs-9">
+                                                <fm-text class="input-sm" fm-model="form.filter.wasCandidateInVendorCompany"></fm-text>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="row">
+                                    <div class="form-group">
+                                       
+                                        <div class="col-xs-4 cell">
+                                            <!--是否现为供应商-->
+                                            <span class="col-xs-3 control-label" ng-bind="form.$pageLang.IsCandidateInVendorCompany"></span>
+                                            <div class="col-xs-9">
+                                                <fm-text class="input-sm" fm-model="form.filter.isCandidateInVendorCompany"></fm-text>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group">
+                                <div class="col-xs-12" style="text-align:center;">
+                                    <button class="btn btn-primary" ng-click="form.select()" ng-bind="form.$pageLang.Query"></button>
+                                    <button class="btn btn-default" ng-click="form.clear()" ng-bind="form.$pageLang.Clear"></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12">
+                <fm-table width="100%" view='GetHr12InternalTalentRecommendationReport' data="form.HR12Report" refreash-data="form.refreash" excel current-page-data="form.currentData"  page="{{form.page}}"
+                          filter="{EmployeeNumber:form.filter.employeeNumber,Name:form.filter.name,CandidateCurrentCompany:form.filter.candidateCurrentCompany,RcommendJob:form.filter.rcommendJob,
+                          IsCandidateInYfVisteon:form.filter.isCandidateInYfVisteon,
+                         ApplicationTimeStart:form.filter.applicationTimeStart,ApplicationTimeEnd:form.filter.applicationTimeEnd,IsWasCandidateInVendorCompany:form.filter.isWasCandidateInVendorCompany,WasCandidateInVendorCompany:form.filter.wasCandidateInVendorCompany,IsCandidateInVendorCompany:form.filter.isCandidateInVendorCompany}"></fm-table>
+            </div>
+        </div>
+    </div>
+</div>

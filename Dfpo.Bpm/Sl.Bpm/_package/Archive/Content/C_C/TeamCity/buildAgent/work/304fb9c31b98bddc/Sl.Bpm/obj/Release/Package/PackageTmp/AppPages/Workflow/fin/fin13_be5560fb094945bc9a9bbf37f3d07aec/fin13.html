@@ -1,0 +1,320 @@
+﻿<!--FIN13.用款流程-->
+<fm-form-title sn-number="{{base.snNumber}}" apply-date="{{base.applyDate}}" sub-title='base.title' fm-model="base.areaCode"></fm-form-title>
+<fm-Group-Head title="{{ base.$pageLang.PostByInfo }}"></fm-Group-Head>
+<fm-initiator jobid='base.jobId' userinfo='base.initiator' taskid='base.taskId'></fm-initiator>
+<fm-Group-Head title="{{ base.$pageLang.ApplicationInfo }}"></fm-Group-Head>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--项目编号 ND06 填写编号-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.ProjectNo"></span>
+            <div class="col-xs-4">
+                <fm-text field-name="{{form.$pageLang.ProjectNo}}" 
+                         fm-required="form.$nodeCode =='ND05'"   fm-placeholder="{{form.$pageLang.ProjectNoTip}}"
+                         ng-if="!(form.intapptype=='2'||form.intapptype=='3')||base.pageState != 1 " 
+                         state="{{(form.intapptype=='1'&&form.$nodeCode =='ND05')?'normal':'disabled'}}" 
+                         fm-model="form.fin13u.projectNo"></fm-text>  
+                <fm-data-select field-name="{{form.$pageLang.ProjectNo}}" placeholder="{{form.$pageLang.ProjectNoTip}}"
+                                view="GetAllUseProjectList"
+                                ng-if="(form.intapptype=='2'||form.intapptype=='3')&&base.pageState == 1 "
+                                class="input-sm" 
+                                required  
+                                callback-func="form.funcBindProjectInfo(data)" 
+                                state="{{form.$pageRight.StartNode}}" 
+                                fm-model="form.fin13u.projectNo"></fm-data-select>
+            </div> 
+            <!--项目名称-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.TitleProject"></span>
+            <div class="col-xs-4">
+                <fm-text field-name="{{form.$pageLang.TitleProject}}"
+                         required  
+                         fm-disabled="form.intapptype=='3'" 
+                         state="{{form.$pageRight.StartNode}}"
+                         fm-model="form.fin13u.projectName"></fm-text>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--申请类型-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.TypeofRequest"></span>
+            <div class="col-xs-4">
+                <fm-radiolist fm-model="form.fin13u.appType" 
+                              required  callback-func="form.funcAppType(data)"
+                              field-name="{{form.$pageLang.TypeofRequest}}" 
+                              value-member="value"
+                              dataitem="Finance>FinItems>AppType"></fm-radiolist>
+            </div>            
+            <!--客户经理-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.AccountsManager"></span>
+            <div class="col-xs-4">
+                <fm-job-select state="{{form.$pageRight.StartNode}}"
+                               field-name="{{form.$pageLang.AccountsManager}}"
+                               required
+                               fm-model="form.fin13u.AccountsManager"></fm-job-select>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--币种-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.currency"></span>
+            <div class="col-xs-4">
+                <fm-select fm-model="form.fin13u.currency" required
+                           callback-func="form.changcurrency(data)"
+                           items="[{id:'CNY',text:'CNY'},{id:'USD',text:'USD'}]"></fm-select>
+            </div>
+            <!--SOP年汇率-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.SopYearlyTax"></span>
+            <div class="col-xs-4">
+                <fm-text field-name="{{form.$pageLang.SopYearlyTax}}"
+                         required cny
+                         fm-readonly="form.fin13u.currency =='CNY'"
+                         ng-keyup="form.sum()"
+                         fm-model="form.fin13u.sopYearlyTax"></fm-text>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--项目汇总信息 -->
+<fm-Group-Head title="{{form.$pageLang.Projectsummaryinfo}}"></fm-Group-Head>
+<div class="row" ng-if="base.pageState == 1 || form.fin13ud.length > 0">
+    <div class="col-xs-12">
+        <table class="table table-bordered table-detail">
+            <thead>
+                <tr> 
+                    <th style="text-align:center; vertical-align:middle;" rowspan="3">{{form.$pageLang.ClassificationCategory}}</th> <!--分类-->
+                    <th style="text-align:center; vertical-align:middle;width:6%;" rowspan="3">{{form.$pageLang.ItemCode}}</th>
+                    <th style="text-align:center;" colspan="6">{{form.$pageLang.AmountofRequest}}</th> <!--申请金额-->
+                    <th style="text-align:center;" colspan="2">{{form.$pageLang.Total}}</th> <!--合计-->
+                </tr>
+                <tr>
+                    <th style="text-align:center;" colspan="2">{{form.fin13u.startYear}}</th> <!--2016-->
+                    <th style="text-align:center;" colspan="2">{{form.fin13u.startYear+1}}</th> <!--2017-->
+                    <th style="text-align:center;" colspan="2">{{form.fin13u.startYear+2}}</th> <!--2018-->
+                    <th style="text-align:center;" colspan="2"></th>
+                </tr>
+                <tr>               
+                    <th style="text-align:center;width:9%;">{{form.$pageLang.Rmb}}</th> <!--RMB-->
+                    <th style="text-align:center;width:9%;">{{form.$pageLang.Usd}}</th> <!--USD-->
+                    <th style="text-align:center;width:9%;">{{form.$pageLang.Rmb}}</th> <!--RMB-->
+                    <th style="text-align:center;width:9%;">{{form.$pageLang.Usd}}</th> <!--USD-->                    
+                    <th style="text-align:center;width:9%;">{{form.$pageLang.Rmb}}</th> <!--USD-->
+                    <th style="text-align:center;width:9%;">{{form.$pageLang.Usd}}</th> <!--USD-->
+                    <th style="text-align:center;width:9%;">{{form.$pageLang.Rmb}}</th>
+                    <th style="text-align:center;width:9%;">{{form.$pageLang.Usd}}</th>
+                </tr>                
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in form.fin13ud" ng-class="{ 'active': item.checked}" detail-name="{{form.$pageLang.Projectsummaryinfo}}"> 
+                    <td>{{item.categoryDes}}
+                        <input  type="hidden" ng-model="item.category" /> 
+                    </td> <!--Tooling (模具)-->
+                    <td >
+                        <fm-text field-name="{{form.$pageLang.ItemCode}}" 
+                                 readonly    class="input-sm"
+                                 state="{{form.$pageRight.StartNode}}"
+                                 fm-model="item.itemCode"></fm-text>
+                    </td>
+                    <td style="text-align:center;">
+                        <fm-number field-name="{{form.$pageLang.RMB}}"
+                           cny required class="input-sm"
+                           state="{{form.$pageRight.StartNode}}" 
+                                   fm-readonly="form.fin13u.currency=='USD'"
+                                   fm-disabled="form.intapptype=='3'" 
+                           fm-model="item.rmbAmountA"  callback-func="form.sum(data)"></fm-number>
+                    </td>
+                    <td style="text-align:center;">
+                        <fm-number field-name="{{form.$pageLang.USD}}"
+                                   cny required class="input-sm"
+                                    fm-readonly="form.fin13u.currency!='USD'"
+                                   fm-disabled="form.intapptype=='3'" 
+                                   state="{{form.$pageRight.StartNode}}" 
+                                   fm-model="item.usdAmountA" callback-func="form.sum(data)">
+                        </fm-number>
+                    </td>
+                    <td style="text-align:center;">
+                        <fm-number field-name="{{form.$pageLang.RMB}}"
+                                   fm-disabled="form.intapptype=='3'" 
+                                   cny required class="input-sm"  fm-readonly="form.fin13u.currency=='USD'"
+                                   state="{{form.$pageRight.StartNode}}" 
+                                   fm-model="item.rmbAmountB" callback-func="form.sum(data)"></fm-number>
+                    </td>
+                    <td style="text-align:center;">
+                        <fm-number field-name="{{form.$pageLang.USD}}"
+                                   fm-disabled="form.intapptype=='3'"   fm-readonly="form.fin13u.currency!='USD'"
+                                   cny required class="input-sm"
+                                   state="{{form.$pageRight.StartNode}}" 
+                                   fm-model="item.usdAmountB" callback-func="form.sum(data)">
+                        </fm-number>
+                    </td>
+                    <td style="text-align:center;">
+                        <fm-number field-name="{{form.$pageLang.RMB}}"   fm-readonly="form.fin13u.currency=='USD'"
+                                   fm-disabled="form.intapptype=='3'" 
+                                   cny required class="input-sm"
+                                   state="{{form.$pageRight.StartNode}}" 
+                                   fm-model="item.rmbAmountC" callback-func="form.sum(data)"></fm-number>
+                    </td>
+                    <td style="text-align:center;">
+                        <fm-number field-name="{{form.$pageLang.USD}}"  fm-readonly="form.fin13u.currency!='USD'"
+                                   fm-disabled="form.intapptype=='3'" 
+                                   cny required class="input-sm"
+                                   state="{{form.$pageRight.StartNode}}" 
+                                   fm-model="item.usdAmountC" callback-func="form.sum(data)">
+                        </fm-number>
+                    </td>
+                    <td style="text-align:center;">
+                        <fm-number field-name="{{form.$pageLang.RMB}}"
+                                   cny  class="input-sm"
+                                   state="readonly" 
+                                   fm-model="item.rmbAmountSum" callback-func="form.sum(data)"></fm-number>
+                    </td>
+                    <td style="text-align:center;">
+                        <fm-number field-name="{{form.$pageLang.USD}}"
+                                   cny  class="input-sm"
+                                   state="readonly" 
+                                   fm-model="item.usdAmountSum" callback-func="form.sum(data)">
+                        </fm-number>
+                    </td>
+                </tr> 
+                <tr>
+                    <td>
+                        {{form.$pageLang.Totalcustomer}}</td> <!--Total customer lump-sum expense(客户一次性支付总计)-->
+                    <td></td>
+                    <td style="text-align:center;">
+                        <fm-number field-name="{{form.$pageLang.RMB}}"
+                                   cny  class="input-sm"
+                                   state="readonly" 
+                                   fm-model="form.fin13u.rmbAmountA" ></fm-number>
+                    </td>
+                    <td style="text-align:center;">
+                        <fm-number field-name="{{form.$pageLang.USD}}"
+                                   cny  class="input-sm"
+                                   state="readonly" 
+                                   fm-model="form.fin13u.usdAmountA">
+                        </fm-number>
+                    </td>
+                    <td style="text-align:center;">
+                        <fm-number field-name="{{form.$pageLang.RMB}}"
+                                   cny  class="input-sm"
+                                   state="readonly" 
+                                   fm-model="form.fin13u.rmbAmountB"></fm-number>
+                    </td>
+                    <td style="text-align:center;">
+                        <fm-number field-name="{{form.$pageLang.USD}}"
+                                   cny  class="input-sm"
+                                   state="readonly" 
+                                   fm-model="form.fin13u.usdAmountB">
+                        </fm-number>
+                    </td>
+                    <td style="text-align:center;">
+                        <fm-number field-name="{{form.$pageLang.RMB}}"
+                                   cny  class="input-sm"
+                                   state="readonly" 
+                                   fm-model="form.fin13u.rmbAmountC"></fm-number>
+                    </td>
+                    <td style="text-align:center;">
+                        <fm-number field-name="{{form.$pageLang.USD}}"
+                                   cny  class="input-sm"
+                                   state="readonly" 
+                                   fm-model="form.fin13u.usdAmountC">
+                        </fm-number>
+                    </td>
+                    <td style="text-align:center;">
+                        <fm-number field-name="{{form.$pageLang.RMB}}"
+                                   cny  class="input-sm"
+                                   state="readonly" 
+                                   fm-model="form.fin13u.rmbAmountSum"></fm-number>
+                    </td>
+                    <td style="text-align:center;">
+                        <fm-number field-name="{{form.$pageLang.USD}}"
+                                   cny  class="input-sm"
+                                   state="readonly" 
+                                   fm-model="form.fin13u.usdAmountSum">
+                        </fm-number>
+                    </td>
+                </tr>
+            </tbody> 
+        </table>
+    </div> 
+ </div>
+    <div class="row"><br/></div>
+    <div class="row">
+        <div class="col-xs-12">
+            <table class="table table-bordered table-detail">
+                <thead>
+                    <tr>
+                        <td></td>
+                        <td style="text-align:center;width:36%;" ng-bind="form.$pageLang.Lumpsumamount"></td>    <!--Lump sum amount(支付金额)-->
+                        <td style="text-align:center;width:36%;" ng-bind="form.$pageLang.Lumpsumschedule"></td>  <!--Lump sum schedule(支付时间)-->
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td ng-bind="form.$pageLang.Customerpayment"></td>
+                        <td style="text-align:center;">
+                            <fm-number field-name="{{form.$pageLang.Lumpsumamount}}"
+                                       cny required
+                                       fm-disabled="form.intapptype=='3'" 
+                                       state="{{form.$pageRight.StartNode}}"
+                                       fm-model="form.fin13u.lumpSumAmount"></fm-number>
+                        </td>
+                        <td style="text-align:center;">
+                            <fm-datetime field-name="{{form.$pageLang.Lumpsumschedule}}"
+                                         date
+                                         required
+                                         fm-disabled="form.intapptype=='3'" 
+                                         state="{{form.$pageRight.StartNode}}"
+                                         fm-model="form.fin13u.lumpSumSchedule"></fm-datetime>
+                        </td>
+                    </tr>
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+
+<fm-Group-Head title="{{form.$pageLang.ApprovalbyYFVICEC}}" style="text-align:center"></fm-Group-Head> <!--投资公司执委会审批-->
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <strong><span class="col-xs-1 control-label" ng-bind="form.$pageLang.SaleMarketingDirector"></span></strong> <!--销售总监-->
+            <div class="col-xs-3">
+                <fm-text state="readonly" fm-model="base.$approveInfoList['销售总监']"></fm-text>
+            </div>
+            <strong> <span class="col-xs-1 control-label" ng-bind="form.$pageLang.TechonologycompanyGM"></span>  </strong>  <!--技术中心总监-->
+            <div class="col-xs-3">
+                <fm-text state="readonly" fm-model="base.$approveInfoList['TC-GM']"></fm-text>
+            </div>
+            <strong><span class="col-xs-1 control-label" ng-bind="form.$pageLang.FinanceDGM"></span>  </strong>  <!--财务副总经理-->
+            <div class="col-xs-3">
+                <fm-text state="readonly" fm-model="base.$approveInfoList['FINDGM']"></fm-text>
+            </div>
+        </div>
+    </div>
+</div> 
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <strong><span class="col-xs-1 control-label" ng-bind="form.$pageLang.OperationDGM"></span></strong> <!--运作副总经理-->
+            <div class="col-xs-3">
+                <fm-text state="readonly" fm-model="base.$approveInfoList['运作副总经理']"></fm-text>
+            </div>
+            <strong> <span class="col-xs-1 control-label" ng-bind="form.$pageLang.GroupECGM"></span>  </strong>  <!--执行副总经理-->
+            <div class="col-xs-3">
+                <fm-text state="readonly" fm-model="base.$approveInfoList['执行副总经理']"></fm-text>
+            </div>
+            <strong><span class="col-xs-1 control-label" ng-bind="form.$pageLang.GroupGM"></span>  </strong>  <!--公司总经理-->
+            <div class="col-xs-3">
+                <fm-text state="readonly" fm-model="base.$approveInfoList['GM']"></fm-text>
+            </div>
+        </div>
+    </div>
+</div> 
+ 

@@ -1,0 +1,69 @@
+﻿<div class="row">
+    <div class="col-xs-12">
+        <div class="form-group form-horizontal">
+            <div class="row">
+                <div class="col-xs-4">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="icon-search"></i></span>
+                        <input type="text" class="form-control" ng-model="vm.selectTxt" placeholder="输入检索条件" ng-blur="vm.load()" ng-keydown="vm.event_KeyDown_SelectUser($event)">
+                        <span class="input-group-btn">
+                            <button class="btn btn-primary" type="button" ng-click="vm.load()">查询</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-bordered table-detail">
+                    <thead>
+                        <tr></tr>
+                        <tr>
+                            <th style="width: 30px;"></th>
+                            <th style="width: 130px;">Company</th>
+                            <th style="width: 230px;">Company Abbrev</th>
+                            <th>Company Address</th>
+                            <th>CompanyAddressEng</th>
+                            <th style="width: 130px;">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody fm-cache>
+                        <tr>
+                            <td class="statetd">
+                                <i class="icon-pencil"></i>
+                            </td>
+                            <td>
+                                <fm-text class="input-sm" field-name="公司"
+                                         fm-model="form.newItem.company" required></fm-text>
+                            </td>
+                            <td>
+                                <fm-text class="input-sm" field-name="公司简写" required
+                                         fm-model="form.newItem.companyAbbrev"></fm-text>
+                            </td>
+                            <td>
+                                <fm-text fm-model="form.newItem.companyAddress"
+                                        class="input-sm" field-name="公司地址" required></fm-text>
+                            </td>
+                            <td>
+                                <fm-text fm-model="form.newItem.CompanyAddressEng"
+                                         class="input-sm" field-name="CompanyAddressEng" required
+                                           ></fm-text>
+
+                            </td>
+                            <td>
+                                <input class="btn btn-sm btn-success" type="button" value="新增" ng-click="form.add()" />
+                                <input class="btn btn-sm btn-success" type="button" value="删除" ng-click="form.remove()" />
+                            </td>
+                        </tr>
+                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <ul class="pager" style="float: right;">
+        <li class="previous" ng-class="{disabled:form.paging.currentPage==1}"><a ng-click="form.$changePage(1)">首页</a></li>
+        <li ng-repeat="page in form.showPages" ng-class="{active:page.index==form.paging.currentPage}"><a ng-click="form.$changePage(page.index)">{{page.index}}</a></li>
+        <li class="next" ng-class="{disabled:form.paging.currentPage==form.pageNum}"><a ng-click="form.$changePage(form.pageNum)">末页</a></li>
+    </ul>
+</div>

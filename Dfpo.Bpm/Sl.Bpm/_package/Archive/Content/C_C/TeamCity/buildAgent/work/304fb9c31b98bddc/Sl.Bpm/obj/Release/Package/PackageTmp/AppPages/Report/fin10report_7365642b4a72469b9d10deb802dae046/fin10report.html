@@ -1,0 +1,156 @@
+﻿<!--非计划性材料领料申请-->
+<div class="form-group ma-block">
+    <fm-Group-Head title="{{::base.title}}"></fm-Group-Head>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="container">
+                <div class="form-group">
+                    <div class="col-xs-12">
+                        <div class="ma-detailinfo">
+                            <div class="content">
+                                <div class="row">
+                                    <div class="form-group">
+                                        <div class="col-xs-4 cell">
+                                            <!--单号-->
+                                            <span class="col-xs-3 control-label " ng-bind="form.$pageLang.SnNumber"></span>
+                                            <div class="col-xs-9">
+                                                <fm-text class="input-sm" fm-model="form.filter.snNumber"></fm-text>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-4 cell">
+                                            <!--申请人-->
+                                            <span class="col-xs-3 control-label" ng-bind="form.$pageLang.APPlyName">{</span>
+                                            <div class="col-xs-9">
+                                                <fm-text class="input-sm" fm-model="form.filter.aPPlyName"></fm-text>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-4 cell">
+                                            <!--申请人工号-->
+                                            <span class="col-xs-3 control-label" ng-bind="form.$pageLang.EmployeeNumber"></span>
+                                            <div class="col-xs-9">
+                                                <fm-text class="input-sm" fm-model="form.filter.employeeNumber"></fm-text>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group">
+
+                                        <div class="col-xs-4 cell">
+                                            <!--申请时间-->
+                                            <span class="col-xs-3 control-label" ng-bind="form.$pageLang.ApplyDate"></span>
+                                            <div class="col-xs-9">
+                                                <fm-datetime class="input-sm"
+                                                             date fm-model="form.filter.applicationTimeStart"
+                                                             fm-readonly></fm-datetime>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-4 cell">
+                                            <span class="col-xs-3 control-label"
+                                                  style="text-align:center;">——</span>
+                                            <div class="col-xs-9">
+                                                <fm-datetime class="input-sm" date fm-model="form.filter.applicationTimeEnd" fm-readonly></fm-datetime>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-4 cell">
+                                            <!--项目号-->
+                                            <span class="col-xs-3 control-label" ng-bind="form.$pageLang.ProjectCode"></span>
+                                            <div class="col-xs-9">
+                                                <fm-text class="input-sm" fm-model="form.filter.projectCode"></fm-text>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="row">
+                                    <div class="form-group">
+                                        <div class="col-xs-4 cell">
+                                            <!--物料类型-->
+                                            <span class="col-xs-3 control-label " ng-bind="form.$pageLang.Material"></span>
+                                            <div class="col-xs-9">
+                                                <fm-text class="input-sm" fm-model="form.filter.material"></fm-text>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-4 cell">
+                                            <!--物料类别-->
+                                            <span class="col-xs-3 control-label" ng-bind="form.$pageLang.MaterialType">{</span>
+                                            <div class="col-xs-9">
+                                                <fm-text class="input-sm" fm-model="form.filter.materialType"></fm-text>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-4 cell">
+                                            <!--领料地点-->
+                                            <span class="col-xs-3 control-label" ng-bind="form.$pageLang.Location"></span>
+                                            <div class="col-xs-9">
+                                                <fm-text class="input-sm" fm-model="form.filter.location"></fm-text>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group">
+                                        <div class="col-xs-4 cell">
+                                            <!--是否客户支付-->
+                                            <span class="col-xs-3 control-label " ng-bind="form.$pageLang.ChargeCustomer"></span>
+                                            <div class="col-xs-9">
+                                                <fm-text class="input-sm" fm-model="form.filter.chargeCustomer"></fm-text>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-4 cell">
+                                            <!--新品分类-->
+                                            <span class="col-xs-3 control-label" ng-bind="form.$pageLang.NewMaterial">{</span>
+                                            <div class="col-xs-9">
+                                                <fm-text class="input-sm" fm-model="form.filter.newMaterial"></fm-text>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-4 cell">
+                                            <!--科目-->
+                                            <span class="col-xs-3 control-label" ng-bind="form.$pageLang.Accounts"></span>
+                                            <div class="col-xs-9">
+                                                <fm-text class="input-sm" fm-model="form.filter.accounts"></fm-text>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group">
+                                        <div class="col-xs-4 cell">
+                                            <!--领料明细-->
+                                            <span class="col-xs-3 control-label " ng-bind="form.$pageLang.PartMemo"></span>
+                                            <div class="col-xs-9">
+                                                <fm-text class="input-sm" fm-model="form.filter.partMemo"></fm-text>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-4 cell">
+                                            <!--成本中心-->
+                                            <span class="col-xs-3 control-label" ng-bind="form.$pageLang.CostCenter">{</span>
+                                            <div class="col-xs-9">
+                                                <fm-text class="input-sm" fm-model="form.filter.costCenter"></fm-text>
+                                            </div>
+                                        </div>
+                           
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group">
+                                <div class="col-xs-12" style="text-align:center;">
+                                    <button class="btn btn-primary" ng-click="form.select()" ng-bind="form.$pageLang.Query"></button>
+                                    <button class="btn btn-default" ng-click="form.clear()" ng-bind="form.$pageLang.Clear"></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12">
+                <fm-table view='Getfin10UnplannedMaterialRequistionReport' data="form.fin10Report" refreash-data="form.refreash" excel current-page-data="form.currentData" page="{{form.page}}"
+                          filter="{SnNumber:form.filter.snNumber,APPlyName:form.filter.aPPlyName,EmployeeNumber:form.filter.employeeNumber
+                          ,ApplicationTimeStart:form.filter.applicationTimeStart,ApplicationTimeEnd:form.filter.applicationTimeEnd
+                          ,ProjectCode:form.filter.projectCode,MaterialType:form.filter.materialType,Material:form.filter.material,Location:form.filter.location,ChargeCustomer:form.filter.chargeCustomer
+                          ,NewMaterial:form.filter.newMaterial,Accounts:form.filter.accounts,PartMemo:form.filter.partMemo,CostCenter:form.filter.costCenter}"></fm-table>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,138 @@
+﻿<!--组织调整及管理人员任免报表-->
+<div class="form-group ma-block">
+    <fm-Group-Head title="{{::base.title}}"></fm-Group-Head>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="container">
+                <div class="form-group">
+                    <div class="col-xs-12">
+                        <div class="ma-detailinfo">
+                            <div class="content">
+                                <div class="row">
+                                    <div class="form-group">
+                                        <div class="col-xs-4 cell">
+                                            <!--单号-->
+                                            <span class="col-xs-3 control-label " ng-bind="form.$pageLang.SnNumber"></span>
+                                            <div class="col-xs-9">
+                                                <fm-text class="input-sm" fm-model="form.filter.snNumber"></fm-text>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-4 cell">
+                                            <!--申请人-->
+                                            <span class="col-xs-3 control-label" ng-bind="form.$pageLang.ApplyName">{</span>
+                                            <div class="col-xs-9">
+                                                <fm-text class="input-sm" fm-model="form.filter.applyName"></fm-text>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-4 cell">
+                                            <!--申请人工号-->
+                                            <span class="col-xs-3 control-label" ng-bind="form.$pageLang.ApplyEmployeeNumber"></span>
+                                            <div class="col-xs-9">
+                                                <fm-text class="input-sm" fm-model="form.filter.applyEmployeeNumber"></fm-text>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group">
+
+                                        <div class="col-xs-4 cell">
+                                            <!--项目编号-->
+                                            <span class="col-xs-3 control-label" ng-bind="form.$pageLang.ProjectNo">{</span>
+                                            <div class="col-xs-9">
+                                                <fm-text class="input-sm" fm-model="form.filter.projectNo"></fm-text>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-4 cell">
+                                            <!--项目名称-->
+                                            <span class="col-xs-3 control-label" ng-bind="form.$pageLang.ProjectName"></span>
+                                            <div class="col-xs-9">
+                                                <fm-text class="input-sm" fm-model="form.filter.projectName"></fm-text>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group">
+                                        <div class="col-xs-4 cell">
+                                            <!--申请类型-->
+                                            <span class="col-xs-3 control-label " ng-bind="form.$pageLang.Apptype"></span>
+                                            <div class="col-xs-9">
+                                                <fm-select dataitem="Finance>FinItems>AppType"
+                                                           value-member="text"
+                                                           fm-model="form.filter.apptype"></fm-select>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="col-xs-4 cell">
+                                            <!--申请日期-->
+                                            <span class="col-xs-3 control-label" ng-bind="form.$pageLang.ApplyDate"></span>
+                                            <div class="col-xs-9">
+                                                <fm-datetime class="input-sm"
+                                                             date fm-model="form.filter.applyapplicationTimeStart"
+                                                             fm-readonly></fm-datetime>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-4 cell">
+                                            <span class="col-xs-3 control-label"
+                                                  style="text-align:center;">——</span>
+                                            <div class="col-xs-9">
+                                                <fm-datetime class="input-sm" date fm-model="form.filter.applyapplicationTimeEnd" fm-readonly></fm-datetime>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group">
+                                        <div class="col-xs-4 cell">
+                                            <!--支付金额-->
+                                            <span class="col-xs-3 control-label" ng-bind="form.$pageLang.LumpSumAmount">{</span>
+                                            <div class="col-xs-9">
+                                                <fm-number class="input-sm" fm-model="form.filter.lumpSumAmount"></fm-number>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-4 cell">
+                                            <!--支付日期-->
+                                            <span class="col-xs-3 control-label" ng-bind="form.$pageLang.Date"></span>
+                                            <div class="col-xs-9">
+                                                <fm-datetime class="input-sm"
+                                                             date fm-model="form.filter.applicationTimeStart"
+                                                             fm-readonly></fm-datetime>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-4 cell">
+                                            <span class="col-xs-3 control-label"
+                                                  style="text-align:center;">——</span>
+                                            <div class="col-xs-9">
+                                                <fm-datetime class="input-sm" date fm-model="form.filter.applicationTimeEnd" fm-readonly></fm-datetime>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group">
+                                <div class="col-xs-12" style="text-align:center;">
+                                    <button class="btn btn-primary" ng-click="form.select()" ng-bind="form.$pageLang.Query"></button>
+                                    <button class="btn btn-default" ng-click="form.clear()" ng-bind="form.$pageLang.Clear"></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12">
+                <fm-table view='Getfin13AppropriationRequestForCustomerReport' data="form.fin13Report" refreash-data="form.refreash" excel current-page-data="form.currentData" page="{{form.page}}"
+                          filter="{SnNumber:form.filter.snNumber,ApplyName:form.filter.applyName,ApplyEmployeeNumber:form.filter.applyEmployeeNumber,ProjectNo:form.filter.projectNo
+                          ,ProjectName:form.filter.projectName,Apptype:form.filter.apptype,LumpSumAmount:form.filter.lumpSumAmount
+                          ,ApplicationTimeStart:form.filter.applicationTimeStart,ApplicationTimeEnd:form.filter.applicationTimeEnd,ApplyApplicationTimeStart:form.filter.applyapplicationTimeStart,ApplyApplicationTimeEnd:form.filter.applyapplicationTimeEnd}"></fm-table>
+            </div>
+        </div>
+    </div>
+</div>

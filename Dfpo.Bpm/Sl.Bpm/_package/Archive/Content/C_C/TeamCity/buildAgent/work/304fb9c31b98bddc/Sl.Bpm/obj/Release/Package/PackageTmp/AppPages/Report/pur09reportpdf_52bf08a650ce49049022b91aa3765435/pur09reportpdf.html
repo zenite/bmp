@@ -1,0 +1,17 @@
+﻿<!--量产订单历史数据表-->
+<div class="form-group ma-block">
+    <fm-Group-Head title="{{::base.title}}"></fm-Group-Head>
+    
+
+       <div class="row">
+        <div class="col-xs-12">
+            <div class="container">
+
+            </div>
+            <div class="col-xs-12">
+                <fm-table view='Getpur09Report' data="form.pur09reportpdf" refreash-data="form.refreash" excel current-page-data="form.currentData" width="3500px"
+                          page="{{form.page}}" sortable filter="{AreaCode:form.filter.areaCode}" page-size-list all-column-filter></fm-table>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,109 @@
+﻿<!--加班统计报表-->
+<div class="form-group ma-block">
+    <fm-Group-Head title="{{::base.title}}"></fm-Group-Head>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="container">
+                <div class="form-group">
+                    <div class="col-xs-12">
+                        <div class="ma-detailinfo">
+                            <div class="content">
+                                <div class="row">
+                                    <div class="col-xs-4 cell">
+                                        <span class="col-xs-4 control-label">类型</span>
+                                        <div class="col-xs-8">
+                                            <!--<fm-radiolist class="uniform"
+                                                          items="[{id:'1',text:'明细'},{id:'2',text:'汇总'}]"
+                                                          fm-model="form.filter.type"></fm-radiolist>-->
+                                            <fm-radiolist dataitem="HRRelated>OverTimeWork>SumReportType"
+                                                          class="input-sm" detail
+                                                          display-member="text"
+                                                          value-member="value"
+                                                          fm-model="form.filter.type"></fm-radiolist>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-4 cell">
+                                        <span class="col-xs-3 control-label">加班时间</span>
+                                        <div class="col-xs-9">
+                                            <fm-datetime class="input-sm" date fm-model="form.filter.startDate"></fm-datetime>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-4 cell">
+                                        <span class="col-xs-3 control-label" style="text-align:center;">——</span>
+                                        <div class="col-xs-9">
+                                            <fm-datetime class="input-sm" date fm-model="form.filter.endDate"></fm-datetime>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-4 cell">
+                                        <span class="col-xs-4 control-label">是否调休</span>
+                                        <div class="col-xs-8">
+                                            <fm-radiolist dataitem="Common>YesOrNo"
+                                                          class="uniform"
+                                                          fm-model="form.filter.isOffInLieu"></fm-radiolist>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-4 cell">
+                                        <span class="col-xs-3 control-label">审批时间</span>
+                                        <div class="col-xs-9">
+                                            <fm-datetime class="input-sm" date fm-model="form.filter.approvestartDate"></fm-datetime>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-4 cell">
+                                        <span class="col-xs-3 control-label" style="text-align:center;">——</span>
+                                        <div class="col-xs-9">
+                                            <fm-datetime class="input-sm" date fm-model="form.filter.approveendDate"></fm-datetime>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-4 cell">
+                                        <span class="col-xs-4 control-label">E-Proj</span>
+                                        <div class="col-xs-8">
+                                            <fm-text class="input-sm" fm-model="form.filter.EpNo"></fm-text>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12" style="text-align:center;">
+                                <button class="btn btn-primary" ng-click="form.select()">{{:: 'Query' | translate}}</button>
+                                <button class="btn btn-default" ng-click="form.clear()">清空</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12">
+                <table class="table table-bordered table-detail">
+                    <thead>
+                        <tr id="DetailColumn" >
+                            <!--<th style="text-align: left; max-width: 300px;" ng-repeat="col in form.$columnText track by $index">{{col}}</th>-->
+
+                        </tr>
+                    </thead>
+                    <tbody id="DetailHtml" >
+                       
+                    </tbody>
+                    <tfoot id="DetailFoot"  style='background-color:#ADADAD'>
+                         
+                    </tfoot> 
+                </table>
+                <div class="col-xs-12">
+                    <div class="col-xs-2" style="text-align: left;" ng-if="form.paging.totalCount > 0">
+                        <button ng-if="form.filter.type=='1'" class="btn btn-info" ng-click="form.outExcel();">导出</button>
+                        <button ng-if="form.filter.type=='2'" class="btn btn-info" ng-click="form.$exportExcel('GetHr04SummaryReportExcel',form.filter, 'Seq Asc,PartWorkNo', true)">导出</button>
+                    </div>
+                    <div class="col-xs-8" style="text-align: right;">
+                        <ma-pager ng-if="form.paging.totalCount >= form.paging.currentPage" current-page="form.paging.currentPage" load="form.load(true)" total-count="form.paging.totalCount" page-size="form.paging.pageSize"></ma-pager>
+                    </div>
+                    <div class="col-xs-2" style="text-align: right;">
+                        <span class="control-label" style="vertical-align: top; line-height: 32px;">{{ "Count" | translate}}：{{form.paging.totalCount}}</span> &nbsp;&nbsp;&nbsp;
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

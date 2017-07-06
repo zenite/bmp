@@ -1,0 +1,69 @@
+﻿<div class="container-ui" ng-controller="syspages.views.enterprise.businesstable as vm">
+    <cmd>
+        <span class="btn btn-success" ng-click="vm.list()">{{ 'GetTableDesign' | translate}}</span>
+    </cmd>
+    <div class="row table_content">
+        <ma-header>{{ 'BusinessDatatable' | translate}}</ma-header>
+        <div class="col-md-12">
+            <ma-breadcrumb items="vm.businessTableArray" ng-model="vm.selectedBusinessTableId" pre-item="vm.rootBusinessTable"></ma-breadcrumb>
+        </div>
+        <div class="col-xs-12" ng-show="vm.isLoaded && (!vm.models || vm.models.length == 0)">{{ 'NoTableYetClickUpperRightToGetTable' | translate}}</div>
+
+        <div ng-hide="vm.isLoaded && (!vm.models || vm.models.length == 0)">
+            <table class="table table-striped table-hover table-condensed">
+                <thead>
+                    <tr>
+                        <th>{{ 'AliasName' | translate}}</th>
+                        <th>{{ 'Code' | translate}}</th>
+                        <th>{{ 'Name' | translate}}</th>
+                        <th class="flex-col">{{ 'Type' | translate}}</th>
+                        <th class="flex-col">{{ 'Description' | translate}}</th>
+                        <th class="flex-col">{{ 'CreationDate' | translate}}</th>
+                        <!-- 以下列右侧固定 -->
+                        <th>{{ 'Operation' | translate}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="i in vm.models track by $index | orderBy:'schemaName'">
+                        <td>{{i.aliasName}}</td>
+                        <td>{{i.schemaName}} 
+                        <span class="btn btn-default btn-sm" role="button" ng-click="vm.getNew(i)" title="{{ 'GetLatest' | translate}}"><span class="icon icon-refresh"></span></span>
+                      <span class="btn btn-default btn-sm" role="button" ng-click="vm.applyToDatabase(i)" title="{{ 'ApplyToDatabase' | translate}}"><span class="icon icon-cog" id="applyBusinessTableToDatabase"></span></span>
+</td>
+                        <td>{{i.name}}</td>
+                        <td>{{vm.allTableType[i.type] | translate}}</td>
+                        <td>{{i.description}}</td>
+                        <td>{{i.creationTime | date:'yyyy-MM-dd'}}</td>
+                        <td>
+                            <div class="btn-group">
+                                <span class="icon icon-cog" data-toggle="dropdown"></span>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li>
+                                        <a ng-click="vm.goToDetailTable(i)">{{ 'EntryDetailForm' | translate}}</a>
+                                    </li>
+                                    <li>
+                                        <a ng-click="vm.edit(i)">{{ 'Check' | translate}}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="btn-group">
+                                <button type="button" ng-click="vm.detail(i)" class="btn btn-primary btn-sm">{{ 'ViewField' | translate}}&raquo;</button>
+                                <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown">
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li>
+                                        <a ng-click="vm.goToDetailTable(i)">{{ 'EntryDetailForm' | translate}}</a>
+                                    </li>
+                                    <li>
+                                        <a ng-click="vm.edit(i)">{{ 'Check' | translate}}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

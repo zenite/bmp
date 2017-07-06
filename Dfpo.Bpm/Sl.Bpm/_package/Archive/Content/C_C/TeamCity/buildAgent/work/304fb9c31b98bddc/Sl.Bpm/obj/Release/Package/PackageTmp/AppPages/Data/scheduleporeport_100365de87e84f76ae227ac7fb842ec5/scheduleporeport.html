@@ -1,0 +1,136 @@
+﻿<!--量产订单申请QAD导出-->
+<div class="form-group ma-block">
+    <fm-Group-Head title="{{::base.title}}"></fm-Group-Head>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="container">
+                <div class="form-group">
+                    <div class="col-xs-12">
+                        <div class="ma-detailinfo">
+                            <div class="content">
+                                <div class="row">
+                                    <div class="col-xs-4 cell">
+                                        <span class="col-xs-3 control-label">申请人 </span>
+                                        <div class="col-xs-9">
+                                            <fm-text class="input-sm" fm-model="form.filter.buyer"></fm-text>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-4 cell">
+                                        <span class="col-xs-3 control-label"> PO单号</span>
+                                        <div class="col-xs-9">
+                                            <fm-text class="input-sm" fm-model="form.filter.snNumber"></fm-text>
+                                        </div>
+                                    </div>
+                                      <div class="col-xs-4 cell">
+                                        <span class="col-xs-3 control-label">所属公司</span>
+                                        <div class="col-xs-9">
+                                              <fm-select dataitem="PurchaseRelated>pur08Qad>AreaCode"
+                                                        fm-model="form.filter.areaCode"></fm-select>
+                               
+                                        </div>
+                                    </div>
+                                     
+                                    <!--<div class="col-xs-4 cell">
+                                        <span class="col-xs-3 control-label">To</span>
+                                        <div class="col-xs-9">
+                                            <fm-text class="input-sm" fm-model="form.filter.snNumberEnd"></fm-text>
+                                        </div>
+                                    </div>-->
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-12">
+                        <div class="ma-detailinfo">
+                            <div class="content">
+                                <div class="row">
+                                    <div class="col-xs-4 cell">
+                                        <span class="col-xs-3 control-label">供应商编号 </span>
+                                        <div class="col-xs-9">
+                                            <fm-text class="input-sm" fm-model="form.filter.supplierCode"></fm-text>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-4 cell">
+                                        <span class="col-xs-3 control-label">供应商名称</span>
+                                        <div class="col-xs-9">
+                                            <fm-text class="input-sm" fm-model="form.filter.supplierName"></fm-text>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-4 cell">
+                                        <span class="col-xs-3 control-label">状态</span>
+                                        <div class="col-xs-9">
+                                             <fm-select dataitem="PurchaseRelated>pur08Qad>Status "
+                                                        fm-model="form.filter.status"></fm-select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-12">
+                        <div class="ma-detailinfo">
+                            <div class="content">
+                                <div class="row">
+                                    <div class="col-xs-4 cell">
+                                        <span class="col-xs-3 control-label">流程结束时间&nbsp;&nbsp;From </span>
+                                        <div class="col-xs-9">
+                                            <fm-datetime class="input-sm" date fm-model="form.filter.applicationTimeStart"></fm-datetime>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-4 cell">
+                                        <span class="col-xs-3 control-label">To
+                                        </span>
+                                        <div class="col-xs-9">
+                                            <fm-datetime class="input-sm" date fm-model="form.filter.applicationTimeEnd"></fm-datetime>
+                                        </div>
+                                    </div>
+                                  
+                                </div>
+                            </div>
+                        </div>
+       
+                    </div>
+
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-12">
+                        <div class="ma-detailinfo">
+                            <div class="content">
+                                <div class="row">
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12" style="text-align: center;">
+                                <button class="btn btn-primary" ng-click="form.select()">{{:: 'Query' | translate}}</button>
+                                <button class="btn btn-default" ng-click="form.$clear()">清空</button>
+                                <button class="btn btn-default" ng-click="form.ReprtQad()">导出到QAD</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+              <div class="row">
+        <div class="col-xs-12">
+            <div class="container">
+
+            </div>
+            <div class="col-xs-12">
+                <fm-table view='GetPur08Qad' checkbox data="form.scheduleporeport" select-items="form.selectItems" refreash-data="form.refreash" excel current-page-data="form.currentData"
+                          page="{{form.page}}" sortable filter="{AreaCode:form.filter.areaCodes,Buyer:form.filter.buyer,SnNumber:form.filter.snNumber,SnNumberEnd:form.filter.snNumberEnd,SupplierCode:form.filter.supplierCode,SupplierName:form.filter.supplierName,Status:form.filter.statu,ApplicationTimeStart:form.filter.ApplicationTimeStart,ApplicationTimeEnd:form.filter.applicationTimeEnd}" page-size-list all-column-filter></fm-table>
+            </div>
+        </div>
+    </div>
+        </div>
+    </div>
+</div>

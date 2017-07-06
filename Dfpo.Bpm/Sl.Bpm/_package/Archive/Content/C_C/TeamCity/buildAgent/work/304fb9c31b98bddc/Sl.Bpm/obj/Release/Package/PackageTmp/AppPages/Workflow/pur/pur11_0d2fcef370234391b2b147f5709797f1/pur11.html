@@ -1,0 +1,281 @@
+﻿<!--新商品供应商定点批准单-->
+<fm-form-title sn-number="{{base.snNumber}}" apply-date="{{base.applyDate}}" sub-title='base.title' fm-model="base.areaCode"></fm-form-title>
+<fm-Group-Head title="{{ form.$pageLang.RecommendSupplier }}"></fm-Group-Head>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--项目代码-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.ProgramCode"></span>
+            <div class="col-xs-4">
+                <fm-data-select view="GetAllProjectShowCode"
+                                required
+                                Size="lg"
+                                callback-func="form.chooseProjectName(selectItem)"
+                                fm-model="form.pur11.programCode"
+                                field-name="{{form.$pageLang.ProgramCode}}"></fm-data-select>
+            </div>
+            <!--项目名称-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.ProjectName"></span>
+            <div class="col-xs-4">
+                <fm-text fm-model="form.pur11.projectName"
+                         required
+                         readonly
+                         state="{{form.$pageRight.StartNode}}"
+                         field-name="{{form.$pageLang.ProgramName}}"></fm-text>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--定点产品-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.SourcingCommodity"></span>
+            <div class="col-xs-4">
+                <fm-text fm-model="form.pur11.sourcingCommodity"
+                         required
+                         state="{{form.$pageRight.StartNode}}"
+                         field-name="{{form.$pageLang.SourcingCommodity}}"></fm-text>
+            </div>
+            <!--战略采购员-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.CommodityBuyer"></span>
+            <div class="col-xs-4">
+                <fm-select fm-model="form.pur11.commodityBuyer"
+                           view="getAllStrBuyer"
+                           required
+                           state="{{form.$pageRight.StartNode}}"
+                           field-name="{{form.$pageLang.CommodityBuyer}}"></fm-select>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--定点供应商编号-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.SourcingSupplierCode"></span>
+            <div class="col-xs-4">
+                <fm-data-select view="GetSupplierKeyCode"
+                                required
+                                Size="lg"
+                                filter="{areaCode:base.areaCode}"
+                                fm-model="form.pur11.sourcingSupplierCode"
+                                callback-func="form.chooseSupplierCode(selectItem)"
+                                field-name="{{form.$pageLang.SourcingSupplierCode}}"></fm-data-select>
+            </div>
+            <!--定点供应商名称-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.SourcingSupplierName"></span>
+            <div class="col-xs-4">
+                <fm-text required
+                         readonly
+                         fm-model="form.pur11.sourcingSupplierName"
+                         field-name="{{form.$pageLang.SupplierName}}"></fm-text>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <table class="table table-bordered table-detail">
+                <thead>
+                    <tr style="background-color:#0066cc">
+                        <th class="checktd text-align:center;"><input type="checkbox" class="uniform" ng-checked="form.pur11pAllChecked" ng-model="form.pur11pAllChecked" ng-click="form.selectAll(form.pur11pAllChecked, form.pur11p)" /></th> <!--标记-->
+                        <th style="width: 5%; text-align:center;" class="required" ng-bind="form.$pageLang.No"></th> <!--序号-->
+                        <th style="width: 45%;text-align:center;" class="required" ng-bind="form.$pageLang.PartName"></th> <!--产品名称/零件号-->
+                        <th style="width: 44%;text-align:center;" class="required" ng-bind="form.$pageLang.Descritpiton"></th> <!--零件描述-->
+                        <th style="width: 6%;text-align:center;" ng-bind="form.$pageLang.Mark"></th> <!--标记-->
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in form.pur11p" ng-class="{'active': item.checked}" detail-name="{{form.$pageLang.BusinessEntertainmentExpensesReimbursementList}}">
+                        <td class="auto-style1 text-align:center;">
+                            <input class="uniform"
+                                   ng-if="base.pageState==1 || (form.$pageRight.StartNode == 'normal' && base.pageState==2) "
+                                   type="checkbox" ng-model="item.checked" />
+                        </td>
+                        <td class="auto-style1">
+                            <fm-number ng-if="item.gridOrder!=null" class="input-sm"
+                                       fm-model="item.gridOrder"></fm-number>
+                            <span ng-if="item.gridOrder == null">{{$index + 1}}</span>
+                        </td>
+                        <td class="auto-style1">
+                            <fm-text fm-model="item.partName"
+                                     state="{{form.$pageRight.ACRStatus}}"
+                                     required
+                                     field-name="{{form.$pageLang.TestBy}}"></fm-text>
+                        </td>
+                        <td class="auto-style1">
+                            <fm-text fm-model="item.descritpiton"
+                                     state="{{form.$pageRight.ACRStatus}}"
+                                     required
+                                     field-name="{{form.$pageLang.TestBy}}"></fm-text>
+                        </td>
+                        <td class="auto-style1" style="text-align:center;">
+                            <fm-checklist fm-model="item.mark"
+                                          field-name="{{form.$pageLang.ApplicationRange}}"
+                                          items="[{id:'0',text:'ISR'}]"></fm-checklist>
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="99" style="text-align:left;">
+                            <table style="width:100%;">
+                                <tr>
+                                    <td style="text-align:right;border:0px;">
+                                        <input ng-if="base.pageState==1 ||(form.$pageRight.ACRStatus == 'normal'&&base.pageState == 2)" type="button" class="btn btn-sm btn-info" ng-click="form.pur11p.push({})" value="{{ 'Add' |translate}}" />
+                                        <input ng-if="base.pageState==1 ||(form.$pageRight.ACRStatus == 'normal'&&base.pageState == 2)" type="button" class="btn btn-sm btn-danger" ng-click="form.delete()" value="{{ 'Delete' |translate}}" />
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!-- 项目生命周期总用量(个)-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.ProjectCycl"></span>
+            <div class="col-xs-4">
+                <fm-number fm-model="form.pur11.projectCycl"
+                           required
+                           min-value="0"
+                           unit="个"
+                           state="{{form.$pageRight.StartNode}}"
+                           field-name="{{form.$pageLang.ProjectCycl}}"></fm-number>
+            </div>
+            <!--项目生命周期（年）-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.Projectlifecycle"></span>
+            <div class="col-xs-4">
+                <fm-number fm-model="form.pur11.projectlifecycle"
+                           required
+                           min-value="0"
+                           unit="年"
+                           state="{{form.$pageRight.StartNode}}"
+                           field-name="{{form.$pageLang.Projectlifecycle}}"></fm-number>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!-- 申请人-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.Applicatotr"></span>
+            <div class="col-xs-4">
+                <fm-text fm-model="form.pur11.applicatotr"
+                         readonly
+                         required
+                         state="{{form.$pageRight.StartNode}}"></fm-text>
+            </div>
+        </div>
+    </div>
+</div>
+<fm-Group-Head title="{{ form.$pageLang.Approval }}"></fm-Group-Head>
+<div ng-if="base.areaCode=='YFVSJ'">
+    <div class="row">
+        <div class="form-group">
+            <div class="col-xs-12">
+                <!--Program Manager-->
+                <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.ProgramManager"></span>
+                <div class="col-xs-10">
+                    <fm-job-select state="{{form.$pageRight.StartNode}}"
+                                   ismulti
+                                   required
+                                   field-name="{{form.$pageLang.ProgramManager}}"
+                                   fm-model="form.pur11.programManager"></fm-job-select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group">
+            <div class="col-xs-12">
+                <!--PD Supervisor-->
+                <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.PddSupervisor"></span>
+                <div class="col-xs-10">
+                    <fm-job-select state="{{form.$pageRight.StartNode}}"
+                                   ismulti
+                                   required
+                                   field-name="{{form.$pageLang.ProgramManager}}"
+                                   fm-model="form.pur11.pdsupervisor"></fm-job-select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group">
+            <div class="col-xs-12">
+                <!--MP&L Supervisor-->
+                <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.MpllSupervisor"></span>
+                <div class="col-xs-4">
+                    <fm-data-select view="GetAllJobName"
+                                    required
+                                    fm-readonly="base.areaCode=='YFVSJ'"
+                                    fm-model="form.pur11.mPLSupervisor"></fm-data-select>
+                    <!--fm-readonly="base.areaCode=='YFVAY'"-->
+                </div>
+                <!--SPE Supervisor-->
+                <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.SpeeSupervisor"></span>
+                <div class="col-xs-4">
+                    <fm-data-select view="GetAllJobName"
+                                    required
+                                    fm-readonly="base.areaCode=='YFVSJ'"
+                                    fm-model="form.pur11.sPESupervisor"></fm-data-select>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group">
+            <div class="col-xs-12">
+                <!--MP&L Manager-->
+                <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.MpllManager"></span>
+                <div class="col-xs-4">
+                    <fm-data-select view="GetAllJobName"
+                                    required
+                                    fm-readonly="base.areaCode=='YFVSJ'"
+                                    fm-model="form.pur11.mPLManager"></fm-data-select>
+                </div>
+                <!--Purchasing Manager-->
+                <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.PurchasingManager"></span>
+                <div class="col-xs-4">
+                    <fm-data-select view="GetAllJobName"
+                                    required
+                                    fm-readonly="base.areaCode=='YFVSJ'"
+                                    fm-model="form.pur11.purchasingManager"></fm-data-select>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!--附件-->
+<fm-Group-Head title="{{ form.$pageLang.Attachment }}"></fm-Group-Head>
+<div class="print-hide row">
+    <div class="form-group">
+        <!--        <div class="col-xs-12">-->
+        <!--            <span class="col-xs-2 control-label required">附件</span>-->
+        <div class="col-xs-12">
+            <fm-attachment form-files="form.$attachments"
+                           link-id="0"
+                           required
+                           task-id='base.taskId'
+                           node-id="base.nodeId"
+                           draft-id="base.draftId"
+                           state="{{form.$pageRight.StartNode}}"
+                           field-name="{{'UploadAttachment' |translate}}"
+                           fm-model="form.$state.UploadAttachment"
+                           button-name="{{ 'UploadAttachment' |translate}}"></fm-attachment>
+        </div>
+        <!--        </div>-->
+    </div>
+</div>
+

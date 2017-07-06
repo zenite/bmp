@@ -1,0 +1,66 @@
+﻿<div class="container-ui" ng-controller="syspages.views.enterprise.viewtable as vm">
+    <cmd>
+        <span class="btn btn-success" ng-click="vm.edit()">{{ 'CreateDataView' | translate}}</span>
+    </cmd>
+    <div class="row view_content">
+        <div class="col-xs-12" ng-show="vm.isLoaded && (!vm.models || vm.models.length == 0)">{{ 'NoDataViewYetClickUpperRightToCreate' | translate}}</div>
+        <list-view ng-hide="vm.isLoaded && (!vm.models || vm.models.length == 0)" head="{{ 'DataView' | translate}}" models="vm.models" paging="vm.paging" load="vm.load">
+            <div class="content-list">
+                <table class=" table datatable">
+                    <thead>
+                        <tr>
+                            <!-- 以下两列左侧固定 -->
+                            <th>#</th>
+                            <th>名称</th>
+
+                            <!-- 以下三列中间可滚动 -->
+                            <th class="flex-col">{{ 'Code' | translate}}</th>
+                            
+                            <th class="flex-col">{{ 'Description' | translate}}</th>
+                            <th class="flex-col">{{ 'CreationDate' | translate}}</th>
+                            <!-- 以下列右侧固定 -->
+                            <th>{{ 'Operation' | translate}}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="i in vm.models | orderBy:'schemaName' ">
+                            <td>{{$index}}</td>
+                            <td>{{i.name}}</td>
+                            <td>{{i.schemaName}}</td>
+                           
+                            <td>{{i.description}}</td>
+                            <td>{{i.creationTime | date:'yyyy-MM-dd'}}</td>
+                            <td>
+                                <a class="text-primary" ng-click="vm.columns(i)">{{ 'ViewField' | translate}}</a>
+                                <span class="btn btn-default btn-sm" role="button" ng-click="vm.edit(i)">{{ 'Edit' | translate}}</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="content-blocker">
+                <div class="col-md-3 col-sm-4 col-lg-2" ng-repeat="i in vm.models | orderBy:'schemaName'">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="visual">
+                                <i class="icon icon-8x icon-window-alt"></i>
+                            </div>
+                            <div class="card-content">
+                                <h4>{{i.name}}</h4>
+                                <p>
+                                    {{ 'Code' | translate}}: {{i.schemaName}}<br />{{i.creationTime | date:'yyyy-MM-dd'}}
+                                </p>
+
+                            </div>
+                        </div>
+                        <div class="card-actions">
+                            <span class="btn btn-primary btn-sm" ng-click="vm.columns(i)" role="button">{{ 'ViewField' | translate}} &raquo;</span>
+                            <span class="btn btn-default btn-sm" role="button" ng-click="vm.edit(i)">{{ 'Edit' | translate}}</span>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </list-view>
+    </div>
+</div>

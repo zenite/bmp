@@ -1,0 +1,145 @@
+﻿<div class="form-group ma-block">
+    <fm-Group-Head title="{{::base.title}}"></fm-Group-Head>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="container">
+                <div class="form-group">
+                    <div class="col-xs-12">
+                        <div class="ma-detailinfo">
+                            <div class="content">
+                                <div class="row">
+                                    <div class="col-xs-4 cell">
+                                        <span class="col-xs-3 control-label">Authority </span>
+                                        <div class="col-xs-9">
+                                            <fm-text class="input-sm" fm-model="form.filter.authority"></fm-text>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-4 cell">
+                                        <span class="col-xs-3 control-label"> Security </span>
+                                        <div class="col-xs-9">
+                                            <fm-select dataitem="ITRelated>IRA>Security"
+                                                       fm-model="form.filter.security"></fm-select>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-4 cell">
+                                        <span class="col-xs-3 control-label">Plant</span>
+                                        <div class="col-xs-9">
+                                            <fm-select dataitem="ITRelated>IRA>Plant"
+                                                       fm-model="form.filter.plant"></fm-select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12" style="text-align: center;">
+                                <button class="btn btn-primary" ng-click="form.$load()">{{:: 'Query' | translate}}</button>
+                                <button class="btn btn-default" ng-click="form.$clear()">清空</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="col-xs-12">
+                        <div style="width: 100%; overflow-x: auto;">
+                            <table class="table table-striped table-hover table-condensed">
+                                <thead>
+                                <tr >
+                                      
+
+                                </tr>
+                                    <tr>
+                                        <th style="width: 3%;">
+                                             <input type="checkbox" class="uniform"
+                               ng-checked="formymagAllChecked"
+                               ng-model="form.ymagAllChecked"
+                               ng-click="form.checkAll(form.ymagAllChecked, form.ymag)"/>
+                                        </th>
+                                        <th style="width: 10%;">
+                                            Authority
+                                        </th>
+                                        <th style="width: 30%;">
+                                            Security
+                                        </th>
+                                        <th style="width: 30%;">
+                                            Approve Dept
+                                        </th>
+                                        <th style="width:10%">Approve Manager</th>
+                                        <th style="width:7%">Plant</th>
+                                        <th style="width: 10%;">
+                                            <input class="btn btn-sm btn-success" type="button" value="新增" ng-click="form.$edit('authoritygroupedit', null)"/>
+                                            <input class="btn btn-sm btn-danger" type="button" value="删除" confirm-click="form.deleteAll(form.ymag)" />
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody fm-cache>
+                                    <tr ng-repeat="item in form.ymag" detail-name="Authority Group" ng-class="{ 'active': item.checked}">
+                                        <td class="checktd">
+                                            <input class="uniform"
+                                                   type="checkbox"
+                                                   ng-model="item.checked"/>
+   
+                                        </td>
+                                        <td>
+                                            <fm-text class="input-sm" field-name="Authority"
+                                                     readonly
+                                                     fm-model="item.authority"></fm-text>
+                                        </td>
+                                        <td>
+                                            <fm-select class="input-sm"
+                                                       field-name="Security"
+                                                       readonly
+                                                       dataitem="ITRelated>IRA>Security"
+                                                       fm-model="item.security"></fm-select>
+                                        </td>
+                                        <td>
+                                                <fm-data-select 
+                                                class="input-sm"
+                                                field-name="ApproveDept"
+                                                view="GetTheGroup"
+                                                 readonly
+                                                 fm-model="item.approveDept"></fm-data-select>
+                                        </td>
+                                        <td>
+                                            <fm-data-select class="input-sm"
+                                                 readonly
+                                                 view="GetUserNameById"
+                                                 field-name="ApproveManager"
+                                                  fm-model="item.approveManager"></fm-data-select>
+                                        </td>
+                                        <td>
+                                            <fm-select class="input-sm"
+                                                       readonly
+                                                       field-name="Plant"
+                                                      dataitem="ITRelated>IRA>Plant"
+                                                     fm-model="item.plant"></fm-select>
+                                        </td>
+                                        <td>
+                                            <input class="btn btn-sm btn-primary" type="button" value="编辑" ng-click="form.$edit('authoritygroupedit', item)"/>
+                                            <input class="btn btn-sm btn-danger" type="button" value="删除" ng-click=" form.delete(item)" />
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="col-xs-12">
+                    <div class="col-xs-1" style="text-align: left;">
+                        <select class="form-control" ng-change="form.$load()" ng-model="form.paging.pageSize" ng-options="val for val in form.$pageSizeList"></select>
+                    </div>
+                    <div class="col-xs-11" style="text-align: right;">
+                        <ma-pager current-page="form.paging.currentPage" load="form.$load()" total-count="form.paging.totalCount" page-size="form.paging.pageSize"></ma-pager>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

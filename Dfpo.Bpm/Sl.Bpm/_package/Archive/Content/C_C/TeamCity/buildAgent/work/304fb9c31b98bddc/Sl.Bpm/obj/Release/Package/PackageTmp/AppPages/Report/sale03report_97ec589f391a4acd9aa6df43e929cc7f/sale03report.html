@@ -1,0 +1,80 @@
+﻿<!--销售价格请求报表-->
+<div class="form-group ma-block">
+    <fm-Group-Head title="{{::base.title}}"></fm-Group-Head>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="container">
+                <div class="form-group">
+                    <div class="col-xs-12">
+                        <div class="ma-detailinfo">
+                            <div class="content">
+                                <div class="row">
+                                    <div class="form-group">
+                                        <div class="col-xs-4 cell">
+                                            <!--客户名称-->
+                                            <span class="col-xs-3 control-label " ng-bind="form.$pageLang.CustormerName"></span>
+                                            <div class="col-xs-9">
+                                                <fm-text class="input-sm" fm-model="form.filter.custormerName"></fm-text>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-4 cell">
+                                            <!--客户料号-->
+                                            <span class="col-xs-3 control-label" ng-bind="form.$pageLang.CustomerPn">{</span>
+                                            <div class="col-xs-9">
+                                                <fm-text class="input-sm" fm-model="form.filter.customerPn"></fm-text>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-4 cell">
+                                            <!--工厂料号-->
+                                            <span class="col-xs-3 control-label" ng-bind="form.$pageLang.FactoryPn"></span>
+                                            <div class="col-xs-9">
+                                                <fm-text class="input-sm" fm-model="form.filter.factoryPn"></fm-text>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="form-group">
+
+                                        <div class="col-xs-4 cell">
+                                            <!--日期-->
+                                            <span class="col-xs-3 control-label" ng-bind="form.$pageLang.Date"></span>
+                                            <div class="col-xs-9">
+                                                <fm-datetime class="input-sm"
+                                                             date fm-model="form.filter.applicationTimeStart"
+                                                             fm-readonly></fm-datetime>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-4 cell">
+                                            <span class="col-xs-3 control-label"
+                                                  style="text-align:center;">——</span>
+                                            <div class="col-xs-9">
+                                                <fm-datetime class="input-sm" date fm-model="form.filter.applicationTimeEnd" fm-readonly></fm-datetime>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group">
+                                <div class="col-xs-12" style="text-align:center;">
+                                    <button class="btn btn-primary" ng-click="form.select()" ng-bind="form.$pageLang.Query"></button>
+                                    <button class="btn btn-default" ng-click="form.clear()" ng-bind="form.$pageLang.Clear"></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12">
+                <fm-table view='GetSalespriceapplicationReport' data="form.sale03Report" refreash-data="form.refreash" excel current-page-data="form.currentData" page="{{form.page}}"
+                          filter="{CustormerName:form.filter.custormerName,CustomerPn:form.filter.customerPn,FactoryPn:form.filter.factoryPn,
+                          PrintQuantity:form.filter.count,
+                         ApplicationTimeStart:form.filter.applicationTimeStart,ApplicationTimeEnd:form.filter.applicationTimeEnd}"></fm-table>
+            </div>
+        </div>
+    </div>
+</div>

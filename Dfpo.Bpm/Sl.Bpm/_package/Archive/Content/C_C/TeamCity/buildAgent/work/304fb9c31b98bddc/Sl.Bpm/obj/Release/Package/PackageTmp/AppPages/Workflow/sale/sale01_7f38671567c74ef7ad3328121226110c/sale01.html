@@ -1,0 +1,41 @@
+﻿<!--销售价格维护-->
+<fm-form-title sn-number="{{base.snNumber}}" apply-date="{{base.applyDate}}" sub-title='base.title' fm-model="base.areaCode"></fm-form-title>
+<fm-Group-Head title="{{ base.$pageLang.ApplicantInfo }}"></fm-Group-Head>
+<fm-applicant jobid='base.applicantJobId' userinfo='base.applicant' taskid='base.taskId' wfid='base.workflowId'></fm-applicant>
+<fm-Group-Head title="{{ form.$pageLang.OrderType}}"></fm-Group-Head>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--销售订单类型-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.SaleOrderType"></span>
+            <div class="col-xs-4">
+                    <fm-text   readonly
+                             fm-model="form.admin08.bankName"></fm-text>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--定期销售订单-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.ScheduleSalesOrderType"></span>
+            <div class="col-xs-4">
+                <fm-text required
+                         fm-model="form.admin08.bankName"></fm-text>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--不定期销售订单-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.SpotSalesOrderType"> </span>
+            <div class="col-xs-4">
+                <fm-text  fm-model="form.admin08.bankName"></fm-text>
+            </div>
+        </div>
+    </div>
+</div>
+

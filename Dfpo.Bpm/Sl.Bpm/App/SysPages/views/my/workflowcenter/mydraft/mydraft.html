@@ -1,0 +1,106 @@
+﻿<div ng-controller="syspages.views.my.workflowcenter.mydraft as vm">
+    <ma-header>{{ 'MyDraftWf' | translate}}</ma-header>
+    <div class="row">
+        <div class="modal-user">
+            <div class="">
+                <fm-category isall fm-model="vm.moduleIds" items="vm.moduleTypes" code-member="moduleCount" display-member="moduleName" value-member="moduleId" callback-func="vm.load()"></fm-category>
+            </div>
+            <div class="panel">
+                <div class="panel-heading">
+                    {{ 'SelectTask' | translate}}
+                    <div class="selectTxt icon-search">
+                        <input type="text" value="" placeholder="{{ 'PleaseEnterTheQueryCondition '| translate }}" ng-model="vm.filterText" ng-blur="vm.select()" ng-keydown="vm.event_Keydown($event)" class="ng-pristine ng-untouched ng-valid">
+                    </div>
+                </div>
+                <ma-tabs>
+                    <ma-panel data-title="草稿" name="basic">
+                        <div style="min-height: 330px; position: relative;">
+                            <table class="table table-striped table-hover table-condensed">
+                                <thead>
+                                    <tr>
+                                        <th data-width="100">{{ 'WorkflowName' | translate}}</th>
+                                        <th data-width="200">{{ 'Topic' | translate}}</th>
+                                        <th data-width="150">{{ 'ModificationDate' | translate}}</th>
+                                        <th data-width="100" class="flex-col">{{ 'WorkflowType' | translate}}</th>
+                                        <!--<th data-width="100" class="flex-col">{{ 'Company' | translate}}</th>-->
+                                        <th data-width="100" class="sort-disabled">{{ 'Operation' | translate}}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="item in vm.models | filter:{type:0}">
+                                        <td>{{item.workflowName}}</td>
+                                        <td>{{item.topic}}</td>
+                                        <td>{{item.lastModificationTime | date : 'yyyy-MM-dd HH:mm:ss'}}</td>
+                                        <td>{{item.wfdCategoryName}}</td>
+                                        <!--<td>{{item.enterprise}}</td>-->
+                                        <td>
+                                            <i class="icon-edit" ng-click="vm.edit(item)"></i>
+                                            <!--<i class="btn-link text-danger icon icon-times" ng-click="vm.delete(item)"></i>-->
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div ng-if="vm.paging.totalCount === undefined">
+                                <div class="content-spinner-bar">
+                                    <div class="bounce1"></div>
+                                    <div class="bounce2"></div>
+                                    <div class="bounce3"></div>
+                                </div>
+                            </div>
+                            <div ng-if="vm.paging.totalCount === 0" style="text-align: center;">
+                                <span class="span1" style="position: absolute; height: 100%; width: 100%; left: 0; top: calc(50% - 14px); font-size: 28px; color: #353535;">{{ 'NoDraft' | translate}}</span>
+                            </div>
+                            <div ng-if="vm.paging.totalCount > vm.paging.pageSize">
+                                <ma-pager current-page="vm.paging.currentPage" load="vm.load()" total-count="vm.paging.totalCount" page-size="vm.paging.pageSize"></ma-pager>
+                            </div>
+                        </div>
+                    </ma-panel>
+                    <ma-panel data-title="模板" name="sss">
+                        <div style="min-height: 330px; position: relative;">
+                            <table class="table table-striped table-hover table-condensed">
+                                <thead>
+                                    <tr>
+                                        <th data-width="100">{{ 'WorkflowName' | translate}}</th>
+                                        <th data-width="200">{{ 'Topic' | translate}}</th>
+                                        <th data-width="150">{{ 'ModificationDate' | translate}}</th>
+                                        <th data-width="100" class="flex-col">{{ 'WorkflowType' | translate}}</th>
+                                        <!--<th data-width="100" class="flex-col">{{ 'Company' | translate}}</th>-->
+                                        <th data-width="100" class="sort-disabled">{{ 'Operation' | translate}}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="item in vm.models | filter:{type:1}">
+                                        <td>{{item.workflowName}}</td>
+                                        <td>{{item.topic}}</td>
+                                        <td>{{item.lastModificationTime | date : 'yyyy-MM-dd HH:mm:ss'}}</td>
+                                        <td>{{item.wfdCategoryName}}</td>
+                                        <!--<td>{{item.enterprise}}</td>-->
+                                        <td>
+                                            <i class="icon-edit" ng-click="vm.edit(item)"></i>
+                                            <!--<i class="btn-link text-danger icon icon-times" ng-click="vm.delete(item)"></i>-->
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div ng-if="vm.paging.totalCount === undefined">
+                                <div class="content-spinner-bar">
+                                    <div class="bounce1"></div>
+                                    <div class="bounce2"></div>
+                                    <div class="bounce3"></div>
+                                </div>
+                            </div>
+                            <div ng-if="vm.paging.totalCount === 0" style="text-align: center;">
+                                <span class="span1" style="position: absolute; height: 100%; width: 100%; left: 0; top: calc(50% - 14px); font-size: 28px; color: #353535;">{{ 'NoDraft' | translate}}</span>
+                            </div>
+                            <div ng-if="vm.paging.totalCount > vm.paging.pageSize">
+                                <ma-pager current-page="vm.paging.currentPage" load="vm.load()" total-count="vm.paging.totalCount" page-size="vm.paging.pageSize"></ma-pager>
+                            </div>
+                        </div>
+                    </ma-panel>
+
+                </ma-tabs>
+
+            </div>
+        </div>
+    </div>
+</div>

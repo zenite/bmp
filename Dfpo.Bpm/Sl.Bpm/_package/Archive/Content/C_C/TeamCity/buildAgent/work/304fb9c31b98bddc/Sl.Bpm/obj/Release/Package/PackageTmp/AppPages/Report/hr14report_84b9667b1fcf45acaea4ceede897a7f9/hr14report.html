@@ -1,0 +1,138 @@
+﻿<!--人事档案借阅申请报表-->
+<div class="form-group ma-block">
+    <fm-Group-Head title="{{::base.title}}"></fm-Group-Head>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="container">
+                <div class="form-group">
+                    <div class="col-xs-12">
+                        <div class="ma-detailinfo">
+                            <div class="content">
+                                <div class="row">
+                                    <div class="form-group">
+                                        <div class="col-xs-4 cell">
+                                            <!--公司-->
+                                            <span class="col-xs-3 control-label " ng-bind="form.$pageLang.Company"></span>
+                                            <div class="col-xs-9">
+                                                <fm-select view="GetHQ/TC/APInfo" 
+                                                           display-member="text"
+                                                           value-member="text"
+                                                            fm-model="form.filter.company" ismulti></fm-select>
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-4 cell">
+                                            <!--部门-->
+                                            <span class="col-xs-3 control-label" ng-bind="form.$pageLang.Department">{</span>
+                                            <div class="col-xs-9">
+                                                <fm-data-select 
+                                                                i-clear
+                                                                ismulti
+                                                                group fm-model="form.filter.department"></fm-data-select>
+                                              
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-4 cell">
+                                            <!--工号-->
+                                            <span class="col-xs-3 control-label" ng-bind="form.$pageLang.EmployeeNumber"></span>
+                                            <div class="col-xs-9">
+                                                <fm-text class="input-sm" fm-model="form.filter.department"></fm-text>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group">
+                                        <div class="col-xs-4 cell">
+                                            <!--姓名-->
+                                            <span class="col-xs-3 control-label " ng-bind="form.$pageLang.Name"></span>
+                                            <div class="col-xs-9">
+                                                <fm-text class="input-sm" fm-model="form.filter.name"></fm-text>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-4 cell">
+                                            <!--申请文件类型-->
+                                            <span class="col-xs-3 control-label" ng-bind="form.$pageLang.FileType">{</span>
+                                            <div class="col-xs-9">
+                                                <fm-select   dataitem="HRRelated>PersonnelFileBorrowing>BorrowFileType"
+                                              
+                                                           fm-model="form.filter.fileType" ></fm-select>
+                                              
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-4 cell">
+                                            <!--具体文件名称-->
+                                            <span class="col-xs-3 control-label" ng-bind="form.$pageLang.FileName"></span>
+                                            <div class="col-xs-9">
+                                                <fm-text class="input-sm" fm-model="form.filter.fileName"></fm-text>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group">
+
+                                        <div class="col-xs-4 cell">
+                                            <!--申请日期-->
+                                            <span class="col-xs-3 control-label" ng-bind="form.$pageLang.Date"></span>
+                                            <div class="col-xs-9">
+                                                <fm-datetime class="input-sm"
+                                                             date fm-model="form.filter.applicationTimeStart"
+                                                             fm-readonly></fm-datetime>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-4 cell">
+                                            <span class="col-xs-3 control-label"
+                                                  style="text-align:center;">——</span>
+                                            <div class="col-xs-9">
+                                                <fm-datetime class="input-sm" date fm-model="form.filter.applicationTimeEnd" fm-readonly></fm-datetime>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                                <div class="row">
+                                    <div class="form-group">
+
+                                        <div class="col-xs-4 cell">
+                                            <!--实际归还日期-->
+                                            <span class="col-xs-3 control-label" ng-bind="form.$pageLang.EffectiveDate"></span>
+                                            <div class="col-xs-9">
+                                                <fm-datetime class="input-sm"
+                                                             date fm-model="form.filter.applicationTimeStarts"
+                                                             fm-readonly></fm-datetime>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-4 cell">
+                                            <span class="col-xs-3 control-label"
+                                                  style="text-align:center;">——</span>
+                                            <div class="col-xs-9">
+                                                <fm-datetime class="input-sm" date fm-model="form.filter.applicationTimeEnds" fm-readonly></fm-datetime>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group">
+                                <div class="col-xs-12" style="text-align:center;">
+                                    <button class="btn btn-primary" ng-click="form.select()" ng-bind="form.$pageLang.Query"></button>
+                                    <button class="btn btn-default" ng-click="form.clear()" ng-bind="form.$pageLang.Clear"></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12">
+                <fm-table view='GetHr14PersonnelFileBorrowingReport' data="form.HR14Report" refreash-data="form.refreash" excel current-page-data="form.currentData"  page="{{form.page}}"
+                          filter="{Name:form.filter.name,FileType:form.filter.fileType,FileName:form.filter.fileName,ApplicationTimeStart:form.filter.applicationTimeStart,ApplicationTimeEnd:form.filter.applicationTimeEnd,ApplicationTimeStarts:form.filter.applicationTimeStarts,ApplicationTimeEnds:form.filter.applicationTimeEnds
+                          }"></fm-table>
+            </div>
+        </div>
+    </div>
+</div>

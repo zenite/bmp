@@ -1,0 +1,68 @@
+﻿<ma-tabs>
+    <ma-panel data-title="{{ 'Basic' | translate}}" name="basic">
+        <modal-body fm-cache>
+            <div class="form-group form-md-line-input">
+                <div class="col-lg-4 control-label required">Authority:</div>
+                <div class="col-lg-6">
+                    <fm-text class="input-sm"
+                             field-name="Authority"
+                             required
+                             i-clear
+                             fm-model="form.dialog.authority"></fm-text>
+                </div>
+            </div>
+            <div class="form-group form-md-line-input">
+                <div class="col-lg-4 control-label required">Security:</div>
+                <div class="col-lg-6">
+                    <fm-select class="input-sm"
+                               dataitem="ITRelated>IRA>Security"
+                               required
+                               field-name="Security"
+                               fm-model="form.dialog.security"></fm-select>
+                </div>
+            </div>
+            <div class="form-group form-md-line-input">
+                <div class="col-lg-4 control-label required">Approve Dept:</div>
+                <div class="col-lg-6">
+                    <fm-data-select 
+                                class="input-sm"
+                        field-name="ApproveDept"
+                        view="GetTheGroup"
+                               required
+                               fm-model="form.dialog.approveDept"></fm-data-select>
+                </div>
+            </div>
+            <div class="form-group form-md-line-input">
+                <div class="col-lg-4 control-label required">Approve Manager:</div>
+                <div class="col-lg-6">
+                    <fm-data-select class="input-sm"
+                                     required
+                              view="GetUserNameById"
+                             field-name="ApproveManager"
+                             fm-model="form.dialog.approveManager"></fm-data-select>
+                </div>
+            </div>
+            <div class="form-group form-md-line-input ">
+                <div class="col-lg-4 control-label required">Plant:</div>
+                <div class="col-lg-6">
+                    <fm-select class="input-sm"
+                               dataitem="ITRelated>IRA>Plant"
+                             required
+                             field-name="Plant"
+                             fm-model="form.dialog.plant"></fm-select>
+                </div>
+            </div>
+        </modal-body>
+        <modal-footer>
+            <button class="btn btn-primary" type="submit" id="categoryEdit" ng-click="form.$save(form.dialog)">{{'Save' | translate}}</button>
+            <button type="button" class="btn btn-default" ng-click="$close()">{{ 'Cancel' | translate}}</button>
+        </modal-footer>
+    </ma-panel>
+    <ma-panel data-title="{{ 'Advance' | translate}}" name="advance" ng-if="!!form.dialog">
+        <br />
+        <modal-footer>
+            <button class="btn btn-danger" type="button" confirm-click="form.$delete(form.dialog)">{{ 'Delete' | translate}}</button>
+            <button type="button" class="btn btn-default" ng-click="$close()">{{ 'Cancel' | translate}}</button>
+        </modal-footer>
+    </ma-panel>
+</ma-tabs>

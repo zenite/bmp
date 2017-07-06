@@ -1,0 +1,106 @@
+﻿<!--mpl01企业预警-->
+<div class="form-group ma-block">
+    <fm-Group-Head title="{{::base.title}}"></fm-Group-Head>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="container">
+                <div class="form-group">
+                    <div class="col-xs-12">
+                        <div class="ma-detailinfo">
+                            <div class="content">
+                                <div class="row">
+                                    <div class="form-group">
+                                        <div class="col-xs-4 cell">
+                                            <!--预警单号-->
+                                            <span class="col-xs-3 control-label required" ng-bind="form.$pageLang.TaskNo"></span>
+                                            <div class="col-xs-9">
+                                                <fm-text class="input-sm" fm-model="form.filter.snNumber"></fm-text>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-4 cell">
+                                            <!--公司-->
+                                            <span class="col-xs-3 control-label" ng-bind="form.$pageLang.CompanyName">{</span>
+                                            <div class="col-xs-9">
+                                                <fm-data-select class="input-sm"  view="GetAllSusidaryInfo" fm-model="form.filter.companyName"></fm-data-select>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-4 cell">
+                                            <!--供应商-->
+                                            <span class="col-xs-3 control-label" ng-bind="form.$pageLang.Supplier"></span>
+                                            <div class="col-xs-9">
+                                                <fm-data-select class="input-sm" view="GetAllSupplierInfo" fm-model="form.filter.supplierCode"></fm-data-select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group">
+                                        <div class="col-xs-4 cell">
+                                            <!--状态-->
+                                            <span class="col-xs-3 control-label" ng-bind="form.$pageLang.Status"></span>
+                                            <div class="col-xs-9">
+                                                <fm-select dataitem="HRRelated>PersonnelDemand>FormState"
+                                                           display-member="text"
+                                                           value-member="value"
+                                                           fm-model="form.filter.ProcStatus">
+                                                </fm-select>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-4 cell">
+                                            <!--优先级-->
+                                            <span class="col-xs-3 control-label" ng-bind="form.$pageLang.priority"></span>
+                                            <div class="col-xs-9">
+                                                <fm-select class="input-sm" ng-style="form.setcolor(form.mpl01.priority)"
+                                                           dataitem="MPL>NightLetter>Priority" 
+                                                           fm-model="form.filter.priority"></fm-select>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-4 cell">
+                                            <!--采购员-->
+                                            <span class="col-xs-3 control-label" ng-bind="form.$pageLang.ProgramBuyer"></span>
+                                            <div class="col-xs-9">
+                                                <fm-select view="GetBuyer" class="input-sm" fm-model="form.filter.programBuyer"></fm-select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group">
+                                        <div class="col-xs-4 cell">
+                                            <!--发布时间-->
+                                            <span class="col-xs-3 control-label" ng-bind="form.$pageLang.Release"></span>
+                                            <div class="col-xs-9">
+                                                <fm-datetime class="input-sm" date fm-model="form.filter.applicationTimeStart" fm-readonly></fm-datetime>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-4 cell">
+                                            <span class="col-xs-3 control-label" style="text-align:center;">——</span>
+                                            <div class="col-xs-9">
+                                                <fm-datetime class="input-sm" date fm-model="form.filter.applicationTimeEnd" fm-readonly></fm-datetime>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group">
+                                <div class="col-xs-12" style="text-align:center;">
+                                    <button class="btn btn-primary" ng-click="form.select()" ng-bind="form.$pageLang.Query"></button>
+                                    <button class="btn btn-default" ng-click="form.clear()" ng-bind="form.$pageLang.Clear"></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12">
+                <fm-table view='GetMpl01Report' data="form.Mpl01Report" refreash-data="form.refreash" excel current-page-data="form.currentData" width="3500px" page="{{form.page}}"
+                          filter="{SnNumber:form.filter.snNumber,CompanyName:form.filter.companyName,SupplierCode:form.filter.supplierCode,Status:form.filter.status,
+                          Priority:form.filter.priority,ProgramBuyer:form.filter.programBuyer,
+                          ApplicationTimeStart:form.filter.applicationTimeStart,ApplicationTimeEnd:form.filter.applicationTimeEnd}"></fm-table>
+            </div>
+        </div>
+    </div>
+</div>

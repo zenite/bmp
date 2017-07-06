@@ -1,0 +1,2 @@
+D:\Sl.Bpm\Shtn.bpm\Sl.Bpm.SapHelper\obj\Debug\Sl.Bpm.SapHelper.csprojResolveAssemblyReference.cache
+D:\Sl.Bpm\Dfpo.Bpm\Sl.Bpm.SapHelper\obj\Debug\Sl.Bpm.SapHelper.csprojResolveAssemblyReference.cache

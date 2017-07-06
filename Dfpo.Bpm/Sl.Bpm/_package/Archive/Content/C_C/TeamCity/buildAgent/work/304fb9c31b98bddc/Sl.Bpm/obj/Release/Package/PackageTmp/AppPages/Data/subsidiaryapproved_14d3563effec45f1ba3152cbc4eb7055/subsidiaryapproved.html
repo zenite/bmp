@@ -1,0 +1,136 @@
+﻿<!--所属子公司审批人基础数据-->
+<div class="row">
+    <div class="col-xs-12">
+        <!--<div class="form-group form-horizontal">
+            <div class="row">
+                <div class="col-xs-4">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="icon-search"></i></span>
+                        <input type="text" class="form-control" ng-model="vm.selectTxt" placeholder="输入检索条件" ng-blur="vm.load()" ng-keydown="vm.event_KeyDown_SelectUser($event)">
+                        <span class="input-group-btn">
+                            <button class="btn btn-primary" type="button" ng-click="vm.load()">查询</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>-->
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-bordered table-detail">
+                    <thead>
+                        <tr></tr>
+                        <tr>
+                            <th style="width: 30px;"></th>
+                            <th style="width: 130px;">公司名称</th>
+                            <th style="width: 130px;">公司编号</th>
+                            <th style="width: 130px;">公司采购经理</th>
+                            <th style="width: 230px;">公司总经理</th>
+                            <th>启用？</th>
+                            <th style="width: 50px;">
+                                <input class="btn btn-sm btn-success" type="button" value="新增" ng-click="form.$add()" />
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody fm-cache>
+                        <tr ng-if="form.$addType == 1">
+                            <td class="statetd">
+                                <i class="icon-pencil"></i>
+                            </td>
+                            <td>
+                                <fm-data-select class="input-sm" field-name="公司名称"
+                                                require
+                                                view="GetAllCompany"
+                                                i-clear
+                                                fm-model="form.newItem.maintennanceType"></fm-data-select>
+                            </td>
+                            <td>
+                                <fm-text class="input-sm" field-name="公司编号"
+                                                require
+                                                i-clear
+                                                fm-model="form.newItem.maintennanceType"></fm-text>
+                            </td>
+                            <td>
+                                <div class="col-xs-10">
+                                    <fm-job-select state="{{form.$pageRight.StartNode}}" 
+                                                   field-name="公司采购经理" 
+                                                   ismulti 
+                                                   fm-model="form.newItem.maintennanceType"></fm-job-select>
+                                </div>
+                            </td>
+                            <td>
+                                <fm-job-select state="{{form.$pageRight.StartNode}}"
+                                               field-name="公司总经理"
+                                               ismulti
+                                               fm-model="form.newItem.maintennanceType"></fm-job-select>
+                            </td>
+                            <td>
+                                <fm-radiolist class="input-sm" field-name="启用？" required
+                                              items="[{id:1,text:'是'},{id:0,text:'否'}]"
+                                              fm-model="form.newItem.status"></fm-radiolist>
+                            </td>
+                            <td>
+                                <input class="btn btn-sm btn-success" type="button" value="保存" ng-click="form.$save(form.newItem)" />
+                            </td>
+                        </tr>
+                        <tr ng-repeat="item in form.maintenancetypeapprover" detail-name="类型" ng-class="{ 'active': item.checked}">
+                            <td class="statetd"></td>
+                            <td>
+                                <fm-data-select class="input-sm" field-name="公司名称" required
+                                                view="GetAllCompany"
+                                                fm-blur="form.$save(item)"
+                                                i-clear
+                                                fm-model="item.maintennanceType"></fm-data-select>
+                            </td>
+                            <td>
+                                <fm-text class="input-sm" field-name="公司编号" required
+                                                fm-blur="form.$save(item)"
+                                                i-clear
+                                                fm-model="item.approver"></fm-text>
+                            </td>
+                            <td>
+                                <fm-job-select state="{{form.$pageRight.StartNode}}"
+                                               field-name="公司采购经理"
+                                               required
+                                                i-clear
+                                                fm-blur="form.$save(item)"
+                                               fm-model="item.maintennanceType"></fm-job-select>
+                          <!--    <fm-data-select class="input-sm" field-name="审批人" required
+                                                view="GetAllJobName"
+                                                fm-blur="form.$save(item)"
+                                                i-clear
+                                                fm-model="item.approver"></fm-data-select>-->  
+                            </td>
+                            <td>
+                               <!--<fm-data-select class="input-sm" field-name="审批人" required
+                                                view="GetAllJobName"
+                                                fm-blur="form.$save(item)"
+                                                i-clear
+                                                fm-model="item.approver"></fm-data-select>--> 
+                                <fm-job-select state="{{form.$pageRight.StartNode}}"
+                                               field-name="公司总经理"
+                                               required
+                                               i-clear
+                                               fm-blur="form.$save(item)"
+                                               fm-model="item.maintennanceType"></fm-job-select>
+                            </td>
+                            <td>
+                                <fm-radiolist class="input-sm" field-name="启用？" required
+                                              items="[{id:1,text:'是'},{id:0,text:'否'}]"
+                                              callback-func="form.$save(item)"
+                                              fm-model="item.status"></fm-radiolist>
+                            </td>
+                            <td>
+                                <input class="btn btn-sm btn-danger" type="button" value="删除" ng-click="form.$delete(item)" />
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <ul class="pager" style="float: right;">
+        <li class="previous" ng-class="{disabled:form.paging.currentPage==1}"><a ng-click="form.$changePage(1)">首页</a></li>
+        <li ng-repeat="page in form.showPages" ng-class="{active:page.index==form.paging.currentPage}"><a ng-click="form.$changePage(page.index)">{{page.index}}</a></li>
+        <li class="next" ng-class="{disabled:form.paging.currentPage==form.pageNum}"><a ng-click="form.$changePage(form.pageNum)">末页</a></li>
+    </ul>
+</div>

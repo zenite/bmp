@@ -1,0 +1,570 @@
+﻿
+<fm-form-title sn-number="{{base.snNumber}}" apply-date="{{base.applyDate}}" sub-title='base.title' fm-model="base.areaCode"></fm-form-title>
+<!--<fm-Group-Head class="print-hide" title="{{ base.$pageLang.PostByInfo }}"></fm-Group-Head>-->
+<!--<fm-initiator class="print-hide" jobid='base.jobId' userinfo='base.initiator' taskid='base.taskId'></fm-initiator>-->
+<fm-Group-Head title="{{ base.$pageLang.ApplicantInfo }}"></fm-Group-Head>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--申请人名字-->
+            <span class="col-xs-2 control-label">{{ "ApplicantName" | translate }}</span>
+            <div class="col-xs-4">
+                <div class="input-group" style="width: 100%;">
+                    <span class="form-label">{{base.applicant.userName}}</span>
+                    <span class="input-group-btn" ng-if="!taskid">
+                        <button class="btn btn-default" type="button" style="display:none;" ng-click="base.$selectApplicant()">{{ "Choose" | translate }}</button>
+                    </span>
+                </div>
+            </div>
+            <!--申请人员工号-->
+            <span class="col-xs-2 control-label">{{ "ApplicantEmployeeNumber" | translate }}</span>
+            <div class="col-xs-4"><span class="form-label">{{base.applicant.employeeNumber}}</span></div>
+        </div>
+    </div>
+    <div class="form-group">
+        <!--申请人部门线-->
+        <div class="col-xs-12">
+            <span class="col-xs-2 control-label">{{ "ApplicantDepartment" | translate }}</span>
+            <div class="col-xs-10"><span class="form-label">{{base.applicant.departmentName}}</span></div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--申请人电话-->
+            <span class="col-xs-2 control-label">{{ "ApplicantContactNumber" | translate }}</span>
+            <div class="col-xs-4"><span class="form-label">{{base.applicant.contactNumber}}</span></div>
+            <!--申请人邮箱-->
+            <span class="col-xs-2 control-label">{{ "ApplicantEmail" | translate }}</span>
+            <div class="col-xs-4"><span class="form-label">{{base.applicant.emailAddress}}</span></div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--申请人手机-->
+            <span class="col-xs-2 control-label">{{ "ApplicantMobileNumber" | translate }}</span>
+            <div class="col-xs-4"><span class="form-label">{{base.applicant.mobileNumber}}</span></div>
+            <!--申请人直属领导-->
+            <span class="col-xs-2 control-label">{{ "ApplicantDirectManager" | translate }}</span>
+            <div class="col-xs-4"><span class="form-label">{{base.applicant.directManagerName}}</span></div>
+        </div>
+    </div>
+</div>
+<fm-Group-Head title="{{ form.$pageLang.ApplicantInfo }}"></fm-Group-Head>
+<style>
+    .table-detail-title td {
+        color: white;
+    }
+</style>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--Supplier(Code)-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.Supplier"></span>
+            <div class="col-xs-4">
+                <fm-data-select view="GetSupplierDataItems"
+                                fm-model="form.pur02.supplierCode"
+                                display-member="id"
+                                required
+                                field-name="{{form.$pageLang.Supplier}}"
+                                callback-func="form.chooseSupplierCode(selectItem)"></fm-data-select>
+            </div>
+            <!--Supplier Name-->
+            <span class="col-xs-2 control-label" ng-bind="form.$pageLang.SupplierName"></span>
+            <div class="col-xs-4">
+                <fm-text readonly fm-model="form.pur02.supplierName"></fm-text>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--Currency-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.Currency"></span>
+            <div class="col-xs-4">
+                <fm-text field-name="{{form.$pageLang.Currency}}"
+                         readonly
+                         fm-model="form.pur02.currency"></fm-text>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--QN-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.Qn"></span>
+            <div class="col-xs-4">
+                <fm-select items="[{id:'1',text:'Yes'},{id:'0',text:'No'}]"
+                           state="{{form.$pageRight.StartNode}}"
+                           fm-model="form.pur02.qn"
+                           display-member="text"
+                           value-member="id"
+                           required
+                           field-name="{{form.$pageLang.qn}}"></fm-select>
+            </div>
+            <!--QN NO.-->
+            <span class="col-xs-2 control-label"  ng-class="{ 'required': form.pur02.qn=='1'}" ng-bind="form.$pageLang.Qnno"></span>
+            <div class="col-xs-4">
+                <fm-text fm-model="form.pur02.qnnum"
+                         fm-required="form.pur02.qn=='1'"
+                         field-name="{{form.$pageLang.Qnno}}"></fm-text>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12 cell">
+            <!--Contact Person-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.ContactPerson"></span>
+            <div class="col-xs-4">
+                <fm-text fm-model="form.pur02.contactPerson"
+                         required
+                         field-name="{{form.$pageLang.ContactPerson}}"></fm-text>
+            </div>
+            <!--Email-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.Email"></span>
+            <div class="col-xs-4">
+                <fm-text fm-model="form.pur02.email"
+                         required
+                         field-name="{{form.$pageLang.Email}}"></fm-text>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+
+            <!--Program Name-->
+            <span class="col-xs-2 control-label" ng-bind="form.$pageLang.ProgramName"></span>
+            <div class="col-xs-4">
+                <fm-text fm-model="form.pur02.programName"></fm-text>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--Problem Classification-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.ProblemClassification"></span>
+            <div class="col-xs-4">
+                <fm-select dataitem="PurchaseRelated>MRR>MRRProblemClassification"
+                           fm-model="form.pur02.problemClassification"
+                           required
+                           field-name="{{form.$pageLang.ProblemClassification}}"></fm-select>
+            </div>
+            <!--Supplier Correction Action-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.SupplierCorrectionAction"></span>
+            <div class="col-xs-4">
+                <fm-select dataitem="PurchaseRelated>MRR>MRRSupplierCorrectionAction"
+                           fm-model="form.pur02.supplierCorAction"
+                           required
+                           field-name="{{form.$pageLang.SupplierCorrectionAction}}"></fm-select>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--RFA No-->
+            <span class="col-xs-2 control-label"  ng-class="{ 'required': form.pur02.supplierCorAction!='01FFFDBC-0899-4D08-AC14-224FDE89D0E9'}" ng-bind="form.$pageLang.RfaNo"></span>
+            <div class="col-xs-4">
+                <fm-text fm-model="form.pur02.rfaNo"
+                         fm-required="form.pur02.supplierCorAction!='01FFFDBC-0899-4D08-AC14-224FDE89D0E9'"
+                         field-name="{{form.$pageLang.RfaNo}}"></fm-text>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--Claim Description-->
+            <span class="col-xs-2 control-label" ng-bind="form.$pageLang.ClaimDescription"></span>
+            <div class="col-xs-4">
+                <fm-text fm-model="form.pur02.claimDesc"></fm-text>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--Claim Root Cause-->
+            <span class="col-xs-2 control-label" ng-bind="form.$pageLang.ClaimRootCause"></span>
+            <div class="col-xs-4">
+                <fm-text fm-model="form.pur02.claimRootCause"></fm-text>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--Corrective Action-->
+            <span class="col-xs-2 control-label" ng-bind="form.$pageLang.CorrectiveAction"></span>
+            <div class="col-xs-4">
+                <fm-text fm-model="form.pur02.correctiveAction"></fm-text>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <span class="col-xs-12 control-label" ng-bind="form.$pageLang.Detail"></span>
+</div>
+<div class="form-group">
+
+    <div class="col-xs-12">
+        <fm-textarea fm-model="form.pur02.detailRemarks"></fm-textarea>
+    </div>
+</div>
+<fm-Group-Head title="{{ form.$pageLang.MaterialDetailList }}"></fm-Group-Head>
+<!--Material Detail List-->
+<div class="row">
+    <div class="col-xs-12">
+        <table class="table table-bordered table-detail">
+            <thead>
+                <tr style="background-color:#0066cc" class="table-detail-title">
+                    <th style="width:3%; text-align:center;">
+                        <input type="checkbox" class="uniform" ng-checked="form.yfvicmaterialdetAllChecked" ng-model="form.yfvicmaterialdetAllChecked"
+                               ng-click="form.$checkAll(form.yfvicmaterialdetAllChecked, form.yfvicmaterialdet)" />
+
+                    </th>
+                    <th style="width:8%" ng-bind="form.$pageLang.PartNumber"></th> <!--Part Number-->
+                    <th style="width:8%" ng-bind="form.$pageLang.SupplierCode"></th> <!--Supplier Code-->
+                    <th style="width:8%" ng-bind="form.$pageLang.QtyRev"></th> <!--Qty Rev-->
+                    <th style="width:8%" ng-bind="form.$pageLang.LotNo"></th> <!--Lot No-->
+                    <th style="width:8%" ng-bind="form.$pageLang.QtyRej"></th> <!--Qty Rej-->
+                    <th style="width:8%" ng-bind="form.$pageLang.Reason"></th> <!--Reason-->
+                    <th style="width:8%" ng-bind="form.$pageLang.UnitPrice"></th> <!--Unit Price-->
+                    <th style="width:13%" ng-bind="form.$pageLang.MaterialKind"></th> <!--Material Kind-->
+                    <th style="width:8%" ng-bind="form.$pageLang.TotalPrice"></th> <!--Total Price-->
+                    <th style="width:8%" class="required" ng-if="form.$nodeCode=='ND05'||(base.taskId!=undefined&&base.pageState==2)" ng-bind="form.$pageLang.Account"></th> <!--Account-->
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in form.yfvicmaterialdet" ng-class="{'active': item.checked}" detail-name="{{form.$pageLang.Fare}}">
+                    <td class="checktd">
+                        <input type="checkbox"
+                               class="uniform"
+                               ng-model="item.checked" ng-if="base.pageState==1 || (form.$pageRight.StartNode == 'normal' && base.pageState==2) " />
+                    </td>
+                    <td>
+                        <fm-text fm-model="item.partNumber"
+                                 state="{{form.$pageRight.StartNode}}"></fm-text>
+                    </td>
+                    <td>
+                        <fm-text fm-model="item.supplierCode"
+                                 state="{{form.$pageRight.StartNode}}"></fm-text>
+                    </td>
+                    <td>
+                        <fm-text fm-model="item.qtyRev"
+                                 state="{{form.$pageRight.StartNode}}"></fm-text>
+                    </td>
+                    <td>
+                        <fm-text fm-model="item.lotNo"
+                                 state="{{form.$pageRight.StartNode}}"></fm-text>
+                    </td>
+                    <td>
+                        <fm-text fm-model="item.qtyRej" ng-keyup="form.Calc(item)"
+                                 state="{{form.$pageRight.StartNode}}"></fm-text>
+                    </td>
+                    <td>
+                        <fm-text fm-model="item.reason"
+                                 state="{{form.$pageRight.StartNode}}"></fm-text>
+                    </td>
+                    <td>
+                        <fm-number fm-model="item.unitPrice" ng-keyup="form.Calc(item)"
+                                   cny
+                                   state="{{form.$pageRight.StartNode}}"></fm-number>
+                    </td>
+                    <td>
+                        <fm-select class="input-sm"
+                                   fm-model="item.materialKind"
+                                   dataitem="PurchaseRelated>MRR>MRRMaterialKind"
+                                   state="{{form.$pageRight.StartNode}}"></fm-select>
+                    </td>
+                    <td>
+                        <fm-number fm-model="item.totalPrice"
+                                   readonly
+                                   cny
+                                   state="{{form.$pageRight.StartNode}}"></fm-number>
+                    </td>
+                    <td ng-if="form.$nodeCode=='ND05'||(base.taskId!=undefined&&base.pageState==2)">
+                        <fm-text fm-model="item.account"
+                                 state="{{form.$pageRight.StartNode}}"
+                                 fm-normal="base.pageState==2&&form.$nodeCode=='ND05'"
+                                 required detail
+                                 field-name="{{form.$pageLang.Account}}"></fm-text>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="99" style="text-align:right;">
+                        <div class="row">
+                            <div class="form-group">
+                                <div class="col-xs-12 text-right">
+                                    <span class="col-xs-6"></span>
+                                    <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.MaterialDetailCostTotal"></span>
+                                    <div class="col-xs-4">
+                                        <fm-number fm-model="form.pur02.materialDetCostTotal"
+                                                   cny
+                                                   readonly></fm-number>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="99" style="text-align:right;">
+                        <fm-import-xls ng-if="base.pageState==1 || (form.$pageRight.StartNode == 'normal' && base.pageState==2) "
+                                       template="/AppPages/Workflow/pur/pur02_143f3430b399480d8b70c1ef4f4bbccc/Template.xls"
+                                       start-index="0"
+                                       columns="['partNumber','supplierCode','qtyRev','lotNo','qtyRej','reason','unitPrice','materialKind']"
+                                       callback-func="form.getlength(data)"></fm-import-xls>
+                        <input ng-if="base.pageState==1 || (form.$pageRight.StartNode == 'normal' && base.pageState==2) " type="button" class="btn btn-sm btn-info" ng-click="form.add()" value="{{ 'Add' |translate}}" />
+                        <input ng-if="base.pageState==1 || (form.$pageRight.StartNode == 'normal' && base.pageState==2) " type="button" class="btn btn-sm btn-danger" ng-click="form.delete()" value="{{ 'Delete' |translate}}" />
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+<fm-Group-Head title="{{ form.$pageLang.OtherChargebackcostlist }}"></fm-Group-Head>
+<!--Other Chargeback cost list-->
+<div class="row">
+    <div class="col-xs-12">
+        <table class="table table-bordered table-detail">
+            <thead>
+                <tr style="background-color:#0066cc" class="table-detail-title">
+                    <th ng-bind="form.$pageLang.Sorting"></th> <!--Sorting-->
+                    <th ng-bind="form.$pageLang.Rework"></th> <!--Rework-->
+                    <th ng-bind="form.$pageLang.ExtraFreight"></th> <!--Extra Freight-->
+                    <th ng-bind="form.$pageLang.QnFee"></th> <!--QR Fee-->
+                    <th ng-bind="form.$pageLang.Other"></th> <!--Other-->
+                    <th ng-bind="form.$pageLang.TotalCost"></th> <!--Total Cost-->
+                    <!--<td ng-bind="form.$pageLang.Account"></td>--> <!--Account-->
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in form.yfvicchargebackdet" ng-class="{ 'active': item.checked}" detail-name="{{form.$pageLang.Fare}}">
+                    <td>
+                        <fm-number ng-keyup="form.CalcChargebackdet(item)"
+                                   cny
+                                   fm-model="item.sorting"></fm-number>
+                    </td>
+                    <td>
+                        <fm-number ng-keyup="form.CalcChargebackdet(item)"
+                                   cny
+                                   fm-model="item.rework"></fm-number>
+                    </td>
+                    <td>
+                        <fm-number ng-keyup="form.CalcChargebackdet(item)"
+                                   cny
+                                   fm-model="item.extraFreight"></fm-number>
+                    </td>
+                    <td>
+                        <fm-number ng-keyup="form.CalcChargebackdet(item)"
+                                   cny
+                                   fm-model="item.qnFee"></fm-number>
+                    </td>
+                    <td>
+                        <fm-number ng-keyup="form.CalcChargebackdet(item)"
+                                   cny
+                                   fm-model="item.other"></fm-number>
+                    </td>
+                    <td>
+                        <fm-number fm-model="item.totalCost"
+                                   cny readonly></fm-number>
+                    </td>
+                    <!--<td>
+                        <fm-text fm-model="item.costCenter"></fm-text>
+                    </td>-->
+                </tr>
+                <tr ng-if="form.$nodeCode=='ND05'||(base.taskId!=undefined&&base.pageState==2)">
+                    <td>
+                        <fm-text fm-model="form.pur02.sortingAccount"
+                                 fm-normal="base.pageState==2&&form.$nodeCode=='ND05'"
+                                 field-name="{{form.$pageLang.SortingAccount}}"></fm-text>
+                    </td>
+                    <td>
+                        <fm-text fm-model="form.pur02.extraFreightAccount"
+                                 fm-normal="base.pageState==2&&form.$nodeCode=='ND05'"
+                                 field-name="{{form.$pageLang.ExtraFreightAccount}}">></fm-text>
+                    </td>
+                    <td>
+                        <fm-text fm-model="form.pur02.reworkAccount"
+                                 fm-normal="base.pageState==2&&form.$nodeCode=='ND05'"
+                                 field-name="{{form.$pageLang.ReworkAccount}}">></fm-text>
+                    </td>
+                    <td>
+                        <fm-text fm-model="form.pur02.qrFeeAccount"
+                                 fm-normal="base.pageState==2&&form.$nodeCode=='ND05'"
+                                 field-name="{{form.$pageLang.QrFeeAccount}}"><></fm-text>
+                    </td>
+                    <td>
+                        <fm-text fm-model="form.pur02.otherAccount"
+                                 fm-normal="base.pageState==2&&form.$nodeCode=='ND05'"
+                                 field-name="{{form.$pageLang.OtherAccount}}"><></fm-text>
+                    </td>
+                    <td></td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <!--<tr>
+                    <td colspan="99" style="text-align:right;">
+                        <input ng-if="base.pageState==1 || (form.$pageRight.StartNode == 'normal' && base.pageState==2) " type="button" class="btn btn-sm btn-info" ng-click="form.yfvicchargebackdet.push({})" value="{{ 'Add' |translate}}" />
+                        <input ng-if="base.pageState==1 || (form.$pageRight.StartNode == 'normal' && base.pageState==2) " type="button" class="btn btn-sm btn-danger" ng-click="form.deleteChargeBackDet()" value="{{ 'Delete' |translate}}" />
+                    </td>
+                </tr>-->
+
+            </tfoot>
+        </table>
+    </div>
+</div>
+<fm-Group-Head title="{{ form.$pageLang.Comment }}"></fm-Group-Head>
+<!--Comment-->
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <fm-textarea fm-model="form.pur02.comment"></fm-textarea>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--Total Price-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.TotalPrice"></span>
+            <div class="col-xs-2">
+                <fm-number fm-model="form.pur02.totalPrice"
+                           cny readonly></fm-number>
+            </div>
+        </div>
+    </div>
+</div>
+<fm-Group-Head class="required" ng-if="form.$nodeCode=='ND03'||(base.taskId!=undefined&&base.pageState==2)" title="{{form.$pageLang.Chargebacks}}"></fm-Group-Head>
+<!--扣款方式-->
+<div class="row" ng-if="form.$nodeCode=='ND03'||(base.taskId!=undefined&&base.pageState==2)">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <fm-radiolist dataitem="PurchaseRelated>MRR>Chargebacks"
+                          fm-model="form.pur02.chargebacks"
+                          required
+                          field-name="{{form.$pageLang.Chargebacks}}"
+                          fm-normal="form.$pageRight.StartNode !='normal' && form.$pageRight.CanWriteSupplier=='normal'"></fm-radiolist>
+
+        </div>
+
+    </div>
+</div>
+<div class="row" ng-if="form.$nodeCode=='ND03'||(base.taskId!=undefined&&base.pageState==2)">
+    <span class="col-xs-12 control-label" ng-bind="form.$pageLang.A"></span>
+</div>
+<div class="row" ng-if="form.$nodeCode=='ND03'||(base.taskId!=undefined&&base.pageState==2)">
+    <span class="col-xs-12 control-label" ng-bind="form.$pageLang.B"></span>
+</div>
+
+<div class="row" style="margin-top:40px;" ng-if="form.$nodeCode=='ND03'||(base.taskId!=undefined&&base.pageState==2)">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--Supplier Authorization-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.SupplierAuthorization"></span>
+            <div class="col-xs-4">
+                <fm-text fm-model="form.pur02.supplierAuthorization"
+                         required
+                         readonly
+                         field-name="{{form.$pageLang.SupplierAuthorization}}"></fm-text>
+            </div>
+            <!--RMA No.-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.RmaNo"></span>
+            <div class="col-xs-4">
+                <fm-text fm-model="form.pur02.rmaNum"
+                         required
+                         readonly
+                         field-name="{{form.$pageLang.RmaNo}}"></fm-text>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" ng-if="form.$nodeCode=='ND03'||(base.taskId!=undefined&&base.pageState==2)">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--Date-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.Date"></span>
+            <div class="col-xs-4">
+                <fm-datetime fm-model="form.pur02.date"
+                             date
+                             required
+                             readonly
+                             field-name="{{form.$pageLang.Date}}"></fm-datetime>
+            </div>
+            <!--Comment-->
+            <span class="col-xs-2 control-label" ng-bind="form.$pageLang.Comment"></span>
+            <div class="col-xs-4">
+                <fm-text fm-model="form.pur02.chargebacksComment"
+                         readonly></fm-text>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" ng-if="form.$nodeCode=='ND05'||(base.taskId!=undefined&&base.pageState==2)">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--扣款凭证编号-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.Code"></span>
+            <div class="col-xs-4">
+                <fm-text fm-model="form.pur02.debitVoucherNum"
+                         required
+                         field-name="{{form.$pageLang.Code}}"
+                         fm-normal="base.pageState==2&&(form.$nodeCode=='ND07'||form.$nodeCode=='ND08')"></fm-text>
+            </div>
+            <!--扣款日期-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.DebitDate"></span>
+            <div class="col-xs-4">
+                <fm-datetime fm-model="form.pur02.debitDate"
+                             date
+                             required
+                             field-name="{{form.$pageLang.DebitDate}}"
+                             state="{{form.$pageRight.StartNode}}"
+                             fm-normal="base.pageState==2&&(form.$nodeCode=='ND07'||form.$nodeCode=='ND08')"></fm-datetime>
+            </div>
+        </div>
+    </div>
+</div>
+<fm-Group-Head ng-if="form.$nodeCode=='ND07'||form.$nodeCode=='ND08'||(base.taskId!=undefined&&base.pageState==2)" title="{{ form.$pageLang.Remark}}"></fm-Group-Head>
+<div class="row" ng-if="form.$nodeCode=='ND07'||form.$nodeCode=='ND08'||(base.taskId!=undefined&&base.pageState==2)">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <fm-textarea fm-model="form.pur02.remarks"
+                         fm-normal="base.pageState==2&&form.$nodeCode=='ND08'"></fm-textarea>
+        </div>
+    </div>
+</div>
+<!--备注-->
+<!--附件-->
+<fm-Group-Head class="print-hide" title="{{ 'Attachment' |translate}}"ng-if="form.$pageRight.LoadAttachmentNode != 'hidden'"></fm-Group-Head>
+<div class="print-hide row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--<span class="col-xs-2 control-label required">附件</span>-->
+            <div class="col-xs-4">
+                <fm-attachment form-files="form.$attachments"
+                               link-id="0"
+                               task-id='base.taskId'
+                               node-id="base.nodeId"
+                               draft-id="base.draftId"
+                               state="{{form.$pageRight.LoadAttachmentNode}}"
+                               field-name="{{'UploadAttachment' |translate}}"
+                               fm-model="form.$state.UploadAttachment"
+                               button-name="{{ 'UploadAttachment' |translate}}"></fm-attachment>
+            </div>
+        </div>
+    </div>
+</div>

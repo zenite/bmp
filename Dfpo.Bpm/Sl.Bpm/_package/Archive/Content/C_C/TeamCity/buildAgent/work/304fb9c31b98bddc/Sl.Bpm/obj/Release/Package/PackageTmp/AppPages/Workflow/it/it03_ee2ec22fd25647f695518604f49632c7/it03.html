@@ -1,0 +1,882 @@
+﻿<!--it03 IT请求应用流程-->
+<fm-form-title sn-number="{{base.snNumber}}" apply-date="{{base.applyDate}}" sub-title='base.title' fm-model="base.areaCode"></fm-form-title>
+
+<!--申请人信息-->
+<fm-group-head class="print-hide" title="{{ base.$pageLang.ApplicantInfo }}"></fm-group-head>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--申请人名字-->
+            <span class="col-xs-2 control-label">{{ "ApplicantName" | translate }}</span>
+            <div class="col-xs-4">
+                <div class="input-group" style="width: 100%;">
+                    <span class="form-label">{{base.applicant.userName}}</span>
+                    <!--  <span class="input-group-btn" ng-if="!taskid">
+                        <button class="btn btn-default" type="button" ng-click="base.$selectApplicant()">{{ "Choose" | translate }}</button>
+                    </span>-->
+                </div>
+            </div>
+            <!--申请人员工号-->
+            <span class="col-xs-2 control-label">{{ "ApplicantEmployeeNumber" | translate }}</span>
+            <div class="col-xs-4"><span class="form-label">{{base.applicant.employeeNumber}}</span></div>
+        </div>
+    </div>
+    <div class="form-group">
+
+        <div class="col-xs-12">
+            <!--申请人部门线-->
+            <span class="col-xs-2 control-label">{{ "ApplicantDepartment" | translate }}</span>
+            <div class="col-xs-4">
+                <span class="form-label">{{base.applicant.departmentName}}</span>
+            </div>
+            <!--申请人手机-->
+            <span class="col-xs-2 control-label">{{ "ApplicantMobileNumber" | translate }}</span>
+            <div class="col-xs-4"><span class="form-label">{{base.applicant.mobileNumber}}</span></div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-xs-12">
+
+            <!--申请人邮箱-->
+            <span class="col-xs-2 control-label">{{ "ApplicantEmail" | translate }}</span>
+            <div class="col-xs-4"><span class="form-label">{{base.applicant.emailAddress}}</span></div>
+            <!--申请人电话-->
+            <span class="col-xs-2 control-label">{{ "ApplicantContactNumber" | translate }}</span>
+            <div class="col-xs-4"><span class="form-label">{{base.applicant.contactNumber}}</span></div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--申请人直属领导-->
+            <span class="col-xs-2 control-label">{{ "ApplicantDirectManager" | translate }}</span>
+            <div class="col-xs-4"><span class="form-label">{{base.applicant.directManagerName}}</span></div>
+            <!--申请人直属领导手机-->
+
+            <span class="col-xs-2 control-label">{{form.$pageLang.ContactofDirectManager}}</span>
+            <div class="col-xs-4"><span class="form-label">{{form.it03.contactDirectManager}}</span></div>
+        </div>
+    </div>
+</div>
+
+<fm-group-head title="{{ form.$pageLang.ApplicantInfo }}"></fm-group-head>
+<!--申请信息-->
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--请选择申请类型-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.SelectRequestType"></span>
+            <div class="col-xs-4">
+                <fm-select
+                    dataitem="ITRelated>IRA>IRARequestType"
+                    fm-model="form.it03.requerType"
+                    required
+                    field-name="{{form.$pageLang.SelectRequestType}}"
+                    callback-func="form.selectrequerType()"
+                    ></fm-select>
+            </div>
+            <!--操作类型-->
+            <!-- <span class="col-xs-2 control-label " ng-bind="form.$pageLang.OperationType"></span>
+            <div class="col-xs-4">
+                <fm-select dataitem="ITRelated>IRA>IRAActionType" fm-model="form.it03.operationType"></fm-select>
+            </div>-->
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--类型大类-->
+            <span class="col-xs-2 control-label required"
+                ng-bind="form.$pageLang.TypeClass"></span>
+            <div class="col-xs-4">
+
+                <fm-select items="form.typeClassItem"
+                           fm-model="form.it03.typeClass"
+                           required
+                           callback-func="form.typeClassfunc()"
+                           field-name="{{form.$pageLang.TypeClass}}"
+                           ></fm-select>
+            </div>
+            <div ng-if="form.it03.requerType!=='04D8C332-C022-4B18-89B4-FE9606186C51'&&
+                form.it03.typeClass!=='003BE2EA-50F1-4646-9B61-051F3B716AEE'&&
+                form.it03.typeClass!=='B81A1BC1-FE2F-4A52-8388-D14A8F55223F'&&form.it03.typeClass!=='C636D60A-0C32-47F9-8B9A-423362587553'&&!!form.it03.typeClass">
+            <!--类型小类-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.TypeSmallClass" ></span>
+                <div class="col-xs-4">
+
+                    <fm-select items="form.typeSmallClassItem" fm-model="form.it03.typeSmallClass"
+                               required
+                               callback-func="form.isIfFunc()"
+                               field-name="{{form.$pageLang.TypeSmallClass}}"
+                               ></fm-select>
+                </div>
+                </div>
+        </div>
+    </div>
+</div>
+<div class="row" ng-if="form.it03.requerType==='D7820B3A-FE0C-496C-AD07-E08EC78DA25E'">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--操作类型-->
+            <span class="col-xs-2 control-label " ng-bind="form.$pageLang.OperationType"></span>
+            <div class="col-xs-4">
+          
+                <fm-select items="form.actiontypeItem" fm-model="form.it03.operationType" ></fm-select>
+            </div>
+        </div>
+    </div>
+</div>
+<div ng-if="!!form.it03.requerType">
+<div class="row" ng-if="form.it03.requerType === 'D7820B3A-FE0C-496C-AD07-E08EC78DA25E'">
+
+<fm-group-head title="{{ form.$pageLang.Qa}}"></fm-group-head>
+<!--QA-->
+  
+<div ng-if="form.it03.typeSmallClass==='AFF9CEF3-A9FE-43B9-9B08-D23A4F4AEC56'">
+    <div class="row">
+        <div class="form-group">
+            <div class="col-xs-12">
+                <!--CDSID-->
+                <div class="col-xs-2 text-right" ng-if="form.it03.requerType === 'D7820B3A-FE0C-496C-AD07-E08EC78DA25E'">
+                    <fm-checklist
+                        class="uniform"
+                        style="text-align:right"
+                        items="[{id:'1',text:'CDSID'}]"
+                        
+                        callback-func="form.outlookfuc()"
+                         fm-model="form.it03.cdsid"
+                        ></fm-checklist>
+       <!--             <span class="control-label " ng-bind="form.$pageLang.Cdsid"></span>
+                    -->
+                </div>
+                <!--CDSID文本-->
+                <div class="col-xs-4" >
+                
+                    <fm-text fm-model="form.it03.cdsidText" state="{{form.$pageRight.ItEngineerOne}}" ng-if="base.pageState!==1"></fm-text>
+                </div>
+                <!--OutLook-->
+                <div class="col-xs-2 text-right" ng-if="form.it03.requerType === 'D7820B3A-FE0C-496C-AD07-E08EC78DA25E'">
+                    <fm-checklist
+                        class="uniform"
+                        style="text-align: right;padding-right: 0px;"
+                        items="[{id:'1',text:'OutLook'}]"
+                        
+                         fm-model="form.it03.outLook"
+                        ></fm-checklist>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group">
+            <div class="col-xs-12">
+                <!--Phone number-->
+                <div class="col-xs-2 text-right" ng-if="form.it03.requerType === 'D7820B3A-FE0C-496C-AD07-E08EC78DA25E'">
+                     <fm-checklist
+                         class="uniform"
+                         callback-func="form.delete_choose()"
+                         style="text-align:right"
+                        items="[{id:'1',text:'Phone Number'}]"
+                         
+                         fm-model="form.it03.phoneNumber"
+                        ></fm-checklist>
+                </div>
+                <div class="col-xs-4" >
+                    <fm-text fm-model="form.it03.phoneNumberText" ng-if="base.pageState!==1"
+                             state="{{form.$pageRight.ItEngineerOne}}"></fm-text>
+                </div>
+                <div class="col-xs-2 text-right">COR</div>
+                <div class="col-xs-4">
+
+                    <fm-select fm-model="form.it03.cor"
+                               fm-required="form.it03.phoneNumber==1"
+                               field-name="COR"
+                               fm-disabled="form.it03.phoneNumber!=1"
+                               dataitem="ITRelated>IRA>COR"></fm-select>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group">
+            <div class="col-xs-12">
+                <!--邮箱-->
+                <div class="col-xs-2">
+                    <fm-checklist style="text-align:right"
+                        class="uniform "
+                        items="[{id:'1',text:'邮箱'}]"
+                         
+                         fm-model="form.it03.email"
+                        ></fm-checklist>
+                </div>
+                <div class="col-xs-4" >
+                    <fm-text fm-model="form.it03.emailText" ng-if="base.pageState!==1"
+                             state="{{form.$pageRight.ItEngineerOne}}"></fm-text>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--所属组织信息-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.Informationorganization"></span>
+            <div class="col-xs-4">
+                <fm-data-select fm-model="form.it03.oaOrgPath"
+                                
+                                group
+             
+                               required
+                               field-name="{{form.$pageLang.Informationorganization}}"></fm-data-select>
+            </div>
+            <!--姓名-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.Name"></span>
+            <div class="col-xs-4">
+                <fm-text fm-model="form.it03.oaName"
+                         
+                      field-name="{{form.$pageLang.Name}}"
+                         required></fm-text>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--工号-->
+            <span class="col-xs-2 control-label" ng-bind="form.$pageLang.JobNumber"></span>
+            <div class="col-xs-4">
+            
+                <fm-text
+                    fm-model="form.it03.oaWorkNo"></fm-text>
+            </div>
+            <!--岗位名称-->
+            <span class="col-xs-2 control-label" ng-bind="form.$pageLang.Position"></span>
+            <div class="col-xs-4">
+                <fm-job-select  fm-model="form.it03.postName"
+                                hideuser
+                               
+                               field-name="{{form.$pageLang.Position}}"
+                               ></fm-job-select>
+                <!-- <fm-select items="[]" fm-model="form.it03.postName"></fm-select>-->
+            </div>
+        </div>
+    </div>
+</div>
+<div ng-if="form.it03.typeSmallClass==='F190109C-71D3-4E26-8EA5-5EE881E53FBB'">
+
+    <div class="row">
+        <div class="form-group">
+            <div class="col-xs-12">
+                <!--Job Function Change-->
+                <span class="col-xs-2 control-label" ng-bind="form.$pageLang.JobFunctionChange"></span>
+                <div class="col-xs-4">
+                    <fm-select dataitem="Common>YesOrNo"
+                               
+                               fm-model="form.it03.jobFunctionChange"></fm-select>
+                </div>
+                <!--Application-->
+                <span class="col-xs-2 control-label" ng-bind="form.$pageLang.Application"></span>
+                <div class="col-xs-4">
+                    <fm-select
+                        
+                        dataitem="ITRelated>IRA>Application" fm-model="form.it03.application"></fm-select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" ng-if="form.it03.application==='d789b569-fee3-41be-89da-3484e5a4c063'">
+        <div class="form-group">
+            <div class="col-xs-12">
+                <!--User Access Group-->
+                <span class="col-xs-2 control-label" ng-bind="form.$pageLang.UserAccessGroup"></span>
+                <div class="col-xs-4 text-center">
+                    <fm-checklist fm-model="form.it03.userAccessGroup"
+                                  
+                                  items="[{id:'1',text:'Standard'},{id:'2',text:'Privileged'}]"></fm-checklist>
+                </div>
+
+                <!--QAD Database-->
+                <span class="col-xs-2 control-label " ng-bind="form.$pageLang.QadDatabase"></span>
+                <div class="col-xs-4 text-center">
+                    <fm-checklist fm-model="form.it03.qadDatabase"
+                                  
+                                  items="[{id:'1',text:'Production DB'},{id:'2',text:'Test DB'}]"></fm-checklist>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    <!--申请内容-->
+<div class="row" ng-if="form.it03.typeSmallClass === 'F190109C-71D3-4E26-8EA5-5EE881E53FBB'">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <span class="col-xs-2 control-label ">申请内容</span>
+            <div class="col-xs-10">
+                <fm-textarea fm-model="form.it03.requerContent"></fm-textarea>
+            </div>
+        </div>
+    </div>
+</div>
+      <!--Authority Group-->
+<div class="row" ng-if="form.$pageRight.ItEngineer==='normal'&&
+    (form.it03.operationType==='43F9E127-567D-41B6-8CDE-9A90156A3791'||
+    form.it03.operationType==='95EA2C66-BFE4-4A24-8337-08488296090B')&&
+    form.it03.application === 'd789b569-fee3-41be-89da-3484e5a4c063'">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <span class="col-xs-2 control-label " ng-bind="form.$pageLang.AuthorityGroup"></span>
+            <div class="col-xs-10">
+                <fm-data-select
+                    fm-disabled="form.$pageRight.ItEngineer!=='normal'"
+                    fm-normal="form.$pageRight.ItEngineer==='normal'"
+                    ismulti="true"
+                    fm-model="form.it03.authorityGroup"
+                    class="input-sm"
+                    view="GetAuthorityGroup"
+                    ></fm-data-select>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--Platform/Application-->
+            <div class="col-xs-12" ng-if="form.it03.typeSmallClass==='71A595C2-8926-4B9E-A922-0D016A8E3A44'">
+                <span class="col-xs-2 control-label " ng-bind="form.$pageLang.Platform"></span>
+                <div class="col-xs-4">
+                    <fm-select dataitem="ITRelated>IRA>Platform/Application"
+                                
+                        fm-model="form.it03.platformOrApplication"></fm-select>
+                 <!--   <fm-data-select dataitem="ITRelated>IRA>Platform/Application" fm-model="form.it03.platformOrApplication"></fm-data-select>-->
+                </div>
+            </div>
+
+            <!--IT账号-->
+            <div class="col-xs-12" ng-if="form.it03.typeSmallClass==='AF52A042-D998-4981-88D9-AA33E0102940'">
+                <span class="col-xs-2 control-label " ng-bind="form.$pageLang.ItAccount"></span>
+                <div class="col-xs-4">
+                    <fm-select dataitem=" ITRelated>IRA>ITAccountPermission"
+                                 
+                               fm-model="form.it03.itAccout" ismulti="true"></fm-select>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div ng-if="form.it03.typeSmallClass==='34C9F00D-3CEC-4F05-B088-C8F58FA4AEB8'">
+
+    <div class="row">
+        <div class="form-group">
+            <div class="col-xs-12">
+                <!--共享目录路径-->
+                <span class="col-xs-2 control-label" ng-bind="form.$pageLang.SharedDirectoryPath"></span>
+                <div class="col-xs-4">
+                    <fm-text fm-model="form.it03.sharedDirectoryPath"
+                         ></fm-text>
+                </div>
+                <!--目录所属部门-->
+                <span class="col-xs-2 control-label" ng-bind="form.$pageLang.DepartmentDirectory"></span>
+                <div class="col-xs-4">
+                    <fm-job-select
+                        
+                        field-name="{{form.$pageLang.Informationorganization}}"
+                        ismulti
+                        fm-model="form.it03.departmentOfDirectory"></fm-job-select>
+                    <!--<fm-select items="[]" fm-model="form.it03.departmentOfDirectory"></fm-select>-->
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group">
+            <div class="col-xs-12">
+                <!--权限类别-->
+                <span class="col-xs-2 control-label" ng-bind="form.$pageLang.PrivilegeClass"></span>
+                <div class="col-xs-4 ">
+                    <fm-radiolist fm-model="form.it03.privilegeType"
+                                  columncount="2"
+                         
+                                  items="[{id:'1',text:'只读'},{id:'2',text:'编辑'}]"></fm-radiolist>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" ng-if="form.it03.typeSmallClass==='E1195110-5075-4F66-94F1-523F4706ECE3'">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--确认管理员/USB权限协议-->
+            <span class="col-xs-2 control-label color-red " style="color: red;" ng-bind="form.$pageLang.Confirmadministrator"></span>
+            <div class="col-xs-4 ">
+                <fm-checklist fm-model="form.it03.adminOrUsb"
+                              columncount="2"
+                     
+                              items="[{id:'1',text:'同意'}]"></fm-checklist>
+
+            </div>
+            <!--有效时间-->
+            <span class="col-xs-2 control-label " ng-bind="form.$pageLang.EffectiveTime"></span>
+            <div class="col-xs-4">
+                <fm-select dataitem="ITRelated>IRA>IRAEffectTime"
+                            
+                    fm-model="form.it03.effectiveTime"></fm-select>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" ng-if="form.it03.typeSmallClass==='E1195110-5075-4F66-94F1-523F4706ECE3'">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--确认协议-->
+            <span class="col-xs-2 control-label"></span>
+            <div class="col-xs-10">
+                <fm-textarea fm-model="form.it03.confirmAgreementqwq"
+                     
+                             fm-placeholder="form.$pageLang.Protocolcontent"></fm-textarea>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" ng-if="form.it03.typeSmallClass==='13AF46EA-21DC-42C4-8323-DAA0FBD5BC88'">
+    <div class="form-group">
+        <div class="col-xs-12 text-right">
+            <!--彩色打印机所在地址-->
+            <span class="col-xs-2 control-lael " ng-bind="form.$pageLang.ColorPrinterAddress"></span>
+            <div class="col-xs-4">
+                <fm-select dataitem="ITRelated>IRA>ColorPrinterAddress"
+                           
+                           fm-model="form.it03.colorPrinterAddress"></fm-select>
+            </div>
+        </div>
+    </div>
+</div>
+  <!--数据加密-->
+<div class="row" ng-if="form.it03.typeSmallClass==='5C989DCC-F9CB-4756-805F-41381B80D367'">
+    <div class="form-group">
+        <div class="col-xs-12">
+
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.dataencryption"></span>
+            <fm-checklist fm-model="form.it03.dataencryptionType"
+                          columncount="5"
+                          items="[{id:'1',text:'PGP'},{id:'2',text:'OUTLOOK'},{id:'3',text:'RSA'}]"
+                          ></fm-checklist>
+        </div>
+    </div>
+</div>
+<!--理由-->
+<div class="row" ng-if="form.it03.typeSmallClass==='E1195110-5075-4F66-94F1-523F4706ECE3'">
+    <div class="form-group">
+        <div class="col-xs-12">
+     
+            <span class="col-xs-2 control-label" ng-bind="form.$pageLang.Reason"></span>
+            <div class="col-xs-4">
+                <fm-text fm-model="form.it03.reason"
+                         ></fm-text>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" ng-if="form.it03.typeClass==='93745AD1-2C16-4030-872B-672129AFF816'">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--国际长途/国内长途/Gnet-->
+            <span class="col-xs-2 control-label " ng-bind="form.$pageLang.InternationalLongDistance "></span>
+            <div class="col-xs-4">
+                <fm-select dataitem="ITRelated>IRA>IRACommunicationType" ismulti="true"
+                           fm-model="form.it03.longDistance"
+                           ></fm-select>
+            </div>
+            <!--同意协议-->
+            <div class="col-xs-4">
+                <fm-checklist fm-model="form.it03.confirmAgreement"
+                              items="[{id:'1',text:'同意协议'}]"
+                              ></fm-checklist>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" ng-if="form.it03.typeClass==='93745AD1-2C16-4030-872B-672129AFF816'">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <div class="col-xs-2"></div>
+            <div class="col-xs-10">
+                <fm-textarea fm-model="form.it03.confirmAgreementzzs"
+                              
+                    fm-placeholder="form.$pageLang.Protocolcontent"></fm-textarea>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<div class="row" ng-if="form.it03.requerType ==='60F95FA0-A1F7-421A-8696-07C9F52008A4'||form.it03.requerType =='04D8C332-C022-4B18-89B4-FE9606186C51'">
+<fm-group-head title="{{ form.$pageLang.Software }}"></fm-group-head>
+<!--硬件/软件-->
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--为他人申请为外包人申请-->
+            <span class="col-xs-2 "></span>
+            <div class="col-xs-4 control-label ">
+                <fm-radiolist fm-model="form.it03.applicantInfoType"
+                              columncount="2"
+                              
+                              items="[{ id: '1', text: '为他人申请' }, { id: '2', text: '为外包人申请' }]"></fm-radiolist>
+            </div>
+             <!--新次机-->
+            <span class="col-xs-2 "></span>
+            <div class="col-xs-4 control-label " ng-if="form.$pageRight.ItEngineer === 'normal'">
+                <fm-checklist fm-model="form.it03.useNewMachine"
+                              columncount="1"
+                              state="{{form.$pageRight.ItEngineer}}"
+                              items="[{id:'1',text:'使用新次机'}]"></fm-checklist>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="row" ng-if="form.it03.typeClass==='F61798AC-065F-432A-92E5-563F4098B935'">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--使用人-->
+            <span class="col-xs-2 control-label" ng-bind="form.$pageLang.ApplicantName"></span>
+            <div class="col-xs-4">
+                <fm-text fm-model="form.it03.applicanPeopletName"
+                         
+                         fm-disabled="form.it03.applicantInfoType!='1'"></fm-text>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" ng-if="form.it03.typeClass==='F61798AC-065F-432A-92E5-563F4098B935'">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--所属组织信息-->
+            <span class="col-xs-2 control-label " ng-bind="form.$pageLang.Informationorganization"></span>
+            <div class="col-xs-4">
+       
+                <fm-data-select 
+                                group
+                                field-name="{{form.$pageLang.Informationorganization}}"
+                                fm-disabled="form.it03.applicantInfoType!='1'"
+                                fm-model="form.it03.theirGroup"></fm-data-select>
+            </div>
+            <!--岗位名称-->
+            <span class="col-xs-2 control-label" ng-bind="form.$pageLang.Position"></span>
+            <div class="col-xs-4">
+                <fm-job-select  fm-model="form.it03.jobTitle"
+                    
+                                hideuser
+                                
+                                 fm-disabled="form.it03.applicantInfoType!='1'"
+                               field-name="{{form.$pageLang.Position}}"
+                               ></fm-job-select>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--是否选择项目编号-->
+            <span class="col-xs-2 control-label " ng-bind="form.$pageLang.SelectProjectCode"></span>
+            <div class="col-xs-4">
+            
+                <fm-select dataitem="Common>YesOrNo"
+                           callback-func="form.emptyProject()"
+                           fm-model="form.it03.isSelectProjectNumber"
+                           ></fm-select>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-xs-12">
+        <table class="table table-bordered table-detail">
+            <thead>
+            <tr>
+                <th style="width: 150px; text-align: center;" ng-bind="form.$pageLang.ProjectName"></th>
+                <!--项目名称-->
+                <th style="width: 70px; text-align: center;" ng-bind="form.$pageLang.ProjectCode"></th>
+                <!--项目编号-->
+                <th style="width: 150px; text-align: center;" ng-bind="form.$pageLang.ProgramManager"></th>
+                <!--项目经理-->
+                <th style="width: 150px; text-align: center;" ng-bind="form.$pageLang.BudgetItemsSelection"></th>
+                <!--预算项目编号-->
+
+            </tr>
+
+            </thead>
+            <tbody>
+            <tr>
+                <td class="auto-style1 text-align-center">
+     
+                    <fm-data-select class="input-sm text-align-center"
+                                    view="GetAllProjectInfo"  
+                                    field-name="{{form.$pageLang.projectName}}"
+                                    
+                                    callback-func="form.getProjectCode(selectItem)"
+                                    ng-if="!form.isProject"
+                                    fm-model="form.it03.projectName"></fm-data-select>
+
+                </td>
+                <td class="auto-style1 text-align-center">
+                    <fm-text class="input-sm"
+                             fm-model="form.it03.projectCode"
+                             field-name="{{form.$pageLang.projectCode}}"
+                             readonly
+                             ></fm-text>
+
+                </td>
+                <td class="auto-style1 text-align-center">
+                    <fm-text field-name="{{form.$pageLang.ProgramManager}}"
+                             readonly
+                             
+                             fm-model="form.it03.programManager"></fm-text>
+
+                </td>
+                <td class="auto-style1 text-align-center">
+                    <fm-text
+                        readonly
+                        field-name="{{form.$pageLang.budgetItemsSelection}}"
+                        
+                        fm-model="form.it03.budgetItemsSelection"></fm-text>
+                </td>
+            </tr>
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="row" ng-if="form.it03.requerType==='60F95FA0-A1F7-421A-8696-07C9F52008A4'">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--Request Selection-->
+            <span class="col-xs-2 control-label" ng-bind="form.$pageLang.RequestSelection"></span>
+            <div class="col-xs-4">
+                <fm-select dataitem="ITRelated>IRA>IRARequestSelection" fm-model="form.it03.requestSelection"></fm-select>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xs-12">
+        <table class="table table-bordered table-detail">
+            <thead>
+            <tr>
+                <th style="text-align: center; padding-left: 0px; width: 1%;" class="checktd" ng-if="base.pageState==1">
+                    <input type="checkbox" class="uniform"
+                           ng-checked="it03ptAllChecked"
+                           ng-model="form.it03ptAllChecked"
+                           
+                           ng-click="form.$checkAll(form.it03ptAllChecked, form.it03pt)"/>
+                </th>
+                <!--标记-->
+                <th style="width: 15%; text-align: center;" ng-bind="form.$pageLang.RequestType"></th>
+                <!--类别-->
+                <th style="width: 15%; text-align: center;" ng-bind="form.$pageLang.ProductModule" ng-if="form.$pageRight.ItEngineer==='normal'"></th>
+                <!--产品型号-->
+                <th style="width: 15%; text-align: center;" ng-bind="form.$pageLang.Quantity"></th>
+                <!--数量-->
+                <th style="width: 50%; text-align: center;" ng-bind="form.$pageLang.Remark"></th>
+                <!--备注-->
+            </tr>
+
+            </thead>
+            <tbody>
+            <tr ng-repeat="item in form.it03pt">
+                 <!--标记-->
+                <td class="checktd auto-style1" ng-if="base.pageState==1">
+                    <input class="uniform"
+                           type="checkbox"
+                           ng-model="item.checked"/>
+                </td>
+                <!--类别-->
+                <td class="auto-style1" >
+                    <fm-select fm-model="item.requestType" ng-if="form.it03.requerType==='04D8C332-C022-4B18-89B4-FE9606186C51'"
+                               dataitem="ITRelated>IRA>IRAType>Software"></fm-select>
+                    <fm-select fm-model="item.requestType"
+                               dataitem="ITRelated>IRA>IRAType>Hardware" ng-if="form.it03.requerType==='60F95FA0-A1F7-421A-8696-07C9F52008A4'"></fm-select>
+                </td>
+                  <!--产品型号-->
+                <td class="auto-style1" ng-if="form.$pageRight.ItEngineer==='normal'">
+           
+                    <fm-select
+                        fm-model="item.productModule"
+                        state="{{form.$pageRight.ItEngineer}}"
+                        dataitem="ITRelated>IRA>IRAType>Software"></fm-select>
+                </td>
+                <!--数量-->
+                <td class="auto-style1" >
+                    <fm-number fm-model="item.quantity"></fm-number>
+                </td>
+                 <!--备注-->
+                <td class="auto-style1">
+                    <fm-text fm-model="item.remark"></fm-text>
+                </td>
+            </tr>
+
+            </tbody>
+            <tfoot>
+            <tr>
+                <td colspan="7" style="text-align: right;">
+                    <input type="button" class="btn btn-sm btn-info" ng-click="form.add()" ng-if="base.pageState==1" value="{{form.$pageLang.Add}}"/>
+                    <input type="button" class="btn btn-sm btn-danger" ng-click="form.delete()" value="{{form.$pageLang.Delete}}" ng-if="base.pageState==1"/>
+                </td>
+            </tr>
+
+
+            </tfoot>
+        </table>
+    </div>
+</div>
+
+<div class="row" ng-if="form.it03.typeClass==='B81A1BC1-FE2F-4A52-8388-D14A8F55223F'">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--4G金额-->
+            <span class="col-xs-2 control-label" ng-bind="form.$pageLang.Amount"></span>
+            <div class="col-xs-4">
+                <fm-select dataitem="ITRelated>IRA>IRACommunicationPackage"
+                           fm-model="form.it03.fourGcardMoney"></fm-select>
+            </div>
+            <!--同意协议-->
+            <span class="col-xs-2 control-label" ng-bind="form.$pageLang.ValidationProtocol"></span>
+            <div class="col-xs-4">
+                <fm-checklist fm-model="form.it03.validationProtocol"
+                              columncount="1"
+                              items="[{id:'1',text:'同意协议'}]"></fm-checklist>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+<div class="row" ng-if="form.it03.typeClass==='B81A1BC1-FE2F-4A52-8388-D14A8F55223F'">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--协议内容-->
+            <span class="col-xs-2 control-label" ng-bind="form.$pageLang.Protocolcontent"></span>
+            <div class="col-xs-10">
+                <fm-textarea fm-model="form.it03.costCenter"></fm-textarea>
+            </div>
+        </div>
+    </div>
+</div>
+<fm-group-head title="{{ form.$pageLang.Remarks }}"></fm-group-head>
+<!--Remarks-->
+<div class="form-group" ng-if="form.it03.requerType==='D7820B3A-FE0C-496C-AD07-E08EC78DA25E'">
+    <div class="col-xs-12">
+        <fm-textarea fm-model="form.it03.remarkOne"></fm-textarea>
+    </div>
+</div>
+<div ng-if="form.it03.requerType==='60F95FA0-A1F7-421A-8696-07C9F52008A4'||form.it03.requerType==='04D8C332-C022-4B18-89B4-FE9606186C51'">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--1*.State Detail Business Case/Justification-->
+
+            <span class="col-xs-2 control-label" ng-bind="form.$pageLang.A"></span>
+            <div class="col-xs-10">
+                <fm-textarea fm-model="form.it03.stateDetail"></fm-textarea>
+            </div>
+
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--2.Software Installation Requirement（Include OS and other Application）-->
+            <span class="col-xs-2   control-label required" ng-bind="form.$pageLang.B"></span>
+            <div class="col-xs-10">
+                <fm-textarea fm-model="form.it03.softwareInstallation"></fm-textarea>
+            </div>
+
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--3*.Request Equipment Location-->
+            <span class="col-xs-2   control-label required" ng-bind="form.$pageLang.C"></span>
+            <div class="col-xs-10">
+                <fm-textarea fm-model="form.it03.requestEquipmentLocation"></fm-textarea>
+            </div>
+
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--Purchasing-->
+            <span class="col-xs-2 control-label" ng-bind="form.$pageLang.Purchasing"></span>
+            <div class="col-xs-4">
+                <fm-select dataitem="Common>YesOrNo" fm-model="form.it03.purchasing"></fm-select>
+            </div>
+            <!--PR NO.-->
+            <span class="col-xs-2 control-label" ng-bind="form.$pageLang.Prno"></span>
+            <div class="col-xs-4">
+                <fm-text fm-model="form.it03.prno"></fm-text>
+            </div>
+        </div>
+
+    </div>
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--System Engineer's Recommendation/Comments-->
+            <div class="col-xs-2">
+                <span class="control-label " ng-bind="form.$pageLang.SystemEngineer"></span>
+            </div>
+
+            <div class="col-xs-10">
+                <fm-textarea fm-model="form.it03.systemEngineers"></fm-textarea>
+
+            </div>
+            <!-- <div class="row col-xs-12">
+            <div class="form-group">
+            <div class="col-xs-12">
+            <!--Purchasing-->
+            <!-- <span class="col-xs-2 control-label" ng-bind="form.$pageLang.Purchasing"></span>
+            <div class="col-xs-4">
+                <fm-select dataitem="Common>YesOrNo" fm-model="form.it03.purchasing"></fm-select>
+            </div>
+            <!--PR NO.-->
+            <!--<span class="col-xs-2 control-label" ng-bind="form.$pageLang.Prno"></span>
+            <div class="col-xs-4">
+                <fm-text fm-model="form.it03.prno"></fm-text>
+            </div>
+            </div>
+            </div>
+            </div>
+            <fm-textarea fm-model="form.it03.systemEngineers"></fm-textarea>-->
+        </div>
+    </div>
+</div>
+
+</div>
+<!--附件-->
+<fm-group-head class="print-hide" title="{{ 'Attachment' |translate}}"></fm-group-head>
+<div class="row print-hide">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!-- <span class="col-xs-2 control-label required">附件</span>-->
+            <div class="col-xs-4">
+                <fm-attachment form-files="form.$attachments"
+                               link-id="0"
+                               task-id='base.taskId'
+                               node-id="base.nodeId"
+                               draft-id="base.draftId"
+                               
+                               field-name="{{'UploadAttachment' |translate}}"
+                               fm-model="form.$state.UploadAttachment"
+                               button-name="{{ 'UploadAttachment' |translate}}"></fm-attachment>
+            </div>
+        </div>
+    </div>
+</div>

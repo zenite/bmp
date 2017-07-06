@@ -1,0 +1,120 @@
+﻿<!--Leave Report  -->
+<div class="form-group ma-block">
+    <fm-Group-Head title="{{::base.title}}"></fm-Group-Head>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="container">
+                <div class="form-group">
+                    <div class="col-xs-12">
+                        <div class="ma-detailinfo">
+                            <div class="content">
+                                <div class="row">
+                                    <div class="col-xs-4 cell">
+                                        <span class="col-xs-4 control-label">公司</span>
+                                        <div class="col-xs-8">
+                                            <fm-text class="input-sm" fm-model="form.filter.area"></fm-text>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-4 cell">
+                                        <span class="col-xs-3 control-label">申请日期</span>
+                                        <div class="col-xs-9">
+                                            <fm-datetime class="input-sm" date fm-model="form.filter.applicationTimeStart"></fm-datetime>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-4 cell">
+                                        <span class="col-xs-3 control-label" style="text-align:center;">——</span>
+                                        <div class="col-xs-9">
+                                            <fm-datetime class="input-sm" date fm-model="form.filter.applicationTimeEnd"></fm-datetime>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-4 cell">
+                                        <span class="col-xs-4 control-label">部门</span>
+                                        <div class="col-xs-8">
+                                            <fm-text class="input-sm" fm-model="form.filter.partDept"></fm-text>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-4 cell">
+                                        <span class="col-xs-3 control-label">请假日期</span>
+                                        <div class="col-xs-9">
+                                            <fm-datetime class="input-sm" date fm-model="form.filter.startDate"></fm-datetime>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-4 cell">
+                                        <span class="col-xs-3 control-label" style="text-align:center;">——</span>
+                                        <div class="col-xs-9">
+                                            <fm-datetime class="input-sm" date fm-model="form.filter.endDate"></fm-datetime>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-4 cell">
+                                        <span class="col-xs-4 control-label">姓名</span>
+                                        <div class="col-xs-8">
+                                            <fm-text class="input-sm" fm-model="form.filter.partName"></fm-text>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-4 cell">
+                                        <span class="col-xs-3 control-label">审批时间</span>
+                                        <div class="col-xs-9">
+                                            <fm-datetime class="input-sm" date fm-model="form.filter.approvestartDate"></fm-datetime>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-4 cell">
+                                        <span class="col-xs-3 control-label" style="text-align:center;">——</span>
+                                        <div class="col-xs-9">
+                                            <fm-datetime class="input-sm" date fm-model="form.filter.approveendDate"></fm-datetime>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-4 cell">
+                                        <span class="col-xs-4 control-label">工号</span>
+                                        <div class="col-xs-8">
+                                            <fm-text class="input-sm" fm-model="form.filter.partWorkNo"></fm-text>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-4 cell">
+                                        <span class="col-xs-4 control-label">状态</span>
+                                        <div class="col-xs-8">  
+                                            <fm-select dataitem="HRRelated>LeaveRequest>ApproveStatus"
+                                                       display-member="text"
+                                                       value-member="value"
+                                                       fm-model="form.filter.status">
+                                            </fm-select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12" style="text-align:center;">
+                                        <button class="btn btn-primary" ng-click="form.select()">{{:: 'Query' | translate}}</button>
+                                        <button class="btn btn-default" ng-click="form.clear()">清空</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12">
+                        <fm-table view='HR01LeaveReport' data="form.hr01leavereport"
+                                  refreash-data="form.refreash"
+                                  excel
+                                  page="{{form.pageInfo}}"
+                                  current-page-data="form.currentData"
+                                  page-size-list
+                                  filter="{Area:form.filter.area,
+                                    GroupName:form.filter.partDept,
+                                    EmployeeNumber:form.filter.partWorkNo,
+                                    ApplicationName:form.filter.partName,
+                                    ApplicationstartDate:form.filter.applicationTimeStart,
+                                    ApplicationendDate:form.filter.applicationTimeEnd,
+                                    LeaveDateFrom:form.filter.startDate,
+                                    LeaveDateTo:form.filter.endDate, 
+                                    ApprovestartDate:form.filter.approvestartDate,
+                                    ApproveendDate:form.filter.approveendDate,
+                                    Status:form.filter.status
+                                    }"></fm-table>
+                    </div>
+                </div>
+            </div>
+        </div>

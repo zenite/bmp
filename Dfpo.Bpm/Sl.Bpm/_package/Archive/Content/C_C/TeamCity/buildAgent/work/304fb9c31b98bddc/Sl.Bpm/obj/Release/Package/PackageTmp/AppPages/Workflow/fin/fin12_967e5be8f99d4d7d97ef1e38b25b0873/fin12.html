@@ -1,0 +1,582 @@
+﻿<!--FIN12.拨款流程-->
+<fm-form-title sn-number="{{base.snNumber}}" apply-date="{{base.applyDate}}" sub-title='base.title' fm-model="base.areaCode"></fm-form-title>
+<fm-Group-Head class="print-hide" title="{{ base.$pageLang.PostByInfo }}"></fm-Group-Head>
+<fm-initiator class="print-hide" jobid='base.jobId' userinfo='base.initiator' taskid='base.taskId'></fm-initiator>
+
+<fm-Group-Head title="{{ form.$pageLang.ApplicantInfo }}"></fm-Group-Head>
+<div class="row" ng-if="!(form.fin13.appType=='2'||form.fin13.appType=='3')||base.pageState != 1 ">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--项目编号-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.ProjectNo"></span>
+            <div class="col-xs-4">
+                <fm-text field-name="{{form.$pageLang.ProjectNo}}" id="projectNo"
+                         fm-placeholder="{{form.$pageLang.ProjectNoTip}}"
+                         fm-required="form.isFinNode"
+                         state="{{(form.fin13.appType=='1'&&form.isFinNode)?'normal':'disabled'}}"
+                         fm-model="form.fin13.projectNo"></fm-text>
+            </div>
+            <span class="col-xs-6 control-label"></span>
+        </div>
+    </div>
+</div>
+<div class="row" ng-if="(form.fin13.appType=='2'||form.fin13.appType=='3')&&base.pageState == 1 ">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--项目编号-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.ProjectNo"></span>
+            <div class="col-xs-4">
+                <fm-data-select field-name="{{form.$pageLang.ProjectNo}}"
+                                view="GetAllBKProjectList"
+                                class="input-sm"
+                                required
+                                callback-func="form.funcBindProjectInfo(data)"
+                                state="{{form.$pageRight.StartNode}}"
+                                fm-model="form.fin13.projectNo"></fm-data-select>
+            </div>
+            <span class="col-xs-6 control-label"></span>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--申请类型-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.TypeRequest"></span>
+            <div class="col-xs-4">
+                <fm-radiolist fm-model="form.fin13.appType"
+                              required callback-func="form.funcAppType(data)"
+                              field-name="{{form.$pageLang.TypeRequest}}"
+                              value-member="value"
+                              dataitem="Finance>FinItems>AppType"></fm-radiolist>
+            </div>
+            <!--小号变更-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.Itemamountchange"></span>
+            <div class="col-xs-4">
+                <fm-radiolist fm-model="form.fin13.itemAmtChange"
+                              required
+                              fm-disabled="form.fin13.appType=='3'||form.fin13.appType=='1'"
+                              value-member="value"
+                              field-name="{{form.$pageLang.Itemamountchange}}"
+                              dataitem="Finance>FinItems>WithinBudget"></fm-radiolist>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--是否本年预算内Within Budget-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.WithinBudget"></span>
+            <div class="col-xs-4">
+                <fm-radiolist fm-model="form.fin13.inBudget"
+                              required
+                              fm-disabled="form.fin13.appType=='3'"
+                              value-member="value"
+                              field-name="{{form.$pageLang.WithinBudget}}"
+                              dataitem="Finance>FinItems>WithinBudget"></fm-radiolist>
+            </div>
+            <!--小号变更相关审批人-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.Itemamountchangeapprove"></span>
+            <div class="col-xs-4">
+                <fm-job-select field-name="{{form.$pageLang.Itemamountchangeapprove}}"
+                               state="{{form.$pageRight.StartNode}}"
+                               required
+                               ismulti
+                               fm-disabled="form.fin13.appType=='3'||form.fin13.appType=='1'||form.fin13.itemAmtChange==0"
+                               i-clear
+                               fm-model="form.fin13.itemAmtChangeApprovers"></fm-job-select>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--项目名称-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.ProjectName"></span>
+            <div class="col-xs-4">
+                <fm-text fm-model="form.fin13.projectName"
+                         required
+                         fm-disabled="form.fin13.appType=='2'||form.fin13.appType=='3'"
+                         state="{{form.$pageRight.StartNode}}"></fm-text>
+            </div>
+            <!--预计关闭时间-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.Closetime"></span>
+            <div class="col-xs-4">
+                <fm-datetime fm-model="form.fin13.expCloseTime"
+                             date
+                             required
+                             fm-disabled="form.fin13.appType=='2'||form.fin13.appType=='3'"
+                             field-name="{{form.$pageLang.Closetime}}"
+                             state="{{form.$pageRight.StartNode}}"></fm-datetime>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--项目性质--> <!--callback-func="form.funcAppType(data)"-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.Property"></span>
+            <div class="col-xs-4">
+                <fm-radiolist fm-model="form.fin13.projectProperty"
+                              required  
+                              field-name="{{form.$pageLang.Property}}"
+                              fm-disabled="form.fin13.appType=='3'"
+                              value-member="value"
+                              dataitem="Finance>FinItems>Property"></fm-radiolist>
+            </div>
+            <!--产品线-->
+            <span ng-if="form.fin13.projectProperty == 1" class="col-xs-2 control-label required" ng-bind="form.$pageLang.Product"></span>
+            <div ng-if="form.fin13.projectProperty == 1" class="col-xs-4">
+                <input type="hidden" fm-model="form.fin13.productManagerJobId" />
+                <fm-data-select field-name="{{form.$pageLang.ProjectNo}}"
+                                view="GetFinProductLines"
+                                class="input-sm"
+                                required
+                                fm-disabled="form.fin13.appType=='3'"
+                                callback-func="form.funcProduct(selectItem)"
+                                state="{{form.$pageRight.StartNode}}"
+                                fm-model="form.fin13.productType"></fm-data-select>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--币种--> 
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.currency"></span>
+            <div class="col-xs-4">
+                <fm-select fm-model="form.fin13.currency" required 
+                           callback-func="form.changcurrency(data)"
+                           items="[{id:'CNY',text:'CNY'},{id:'USD',text:'USD'}]"></fm-select>
+            </div>
+            <!--SOP年汇率-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.SopYearlyTax"></span>
+            <div  class="col-xs-4">
+                <fm-text field-name="{{form.$pageLang.SopYearlyTax}}"
+                         required cny  
+                         fm-readonly="form.fin13.currency =='CNY'"
+                         ng-keyup="form.sum()"
+                         fm-model="form.fin13.sopYearlyTax"></fm-text>
+            </div>
+        </div>
+    </div>
+</div>
+<fm-Group-Head title="{{ form.$pageLang.ProjectSummary}}"></fm-Group-Head>
+<div class="row" ng-if="base.pageState == 1 || form.fin13itemsd.length > 0">
+    <div class="col-xs-12">
+        <table class="table table-bordered table-detail">
+            <thead>
+                <tr>
+                    <th class="checktd" ng-bind="form.$pageLang.DetSN" style="text-align:center;"></th>
+                    <th ng-bind="form.$pageLang.ClassItems" style="text-align:center;"></th> <!--投资类型-->
+                    <th ng-bind="form.$pageLang.Item" style="text-align:center;" class="required"></th> <!--小号-->
+                    <th ng-bind="form.$pageLang.AuthorizedAmt" colspan="2" style="text-align:center;"></th> <!--已批准金额-->
+                    <th ng-bind="form.$pageLang.TotalDemand" colspan="2" style="text-align:center;" class="required"></th> <!--需求总额 -->
+                    <th ng-bind="form.$pageLang.Total" colspan="2" style="text-align:center;"></th> <!--合计-->
+                </tr>
+                <tr>
+                    <th style="text-align:center;width:4%"></th>
+                    <th style="text-align:center;width:15%"></th>
+                    <th style="text-align:center;width:9%"></th>
+                    <th ng-bind="form.$pageLang.DetRMB" style="text-align:center;width:12%"></th>
+                    <th ng-bind="form.$pageLang.DetUSA" style="text-align:center;width:12%"></th>
+                    <th ng-bind="form.$pageLang.DetRMB" style="text-align:center;width:12%"></th>
+                    <th ng-bind="form.$pageLang.DetUSA" style="text-align:center;width:12%"></th>
+                    <th ng-bind="form.$pageLang.DetRMB" style="text-align:center;width:12%"></th>
+                    <th ng-bind="form.$pageLang.DetUSA" style="text-align:center;width:12%"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in form.fin13itemsd" ng-class="{ 'active': item.checked}" detail-name="{{form.$pageLang.Fare}}">
+                    <td>
+                        <input class="uniform"
+                               ng-if="(item.isChange==0||item.isChange==null)&&(base.pageState==1 || (form.$pageRight.StartNode == 'normal' && base.pageState==2)) "
+                               type="checkbox" ng-model="item.checked" />
+                    </td>
+                    <td>
+                        <fm-text field-name="{{form.$pageLang.TitleProject}}"
+                                 readonly
+                                 style="width:96%"
+                                 fm-disabled="form.fin13.appType=='2'||form.fin13.appType=='3'"
+                                 state="{{form.$pageRight.StartNode}}"
+                                 fm-model="item.className"></fm-text>
+                        <input type="hidden" fm-model="item.classCode" />
+                    </td>
+                    <td>
+                        <input type="hidden" fm-model="item.itemName" />
+                        <fm-data-select field-name="{{form.$pageLang.Item}}"
+                                        fm-disabled="item.isChange==1"
+                                        view="GetAllFinClassSubSN"
+                                        ng-if="base.pageState == 1&&(item.isChange==0||item.isChange==null)"
+                                        class="input-sm" style="width:88px"
+                                        required
+                                        state="{{form.$pageRight.StartNode}}"
+                                        callback-func="form.chooseSubSN(selectItem,item)"
+                                        fm-model="item.itemCode"></fm-data-select>
+                        <fm-text field-name="{{form.$pageLang.TitleProject}}"
+                                 ng-if="base.pageState != 1||(item.isChange==1)"
+                                 fm-disabled="form.fin13.appType=='2'||form.fin13.appType=='3'"
+                                 readonly style="width:88px"
+                                 state="{{form.$pageRight.StartNode}}"
+                                 fm-model="item.itemCode"></fm-text>
+                    </td>
+                    <td>
+                        <fm-number class="input-sm"
+                                   cny readonly
+                                   fm-model="item.preLocalAmount" callback-func="form.sum(data)"></fm-number>
+                    </td>
+                    <td>
+                        <fm-number class="input-sm"
+                                   cny readonly
+                                   fm-model="item.preUSDAmount" callback-func="form.sum(data)"></fm-number>
+                    </td>
+                    <td>
+                        <fm-number field-name="{{form.$pageLang.RMB}}"
+                                   cny required class="input-sm"
+                                   fm-readonly="form.fin13.currency=='USD'"   
+                                   fm-disabled="form.fin13.appType=='3'"
+                                   state="{{form.$pageRight.StartNode}}"
+                                   max-value="100000000"
+                                   fm-model="item.reqLocalAmount" callback-func="form.sum(data)"></fm-number>
+                    </td>
+                    <td>
+                        <fm-number field-name="{{form.$pageLang.USA}}"
+                                   cny required class="input-sm"
+                                   fm-readonly="form.fin13.currency!='USD'"   
+                                   fm-disabled="form.fin13.appType=='3'"
+                                   state="{{form.$pageRight.StartNode}}"
+                                   max-value="100000000"
+                                   fm-model="item.reqUSDAmount" callback-func="form.sum(data)"></fm-number>
+                    </td>
+                    <td>
+                        <fm-number class="input-sm"
+                                   cny readonly
+                                   fm-model="item.totalLocalAmount" callback-func="form.sum(data)"></fm-number>
+                    </td>
+                    <td>
+                        <fm-number class="input-sm"
+                                   cny readonly
+                                   fm-model="item.totalUSDAmount" callback-func="form.sum(data)"></fm-number>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3" ng-bind="form.$pageLang.TotalCost" style="text-align:center;"></td> <!--费用合计-->
+                    <td>
+                        <fm-number cny
+                                   readonly
+                                   fm-model="form.fin13.preLocalAmount"></fm-number>
+                    </td>
+                    <td>
+                        <fm-number cny
+                                   readonly
+                                   fm-model="form.fin13.preUSDAmount"></fm-number>
+                    </td>
+                    <td>
+                        <fm-number cny
+                                   readonly
+                                   fm-model="form.fin13.reqLocalAmount"></fm-number>
+                    </td>
+                    <td>
+                        <fm-number cny
+                                   readonly
+                                   fm-model="form.fin13.reqUSDAmount"></fm-number>
+                    </td>
+                    <td>
+                        <fm-number cny
+                                   readonly
+                                   fm-model="form.fin13.totalLocalAmount"></fm-number>
+                    </td>
+                    <td>
+                        <fm-number cny
+                                   readonly
+                                   fm-model="form.fin13.totalUSDAmount"></fm-number>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot ng-hide="form.fin13.appType=='3'">
+                <tr>
+                    <td colspan="99" style="text-align: right;">
+                        <input ng-if="base.pageState==1 || (form.$pageRight.StartNode == 'normal' && base.pageState==2) " type="button" class="btn btn-sm btn-info" ng-click="form.fin13itemsd.push({})" value="{{ 'Add' |translate}}" />
+                        <input ng-if="base.pageState==1 || (form.$pageRight.StartNode == 'normal' && base.pageState==2) " type="button" class="btn btn-sm btn-danger" ng-click="form.delete()" value="{{ 'Delete' |translate}}" />
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+
+<fm-Group-Head title="{{ form.$pageLang.EffectCalendarYear}}"></fm-Group-Head>
+<div class="row">
+    <div class="col-xs-12">
+        <table class="table table-bordered table-detail">
+            <thead>
+                <tr>
+                    <th style="width:4%; text-align:center;" ng-bind="form.$pageLang.DetSN"></th> <!--编号-->
+                    <th style="width:12%;text-align:center;" ng-bind="form.$pageLang.DetYear"></th> <!--年-->
+                    <th style="width:12%;text-align:center;">Total</th> <!--Total-->
+                    <th style="width:8%;text-align:center;">
+                        <fm-number fm-model="form.fin13.profitsStartY"
+                                   style="text-align:center;"
+                                   required
+                                   callback-func="form.fnStartY()"
+                                   ng-if="base.pageState==1"
+                                   fm-disabled="form.fin13.appType=='2'||form.fin13.appType=='3'"
+                                   field-name="{{form.$pageLang.ProfitsStartY}}"
+                                   state="{{form.$pageRight.StartNode}}"></fm-number>
+                        <span ng-if="base.pageState!=1">{{form.fin13.profitsStartY}} </span>
+                    </th> <!--2016-->
+                    <th style="width:8%;text-align:center;">{{(form.fin13.profitsStartY+1)}}</th> <!--2017-->
+                    <th style="width:8%;text-align:center;">{{(form.fin13.profitsStartY+2)}}</th> <!--2018-->
+                    <th style="width:8%;text-align:center;">{{(form.fin13.profitsStartY+3)}}</th> <!--2019-->
+                    <th style="width:8%;text-align:center;">{{(form.fin13.profitsStartY+4)}}</th> <!--2020-->
+                    <th style="width:8%;text-align:center;">{{(form.fin13.profitsStartY+5)}}</th> <!--2020-->
+                    <th style="width:8%;text-align:center;">{{(form.fin13.profitsStartY+6)}}</th> <!--2020-->
+                    <th style="width:8%;text-align:center;">{{(form.fin13.profitsStartY+7)}}</th> <!--2020-->
+                    <th style="width:8%;text-align:center;" ng-bind="form.$pageLang.DetYearLater"></th> <!--2020-->
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in form.fin13p" ng-class="{ 'active': item.checked}" detail-name="{{form.$pageLang.EffectCalendarYear}}">
+                    <td>
+                        <input class="uniform"
+                               ng-if="base.pageState==1 || (form.$pageRight.StartNode == 'normal' && base.pageState==2) "
+                               type="checkbox" ng-model="item.checked" />
+                    </td>
+                    <td ng-bind="form.$pageLang.ProfitsYearVal"></td>
+                    <td>
+                        <fm-number class="input-sm"
+                                   cny readonly
+                                   fm-model="item.totAmt" callback-func="form.sump(data)"></fm-number>
+                    </td>
+                    <td>
+                        <fm-number field-name="{{form.$pageLang.RMB}}"
+                                   cny required class="input-sm"
+                                   state="{{form.$pageRight.StartNode}}"
+                                   max-value="100000000" min-value="0"
+                                   fm-model="item.yearAmtA" callback-func="form.sump(data)"></fm-number>
+                    </td>
+                    <td>
+                        <fm-number field-name="{{form.$pageLang.USA}}"
+                                   cny required class="input-sm"
+                                   state="{{form.$pageRight.StartNode}}"
+                                   max-value="100000000" min-value="0"
+                                   fm-model="item.yearAmtB" callback-func="form.sump(data)"></fm-number>
+                    </td>
+                    <td>
+                        <fm-number field-name="{{form.$pageLang.USA}}"
+                                   cny required class="input-sm"
+                                   state="{{form.$pageRight.StartNode}}"
+                                   max-value="100000000" min-value="0"
+                                   fm-model="item.yearAmtC" callback-func="form.sump(data)"></fm-number>
+                    </td>
+                    <td>
+                        <fm-number field-name="{{form.$pageLang.USA}}"
+                                   cny required class="input-sm"
+                                   state="{{form.$pageRight.StartNode}}"
+                                   max-value="100000000" min-value="0"
+                                   fm-model="item.yearAmtD" callback-func="form.sump(data)"></fm-number>
+                    </td>
+                    <td>
+                        <fm-number field-name="{{form.$pageLang.USA}}"
+                                   cny required class="input-sm"
+                                   state="{{form.$pageRight.StartNode}}"
+                                   max-value="100000000" min-value="0"
+                                   fm-model="item.yearAmtE" callback-func="form.sump(data)"></fm-number>
+                    </td>
+                    <td>
+                        <fm-number field-name="{{form.$pageLang.USA}}"
+                                   cny required class="input-sm"
+                                   state="{{form.$pageRight.StartNode}}"
+                                   max-value="100000000" min-value="0"
+                                   fm-model="item.yearAmtF" callback-func="form.sump(data)"></fm-number>
+                    </td>
+                    <td>
+                        <fm-number field-name="{{form.$pageLang.USA}}"
+                                   cny required class="input-sm"
+                                   state="{{form.$pageRight.StartNode}}"
+                                   max-value="100000000" min-value="0"
+                                   fm-model="item.yearAmtG" callback-func="form.sump(data)"></fm-number>
+                    </td>
+                    <td>
+                        <fm-number field-name="{{form.$pageLang.USA}}"
+                                   cny required class="input-sm"
+                                   state="{{form.$pageRight.StartNode}}"
+                                   max-value="100000000" min-value="0"
+                                   fm-model="item.yearAmtH" callback-func="form.sump(data)"></fm-number>
+                    </td>
+                    <td>
+                        <fm-number field-name="{{form.$pageLang.USA}}"
+                                   cny required class="input-sm"
+                                   state="{{form.$pageRight.StartNode}}"
+                                   max-value="100000000" min-value="0"
+                                   fm-model="item.yearAmtI" callback-func="form.sump(data)"></fm-number>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot ng-hide="form.fin13.appType=='3'">
+                <tr>
+                    <td colspan="99" style="text-align: right;">
+                        <input ng-if="base.pageState==1 || (form.$pageRight.StartNode == 'normal' && base.pageState==2) " type="button" class="btn btn-sm btn-info" ng-click="form.fin13p.push({})" value="{{ 'Add' |translate}}" />
+                        <input ng-if="base.pageState==1 || (form.$pageRight.StartNode == 'normal' && base.pageState==2) " type="button" class="btn btn-sm btn-danger" ng-click="form.deletefin13p()" value="{{ 'Delete' |translate}}" />
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+
+<fm-Group-Head title="{{ form.$pageLang.CycleAverageProfit}}"></fm-Group-Head>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <div ng-repeat="item in form.fin13davg" detail-name="{{form.$pageLang.CycleAverageProfit}}">
+                <span class="col-xs-2 control-label required" ng-bind="item.profitsType"></span>
+                <div class="col-xs-4" style="padding-top:0.5em">
+                    <fm-text fm-model="item.profitsValue"
+                             required
+                             fm-disabled="form.fin13.appType=='3'"
+                             field-name="{{item.profitsType}}"></fm-text>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<fm-Group-Head title="{{form.$pageLang.ApprovalByEachCompany}}" style="text-align:center"></fm-Group-Head>
+<!--子公司批准-->
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <span class="col-xs-2 control-label" style="font-weight:bold" ng-bind="form.$pageLang.Applicant"></span> <!--申请人-->
+            <div class="col-xs-2">
+                <fm-text state="readonly" fm-model="base.$approveInfoList['ND01']"></fm-text>
+            </div>
+            <span class="col-xs-2 control-label" style="font-weight:bold" ng-bind="form.$pageLang.PurchasingManager"></span> <!--采购经理-->
+            <div class="col-xs-2">
+                <fm-text state="readonly" fm-model="base.$approveInfoList['ND10']"></fm-text>
+            </div>
+            <span class="col-xs-2 control-label" style="font-weight:bold" ng-bind="form.$pageLang.FinancialAuditor"></span>  <!--财务分析-->
+            <div class="col-xs-2">
+                <fm-text state="readonly" fm-model="base.$approveInfoList['ND03']"></fm-text>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <span class="col-xs-2 control-label" style="font-weight:bold" ng-bind="form.$pageLang.DeputyGM"></span>  <!--子公司副总经理-->
+            <div class="col-xs-2">
+                <fm-text state="readonly" fm-model="base.$approveInfoList['ND11']"></fm-text>
+            </div>
+            <span class="col-xs-2 control-label" style="font-weight:bold" ng-bind="form.$pageLang.DeptManager"></span> <!--部门经理-->
+            <div class="col-xs-2">
+                <fm-text state="readonly" fm-model="base.$approveInfoList['ND02']"></fm-text>
+            </div>
+            <span class="col-xs-2 control-label" style="font-weight:bold" ng-bind="form.$pageLang.FinanceManager"></span> <!--财务经理-->
+            <div class="col-xs-2">
+                <fm-text state="readonly" fm-model="base.$approveInfoList['ND13']"></fm-text>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <span class="col-xs-2 control-label" style="font-weight:bold" ng-bind="form.$pageLang.PlantGM"></span>  <!--子公司总经理-->
+            <div class="col-xs-2">
+                <fm-text state="readonly" fm-model="base.$approveInfoList['ND12']"></fm-text>
+            </div>
+        </div>
+    </div>
+</div>
+
+<fm-Group-Head title="{{form.$pageLang.ApprovalByYFVICDept}}" style="text-align:center"></fm-Group-Head> <!--投资公司归口部门审批-->
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <span class="col-xs-2 control-label" style="font-weight:bold" ng-bind="form.$pageLang.StrategyPlanning"></span> <!--战略规划部-->
+            <div class="col-xs-2">
+                <fm-text state="readonly" fm-model="base.$approveInfoList['战略规划总监']"></fm-text>
+            </div>
+            <span class="col-xs-2 control-label" style="font-weight:bold" ng-bind="form.$pageLang.SalesMarketin"></span> <!--销售部-->
+            <div class="col-xs-2">
+                <fm-text state="readonly" fm-model="base.$approveInfoList['销售总监']"></fm-text>
+            </div>
+            <span class="col-xs-2 control-label" style="font-weight:bold" ng-bind="form.$pageLang.OperationQualitySystem"></span>  <!--运作与质量体系部-->
+            <div class="col-xs-2">
+                <fm-text state="readonly" fm-model="base.$approveInfoList['运作体系总监']"></fm-text>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <span class="col-xs-2 control-label" style="font-weight:bold" ng-bind="form.$pageLang.GroupHR"></span>  <!--人力资源部-->
+            <div class="col-xs-2">
+                <fm-text state="readonly" fm-model="base.$approveInfoList['人力资源总监']"></fm-text>
+            </div>
+            <span class="col-xs-2 control-label" style="font-weight:bold" ng-bind="form.$pageLang.GroupFinance"></span> <!--财务部-->
+            <div class="col-xs-2">
+                <fm-text state="readonly" fm-model="base.$approveInfoList['财务高级经理']"></fm-text>
+            </div>
+            <span class="col-xs-2 control-label" style="font-weight:bold" ng-bind="form.$pageLang.GroupTC"></span> <!--技术中心-->
+            <div class="col-xs-2">
+                <fm-text state="readonly" fm-model="base.$approveInfoList['TC-GM']"></fm-text>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <span class="col-xs-2 control-label" style="font-weight:bold" ng-bind="form.$pageLang.PurchasingSupply"></span>  <!--采购供应部-->
+            <div class="col-xs-2">
+                <fm-text state="readonly" fm-model="base.$approveInfoList['采购供应总监']"></fm-text>
+            </div>
+        </div>
+    </div>
+</div>
+
+<fm-Group-Head title="{{form.$pageLang.ApprovalByYFVIEC}}" style="text-align:center"></fm-Group-Head> <!--投资公司执委会审批-->
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <span class="col-xs-2 control-label" style="font-weight:bold" ng-bind="form.$pageLang.SaleMarketing"></span> <!--销售总监-->
+            <div class="col-xs-2">
+                <fm-text state="readonly" fm-model="base.$approveInfoList['销售总监']"></fm-text>
+            </div>
+            <span class="col-xs-2 control-label" style="font-weight:bold" ng-bind="form.$pageLang.TechonologycompanyGM"></span>  <!--技术中心总监-->
+            <div class="col-xs-2">
+                <fm-text state="readonly" fm-model="base.$approveInfoList['TC-GM']"></fm-text>
+            </div>
+            <span class="col-xs-2 control-label" style="font-weight:bold" ng-bind="form.$pageLang.FinanceDGM"></span>   <!--财务副总经理-->
+            <div class="col-xs-2">
+                <fm-text state="readonly" fm-model="base.$approveInfoList['FINDGM']"></fm-text>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <span class="col-xs-2 control-label" style="font-weight:bold" ng-bind="form.$pageLang.OperationDGM"></span> <!--运作副总经理-->
+            <div class="col-xs-2">
+                <fm-text state="readonly" fm-model="base.$approveInfoList['运作副总经理']"></fm-text>
+            </div>
+            <span class="col-xs-2 control-label" style="font-weight:bold" ng-bind="form.$pageLang.GroupECGM"></span><!--执行副总经理-->
+            <div class="col-xs-2">
+                <fm-text state="readonly" fm-model="base.$approveInfoList['执行副总经理']"></fm-text>
+            </div>
+            <span class="col-xs-2 control-label" style="font-weight:bold" ng-bind="form.$pageLang.GroupGM"></span> <!--公司总经理-->
+            <div class="col-xs-2">
+                <fm-text state="readonly" fm-model="base.$approveInfoList['GM']"></fm-text>
+            </div>
+        </div>
+    </div>
+</div>  

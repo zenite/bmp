@@ -1,0 +1,296 @@
+﻿<!--材料请求审批流程-->
+<fm-form-title sn-number="{{base.snNumber}}" apply-date="{{base.applyDate}}" fm-model="base.areaCode" sub-title='base.title'></fm-form-title>
+<!--<fm-Group-Head class="print-hide" title="{{ base.$pageLang.PostByInfo }}"></fm-Group-Head>
+<fm-initiator class="print-hide" jobid='base.jobId' userinfo='base.initiator' taskid='base.taskId'></fm-initiator>
+<fm-Group-Head title="{{ base.$pageLang.ApplicantInfo }}"></fm-Group-Head>
+<fm-applicant jobid='base.applicantJobId' userinfo='base.applicant' taskid='base.taskId' wfid='base.workflowId'></fm-applicant>-->
+<!--选择表单所属公司-->
+<!--<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.SelectCompany"></span>
+            <div class="col-xs-4">
+                <fm-select state="{{form.$pageRight.StartNode}}"
+                           field-name="{{form.$pageLang.SelectCompany}}"
+                           callback-func="form.chooseCompay(selectItem)"
+                           view="GetFrameworkAgreementCompany"
+                           required
+                           fm-model="form.pur18.selectCompany"></fm-select>
+            </div>
+        </div>
+    </div>
+</div>-->
+<!--申请人信息-->
+<fm-Group-Head title="{{ base.$pageLang.ApplicantInfo }}"></fm-Group-Head>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--申请人名字-->
+            <span class="col-xs-2 control-label">{{ "ApplicantName" | translate }}</span>
+            <div class="col-xs-4">
+                <div class="input-group" style="width: 100%;">
+                    <span class="form-label">{{base.applicant.userName}}</span>
+                    <!--<span class="input-group-btn" ng-if="!taskid">
+                        <button class="btn btn-default" type="button" ng-click="base.$selectApplicant()">{{ "Choose" | translate }}</button>
+                    </span>-->
+                </div>
+            </div>
+            <!--申请人员工号-->
+            <span class="col-xs-2 control-label">{{ "ApplicantEmployeeNumber" | translate }}</span>
+            <div class="col-xs-4"><span class="form-label">{{base.applicant.employeeNumber}}</span></div>
+        </div>
+    </div>
+    <div class="form-group">
+        <!--申请人部门线-->
+        <div class="col-xs-12">
+            <span class="col-xs-2 control-label">{{ "ApplicantDepartment" | translate }}</span>
+            <div class="col-xs-10"><span class="form-label">{{base.applicant.departmentName}}</span></div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--申请人手机-->
+            <span class="col-xs-2 control-label">{{ "ApplicantMobileNumber" | translate }}</span>
+            <div class="col-xs-4"><span class="form-label">{{base.applicant.mobileNumber}}</span></div>
+            <!--申请人电话-->
+            <span class="col-xs-2 control-label">{{ "ApplicantContactNumber" | translate }}</span>
+            <div class="col-xs-4"><span class="form-label">{{base.applicant.contactNumber}}</span></div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--申请人邮箱-->
+            <span class="col-xs-2 control-label">{{ "ApplicantEmail" | translate }}</span>
+            <div class="col-xs-4"><span class="form-label">{{base.applicant.emailAddress}}</span></div>
+            <!--申请人直属领导-->
+            <span class="col-xs-2 control-label">{{ "ApplicantDirectManager" | translate }}</span>
+            <div class="col-xs-4"><span class="form-label">{{base.applicant.directManagerName}}</span></div>
+        </div>
+    </div>
+</div>
+
+<!--TC/SJ说明-->
+<fm-Group-Head ng-if="form.pur18.companyArea!='SJ'" title="{{ form.$pageLang.Tc }}"></fm-Group-Head>
+<fm-Group-Head ng-if="form.pur18.companyArea=='SJ'" title="{{ form.$pageLang.Sj }}"></fm-Group-Head>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--分类-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.Category"></span>
+            <div class="col-xs-4">
+                <fm-select dataitem="PurchaseRelated>LowValue>LowValueProdType"
+                           callback-func="form.chooseCategory(selectItem)"
+                           field-name="{{form.$pageLang.Category}}"
+                           state="{{form.$pageRight.StartNode}}"
+                           fm-disabled="form.pur18.companyArea == 'SJ'"
+                           value-member="value"
+                           required
+                           fm-model="form.pur18.category"></fm-select>
+            </div>
+            <!--非生产性采购-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.NpBuyer"></span>
+            <div class="col-xs-4">
+                <fm-select required
+                           view="GetBuyer"
+                           field-name="{{form.$pageLang.NpBuyer}}"
+                           state="{{form.$pageRight.StartNode}}"
+                           fm-model="form.pur18.npBuyer"></fm-select>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--项目-->
+            <span class="col-xs-2 control-label" ng-bind="form.$pageLang.Program"></span>
+            <div class="col-xs-4">
+                <fm-text field-name="{{form.$pageLang.Program}}"
+                         state="{{form.$pageRight.StartNode}}"
+                         fm-disabled="form.pur18.companyArea == 'SJ' || form.pur18.category==2"
+                         fm-model="form.pur18.program"></fm-text>
+            </div>
+            <!--项目采购-->
+            <span class="col-xs-2 control-label" ng-class="{'required': !!form.pur18.program }" ng-bind="form.$pageLang.ProgramBuyer"></span>
+            <div class="col-xs-4">
+                <fm-select view="GetBuyer"
+                           field-name="{{form.$pageLang.ProgramBuyer}}"
+                           state="{{form.$pageRight.StartNode}}"
+                           fm-disabled="form.pur18.companyArea == 'SJ' || !form.pur18.program || form.pur18.category==2"
+                           fm-required="!!form.pur18.program"
+                           fm-model="form.pur18.programBuyer"></fm-select>
+            </div>
+        </div>
+    </div>
+</div>
+
+<fm-Group-Head title="{{ form.$pageLang.ListDetail}}"></fm-Group-Head>
+<!--采购明细-->
+<div class="row">
+    <div class="col-xs-12">
+        <table class="table table-bordered table-detail">
+            <thead>
+                <tr>
+                    <th style="width:30px; text-align:center;" class="checktd">
+                        <input type="checkbox" class="uniform"
+                               ng-checked="form.pur18dAllChecked"
+                               ng-model="form.pur18dAllChecked"
+                               ng-click="form.$checkAll(form.pur18dAllChecked, form.pur18d)" />
+
+                    </th> <!--标记-->
+                    <th style="width:200px;text-align:center;" class="required" ng-bind="form.$pageLang.ProductRequired"></th> <!--Product Required-->
+                    <th style="width:100px;text-align:center;" class="required" ng-bind="form.$pageLang.QtyBought"></th> <!--Qty to Be Bough-->
+                    <th style="width:100px;text-align:center;" ng-bind="form.$pageLang.LeadTime"></th> <!--Lead Time / Due Date-->
+                    <th style="width:100px;text-align:center;" ng-bind="form.$pageLang.Currency"></th> <!--Currency-->
+                    <th style="width:100px;text-align:center;" class="required" ng-bind="form.$pageLang.UnitPrice"></th> <!--Unit Price-->
+                    <th style="width:250px;text-align:center;" ng-bind="form.$pageLang.PreferredSupplier"></th> <!--Preferred Supplier-->
+                    <th style="width:100px;text-align:center;" class="required" ng-bind="form.$pageLang.Requester"></th> <!--申请人-->
+                    <th style="width:200px;text-align:center;" ng-bind="form.$pageLang.CostCenter" ng-class="{'required': form.pur18.companyArea == 'SJ' }"></th> <!--成本中心-->
+                    <th style="width:150px;text-align:center;" ng-bind="form.$pageLang.ExpenseType" ng-class="{'required': form.pur18.companyArea == 'SJ' }"></th> <!--费用类别-->
+                    <th style="width:100px;text-align:center;" ng-bind="form.$pageLang.Remark"></th> <!--Remark -->
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in form.pur18d" ng-class="{ 'active': item.checked}" detail-name="{{form.$pageLang.ListDetail}}">
+                    <td class="checktd">
+                        <input class="uniform"
+                               ng-if="base.pageState==1 || (form.$pageRight.StartNode == 'normal' && base.pageState==2) "
+                               type="checkbox" ng-model="item.checked" />
+                    </td>
+                    <td>
+                        <fm-text field-name="{{form.$pageLang.ProductRequired}}"
+                                 required
+                                 class="input-sm"
+                                 state="{{form.$pageRight.StartNode}}"
+                                 fm-model="item.productRequired"></fm-text>
+                    </td>
+                    <td>
+                        <fm-number field-name="{{form.$pageLang.QtyBought}}"
+                                   required
+                                   class="input-sm"
+                                   min-value="0"
+                                   scale="0"
+                                   fm-blur="form.calculationTotal()"
+                                   state="{{form.$pageRight.StartNode}}"
+                                   fm-model="item.qtyToBeBought"></fm-number>
+                    </td>
+                    <td>
+                        <fm-datetime field-name="{{form.$pageLang.LeadTime}}"
+                                     class="input-sm"
+                                     date
+                                     state="{{form.$pageRight.StartNode}}"
+                                     fm-model="item.leadTimeDueDate"></fm-datetime>
+                    </td>
+                    <td>
+                        <fm-text field-name="{{form.$pageLang.Currency}}"
+                                 required class="input-sm"
+                                 readonly
+                                 fm-model="item.currency"></fm-text>
+                    </td>
+                    <td>
+                        <fm-number field-name="{{form.$pageLang.UnitPrice}}"
+                                   class="input-sm"
+                                   fm-blur="form.calculationTotal()"
+                                   required
+                                   cny
+                                   state="{{form.$pageRight.StartNode}}"
+                                   fm-model="item.unitPrice"></fm-number>
+                    </td>
+                    <td>
+                        <fm-text field-name="{{form.$pageLang.PreferredSupplier}}"
+                                 class="input-sm"
+                                 fm-normal="form.$pageRight.NoProductive == 'normal'"
+                                 state="{{form.$pageRight.StartNode}}"
+                                 fm-model="item.preferredSupplier"></fm-text>
+                    </td>
+                    <td>
+                        <fm-text field-name="{{form.$pageLang.Requester}}"
+                                 required class="input-sm"
+                                 state="{{form.$pageRight.StartNode}}"
+                                 fm-model="item.requester"></fm-text>
+                    </td>
+                    <td>
+                        <fm-data-select field-name="{{form.$pageLang.CostCenter}}"
+                                        class="input-sm"
+                                        fm-required="form.pur18.companyArea == 'SJ'"
+                                        state="{{form.$pageRight.StartNode}}"
+                                        view="GetAllCostCenterForPur18"
+                                        size="lg"
+                                        callback-func="form.chooseCostCenter(item,selectItem)"
+                                        fm-model="item.costCenter"
+                                        fm-placeholder="{{form.$pageLang.Selection}}"></fm-data-select>
+                    </td>
+                    <td>
+                        <fm-text field-name="{{form.$pageLang.ExpenseType}}"
+                                 class="input-sm"
+                                 fm-required="form.pur18.companyArea == 'SJ'"
+                                 state="{{form.$pageRight.StartNode}}"
+                                 required
+                                 readonly
+                                 fm-model="item.expenseType"></fm-text>
+                    </td>
+                    <td>
+                        <fm-text field-name="{{form.$pageLang.Remark}}"
+                                 class="input-sm"
+                                 state="{{form.$pageRight.StartNode}}"
+                                 fm-model="item.remark"></fm-text>
+                    </td>
+                </tr>
+
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="99" style="text-align:left;">
+                        <table style="width:100%;">
+                            <tr>
+                                <td style="text-align:left;border:0px;">
+                                    <!--操作按钮-->
+                                    <input ng-if="base.pageState==1 " type="button" class="btn btn-sm btn-info" ng-click="form.pur18d.push({productRequired:'',qtyToBeBought:'',leadTimeDueDate:'',currency:'CNY',unitPrice:'',preferredSupplier:'',requester:'',costCenter:'',expenseType:'',remark:''})" value="{{ 'Add' |translate}}" />
+                                    <input ng-if="base.pageState==1 " type="button" class="btn btn-sm btn-danger" ng-click="form.delete()" value="{{ 'Delete' |translate}}" />
+                                </td>
+                                <td style="text-align:right;border:0px;">
+                                    <!--总计-->
+                                    <span class="col-xs-5 control-label required" ng-bind="form.$pageLang.Total"></span>
+                                    <div class="col-xs-7 control-label">
+                                        <fm-number fm-model="form.pur18.total"
+                                                   max-value="2000"
+                                                   readonly
+                                                   field-name="{{form.$pageLang.Total}}"
+                                                   cny></fm-number>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr></tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+<fm-Group-Head title="{{ form.$pageLang.Comments}}"></fm-Group-Head>
+<!--备注 Comments-->
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <fm-textarea fm-model="form.pur18.comments"></fm-textarea>
+        </div>
+    </div>
+</div>
+<!--附件-->
+<fm-Group-Head class="print-hide" title="{{ 'Attachment' |translate}}"></fm-Group-Head>
+<div class="print-hide row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <div class="col-xs-12">
+                <fm-attachment class="print-hide" form-files="form.$attachments"
+                               state="{{form.$pageRight.StartNode}}"
+                               link-id="1"
+                               task-id='base.taskId'
+                               node-id="base.nodeId"
+                               draft-id="base.draftId"
+                               button-name="{{ 'UploadAttachment' |translate}}"></fm-attachment>
+            </div>
+        </div>
+    </div>
+</div>

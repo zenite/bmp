@@ -1,0 +1,148 @@
+﻿<!--FIN02.固定资产变动报告-->
+<fm-form-title sn-number="{{base.snNumber}}" apply-date="{{base.applyDate}}" sub-title='base.title' fm-model="base.areaCode"></fm-form-title>
+<fm-Group-Head title="{{ base.$pageLang.PostByInfo }}"></fm-Group-Head>
+<fm-initiator jobid='base.jobId' userinfo='base.initiator' taskid='base.taskId'></fm-initiator>
+
+<fm-Group-Head title="{{ form.$pageLang.DetailsToBeChanged }}"></fm-Group-Head>
+<div class="row">
+    <div class="col-xs-12">
+        <table class="table table-bordered table-detail">
+            <thead>
+                <tr>
+                    <!--勾选框-->
+                    <th ng-if="base.pageState==1" class="checktd"><input type="checkbox" class="uniform" ng-checked="form.fin02cAllChecked" ng-model="form.fin02cAllChecked" ng-click="form.$checkAll(form.fin02cAllChecked, form.fin02c)" /></th>
+                    <!--固定资产编号-->
+                    <th style="width: 9%;text-align: center; border: 0px;" ng-bind="form.$pageLang.FixAssetId"></th>
+                    <!--固定资产名称-->
+                    <th style="text-align: center; border: 0px;" ng-bind="form.$pageLang.FixAssetsName"></th>
+                    <!--设备编号-->
+                    <th style="width: 8%; text-align: center; border: 0px;" ng-bind="form.$pageLang.EquipmentNo"></th>    
+                    <!--责任人(old)-->
+                    <th style="width:6%; text-align:center;border:0px;" ng-bind="form.$pageLang.OldOrgChiefEngineer"></th>
+                    <!--部门(old)-->
+                    <th style="width:6%; text-align:center;border:0px;" ng-bind="form.$pageLang.OldOrgDepartment"></th>
+                    <!--使用地点(old)-->
+                    <th style="width:6%; text-align:center;border:0px;" ng-bind="form.$pageLang.OldOrgLocation"></th>
+                    <!--责任人(new)-->
+                    <th style="width:20%;text-align:center;border:0px;" ng-bind="form.$pageLang.OrgChiefEngineer"></th>
+                    <!--部门(new)-->
+                    <th style="width:12%;text-align:center;border:0px;" ng-bind="form.$pageLang.OrgDepartment"></th>
+                    <!--使用地点(new)-->
+                    <th style="width:13%;text-align:center;border:0px;" ng-bind="form.$pageLang.OrgLocation"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in form.fin02c" ng-class="{ 'active': item.checked}" detail-name="{{form.$pageLang.Fare}}">
+                    <td ng-if="base.pageState==1" class="checktd">
+                        <input class="uniform" type="checkbox" ng-model="item.checked" />
+                    </td>
+                    <td>
+                        <!--固定资产编号-->
+                        <fm-data-select field-name="{{form.$pageLang.FixAssetId}}"
+                                        view="GetAllFixAssetIds"
+                                        filter="{areaCode: base.areaCode}"
+                                        ng-if="base.pageState == 1 "
+                                        size="lg"
+                                        required
+                                        callback-func="form.chooseFixAssetId(selectItem,item)"
+                                        fm-model="item.fixAssetId"></fm-data-select>
+                        <fm-text ng-if="base.pageState != 1 "
+                                 readonly
+                                 class="input-sm"
+                                 fm-model="item.fixAssetId"></fm-text>
+                    </td>
+                    <td>
+                        <!--固定资产名称-->
+                        <fm-text field-name="{{form.$pageLang.FixAssetsName}}"
+                                 readonly
+                                 class="input-sm"
+                                 fm-model="item.fixAssetName"></fm-text>
+                    </td>
+                    <td>
+                        <!--设备编号-->
+                        <fm-text field-name="{{form.$pageLang.EquipmentNo}}"
+                                 readonly
+                                 class="input-sm"
+                                 fm-model="item.equipmentNo"></fm-text>
+                    </td>
+                    <td>
+                        <input type="hidden" fm-model="item.orgChiefEngineer" />
+                        <fm-text field-name="{{form.$pageLang.OrgChiefEngineer}}"
+                                 readonly
+                                 class="input-sm"
+                                 fm-model="item.orgChiefEngineerName"></fm-text>
+
+                    </td>
+                    <td>
+                        <input type="hidden" fm-model="item.orgDepartment" />
+                        <fm-text field-name="{{form.$pageLang.OrgDepartment}}"
+                                 readonly
+                                 class="input-sm"
+                                 fm-model="item.orgDepartmentName"></fm-text>
+
+                    </td>
+                    <td>
+                        <fm-text field-name="{{form.$pageLang.OrgLocation}}"
+                                 readonly
+                                 class="input-sm"
+                                 fm-model="item.orgLocation"></fm-text>
+                    </td>
+                    <td>
+                        <!--<fm-job-select-->
+                        <fm-job-select field-name="{{form.$pageLang.OrgChiefEngineer}}"
+                                       required
+                                       callback-func="form.selectjob(selectItem,item)"
+                                       i-clear
+                                       fm-model="item.newChiefEngineer"></fm-job-select>
+                    </td>
+                    <td>
+                        <fm-data-select field-name="{{form.$pageLang.OrgDepartment}}"
+                                        group
+                                        fm-model="item.newDepartment"></fm-data-select>
+
+                    </td>
+                    <td>
+                        <fm-text field-name="{{form.$pageLang.OrgLocation}}"
+                                 required
+                                 class="input-sm"
+                                 fm-model="item.newLocation"></fm-text>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td style="text-align: right;" colspan="99">
+                        <input ng-if="base.pageState==1 || (form.$pageRight.StartNode == 'normal' && base.pageState==2)" type="button" class="btn btn-sm btn-info" ng-click="form.fin02c.push({})" value="{{form.$pageLang.Add}}" />
+                        <input ng-if="base.pageState==1 || (form.$pageRight.StartNode == 'normal' && base.pageState==2)" type="button" class="btn btn-sm btn-danger" ng-click="form.delete()" value="{{form.$pageLang.Delete}}" />
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+<div class="row">
+    <!--变动原因过程及结果：-->
+    <span class="col-xs-12 text-left" ng-bind="form.$pageLang.changesdesc"></span>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <fm-textarea fm-model="form.fin02.changesDesc"
+                         required
+                         fm-placeholder="{{form.$pageLang.ManualInput}}"
+                         field-name="{{form.$pageLang.changesdesc}}"></fm-textarea>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <!--备注-->
+    <span class="col-xs-12 text-left" ng-bind="form.$pageLang.Remark"></span>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <fm-textarea fm-model="form.fin02.remark"
+                         fm-placeholder="{{form.$pageLang.ManualInput}}"></fm-textarea>
+        </div>
+    </div>
+</div>

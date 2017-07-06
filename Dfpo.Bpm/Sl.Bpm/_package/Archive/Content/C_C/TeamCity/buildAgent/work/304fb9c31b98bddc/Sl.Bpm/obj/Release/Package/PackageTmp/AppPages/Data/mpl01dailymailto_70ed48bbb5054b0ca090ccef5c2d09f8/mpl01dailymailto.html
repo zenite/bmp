@@ -1,0 +1,99 @@
+﻿<div class="form-group ma-block">
+    <fm-Group-Head title="{{::base.title}}"></fm-Group-Head>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="container">
+                <div class="form-group">
+                    <div class="col-xs-12">
+                        <!--<div class="ma-detailinfo">
+                            <div class="content">
+                                <div class="row">
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12" style="text-align: center;">
+                                <button class="btn btn-primary" ng-click="form.$load()">{{:: 'Query' | translate}}</button>
+                                <button class="btn btn-default" ng-click="form.$clear()">清空</button>
+                            </div>
+                        </div>-->
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="col-xs-12">
+                        <div style="width: 100%; overflow-x: auto;">
+                            <table class="table table-striped table-hover table-condensed">
+                                <thead>
+                                <tr></tr>
+                                <tr>
+                                    <th style="width: 30px;"></th>
+                                    <th style="width: 130px;">
+                                        接收人
+                                    </th>
+                                    <th style="width: 130px;">
+                                        邮箱
+                                    </th>
+                                    <th style="width: 230px;">
+                                        接收类型
+                                    </th>
+                                    <th style="width: 50px;">
+                                        <input class="btn btn-sm btn-success" type="button" value="新增" ng-click="form.$edit('mpl01dailymailto.edit', null)" />
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody fm-cache>
+                                <tr ng-repeat="item in form.mpl01dmt" detail-name="Night Letter每日任务接收人配置" ng-class="{ 'active': item.checked}">
+                                    <td class="statetd"></td>
+                                    <td>
+                                        <fm-text field-name="接收人"
+                                                 i-clear
+                                                 readonly
+                                                 fm-model="item.mailToUserId"></fm-text>
+                                    </td>
+                                    <td>
+                                        <fm-text class="input-sm" field-name="邮箱"
+                                                 i-clear
+                                                 readonly
+                                                 fm-model="item.emailAddress"></fm-text>
+                                    </td>
+                                    <td>
+                                        <fm-select class="input-sm"
+                                                   dataitem="Common>MailToType"
+                                                   readonly
+                                                   field-name="接收类型"
+                                                   fm-model="item.mailType"></fm-select>
+                                    </td>
+                                    <td>
+                                        <input class="btn btn-sm btn-primary" type="button" value="编辑" ng-click="form.$edit('mpl01dailymailto.edit', item)" />
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="col-xs-12">
+                    <div class="col-xs-1" style="text-align: left;">
+                        <select class="form-control" ng-change="form.$load()" ng-model="form.paging.pageSize" ng-options="val for val in form.$pageSizeList"></select>
+                    </div>
+                    <div class="col-xs-11" style="text-align: right;">
+                        <ma-pager current-page="form.paging.currentPage" load="form.$load()" total-count="form.paging.totalCount" page-size="form.paging.pageSize"></ma-pager>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <fm-Group-Head title="Night Letter每日报表临时路径"></fm-Group-Head>
+    <div class="col-xs-12">
+        <div class="col-xs-4"><fm-text class="input-sm " fm-model="form.pathValue"></fm-text></div>
+        <button class="btn btn-info btn-sm" ng-click="form.saveMpl01ReportPath()">{{:: 'Save' | translate}}</button>
+    </div>
+</div>

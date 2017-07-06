@@ -1,0 +1,471 @@
+﻿<!--合同评审会签审批-->
+<fm-form-title sn-number="{{base.snNumber}}" apply-date="{{base.applyDate}}" sub-title='base.title' fm-model="base.areaCode"></fm-form-title>
+<!--<fm-Group-Head class="print-hide" title="{{ base.$pageLang.PostByInfo }}"></fm-Group-Head>
+<fm-initiator class="print-hide" jobid='base.jobId' userinfo='base.initiator' taskid='base.taskId'></fm-initiator>-->
+<fm-Group-Head title="{{ base.$pageLang.ApplicantInfo }}"></fm-Group-Head>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--申请人名字-->
+            <span class="col-xs-2 control-label">{{ "ApplicantName" | translate }}</span>
+            <div class="col-xs-4">
+                <div class="input-group" style="width: 100%;">
+                    <span class="form-label">{{base.applicant.userName}}</span>
+                    <!--<span class="input-group-btn" ng-if="!taskid">
+                        <button class="btn btn-default" type="button" ng-click="base.$selectApplicant()">{{ "Choose" | translate }}</button>
+                    </span>-->
+                </div>
+            </div>
+            <!--申请人员工号-->
+            <span class="col-xs-2 control-label">{{ "ApplicantEmployeeNumber" | translate }}</span>
+            <div class="col-xs-4"><span class="form-label">{{base.applicant.employeeNumber}}</span></div>
+        </div>
+    </div>
+    <div class="form-group">
+        <!--申请人部门线-->
+        <div class="col-xs-12">
+            <span class="col-xs-2 control-label">{{ "ApplicantDepartment" | translate }}</span>
+            <div class="col-xs-10"><span class="form-label">{{base.applicant.departmentName}}</span></div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--申请人手机-->
+            <span class="col-xs-2 control-label">{{ "ApplicantMobileNumber" | translate }}</span>
+            <div class="col-xs-4"><span class="form-label">{{base.applicant.mobileNumber}}</span></div>
+            <!--申请人电话-->
+            <span class="col-xs-2 control-label">{{ "ApplicantContactNumber" | translate }}</span>
+            <div class="col-xs-4"><span class="form-label">{{base.applicant.contactNumber}}</span></div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--申请人邮箱-->
+            <span class="col-xs-2 control-label">{{ "ApplicantEmail" | translate }}</span>
+            <div class="col-xs-4"><span class="form-label">{{base.applicant.emailAddress}}</span></div>
+            <!--申请人直属领导-->
+            <span class="col-xs-2 control-label">{{ "ApplicantDirectManager" | translate }}</span>
+            <div class="col-xs-4"><span class="form-label">{{base.applicant.directManagerName}}</span></div>
+        </div>
+    </div>
+</div>
+
+<fm-Group-Head title="{{form.$pageLang.Contract}}"></fm-Group-Head>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--合同类型-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.ContractType"></span>
+            <div class="col-xs-4">
+                <fm-select field-name="{{form.$pageLang.ContractType}}"
+                           fm-model="form.sale02.contractType"
+                           state="{{form.$pageRight.StartNode}}"
+                           callback-func="form.chooseContractType(selectItem)"
+                           value-member="value"
+                           required
+                           dataitem="Sales>ContractReview>ContractType"></fm-select>
+            </div>
+            <!--缔约公司主体-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.ContractCompanyOurParty"></span>
+            <div class="col-xs-4">
+                <fm-select field-name="{{form.$pageLang.ContractCompanyOurParty}}"
+                           fm-model="form.sale02.contractCompanyOurParty"
+                           state="{{form.$pageRight.StartNode}}"
+                           required
+                           callback-func="form.chooseAllCompany(selectItem)"
+                           view="GetAllCompany"></fm-select>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" ng-repeat="item in form.sale02od | filter: {refId:item.refId}" detail-name="">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--缔约方-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.ContractCompanyOtherParty"></span>
+            <div class="col-xs-8" style="width:73%">
+                <fm-text field-name="{{form.$pageLang.ContractCompanyOtherParty}}"
+                         fm-model="item.contractCompanyOtherParty"
+                         state="{{form.$pageRight.StartNode}}"
+                         required></fm-text>
+            </div>
+            <div class="col-xs-2" style="width:10%" ng-if="base.pageState==1">
+                <input type="button" class="btn btn-sm btn-info" value="{{ 'Add' |translate}}" ng-click="form.addsale02od()" />
+                <input type="button" class="btn btn-sm btn-danger" ng-if="item.refId!='1'" value="{{ 'Delete' |translate}}" ng-click="form.deletesale02od(item)" />
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+             <!--合同金额-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.ContractAmount"></span>
+            <div class="col-xs-3">
+                <fm-number field-name="{{form.$pageLang.ContractAmount}}"
+                           fm-model="form.sale02.contractAmount"
+                           state="{{form.$pageRight.StartNode}}"
+                           required
+                           cny></fm-number>
+            </div>
+            <div class="col-xs-1">
+                <fm-select fm-model="form.sale02.currency"
+                           field-name="{{form.$pageLang.Currency}}"
+                           required
+                           fm-placeholder="{{form.$pageLang.ChooseCurrency}}"
+                           view="GetCurrencyType"></fm-select>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--合同内容概述-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.ContractSummary"></span>
+            <div class="col-xs-10">
+                <fm-textarea field-name="{{form.$pageLang.ContractSummary}}"
+                             fm-model="form.sale02.contractSummary"
+                             state="{{form.$pageRight.StartNode}}"
+                             fm-placeholder="{{form.$pageLang.ContractSummaryPlaceholder}}"
+                             required></fm-textarea>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" ng-if="form.sale02.contractType!=2">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--参与评审部门-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.ApproveDepartments"></span>
+            <div class="col-xs-10">
+                <fm-data-select field-name="{{form.$pageLang.ApproveDepartments}}"
+                                fm-model="form.sale02.approveDepartments"
+                                group
+                                filter="{id:form.sale02.contractCompanyId}"
+                                ismulti="true"
+                                state="{{form.$pageRight.StartNode}}"
+                                fm-required="form.sale02.contractType!=2"></fm-data-select>
+            </div>
+        </div>
+    </div>
+</div>
+<div ng-if="form.sale02.contractType==2">
+    <fm-Group-Head title="{{form.$pageLang.SalesContract}}"></fm-Group-Head>
+    <div class="row">
+        <div class="form-group">
+            <div class="col-xs-12">
+                <!--业务类型-->
+                <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.BusinessType"></span>
+                <div class="col-xs-4">
+                    <fm-select fm-model="form.sale02.businessType"
+                               dataitem="Sales>ContractReview>BusinessType"
+                               callback-func="form.chooseBusinessType(selectItem)"
+                               value-member="value"
+                               fm-required="form.sale02.contractType==2"
+                               state="{{form.$pageRight.StartNode}}"
+                               field-name="{{form.$pageLang.BusinessType}}"></fm-select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group">
+            <div class="col-xs-12">
+                <!--零件号-->
+                <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.PartNumber"></span>
+                <div class="col-xs-4">
+                    <fm-text field-name="{{form.$pageLang.PartNumber}}"
+                             state="{{form.$pageRight.StartNode}}"
+                             fm-required="form.sale02.contractType==2"
+                             fm-model="form.sale02.partNumber"></fm-text>
+                </div>
+                <!--零件描述 -->
+                <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.PartDescription"></span>
+                <div class="col-xs-4">
+                    <fm-text field-name="{{form.$pageLang.PartDescription}}"
+                             state="{{form.$pageRight.StartNode}}"
+                             fm-required="form.sale02.contractType==2"
+                             fm-model="form.sale02.partDescription"></fm-text>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group">
+            <div class="col-xs-12">
+                <!--适用车型-->
+                <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.AppliedCarModel"></span>
+                <div class="col-xs-4">
+                    <fm-text field-name="{{form.$pageLang.AppliedCarModel}}"
+                             state="{{form.$pageRight.StartNode}}"
+                             fm-required="form.sale02.contractType==2"
+                             fm-model="form.sale02.appliedCarModel"></fm-text>
+                </div>
+                <!--合同编号-->
+                <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.ContractNo"></span>
+                <div class="col-xs-4">
+                    <fm-text field-name="{{form.$pageLang.ContractNo}}"
+                             state="{{form.$pageRight.StartNode}}"
+                             fm-required="form.sale02.contractType==2"
+                             fm-model="form.sale02.contractNo"></fm-text>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group">
+            <div class="col-xs-12">
+                <!--原价格-->
+                <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.OldPrice"></span>
+                <div class="col-xs-4">
+                    <fm-number field-name="{{form.$pageLang.OldPrice}}"
+                               state="{{form.$pageRight.StartNode}}"
+                               fm-model="form.sale02.oldPrice"
+                               fm-required="form.sale02.contractType==2"
+                               scale="5"
+                               cny></fm-number>
+                </div>
+                <!--年度降价比率 -->
+                <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.YoyRate"></span>
+                <div class="col-xs-4">
+                    <fm-number field-name="{{form.$pageLang.YoyRate}}"
+                               state="{{form.$pageRight.StartNode}}"
+                               fm-model="form.sale02.yoyRate"
+                               fm-required="form.sale02.contractType==2"
+                               scale="4"></fm-number>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group">
+            <div class="col-xs-12">
+                <!--新价格-->
+                <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.NewPrice"></span>
+                <div class="col-xs-4">
+                    <fm-number field-name="{{form.$pageLang.NewPrice}}"
+                               state="{{form.$pageRight.StartNode}}"
+                               fm-model="form.sale02.newPrice"
+                               fm-required="form.sale02.contractType==2"
+                               scale="5"
+                               cny></fm-number>
+                </div>
+                <!--模具摊销-->
+                <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.ToolingAmort"></span>
+                <div class="col-xs-4">
+                    <fm-text field-name="{{form.$pageLang.ToolingAmort}}"
+                             state="{{form.$pageRight.StartNode}}"
+                             fm-required="form.sale02.contractType==2"
+                             fm-model="form.sale02.toolingAmort"></fm-text>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group">
+            <div class="col-xs-12">
+                <!--年需求量-->
+                <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.AnnualVolume"></span>
+                <div class="col-xs-4">
+                    <fm-number field-name="{{form.$pageLang.AnnualVolume}}"
+                               state="{{form.$pageRight.StartNode}}"
+                               fm-model="form.sale02.annualVolume"
+                               fm-required="form.sale02.contractType==2"
+                               integer></fm-number>
+                </div>
+                <!--合同日期-->
+                <span class="col-xs-2 control-label" ng-bind="form.$pageLang.ContractTime"></span>
+                <span class="col-xs-1 control-label required"  style="width:4%"  ng-bind="form.$pageLang.ContractFrom"></span>
+                <span class="col-xs-1"  style="width:12%">
+                    <fm-datetime field-name="{{form.$pageLang.ContractFrom}}"
+                                 state="{{form.$pageRight.StartNode}}"
+                                 fm-blur="form.chooseContractTime(item,'ContractFrom')"
+                                 required
+                                 date
+                                 fm-model="form.sale02.contractFrom"></fm-datetime>
+                </span>
+                <span class="col-xs-1 control-label required" style="width:4%" ng-bind="form.$pageLang.ContractTo"></span>
+                <span class="col-xs-1" style="width:12%">
+                    <fm-datetime field-name="{{form.$pageLang.ContractTo}}"
+                                 state="{{form.$pageRight.StartNode}}"
+                                 fm-blur="form.chooseContractTime(item,'ContractTo')"
+                                 required
+                                 date
+                                 fm-model="form.sale02.contractTo"></fm-datetime>
+                </span>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="form-group">
+            <div class="col-xs-12">
+                <!--备注-->
+                <span class="col-xs-2 control-label " ng-bind="form.$pageLang.Remark"></span>
+                <div class="col-xs-10">
+                    <fm-textarea fm-model="form.sale02.remark"
+                                 field-name="{{form.$pageLang.Remark}}"
+                                 state="{{form.$pageRight.StartNode}}"></fm-textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group">
+            <div class="col-xs-12">
+                <!--选择参与评审部门-->
+                <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.ApproveDepartments"></span>
+                <div class="col-xs-10">
+                    <fm-data-select field-name="{{form.$pageLang.ApproveDepartments}}"
+                                    group
+                                    ismulti="true"
+                                    filter="{id:form.sale02.contractCompanyId}"
+                                    fm-model="form.sale02.approveDepartments"
+                                    fm-required="form.sale02.contractType==2"
+                                    state="{{form.$pageRight.StartNode}}"></fm-data-select>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="row" ng-if="form.sale02.businessType=='1' && form.sale02.contractCompanyOurParty!='SHTC' && form.sale02.contractCompanyOurParty!='NJTC'">
+        <div class="form-group">
+            <div class="col-xs-12">
+                <!--科技公司评审部门-->
+                <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.TcDepartments"></span>
+                <div class="col-xs-10">
+                    <fm-data-select field-name="{{form.$pageLang.TcDepartments}}"
+                                    group
+                                    ismulti="true"
+                                    filter="{id:form.sale02.companyIds}"
+                                    fm-model="form.sale02.tcDepartments"
+                                    fm-required="form.sale02.contractType==2"
+                                    state="{{form.$pageRight.StartNode}}"></fm-data-select>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<fm-Group-Head title="{{form.$pageLang.UsingInformation}}" ng-if="form.$pageRight.LinkNode == 'normal'"></fm-Group-Head>
+<div class="row" ng-if="form.$pageRight.LinkNode == 'normal'">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.PrintingSigning"></span>
+            <div class="col-xs-4">
+                <fm-data-select field-name="{{form.$pageLang.PrintingSigning}}"
+                                view="GetPrintingSigningInfo"
+                                fm-required="form.$pageRight.LinkNode == 'normal'"
+                                fm-normal="form.$pageRight.LinkNode == 'normal'"
+                                state="{{form.$pageRight.StartNode}}"
+                                fm-model="form.sale02.printingSigning"></fm-data-select>
+            </div>
+        </div>
+    </div>
+</div>
+<!--附件-->
+<fm-Group-Head class="print-hide" title="{{ 'Attachment' |translate}}"></fm-Group-Head>
+<div class="print-hide row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <div class="col-xs-12">
+                <fm-attachment form-files="form.$attachments"
+                               link-id="0"
+                               task-id='base.taskId'
+                               node-id="base.nodeId"
+                               draft-id="base.draftId"
+                               required
+                               state="{{form.$pageRight.StartNode}}"
+                               field-name="{{'UploadAttachment' |translate}}"
+                               fm-model="form.$state.UploadAttachment"
+                               fm-normal="form.$pageRight.LegalExaminationApprovalNode == 'normal' || form.$pageRight.DirectorApprovalNode == 'normal' || form.$pageRight.OtherDirectorApprovalNode == 'normal'"
+                               button-name="{{ 'UploadAttachment' |translate}}"></fm-attachment>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<fm-Group-Head title="{{ form.$pageLang.LegalApprovedFinalContractDraft}}" ng-if="form.$pageRight.LegalConfirmation == 'normal' || form.$pageRight.LinkNode == 'normal' || form.$pageRight.GeneralManagerNode == 'normal' || form.$pageRight.ArchiveConfirmation == 'normal'"></fm-Group-Head>
+<!--终稿附件-->
+<div class="row" ng-if="form.$pageRight.LegalConfirmation == 'normal' || form.$pageRight.LinkNode == 'normal' || form.$pageRight.GeneralManagerNode == 'normal' || form.$pageRight.ArchiveConfirmation == 'normal'">
+    <div class="col-xs-12">
+        <table class="table table-bordered table-detail">
+            <thead>
+                <tr>
+                    <th style="width:150px;text-align:center;" ng-bind="form.$pageLang.AttachName"></th> <!--附件名称-->
+                    <th style="width:150px;text-align:center;" ng-bind="form.$pageLang.UploadUser"></th> <!--上传人-->
+                    <th style="width:150px;text-align:center;" ng-bind="form.$pageLang.UploadTime"></th> <!--上传时间-->
+                    <th style="width:150px;text-align:center;" class="required" ng-bind="form.$pageLang.MasterAgreementFinalDraft"></th> <!--主协议（终稿）-->
+                    <th style="width:150px;text-align:center;" class="required" ng-bind="form.$pageLang.FinalDraft"></th> <!--终稿-->
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in form.sale02d">
+                    <td>
+                        <fm-text field-name="{{form.$pageLang.AttachName}}"
+                                 required
+                                 class="input-sm"
+                                 fm-model="item.attachName"></fm-text>
+                    </td>
+                    <td>
+                        <fm-text field-name="{{form.$pageLang.UploadUser}}"
+                                 required
+                                 class="input-sm"
+                                 fm-model="item.uploadUser"></fm-text>
+                    </td>
+                    <td>
+                        <fm-text field-name="{{form.$pageLang.UploadTime}}"
+                                 required
+                                 class="input-sm"
+                                 fm-model="item.uploadTime"></fm-text>
+                    </td>
+                    <td>
+                        <fm-select field-name="{{form.$pageLang.MasterAgreementFinalDraft}}"
+                                   dataitem="Common>YesOrNo"
+                                   value-member="value"
+                                   callback-func="form.chooseMasterAgreementFinalDraft(item,selectItem)"
+                                   fm-normal="form.$pageRight.LegalConfirmation == 'normal'"
+                                   fm-model="item.masterAgreementFinalDraft"></fm-select>
+                    </td>
+                    <td>
+                        <fm-select field-name="{{form.$pageLang.FinalDraft}}"
+                                   dataitem="Common>YesOrNo"
+                                   value-member="value"
+                                   fm-disabled="!(item.masterAgreementFinalDraft == '2' && form.$pageRight.LegalConfirmation == 'normal')"
+                                   fm-normal="form.$pageRight.LegalConfirmation == 'normal' && item.masterAgreementFinalDraft == '2'"
+                                   fm-model="item.finalDraft"></fm-select>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!--终稿附件-->
+<fm-Group-Head class="print-hide" title="{{ form.$pageLang.FinalContract}}" ng-if="form.$pageRight.ArchiveConfirmation == 'normal'"></fm-Group-Head>
+<div class="print-hide row" ng-if="form.$pageRight.ArchiveConfirmation == 'normal'">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <div class="col-xs-12">
+                <fm-attachment form-files="form.$attachments"
+                               link-id="1"
+                               task-id='base.taskId'
+                               node-id="base.nodeId"
+                               draft-id="base.draftId"
+                               fm-required="form.$pageRight.ArchiveConfirmation == 'normal'"
+                               field-name="{{'UploadAttachment' |translate}}"
+                               fm-model="form.$state.FinalUploadAttachment"
+                               fm-normal="form.$pageRight.ArchiveConfirmation == 'normal'"
+                               button-name="{{ 'UploadAttachment' |translate}}"></fm-attachment>
+            </div>
+        </div>
+    </div>
+</div>
+
+<fm-Group-Head title="{{form.$pageLang.Remark}}"></fm-Group-Head>
+<div class="text" style="text-align:center;">
+    <span ng-bind="form.$pageLang.ReviewAim"></span>
+</div>

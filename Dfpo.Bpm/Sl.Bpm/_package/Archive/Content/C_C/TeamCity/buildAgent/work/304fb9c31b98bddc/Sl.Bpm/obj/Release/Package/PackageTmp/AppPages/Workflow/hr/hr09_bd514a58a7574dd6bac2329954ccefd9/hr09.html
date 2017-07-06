@@ -1,0 +1,137 @@
+﻿<!--人事档案借阅申请 hr09-->
+<fm-form-title sn-number="{{base.snNumber}}" apply-date="{{base.applyDate}}" sub-title='base.title' fm-model="base.areaCode"></fm-form-title>
+<fm-Group-Head title="{{ base.$pageLang.PostByInfo }}"></fm-Group-Head>
+<fm-initiator jobid='base.jobId' userinfo='base.initiator' taskid='base.taskId'></fm-initiator>
+
+<fm-Group-Head title="{{ form.$pageLang.ApplicantInfo }}"></fm-Group-Head>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--员工手机-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.EmployeeTelephone"></span>
+            <div class="col-xs-4">
+                <fm-text fm-model="form.hr09.employeeTelephone"
+                         field-name="{{form.$pageLang.EmployeeTelephone}}"
+                         required></fm-text>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--借阅文件名称-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.FileName"></span>
+            <div class="col-xs-10">
+                <fm-checklist fm-model="form.hr09.fileName"
+                              fm-code="form.$state.fileName"
+                              field-name="{{form.$pageLang.FileName}}"
+                              required
+                              dataitem="HRRelated>BorrowFileNameCopy"></fm-checklist>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--其他类（复印件）文件名称-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.OthersCopyFileName"></span>
+            <div class="col-xs-10">
+                <fm-text fm-model="form.hr09.othersCopyFileName"
+                         field-name="{{form.$pageLang.OthersCopyFileName}}"
+                         fm-disabled="form.$state.fileName != '5'"
+                         required></fm-text>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--借阅文件名称-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.OriginalFileName"></span>
+            <div class="col-xs-6">
+                <fm-checklist fm-model="form.hr09.OriginalFileName"
+                              fm-code="form.$state.OriginalFileName"
+                              field-name="{{form.$pageLang.OriginalFileName}}"
+                              required
+                              dataitem="HRRelated>BorrowFileNameOriginal"></fm-checklist>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--其他类（原件）文件名称-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.OthersOriginalFileName"></span>
+            <div class="col-xs-10">
+                <fm-text fm-model="form.hr09.othersOriginalFileName"
+                         field-name="{{form.$pageLang.OthersOriginalFileName}}"
+                         fm-disabled="form.$state.othersOriginalFileName != '3'"
+                         required></fm-text>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--申请借阅原因-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.BorrowReason"></span>
+            <div class="col-xs-10">
+                <fm-textarea fm-model="form.hr09.borrowReason"
+                             field-name="{{form.$pageLang.BorrowReason}}"
+                             required></fm-textarea>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-4 cell">        
+        <!--预计归还日期-->
+        <span class="col-xs-6 control-label required" ng-bind="form.$pageLang.ExpectReturnDate"></span>
+        <div class="col-xs-6">
+            <fm-datetime fm-model="form.hr09.expectReturnDate"
+                         field-name="{{form.$pageLang.ExpectReturnDate}}"
+                         date
+                         required></fm-datetime>
+        </div>
+    </div>
+</div>
+<fm-Group-Head title="{{ form.$pageLang.NA }}"></fm-Group-Head>
+<div class="row">
+    <div class="col-xs-4 cell">
+        <!--实际归还日期-->
+        <span class="col-xs-6 control-label required" ng-bind="form.$pageLang.ActualReturnDate"></span>
+        <div class="col-xs-6">
+            <fm-datetime fm-model="form.hr09.actualReturnDate"
+                         field-name="{{form.$pageLang.ActualReturnDate}}"
+                         date
+                         required></fm-datetime>
+        </div>
+    </div>
+</div>
+<!--附件-->
+<fm-Group-Head class="print-hide" title="{{ 'Attachment' |translate}}"></fm-Group-Head>
+<div class="print-hide row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <span class="col-xs-2 control-label required">附件</span>
+            <div class="col-xs-4">
+                <fm-attachment form-files="form.$attachments"
+                               link-id="0"
+                               task-id='base.taskId'
+                               node-id="base.nodeId"
+                               draft-id="base.draftId"
+                               required
+                               state="{{form.$pageRight.StartNode}}"
+                               field-name="{{'UploadAttachment' |translate}}"
+                               fm-model="form.$state.UploadAttachment"
+                               button-name="{{ 'UploadAttachment' |translate}}"></fm-attachment>
+            </div>
+        </div>
+    </div>
+</div>
+

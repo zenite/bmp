@@ -1,0 +1,761 @@
+﻿<!--FIN06.付款申请-->
+<fm-form-title sn-number="{{base.snNumber}}" apply-date="{{base.applyDate}}" sub-title='base.title' fm-model="base.areaCode"></fm-form-title>
+
+<fm-Group-Head title="{{ base.$pageLang.PostByInfo }}"></fm-Group-Head>
+<fm-initiator jobid='base.jobId' userinfo='base.initiator' taskid='base.taskId'></fm-initiator>
+
+<fm-Group-Head title="{{ form.$pageLang.CourseInformation}}"></fm-Group-Head>
+
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-6">
+            <fm-import-xls template="/AppPages/Workflow/fin/fin06_e923a356d5944f278e4a09aac4dfbd0d/Template.xls"
+                           class="hide-import"
+                           start-index="0"></fm-import-xls>
+        </div>
+        <!--外课申请编号  display-member="id"-->
+        <span ng-if="form.$state.allowExternalCourse" class="col-xs-2 control-label" ng-bind="form.$pageLang.externalCourseFlowNum"></span>
+        <div ng-if="form.$state.allowExternalCourse" class="col-xs-4">
+            <fm-data-select field-name="{{form.$pageLang.externalCourseFlowNum}}"
+                            view="Fin06GetExternalCourseFlows"
+                            class="input-sm"
+                            callback-func="form.BindCourseFlows(selectItem)"
+                            fm-model="form.fin06.externalCourseFlowNum"
+                            filter="{GroupId:base.applicant.groupId,UserId:base.applicant.userId}"></fm-data-select>
+        </div>
+    </div>
+</div>
+<div class="row" ng-show="form.fin06.externalCourseFlowNum!=null && form.fin06.externalCourseFlowNum!=''">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--学校名称-->
+            <span class="col-xs-2 control-label" ng-bind="form.$pageLang.courseProvider"></span>
+            <div class="col-xs-4">
+                <fm-text field-name="{{form.$pageLang.courseProvider}}"
+                         readonly
+                         style="width:96%"
+                         state="{{form.$pageRight.StartNode}}"
+                         fm-model="form.fin06.courseProvider"></fm-text>
+            </div>
+            <!--课程名称-->
+            <span class="col-xs-2 control-label" ng-bind="form.$pageLang.courseName"></span>
+            <div class="col-xs-4">
+                <fm-text field-name="{{form.$pageLang.courseName}}"
+                         readonly
+                         style="width:96%"
+                         state="{{form.$pageRight.StartNode}}"
+                         fm-model="form.fin06.courseName"></fm-text>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" ng-show="form.fin06.externalCourseFlowNum!=null && form.fin06.externalCourseFlowNum!=''">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--总学时-->
+            <span class="col-xs-2 control-label" ng-bind="form.$pageLang.creditHours"></span>
+            <div class="col-xs-2">
+                <fm-text field-name="{{form.$pageLang.creditHours}}"
+                         readonly
+                         state="{{form.$pageRight.StartNode}}"
+                         fm-model="form.fin06.creditHours"></fm-text>
+            </div>
+            <div class="col-xs-2">Hours</div>
+            <!--申请报销数额(不含差旅费)-->
+            <span class="col-xs-2 control-label" ng-bind="form.$pageLang.courseAmount"></span>
+            <div class="col-xs-2">
+                <fm-text field-name="{{form.$pageLang.courseAmount}}"
+                         readonly cny
+                         style="width:96%"
+                         state="{{form.$pageRight.StartNode}}"
+                         fm-model="form.fin06.courseAmount"></fm-text>
+            </div>
+            <div class="col-xs-2">
+                <fm-select view="GetCurrencyType" state="readonly" value-member="value"
+                           fm-model="form.fin06.currency" required></fm-select>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" ng-show="form.fin06.externalCourseFlowNum!=null && form.fin06.externalCourseFlowNum!=''">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--起始日期-->
+            <span class="col-xs-2 control-label" ng-bind="form.$pageLang.startDate"></span>
+            <div class="col-xs-4">
+                <fm-datetime field-name="{{form.$pageLang.startDate}}"
+                             readonly date
+                             style="width:96%"
+                             fm-model="form.fin06.startDate"></fm-datetime>
+            </div>
+            <!--结束日期-->
+            <span class="col-xs-2 control-label" ng-bind="form.$pageLang.endDate"></span>
+            <div class="col-xs-4">
+                <fm-datetime field-name="{{form.$pageLang.endDate}}"
+                             readonly date
+                             style="width:96%"
+                             fm-model="form.fin06.endDate"></fm-datetime>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--供应商名称(*){form.$pageLang.CanInput}}  filter="{areaCode:base.areaCode}"-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.supplierName"></span>
+            <div class="col-xs-4">
+                <fm-datatext-select view="GetAllSupplier"
+                                    fm-model="form.fin06.supplierName"
+                                    fm-text-model="form.fin06.supplierNameInput"
+                                    filter="{areaCode:base.areaCode}"
+                                    placeholder="（如无法选到,可手输）"
+                                    ng-keyup="form.changeSupplierName()"
+                                    required
+                                    callback-func="form.chooseSupplierName(selectItem)"
+                                    field-name="{{form.$pageLang.supplierName}}"></fm-datatext-select>
+            </div>
+            <!--部门-->
+            <span class="col-xs-2 control-label" ng-bind="form.$pageLang.department" ng-show="form.fin06.externalCourseFlowNum!=null && form.fin06.externalCourseFlowNum!=''"></span>
+            <div class="col-xs-4" ng-show="form.fin06.externalCourseFlowNum!=null && form.fin06.externalCourseFlowNum!=''">
+                <fm-data-select field-name="{{form.$pageLang.department}}"
+                                readonly
+                                group
+                                fm-model="form.fin06.department"></fm-data-select>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--供应商代码-->
+            <span class="col-xs-2 control-label" ng-bind="form.$pageLang.supplierCode"></span>
+            <div class="col-xs-4">
+                <fm-text field-name="{{form.$pageLang.supplierCode}}"
+                         readonly
+                         style="width:96%"
+                         fm-model="form.fin06.supplierCode"></fm-text>
+            </div>
+        </div>
+        <!--付款条件-->
+        <span class="col-xs-2 control-label" ng-bind="form.$pageLang.paymentTerm"></span>
+        <div class="col-xs-4">
+            <fm-text field-name="{{form.$pageLang.paymentTerm}}"
+                     class="input-sm"
+                     readonly
+                     fm-model="form.fin06.paymentTerm"></fm-text>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <input type="button" class="btn btn-sm btn-info" value="查看收货情况" />
+            <input type="button" class="btn btn-sm btn-info" value="查看验收情况" />
+        </div>
+    </div>
+</div>
+<!--1 发票明细-->
+<div class="row">
+    <div class="col-xs-12">
+        <table class="table table-bordered table-detail">
+            <thead>
+                <tr>
+                    <th class="checktd" ng-bind="form.$pageLang.DetSN" style="text-align:center;;  width:4%"></th>
+                    <th ng-bind="form.$pageLang.InvoiceNo" style="text-align:center;  width:10%"></th> <!--发票号-->
+                    <th ng-bind="form.$pageLang.InvCurrency" style="text-align:center;  width:10%"></th> <!--币种-->
+                    <th ng-bind="form.$pageLang.Rate" style="text-align:center;  width:10%"></th> <!--汇率-->
+                    <th ng-bind="form.$pageLang.NoTaxAmount" style="text-align:center;  width:12%"></th> <!--请款金额（不含税） -->
+                    <th ng-bind="form.$pageLang.TaxAmount" style="text-align:center;  width:12%"></th> <!--税额-->
+                    <th ng-bind="form.$pageLang.HasTaxAmount" style="text-align:center;  width:12%"></th> <!--请款金额（含税）-->
+                    <th ng-bind="form.$pageLang.InvDate" style="text-align:center;  width:10%"></th> <!--开票日期-->
+                    <th ng-bind="form.$pageLang.PayDate" style="text-align:center;  width:10%"></th> <!--支付日期-->
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in form.fin06iv" ng-class="{ 'active': item.checked}" detail-name="{{form.$pageLang.Fare}}">
+                    <td>
+                        <input class="uniform"
+                               ng-if="(item.isChange==0||item.isChange==null)&&(base.pageState==1 || (form.$pageRight.StartNode == 'normal' && base.pageState==2)||!form.invread) "
+                               type="checkbox" ng-model="item.checked" />
+                    </td>
+                    <td>
+                        <fm-text field-name="{{form.$pageLang.InvoiceNo}}"
+                                 style="width:96%"
+                                 fm-required="!form.invread"
+                                 fm-normal="!form.invread"
+                                 fm-readonly="form.invread"
+                                 fm-model="item.invoiceNo"></fm-text>
+                    </td>
+                    <td>
+                        <fm-select view="GetCurrencyType"
+                                   fm-model="item.invCurrency"
+                                   fm-required="!form.invread"
+                                   fm-normal="!form.invread"
+                                   fm-readonly="form.invread"
+                                   callback-func="form.BindLineRate(selectItem, item)"
+                                   required
+                                   field-name="{{form.$pageLang.InvCurrency}}"></fm-select>
+                    </td>
+                    <td>
+                        <fm-number class="input-sm"
+                                   cny readonly
+                                   fm-model="item.rate"></fm-number>
+                    </td>
+                    <td>
+                        <fm-number class="input-sm" field-name="{{form.$pageLang.NoTaxAmount}}"
+                                   cny
+                                   fm-required="!form.invread"
+                                   fm-normal="!form.invread"
+                                   fm-readonly="form.invread"
+                                   fm-model="item.noTaxAmount"
+                                   callback-func="form.sum(data)"></fm-number>
+                    </td>
+                    <td>
+                        <fm-number field-name="{{form.$pageLang.TaxAmount}}"
+                                   cny
+                                   fm-required="!form.invread"
+                                   fm-normal="!form.invread"
+                                   fm-readonly="form.invread"
+                                   class="input-sm"
+                                   fm-model="item.taxAmount"
+                                   callback-func="form.sum(data)"></fm-number>
+                    </td>
+                    <td>
+                        <fm-number field-name="{{form.$pageLang.HasTaxAmount}}"
+                                   cny
+                                   readonly
+                                   class="input-sm"
+                                   fm-model="item.hasTaxAmount"
+                                   callback-func="form.sum(data)"></fm-number>
+                    </td>
+                    <td>
+                        <fm-datetime field-name="{{form.$pageLang.InvDate}}"
+                                     date
+                                     fm-required="!form.invread"
+                                     fm-normal="!form.invread"
+                                     fm-readonly="form.invread"
+                                     style="width:96%"
+                                     fm-model="item.invDate"></fm-datetime>
+                    </td>
+                    <td>
+                        <fm-datetime field-name="{{form.$pageLang.PayDate}}"
+                                     date
+                                     fm-required="form.IsND15"
+                                     fm-normal="form.IsND15"
+                                     fm-readonly="(!form.IsND15)||base.areaCode=='YFVSJ'"
+                                     style="width:96%"
+                                     fm-model="item.payDate"></fm-datetime>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4" ng-bind="form.$pageLang.TotalCost" style="text-align:center;"></td> <!--费用合计-->
+
+                    <td>
+                        <fm-number cny
+                                   readonly
+                                   fm-model="form.fin06.sumInvNoTaxAmt"></fm-number>
+                    </td>
+                    <td>
+                        <fm-number cny
+                                   readonly
+                                   fm-model="form.fin06.sumInvTaxAmt"></fm-number>
+                    </td>
+                    <td>
+                        <fm-number cny
+                                   readonly
+                                   fm-model="form.fin06.sumInvHasTaxAmt"></fm-number>
+                    </td>
+                    <td colspan="2"></td>
+                </tr>
+            </tbody>
+            <tfoot ng-if="!form.invread">
+                <tr>
+                    <td colspan="99" style="text-align: right;">
+                        <input ng-if="(!form.invread)||base.pageState==1 || (form.$pageRight.StartNode == 'normal' && base.pageState==2) " type="button" class="btn btn-sm btn-info" ng-click="form.fin06iv.push({})" value="{{ 'Add' |translate}}" />
+                        <input ng-if="(!form.invread)||base.pageState==1 || (form.$pageRight.StartNode == 'normal' && base.pageState==2) " type="button" class="btn btn-sm btn-danger" ng-click="form.delete('fin06iv')" value="{{ 'Delete' |translate}}" />
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12" ng-bind="form.$pageLang.PageTipA"></div>
+    </div>
+    <div class="form-group">
+        <div class="col-xs-12" ng-bind="form.$pageLang.PageTipB"></div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--预付款-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.advanceBy"></span>
+            <div class="col-xs-4">
+                <fm-radiolist fm-model="form.fin06.advanceBy"
+                              field-name="{{form.$pageLang.Advance}}"
+                              dataitem="Common>YesOrNo"
+                              value-member="value"
+                              required callback-func="form.changeAdvanceType()"></fm-radiolist>
+            </div>
+            <span class="col-xs-6 control-label"></span>
+        </div>
+    </div>
+</div>
+<div class="row" ng-if="form.fin06.advanceBy==1">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--预付款单号-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.advanceNo"></span>
+            <div class="col-xs-4">
+                <fm-text field-name="{{form.$pageLang.advanceNo}}"
+                         style="width:96%"
+                         fm-model="form.fin06.advanceNo"></fm-text>
+            </div>
+            <!--预计关闭日期-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.closeDate"></span>
+            <div class="col-xs-4">
+                <fm-datetime field-name="{{form.$pageLang.closeDate}}"
+                             date required
+                             style="width:96%"
+                             fm-model="form.fin06.closeDate"></fm-datetime>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--付款方式-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.paidThrough" ng-class="{'required':form.$state.classCode != '3' }"></span>
+            <div class="col-xs-4">
+                <fm-select fm-model="form.fin06.paidThrough" required
+                           dataitem="Finance>PaymentRequest>PaymentWay"
+                           value-member="value"
+                           callback-func="form.changePaymentWay()"></fm-select>
+                <!--<fm-select  view="GetCurrencyType" required  fm-model="item.currency"></fm-select>-->
+            </div>
+            <span class="col-xs-6 control-label"></span>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--请款理由-->
+            <span class="col-xs-2 control-label" ng-bind="form.$pageLang.paymentReason" ng-class="{'required':form.$state.classCode != '3' }"></span>
+            <div class="col-xs-4">
+                <fm-select fm-model="form.fin06.paymentReason"
+                           dataitem="Finance>PaymentRequest>PaymentReason" required
+                           value-member="value"
+                           field-name="{{form.$pageLang.paymentReason}}"></fm-select>
+            </div>
+            <span class="col-xs-6 control-label"></span>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--用途描述-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.purposeDescription"></span>
+            <div class="col-xs-10">
+                <fm-textarea required
+                             field-name="{{form.$pageLang.purposeDescription}}"
+                             fm-model="form.fin06.purposeDescription"></fm-textarea>
+            </div>
+        </div>
+    </div>
+</div>
+<!--2 订单项目明细-->
+<div class="row">
+    <div class="col-xs-12">
+        <table class="table table-bordered table-detail">
+            <thead>
+                <tr>
+                    <th class="checktd" ng-bind="form.$pageLang.DetSN" style="text-align:center;width:4%"></th>
+                    <th ng-bind="form.$pageLang.PoNbr" style="text-align:center;  width:20%"></th> <!--订单号-->
+                    <th ng-bind="form.$pageLang.ProjectNo" style="text-align:center;  width:13%"></th> <!--项目编号-->
+                    <th ng-bind="form.$pageLang.Currency" style="text-align:center;  width:11%"></th> <!--币种-->
+                    <th ng-bind="form.$pageLang.Rate" style="text-align:center;  width:13%"></th> <!--汇率 -->
+                    <th ng-bind="form.$pageLang.PoAmount" style="text-align:center;  width:13%"></th> <!--订单总金额（含税）-->
+                    <th ng-bind="form.$pageLang.RestAmount" style="text-align:center;  width:13%"></th> <!--订单剩余金额（含税）-->
+                    <th ng-bind="form.$pageLang.PayAmount" style="text-align:center;  width:13%"></th> <!--本次支付金额（含税）-->
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in form.fin06po" ng-class="{ 'active': item.checked}" detail-name="{{form.$pageLang.Fare}}">
+                    <td>
+                        <input class="uniform"
+                               ng-if="(item.isChange==0||item.isChange==null)&&(base.pageState==1 || (form.$pageRight.StartNode == 'normal' && base.pageState==2)) "
+                               type="checkbox" ng-model="item.checked" />
+
+                    </td>
+                    <td>
+                        <fm-datatext-select view="Fin06GetPoList"
+                                            fm-model="item.poNbr" style="width:95%"
+                                            fm-text-model="item.poNbrInput"
+                                            placeholder="（如无法选到,可手输）"
+                                            required
+                                            filter="{areaCode:base.areaCode}"
+                                            ng-keyup="form.changePoNbr(item)"
+                                            callback-func="form.selectPoNbr(item,selectItem)"
+                                            field-name="{{form.$pageLang.supplierName}}"></fm-datatext-select>
+                    </td>
+                    <td>
+                        <fm-text field-name="{{form.$pageLang.projectNo}}"
+                                 readonly
+                                 style="width:96%"
+                                 fm-model="item.projectNo"></fm-text>
+                        <input type="hidden" fm-model="item.potype" />
+                    </td>
+                    <td>
+                        <fm-select view="GetCurrencyType"
+                                   fm-model="item.currency"
+                                   field-name="{{form.$pageLang.Currency}}"
+                                   fm-readonly="item.isInput==0"
+                                   required
+                                   callback-func="form.BindLineRate(selectItem, item)"></fm-select>
+                        <!--<fm-select view="GetCurrencyType"
+                                   fm-model="item.currency"
+                                   style="display:none;"
+                                   callback-func="form.BindLineRate(selectItem, item)"
+                                   required
+                                   field-name="{{form.$pageLang.Currency}}"></fm-select>-->
+                    </td>
+                    <td>
+                        <fm-number class="input-sm"
+                                   cny required
+                                   fm-model="item.rate" callback-func="form.sum(data)"></fm-number>
+                    </td>
+                    <td>
+                        <fm-number field-name="{{form.$pageLang.poAmount}}" ng-if="item.isInput==1"
+                                   cny
+                                   class="input-sm"
+                                   fm-model="item.poAmount" callback-func="form.sum(data)"></fm-number>
+                        <fm-number field-name="{{form.$pageLang.poAmount}}" ng-if="item.isInput!=1"
+                                   cny readonly
+                                   class="input-sm"
+                                   fm-model="item.poAmount" callback-func="form.sum(data)"></fm-number>
+                    </td>
+                    <td>
+                        <fm-number field-name="{{form.$pageLang.RestAmount}}" ng-if="item.isInput==1"
+                                   cny ng-keyup="form.ControlRestAmount(item)"
+                                   class="input-sm"
+                                   fm-model="item.restAmount" callback-func="form.sum(data)"></fm-number>
+                        <fm-number field-name="{{form.$pageLang.RestAmount}}" ng-if="item.isInput!=1"
+                                   cny
+                                   class="input-sm"
+                                   fm-model="item.restAmount" callback-func="form.sum(data)"></fm-number>
+                    </td>
+                    <td>
+                        <fm-number class="input-sm" field-name="{{form.$pageLang.payAmount}}"
+                                   cny required max-value="item.restAmount"
+                                   ng-keyup="form.ControlMaxPayAmount(item)"
+                                   fm-model="item.payAmount" callback-func="form.sum(data)"></fm-number>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td></td>
+                    <td colspan="3">
+                        <div class="row" ng-if="form.HaveBlankPO">
+                            <div class="form-group">
+                                <div class="col-xs-12" ng-bind="form.$pageLang.PageTipPOBlank"></div>
+                            </div>
+                        </div>
+                    </td>
+                    <td colspan="99" style="text-align: right;">
+                        <input ng-if="base.pageState==1 || (form.$pageRight.StartNode == 'normal' && base.pageState==2) " type="button" class="btn btn-sm btn-info" ng-click="form.detadd('fin06po')" value="{{ 'Add' |translate}}" />
+                        <input ng-if="base.pageState==1 || (form.$pageRight.StartNode == 'normal' && base.pageState==2) " type="button" class="btn btn-sm btn-danger" ng-click="form.delete('fin06po')" value="{{ 'Delete' |translate}}" />
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+
+<!--3 成本中心明细表-->
+<div class="row">
+    <div class="col-xs-12">
+        <table class="table table-bordered table-detail">
+            <thead>
+                <tr>
+                    <th class="checktd" ng-bind="form.$pageLang.DetSN" style="text-align:center;width:4%"></th>
+                    <th ng-bind="form.$pageLang.CostCenter" style="text-align:center;  width:16%"></th> <!--成本中心-->
+                    <th ng-bind="form.$pageLang.AccountDesc" style="text-align:center;  width:40%"></th> <!--费用类别-->
+                    <th ng-bind="form.$pageLang.Account" style="text-align:center;  width:10%"></th> <!--科目代码-->
+                    <th ng-bind="form.$pageLang.Amount" style="text-align:center;  width:15%"></th> <!--行金额-->
+                    <th ng-bind="form.$pageLang.OwnerName" style="text-align:center;  width:15%"></th> <!--负责人姓名-->
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in form.fin06cc" ng-class="{ 'active': item.checked}" detail-name="{{form.$pageLang.Fare}}">
+                    <td>
+                        <input class="uniform"
+                               ng-if="(item.isChange==0||item.isChange==null)&&(base.pageState==1 || (form.$pageRight.StartNode == 'normal' && base.pageState==2)) "
+                               type="checkbox" ng-model="item.checked" />
+                    </td>
+                    <td>
+                        <fm-data-select field-name="{{form.$pageLang.CostCenter}}"
+                                        view="Fin06GetCostCenter"
+                                        required
+                                        fm-model="item.costCenterId"
+                                        fm-blur="form.selectCostCenter(item,selectItem)"></fm-data-select>
+                    </td>
+                    <td>
+                        <fm-text field-name="{{form.$pageLang.ExpenseType}}"
+                                 readonly
+                                 fm-model="item.accountDesc"></fm-text>
+                    </td>
+                    <td>
+                        <fm-text field-name="{{form.$pageLang.Account}}"
+                                 readonly
+                                 fm-model="item.account"></fm-text>
+                    </td>
+                    <td>
+                        <fm-number class="input-sm" field-name="{{form.$pageLang.amount}}"
+                                   cny required
+                                   fm-model="item.amount" callback-func="form.sum(data)"></fm-number>
+                    </td>
+                    <td>
+                        <fm-text field-name="{{form.$pageLang.ApprovedBy}}"
+                                 readonly
+                                 fm-model="item.ownerName"></fm-text>
+                        <input type="hidden" fm-model="item.ownerJobId"></input>
+                        <input type="hidden" fm-model="item.costGroupId"></input>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="99" style="text-align: right;">
+                        <input ng-if="base.pageState==1 || (form.$pageRight.StartNode == 'normal' && base.pageState==2) " type="button" class="btn btn-sm btn-info" ng-click="form.detadd('fin06cc')" value="{{ 'Add' |translate}}" />
+                        <input ng-if="base.pageState==1 || (form.$pageRight.StartNode == 'normal' && base.pageState==2) " type="button" class="btn btn-sm btn-danger" ng-click="form.delete('fin06cc')" value="{{ 'Delete' |translate}}" />
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <span class="col-xs-6 control-label"></span>
+            <!-- 税额-->
+            <span class="col-xs-3 control-label">税额</span>
+            <div class="col-xs-3">
+                <fm-number field-name="{{form.$pageLang.adjustment}}"
+                           fm-required="form.fin06cc.length>0"
+                           cny
+                           style="width:96%"
+                           state="{{form.$pageRight.StartNode}}"
+                           fm-model="form.fin06.adjustment"
+                           callback-func="form.sum(data)"></fm-number>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <span class="col-xs-6 control-label"></span>
+            <!-- 总计-->
+            <span class="col-xs-3 control-label">总计</span>
+            <div class="col-xs-3">
+                <fm-number field-name="{{form.$pageLang.total}}"
+                           readonly cny
+                           fm-model="form.fin06.total"></fm-number>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!-- 描述-->
+            <span class="col-xs-2 control-label">描述</span>
+            <div class="col-xs-10">
+                <fm-textarea field-name="{{form.$pageLang.description}}"
+                             fm-model="form.fin06.description"></fm-textarea>
+            </div>
+        </div>
+    </div>
+</div>
+<!--4 凭证列表-->
+<div class="row">
+    <div class="col-xs-12">
+        <table class="table table-bordered table-detail">
+            <thead>
+                <tr>
+                    <th class="checktd" ng-bind="form.$pageLang.DetSN" style="text-align:center;width:4%"></th>
+                    <th ng-bind="form.$pageLang.VoNbr" style="text-align:center;  width:16%"></th> <!--凭证号-->
+                    <th ng-bind="form.$pageLang.BankName" style="text-align:center;  width:25%"></th> <!--银行-->
+                    <th ng-bind="form.$pageLang.CheckNo" style="text-align:center;  width:25%"></th> <!--支票号-->
+                    <th ng-bind="form.$pageLang.IssuedDate" style="text-align:center;  width:15%"></th> <!--出票日期-->
+                    <th ng-bind="form.$pageLang.AuditedBy" style="text-align:center;  width:15%"></th> <!--财务审核人姓名 fm-readonly="!form.IsND15"  fm-disabled ="!form.IsND15"   -->
+                </tr>
+            </thead>
+            <tbody ng-if="form.fincertshow">
+                <tr ng-repeat="item in form.fin06fn" ng-class="{ 'active': item.checked}" detail-name="{{form.$pageLang.Fare}}">
+                    <td>
+                        <input class="uniform"
+                               ng-if="form.IsND15&&(item.isChange==0||item.isChange==null)&&(base.pageState==1 || base.pageState==2) "
+                               type="checkbox" ng-model="item.checked" />
+                    </td>
+                    <td>
+                        <fm-text field-name="{{form.$pageLang.voNbr}}"
+                                 style="width:96%"
+                                 fm-required="form.IsND15"
+                                 fm-normal="form.IsND15"
+                                 fm-model="item.voNbr"></fm-text>
+                    </td>
+                    <td>
+                        <fm-select field-name="{{form.$pageLang.bankName}}"
+                                   fm-model="item.bankName"
+                                   fm-required="form.IsND15"
+                                   fm-normal="form.IsND15"
+                                   dataitem="Finance>PaymentRequest>PaymentBank"
+                                   value-member="value"></fm-select>
+
+                    </td>
+                    <td>
+                        <fm-text class="input-sm"
+                                 field-name="{{form.$pageLang.checkNo}}"
+                                 style="width:96%"
+                                 fm-normal="form.IsND15"
+                                 fm-model="item.checkNo"></fm-text>
+                    </td>
+                    <td>
+                        <fm-datetime field-name="{{form.$pageLang.issuedDate}}"
+                                     date
+                                     fm-normal="form.IsND15"
+                                     style="width:96%"
+                                     fm-model="item.issuedDate"></fm-datetime>
+                    </td>
+                    <td>
+                        <fm-number field-name="{{form.$pageLang.auditedBy}}"
+                                   fm-normal="form.IsND15"
+                                   status="normal"
+                                   class="input-sm"
+                                   fm-model="item.auditedBy"></fm-number>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot ng-show="form.IsND15">
+                <tr>
+                    <td colspan="99" style="text-align: right;">
+                        <input ng-if="form.IsND15||base.pageState==1 || (form.$pageRight.StartNode == 'normal' && base.pageState==2) " type="button" class="btn btn-sm btn-info" ng-click="form.fin06fn.push({})" value="{{ 'Add' |translate}}" />
+                        <input ng-if="form.IsND15||base.pageState==1 || (form.$pageRight.StartNode == 'normal' && base.pageState==2) " type="button" class="btn btn-sm btn-danger" ng-click="form.delete('fin06fn')" value="{{ 'Delete' |translate}}" />
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!-- 请款人-->
+            <span class="col-xs-2 control-label" ng-bind="form.$pageLang.Applicant"></span>
+            <div class="col-xs-4">
+                <fm-text state="readonly" fm-model="base.$approveInfoList['ND01']"></fm-text>
+            </div>
+            <!--备注-->
+            <span class="col-xs-2 control-label" ng-bind="form.$pageLang.ApplicantNote"></span>
+            <div class="col-xs-4">
+                <fm-text field-name="{{form.$pageLang.ApplicantNote}}" fm-normal="form.IsND15"
+                         style="width:96%"
+                         fm-model="form.fin06.applicantNote"></fm-text>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" ng-if="1=0">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!-- 部门主管批准-->
+            <span class="col-xs-2 control-label" ng-bind="form.$pageLang.DepartmentSupervisor"></span>
+            <div class="col-xs-4">
+                <fm-text field-name="{{form.$pageLang.DepartmentSupervisor}}"
+                         readonly
+                         style="width:96%"
+                         state="{{form.$pageRight.StartNode}}"
+                         fm-model="form.fin06.paymentTerm"></fm-text>
+            </div>
+            <span class="col-xs-6 control-label"></span>
+        </div>
+    </div>
+</div>
+<div class="row" ng-if="1=0">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--部门经理批准-->
+            <span class="col-xs-2 control-label" ng-bind="form.$pageLang.DepartmentManager "></span>
+            <div class="col-xs-4">
+                <fm-text field-name="{{form.$pageLang.DepartmentManager }}"
+                         readonly
+                         style="width:96%"
+                         state="{{form.$pageRight.StartNode}}"
+                         fm-model="form.fin06.paymentTerm"></fm-text>
+            </div>
+            <span class="col-xs-6 control-label"></span>
+        </div>
+    </div>
+</div>
+<div class="row" ng-if="1=0">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--  财务核准-->
+            <span class="col-xs-2 control-label" ng-bind="form.$pageLang.FinancialApproval"></span>
+            <div class="col-xs-4">
+                <fm-text field-name="{{form.$pageLang.FinancialApproval}}"
+                         readonly
+                         style="width:96%"
+                         state="{{form.$pageRight.StartNode}}"
+                         fm-model="form.fin06.paymentTerm"></fm-text>
+            </div>
+            <span class="col-xs-6 control-label"></span>
+        </div>
+    </div>
+</div>
+<div class="row" ng-if="1=0">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!-- 财务经理核准-->
+            <span class="col-xs-2 control-label" ng-bind="form.$pageLang.FinancialManager"></span>
+            <div class="col-xs-4">
+                <fm-text field-name="{{form.$pageLang.FinancialManager}}"
+                         readonly
+                         style="width:96%"
+                         state="{{form.$pageRight.StartNode}}"
+                         fm-model="form.fin06.paymentTerm"></fm-text>
+            </div>
+            <span class="col-xs-6 control-label"></span>
+        </div>
+    </div>
+</div>
+<div class="row" ng-if="1=0">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!-- 总经理批准-->
+            <span class="col-xs-2 control-label" ng-bind="form.$pageLang.gmApproval"></span>
+            <div class="col-xs-4">
+                <fm-text field-name="{{form.$pageLang.gmApproval}}"
+                         readonly
+                         style="width:96%"
+                         state="{{form.$pageRight.StartNode}}"
+                         fm-model="form.fin06.paymentTerm"></fm-text>
+            </div>
+            <span class="col-xs-6 control-label"></span>
+        </div>
+    </div>
+</div>

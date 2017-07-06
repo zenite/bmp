@@ -1,0 +1,241 @@
+﻿<!--FIN14.部门预算流程-->
+<fm-form-title sn-number="{{base.snNumber}}" apply-date="{{base.applyDate}}" sub-title='base.title' fm-model="base.areaCode"></fm-form-title>
+<fm-Group-Head title="{{ base.$pageLang.PostByInfo }}"></fm-Group-Head>
+<fm-initiator jobid='base.jobId' userinfo='base.initiator' taskid='base.taskId'></fm-initiator>
+<fm-Group-Head title="{{ form.$pageLang.ApplicantInfo }}"></fm-Group-Head>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--是否调整了年度预算   -->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.InBudget"></span>
+            <div class="col-xs-4">
+                <fm-radiolist fm-model="form.fin14.inBudget"
+                              required 
+                              field-name="{{form.$pageLang.InBudget}}"
+                              value-member="value"
+                              dataitem="Common>YesOrNo">
+                </fm-radiolist>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <table class="table table-bordered table-detail">
+            <thead>
+                <tr>
+                    <th style="width:2%;text-align:center;" ng-show="base.pageState==1" class="checktd" ng-bind="form.$pageLang.DetSN"></th>
+                    <th style="width:11%;" ng-bind="form.$pageLang.CostCenter"></th> <!--成本中心-->
+                    <th style="width:11%;" ng-bind="form.$pageLang.Account"></th> <!--科目-->
+                    <th style="width:9%;" ng-bind="form.$pageLang.Budget"></th>  <!--预算详情-->
+                    <th style="width:5%;" ng-bind="form.$pageLang.Month1 "></th> <!--1月预算-->
+                    <th style="width:5%;" ng-bind="form.$pageLang.Month2"></th> <!--2月预算-->
+                    <th style="width:5%;" ng-bind="form.$pageLang.Month3"></th> <!--3月预算-->
+                    <th style="width:5%;" ng-bind="form.$pageLang.Month4"></th> <!--4月预算-->
+                    <th style="width:5%;" ng-bind="form.$pageLang.Month5"></th> <!--5月预算-->
+                    <th style="width:5%;" ng-bind="form.$pageLang.Month6"></th> <!--6月预算-->
+                    <th style="width:5%;" ng-bind="form.$pageLang.Month7"></th> <!--7月预算-->
+                    <th style="width:5%;" ng-bind="form.$pageLang.Month8"></th> <!--8月预算-->
+                    <th style="width:5%;" ng-bind="form.$pageLang.Month9"></th> <!--9月预算-->
+                    <th style="width:5%;" ng-bind="form.$pageLang.Month10"></th> <!--10月预算-->
+                    <th style="width:5%;" ng-bind="form.$pageLang.Month11"></th> <!--11月预算-->
+                    <th style="width:5%;" ng-bind="form.$pageLang.Month12"></th> <!--12月预算-->
+                    <th style="width:7%;" ng-bind="form.$pageLang.Total"></th> <!--合计-->
+                </tr>
+            </thead>
+            <tbody>
+                <tr   ng-repeat="item in form.fin14d" ng-class="{ 'active': item.checked}" detail-name="{{form.$pageLang.Fare}}">
+                    <td  ng-show="item.gridOrder%4==1&&base.pageState==1"  rowspan="4">  <!--  ng-show="item.gridOrder%4==1"  rowspan="4"-->
+                        <input class="uniform"  
+                               ng-click="form.checkfin14d(item.gridOrder)"   
+                               ng-if="base.pageState==1 || (form.$pageRight.StartNode == 'normal' && base.pageState==2) "
+                               type="checkbox" 
+                               ng-model="item.checked" /> 
+                         <input  type="hidden" fm-model="item.feeId"/>
+                    </td>
+                    <td  ng-show="item.gridOrder%4==1"  rowspan="4">   
+                        <span  ng-bind="item.costCenterCH" fm-model="item.costCenterCH"></span>
+                        <span  ng-bind="item.costCenterEN" fm-model="item.costCenterEN" ng-show="1==0"></span><br />
+                        <span  ng-show="item.costCenter!=null">(</span>
+                        <span ng-bind="item.costCenter" field-name="{{form.$pageLang.costCenter}}"  
+                              required fm-model="item.costCenter"></span>
+                        <span ng-show="item.costCenter!=null">)</span><br />
+                        <fm-data-select-button
+                                        view="GetCostCenterAndAccount"
+                                        ng-if="base.pageState==1"
+                                        class="input-sm"
+                                        callback-func="form.blurCostCenterOrAccount(selectItem,item)" ></fm-data-select-button>
+
+                    </td>
+                    <td  ng-show="item.gridOrder%4==1"  rowspan="4">
+                        <span ng-bind="item.accountCH" fm-model="item.accountCH"></span>
+                        <span ng-bind="item.accountEN" fm-model="item.accountEN" ng-show="1==0"></span><br />
+                        <span ng-show="item.account!=null">(</span>
+                        <span ng-bind="item.account" fm-model="item.account"></span>
+                        <span ng-show="item.account!=null">)</span>
+                    </td>
+                    <td ng-hide="item.monthA==null"> 
+                        <input  type="hidden" fm-model="item.classCode"/>
+                        <fm-text field-name="{{form.$pageLang.className}}"
+                                 readonly
+                                 state="{{form.$pageRight.StartNode}}"
+                                 fm-model="item.className"></fm-text>
+                    </td>
+                    <td ng-hide="item.monthA==null">
+                        <fm-number field-name="{{form.$pageLang.monthA}}"
+                                   cny required
+                                   fm-readonly="item.gridOrder%4!=3" 
+                                   class="input-sm"
+                                   state="{{form.$pageRight.StartNode}}" 
+                                   fm-model="item.monthA" callback-func="form.sum(data)"></fm-number>
+                    </td>
+                    <td ng-hide="item.monthA==null">
+                        <fm-number field-name="{{form.$pageLang.monthB}}"
+                                   cny required
+                                   class="input-sm"
+                                   fm-readonly="item.gridOrder%4!=3" 
+                                   state="{{form.$pageRight.StartNode}}"
+                                   fm-model="item.monthB" callback-func="form.sum(data)"></fm-number>
+                    </td>
+                    <td ng-hide="item.monthA==null">
+                        <fm-number field-name="{{form.$pageLang.monthC}}"
+                                   cny required
+                                   class="input-sm"
+                                   fm-readonly="item.gridOrder%4!=3" 
+                                   state="{{form.$pageRight.StartNode}}"
+                                   fm-model="item.monthC" callback-func="form.sum(data)"></fm-number>
+                    </td>
+                    <td ng-hide="item.monthA==null">
+                        <fm-number field-name="{{form.$pageLang.monthD}}"
+                                   cny required
+                                   class="input-sm"
+                                   fm-readonly="item.gridOrder%4!=3" 
+                                   state="{{form.$pageRight.StartNode}}"
+                                   fm-model="item.monthD" callback-func="form.sum(data)"></fm-number>
+                    </td>
+                    <td ng-hide="item.monthA==null">
+                        <fm-number field-name="{{form.$pageLang.monthE}}"
+                                   cny required
+                                   fm-readonly="item.gridOrder%4!=3" 
+                                   class="input-sm"
+                                   state="{{form.$pageRight.StartNode}}"
+                                   fm-model="item.monthE" callback-func="form.sum(data)"></fm-number>
+                    </td>
+                    <td ng-hide="item.monthA==null">
+                        <fm-number field-name="{{form.$pageLang.monthF}}"
+                                   cny required
+                                   class="input-sm"
+                                   fm-readonly="item.gridOrder%4!=3" 
+                                   state="{{form.$pageRight.StartNode}}"
+                                   fm-model="item.monthF" callback-func="form.sum(data)"></fm-number>
+                    </td>
+                    <td ng-hide="item.monthA==null">
+                        <fm-number field-name="{{form.$pageLang.monthG}}"
+                                   cny required
+                                   class="input-sm"
+                                   fm-readonly="item.gridOrder%4!=3" 
+                                   state="{{form.$pageRight.StartNode}}"
+                                   fm-model="item.monthG" callback-func="form.sum(data)"></fm-number>
+                    </td>
+                    <td ng-hide="item.monthA==null">
+                        <fm-number field-name="{{form.$pageLang.monthH}}"
+                                   cny required
+                                   class="input-sm"
+                                   fm-readonly="item.gridOrder%4!=3" 
+                                   state="{{form.$pageRight.StartNode}}"
+                                   fm-model="item.monthH" callback-func="form.sum(data)"></fm-number>
+                    </td>
+                    <td ng-hide="item.monthA==null">
+                        <fm-number field-name="{{form.$pageLang.monthI}}"
+                                   cny required
+                                   class="input-sm"
+                                   fm-readonly="item.gridOrder%4!=3" 
+                                   state="{{form.$pageRight.StartNode}}"
+                                   fm-model="item.monthI" callback-func="form.sum(data)"></fm-number>
+                    </td>
+                    <td ng-hide="item.monthA==null">
+                        <fm-number field-name="{{form.$pageLang.monthJ}}"
+                                   cny required
+                                   class="input-sm"
+                                   fm-readonly="item.gridOrder%4!=3" 
+                                   state="{{form.$pageRight.StartNode}}"
+                                   fm-model="item.monthJ" callback-func="form.sum(data)"></fm-number>
+                    </td>
+                    <td ng-hide="item.monthA==null">
+                        <fm-number field-name="{{form.$pageLang.monthK}}"
+                                   cny required
+                                   class="input-sm"
+                                   fm-readonly="item.gridOrder%4!=3" 
+                                   state="{{form.$pageRight.StartNode}}"
+                                   fm-model="item.monthK" callback-func="form.sum(data)"></fm-number>
+                    </td>
+                    <td ng-hide="item.monthA==null">
+                        <fm-number field-name="{{form.$pageLang.monthM}}"
+                                   cny required
+                                   class="input-sm"
+                                   fm-readonly="item.gridOrder%4!=3" 
+                                   state="{{form.$pageRight.StartNode}}"
+                                   fm-model="item.monthL" callback-func="form.sum(data)"></fm-number>
+                    </td>
+                    <td ng-hide="item.monthA==null">
+                        <fm-number field-name="{{form.$pageLang.monthSum}}"
+                                   cny required
+                                   class="input-sm"
+                                   readonly
+                                   state="{{form.$pageRight.StartNode}}"
+                                   fm-model="item.monthSum" callback-func="form.sum(data)"></fm-number>
+                    </td> 
+                </tr>  
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td style="text-align: right;" colspan="99">
+                        <!--<fm-import-advance config="form.import"
+                                           ng-if="base.pageState==1 || (form.$pageRight.StartNode == 'normal' && base.pageState==2)"
+                                           form-files="form.$attachments"
+                                           link-id="2"
+                                           task-id='base.taskId'
+                                           callback-func="form.importD(importData)"></fm-import-advance>-->
+                        <fm-import-xls ng-if="base.pageState==1 || (form.$pageRight.StartNode == 'normal' && base.pageState==2) "
+                                       template="/AppPages/Workflow/fin/fin14_4eb6b02f99fb49859f58538e8127319a/Template.xls"
+                                       start-index="0"
+                                       columns="['costCenter','costCenterDesc','account','accountDesc','monthA','monthB','monthC','monthD','monthE','monthF','monthG','monthH','monthI','monthJ','monthK','monthL']"
+                                       callback-func="form.getlength(data)"></fm-import-xls>
+                        <input ng-if="base.pageState==1 || (form.$pageRight.StartNode == 'normal' && base.pageState==2)" type="button" class="btn btn-sm btn-info" ng-click="form.add(null,null)" value="{{ 'Add' |translate}}" />
+                        <input ng-if="base.pageState==1 || (form.$pageRight.StartNode == 'normal' && base.pageState==2)" type="button" class="btn btn-sm btn-danger" ng-click="form.delete()" value="{{form.$pageLang.Delete}}" />
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--调整原因-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.Reason"></span>
+            <div class="col-xs-10">
+                <fm-textarea fm-model="form.fin14.reason" required></fm-textarea>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="print-hide row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <span class="col-xs-2 control-label required">附件</span>
+            <div class="col-xs-4">
+                <fm-attachment form-files="form.$attachments"
+                               link-id="0"
+                               task-id='base.taskId'
+                               node-id="base.nodeId"
+                               draft-id="base.draftId"
+                               required
+                               state="{{form.$pageRight.StartNode}}"
+                               field-name="{{'UploadAttachment' |translate}}"
+                               fm-model="form.$state.UploadAttachment"
+                               button-name="{{ 'UploadAttachment' |translate}}"></fm-attachment>
+            </div>
+        </div>
+    </div>
+</div>

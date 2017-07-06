@@ -1,0 +1,368 @@
+﻿<!--离公司手续表-->
+<fm-form-title sn-number="{{base.snNumber}}" apply-date="{{base.applyDate}}" required sub-title='base.title' fm-model="base.areaCode"></fm-form-title>
+<!--<fm-Group-Head title="{{ base.$pageLang.PostByInfo }}"></fm-Group-Head>-->
+
+<fm-Group-Head title="{{ base.$pageLang.ApplicantInfo }}"></fm-Group-Head>
+<fm-initiator jobid='base.jobId' userinfo='base.initiator' taskid='base.taskId'></fm-initiator>
+
+
+<fm-Group-Head title="{{ form.$pageLang.TerminationInfo }}"></fm-Group-Head>
+<div class="row">
+  <span class="col-xs-2 control-label"></span>
+  <span class="col-xs-6 control-label" style="font-size:17px;margin-bottom:10px;" ng-bind="form.$pageLang.LeaveInfoTitle"></span>
+</div>
+
+<div class="row">
+  <div class="form-group">
+    <div class="col-xs-12">
+      <!--员工手机-->
+      <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.EmployeeTel"></span>
+      <div class="col-xs-4">
+        <fm-text field-name="{{form.$pageLang.EmployeeTel}}"
+                 required=""
+                 fm-model="form.hr06.employeeTel"
+                 pattern="^1[3|4|5|7|8]\d{9}$"
+                 max-length="50"></fm-text>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--离职/调离时间-->
+<div class="row">
+    <div class="form-group">
+       <div class="col-xs-12">
+        <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.TerminationDateTime"> </span>
+        <div class="col-xs-4">
+            <fm-datetime field-name="{{form.$pageLang.TerminationDateTime}}"
+                         required=""
+                         date
+                         fm-placeholder="{{form.$pageLang.Placeholder}}"
+                         fm-model="form.hr06.terminationDateTime"></fm-datetime>
+        </div>
+       </div>
+    </div>
+</div>
+<div class="row">
+  <div class="form-group">
+    <div class="col-xs-12">
+      <!--类型 离职/调离-->
+      <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.Type"></span>
+      <div class="col-xs-4">
+        <fm-radiolist fm-model="form.hr06.type"
+                      field-name="{{form.$pageLang.Type}}"
+                      fm-code="form.$state.Type"
+                      required                      
+                      dataitem="HRRelated>LeaveCompanyType"
+                      callback-func="form.changeType()"></fm-radiolist>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <table class="table table-bordered table-detail">
+                <thead>
+                    <tr>
+                        <th style="text-align:center" ng-bind="form.$pageLang.Content"></th>
+                        <th style="text-align:center;" ng-bind="form.$pageLang.ResponsibleDept"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                  
+                    <!--直接经理 确认离职/调离时间及类型-->
+                    <tr   ng-if="((form.$pageRight.ShowAll =='normal')||(form.$state.IsStepThree=='0') ||(form.$state.IsStepThree=='1' && form.$pageRight.ShowAll !='normal'&& form.$nodeCode == 'ND03'))">
+                        <td>
+                            <span class="control-label align-left" ng-bind="form.$pageLang.TerminationStart"></span>
+                        </td>
+                        <td>
+                            <span class="control-label align-left" fm-model="form.hr06.directManager" ng-bind="form.$pageLang.DirectManager"></span>
+                        </td>
+                    </tr>    
+
+                    <!--HR确认-->
+                    <tr   ng-if="((form.$pageRight.ShowAll =='normal')||(form.$state.IsStepThree=='0') ||(form.$state.IsStepThree=='1' && form.$pageRight.ShowAll !='normal'&& form.$nodeCode == 'ND03'))">
+                        <td>
+                            <span class="control-label align-left" ng-bind="form.$pageLang.hrSure"></span>
+                        </td>
+                        <td>
+                            <span class="control-label align-left" fm-model="form.hr06.hrAgent" ng-bind="form.$pageLang.HrDept"></span>
+                        </td>
+                    </tr>    
+                    
+                                      
+                             
+                    <!--直接经理 工作移交&技术资料归还(包括各种箱柜钥匙)-->
+                    <!--{{form.$pageRight.ShowAll =='normal'}} {{form.$state.IsStepThree}} {{form.$nodeCode== 'ND03'}}-->                    
+                    <tr ng-if="((form.$pageRight.ShowAll =='normal')||(form.$state.IsStepThree=='0') ||(form.$state.IsStepThree=='1' && form.$pageRight.ShowAll !='normal'&& form.$nodeCode == 'ND16'))">
+                        <td>
+                            <span class="control-label align-left"  ng-bind="form.$pageLang.JobTransfer"></span>
+                        </td>
+                        <td>
+                            <span class="control-label align-left" fm-model="form.hr06.jobTransfer" ng-bind="form.$pageLang.DirectManager"></span>
+                        </td>
+                    </tr>         
+                    
+                    <!--员工离职 Step3-->                   
+                    <!--科技公司仪器管理 ※ 实验室电子仪器归还（TC员工适用）-->
+                    <tr  ng-if="((form.$state.Type == '1'|| form.$state.Type =='') && (form.$state.IsTcStaff=='1')) && ((form.$pageRight.ShowAll =='normal')||(form.$state.IsStepThree=='0') ||(form.$state.IsStepThree=='1' && form.$pageRight.ShowAll !='normal'&& form.$nodeCode == 'ND03'))">
+                        <td>
+                            <span class="control-label align-left" ng-bind="form.$pageLang.ReturnInstrumnet"></span>
+                        </td>
+                        <td>
+                            <span class="control-label align-left" fm-model="form.hr06.returnInstrumnet" ng-bind="form.$pageLang.InstrumentManagement"></span>
+                        </td>
+                    </tr>
+                  
+                    <!--行政 ※ 归还办公用品-->
+                    <tr  ng-if="(form.$state.Type == '1'|| form.$state.Type =='') && ((form.$pageRight.ShowAll =='normal') ||(form.$state.IsStepThree=='0') ||(form.$state.IsStepThree=='1' && form.$pageRight.ShowAll !='normal'&& form.$nodeCode == 'ND05'))" >
+                        <td>
+                            <span class="control-label align-left" ng-bind="form.$pageLang.ReturnOfficeArticle"></span>
+                        </td>
+                        <td>
+                            <span class="control-label align-left" fm-model="form.hr06.returnOfficeArticle" ng-bind="form.$pageLang.Administration"></span>
+                        </td>
+                    </tr>
+
+                    <!--人力资源部 ※ 归还工作证/座位名牌/员工手册-->
+                    <tr ng-if="(form.$state.Type == '1'|| form.$state.Type =='') && ((form.$pageRight.ShowAll =='normal') ||(form.$state.IsStepThree=='0') ||(form.$state.IsStepThree=='1' && form.$pageRight.ShowAll !='normal'&& form.$nodeCode == 'ND06'))">
+                        <td>
+                            <span class="control-label align-left" ng-bind="form.$pageLang.ReturnPositonCardEtc"></span>
+                        </td>
+                        <td>
+                            <span class="control-label align-left" fm-model="form.hr06.returnPositonCardEtc" ng-bind="form.$pageLang.HrDept"></span>
+                        </td>
+                    </tr>
+                    <!--人力资源部 ※ 归还停车证/停车位-->
+                    <tr ng-if="(form.$state.Type == '1' || form.$state.Type =='') && ((form.$pageRight.ShowAll =='normal') ||(form.$state.IsStepThree=='0') ||(form.$state.IsStepThree=='1' && form.$pageRight.ShowAll !='normal'&& form.$nodeCode == 'ND07'))">
+                        <td>
+                            <span class="control-label align-left" ng-bind="form.$pageLang.ReturnParkingPermit"></span>
+                        </td>
+                        <td>
+                            <span class="control-label align-left" fm-model="form.hr06.returnParkingPermit" ng-bind="form.$pageLang.HrDept"></span>
+                        </td>
+                    </tr>
+                    <!--人力资源部 ※ 购车免息借款返还/购房免息借款返还-->
+                    <tr ng-if="(form.$state.Type == '1'|| form.$state.Type =='') && ((form.$pageRight.ShowAll =='normal') ||(form.$state.IsStepThree=='0') ||(form.$state.IsStepThree=='1' && form.$pageRight.ShowAll !='normal'&& form.$nodeCode == 'ND08'))">
+                        <td>
+                            <span class="control-label align-left" ng-bind="form.$pageLang.RepayInterestFreeHouseCarLoan"></span>
+                        </td>
+                        <td>
+                            <span class="control-label align-left" fm-model="form.hr06.repayInterestFreeCarLoan" ng-bind="form.$pageLang.HrDept"></span>
+                        </td>
+                    </tr>
+                    <!--人力资源部 ※ 话费报销取消-->
+                    <tr ng-if="(form.$state.Type == '1'|| form.$state.Type =='') && ((form.$pageRight.ShowAll =='normal') ||(form.$state.IsStepThree=='0') ||(form.$state.IsStepThree=='1' && form.$pageRight.ShowAll !='normal'&& form.$nodeCode == 'ND09'))">
+
+                        <td>
+                            <span class="control-label align-left" ng-bind="form.$pageLang.CancelPhoneAllowance"></span>
+                        </td>
+                        <td>
+                            <span class="control-label align-left" fm-model="form.hr06.cancelPhoneAllowance" ng-bind="form.$pageLang.HrDept"></span>
+                        </td>
+                    </tr>
+                    <!--人力资源部 ※ 培训费结算/教学影像材料、图书书籍-->
+                    <tr ng-if="(form.$state.Type == '1'|| form.$state.Type =='') && ((form.$pageRight.ShowAll =='normal') ||(form.$state.IsStepThree=='0') ||(form.$state.IsStepThree=='1' && form.$pageRight.ShowAll !='normal'&& form.$nodeCode == 'ND10'))">
+                        <td>
+                            <span class="control-label align-left" ng-bind="form.$pageLang.ReturnTrainingFee"></span>
+                        </td>
+                        <td>
+                            <span class="control-label align-left" fm-model="form.hr06.returnTrainingFee" ng-bind="form.$pageLang.HrDept"></span>
+                        </td>
+                    </tr>
+                    <!--党务工作部 解除工会关系/组织关系转出-->
+                    <tr ng-if="(form.$state.Type == '1'|| form.$state.Type =='') && ((form.$pageRight.ShowAll =='normal') ||(form.$state.IsStepThree=='0') ||(form.$state.IsStepThree=='1' && form.$pageRight.ShowAll !='normal'&& form.$nodeCode == 'ND11'))">
+                        <td>
+                            <span class="control-label align-left" ng-bind="form.$pageLang.TerminatePartyRelation"></span>
+                        </td>
+                        <td>
+                            <span class="control-label align-left" fm-model="form.hr06.terminatePartyRelation" ng-bind="form.$pageLang.PartyAffairs"></span>
+                        </td>
+                    </tr>
+                    <!--财务部 财务结算-->
+                    <tr ng-if="(form.$state.Type == '1'|| form.$state.Type =='') && ((form.$pageRight.ShowAll =='normal') ||(form.$state.IsStepThree=='0') ||(form.$state.IsStepThree=='1' && form.$pageRight.ShowAll !='normal'&& form.$nodeCode == 'ND12'))">
+                        <td>
+                            <span class="control-label align-left" ng-bind="form.$pageLang.FinanceSettlement"></span>
+                        </td>
+                        <td>
+                            <span class="control-label align-left" fm-model="form.hr06.financeSettlement" ng-bind="form.$pageLang.FinanceDept"></span>
+                        </td>
+                    </tr>
+                    <!--人力资源部 人事档案-->
+                    <tr ng-if="(form.$state.Type == '1'|| form.$state.Type =='') && ((form.$pageRight.ShowAll =='normal') ||(form.$state.IsStepThree=='0') ||(form.$state.IsStepThree=='1' && form.$pageRight.ShowAll !='normal'&& form.$nodeCode == 'ND04'))">
+                        <td>
+                            <span class="control-label align-left" ng-bind="form.$pageLang.PersonnelFile"></span>
+                        </td>
+                        <td>
+                            <span class="control-label align-left" fm-model="form.hr06.personnelFile" ng-bind="form.$pageLang.HrDept" ></span>
+                        </td>
+                    </tr>
+                    <!--人力资源部 离职面谈-->
+                    <tr ng-if="(form.$state.Type == '1'|| form.$state.Type =='') && ((form.$pageRight.ShowAll =='normal') ||(form.$state.IsStepThree=='0') ||(form.$state.IsStepThree=='1' && form.$pageRight.ShowAll !='normal'&& form.$nodeCode == 'ND13'))">
+                        <td>
+                            <span class="control-label align-left" ng-bind="form.$pageLang.ResignInterview"></span>
+                        </td>
+                        <td>
+                            <span class="control-label align-left" fm-model="form.hr06.resignInterview" ng-bind="form.$pageLang.HrDept"></span>
+                        </td>
+                    </tr>
+                    <!--信息系统科 ※ 归还电脑/U盘/取消CDSID帐号/注销电话/取消QAD帐号/注销Workflow账号/注销网上信息-->
+                    <tr ng-if="(form.$state.Type == '1' || form.$state.Type == '') && ((form.$pageRight.ShowAll =='normal') ||(form.$state.IsStepThree=='0') ||(form.$state.IsStepThree=='1' && form.$pageRight.ShowAll !='normal'&& form.$nodeCode == 'ND14')) ">
+                    <td>
+                      <span class="control-label align-left" ng-bind="form.$pageLang.ReturnPcEtc"></span>
+                    </td>
+                    <td>
+                      <span class="control-label align-left" fm-model="form.hr06.returnPcEtc" ng-bind="form.$pageLang.SystemSection"></span>
+                    </td>
+                  </tr>
+                    <!--人力资源部 结算工资&休假-->
+                    <tr ng-if="(form.$state.Type == '1' || form.$state.Type == '') && ((form.$pageRight.ShowAll =='normal') ||(form.$state.IsStepThree=='0') ||(form.$state.IsStepThree=='1' && form.$pageRight.ShowAll !='normal'&& form.$nodeCode == 'ND15')) ">
+                    <td>
+                      <span class="control-label align-left" ng-bind="form.$pageLang.SalaryBalance"></span>
+                    </td>
+                    <td>
+                      <span class="control-label align-left" fm-model="form.hr06.salaryBalance" ng-bind="form.$pageLang.HrDept"></span>
+                    </td>
+                  </tr>
+
+
+                    <!--员工调离-->
+
+                    <!--科技公司仪器管理 ※ 实验室电子仪器归还（TC员工适用）-->
+                    <tr ng-if="(form.$state.Type == '2'  && form.$state.IsTcStaff=='1') && ((form.$pageRight.ShowAll =='normal') ||(form.$state.IsStepThree=='0') ||(form.$state.IsStepThree=='1' && form.$pageRight.ShowAll !='normal'&& form.$nodeCode == 'ND03'))">
+                      <td>
+                        <span class="control-label align-left" ng-bind="form.$pageLang.ReturnInstrumnet"></span>
+                      </td>
+                      <td>
+                        <span class="control-label align-left" fm-model="form.hr06.returnInstrumnet" ng-bind="form.$pageLang.InstrumentManagement"></span>
+                      </td>
+                    </tr>
+                    <!--行政 ※ 归还办公用品-->
+                    <tr ng-if="(form.$state.Type == '2') && ((form.$pageRight.ShowAll =='normal') ||(form.$state.IsStepThree=='0') ||(form.$state.IsStepThree=='1' && form.$pageRight.ShowAll !='normal'&& form.$nodeCode == 'ND05')) ">
+                      <td>
+                        <span class="control-label align-left" ng-bind="form.$pageLang.ReturnOfficeArticle"></span>
+                      </td>
+                      <td>
+                        <span class="control-label align-left" fm-model="form.hr06.returnOfficeArticle" ng-bind="form.$pageLang.Administration"></span>
+                      </td>
+                    </tr>
+                   
+                    <!--人力资源部 ※ 归还工作证/座位名牌/员工手册-->
+                    <tr ng-if="(form.$state.Type == '2') && ((form.$pageRight.ShowAll =='normal') ||(form.$state.IsStepThree=='0') ||(form.$state.IsStepThree=='1' && form.$pageRight.ShowAll !='normal'&& form.$nodeCode == 'ND06'))">
+                      <td>
+                        <span class="control-label align-left" ng-bind="form.$pageLang.ReturnPositonCardEtc"></span>
+                      </td>
+                      <td>
+                        <span class="control-label align-left" fm-model="form.hr06.returnPositonCardEtc" ng-bind="form.$pageLang.HrDept"></span>
+                      </td>
+                    </tr>
+                    <!--人力资源部 ※ 归还停车证/停车位-->
+                    <tr ng-if="(form.$state.Type == '2') && ((form.$pageRight.ShowAll =='normal') ||(form.$state.IsStepThree=='0') ||(form.$state.IsStepThree=='1' && form.$pageRight.ShowAll !='normal'&& form.$nodeCode == 'ND07'))">
+                      <td>
+                        <span class="control-label align-left" ng-bind="form.$pageLang.ReturnParkingPermit"></span>
+                      </td>
+                      <td>
+                        <span class="control-label align-left" fm-model="form.hr06.returnParkingPermit" ng-bind="form.$pageLang.HrDept"></span>
+                      </td>
+                    </tr>
+                    <!--人力资源部 ※ 购车免息借款返还/购房免息借款返还-->
+                    <tr ng-if="(form.$state.Type == '2') && ((form.$pageRight.ShowAll =='normal') ||(form.$state.IsStepThree=='0') ||(form.$state.IsStepThree=='1' && form.$pageRight.ShowAll !='normal'&& form.$nodeCode == 'ND08'))">
+                      <td>
+                        <span class="control-label align-left" ng-bind="form.$pageLang.RepayInterestFreeHouseCarLoan"></span>
+                      </td>
+                      <td>
+                        <span class="control-label align-left" fm-model="form.hr06.repayInterestFreeCarLoan" ng-bind="form.$pageLang.HrDept"></span>
+                      </td>
+                    </tr>
+                    <!--人力资源部 ※ 话费报销取消-->
+                    <tr ng-if="(form.$state.Type == '2') && ((form.$pageRight.ShowAll =='normal') ||(form.$state.IsStepThree=='0') ||(form.$state.IsStepThree=='1' && form.$pageRight.ShowAll !='normal'&& form.$nodeCode == 'ND09'))">
+
+                      <td>
+                        <span class="control-label align-left" ng-bind="form.$pageLang.CancelPhoneAllowance"></span>
+                      </td>
+                      <td>
+                        <span class="control-label align-left" fm-model="form.hr06.cancelPhoneAllowance" ng-bind="form.$pageLang.HrDept"></span>
+                      </td>
+                    </tr>
+                    <!--人力资源部 ※ 培训费结算/教学影像材料、图书书籍-->
+                    <tr ng-if="(form.$state.Type == '2') && ((form.$pageRight.ShowAll =='normal') ||(form.$state.IsStepThree=='0') ||(form.$state.IsStepThree=='1' && form.$pageRight.ShowAll !='normal'&& form.$nodeCode == 'ND10'))">
+                      <td>
+                        <span class="control-label align-left" ng-bind="form.$pageLang.ReturnTrainingFee"></span>
+                      </td>
+                      <td>
+                        <span class="control-label align-left" fm-model="form.hr06.returnTrainingFee" ng-bind="form.$pageLang.HrDept"></span>
+                      </td>
+                    </tr>
+                    <!--信息系统科 ※ 归还电脑/U盘/取消CDSID帐号/注销电话/取消QAD帐号/注销Workflow账号/注销网上信息-->
+                    <tr ng-if="(form.$state.Type == '2') && ((form.$pageRight.ShowAll =='normal') ||(form.$state.IsStepThree=='0') ||(form.$state.IsStepThree=='1' && form.$pageRight.ShowAll !='normal'&& form.$nodeCode == 'ND14'))">
+                      <td>
+                        <span class="control-label align-left" ng-bind="form.$pageLang.ReturnPcEtc"></span>
+                      </td>
+                      <td>
+                        <span class="control-label align-left" fm-model="form.hr06.returnPcEtc" ng-bind="form.$pageLang.SystemSection"></span>
+                      </td>
+                    </tr>
+                  
+
+
+                    <!--人力资源部  Step4-->
+                    <tr  ng-if="((form.$pageRight.ShowAll =='normal')||(form.$state.IsStepThree=='0') ||(form.$state.IsStepThree=='1' && form.$pageRight.ShowAll !='normal'&& form.$nodeCode == 'ND03'))">
+                        <td>
+                          <!--HR专员-->
+                          <fm-select field-name="{{form.$pageLang.DemissionLetterType}}"
+                                     required
+                                     dataitem="HRRelated>DemissionLetterType"
+                                     fm-model="form.hr06.demissionLetterType"
+                                     fm-disabled="form.$pageRight.HrCommissioner !='normal' "
+                                     fm-normal="form.$pageRight.HrCommissioner=='normal'">
+                          </fm-select>
+                        </td>
+                        <td>
+                            <span class="control-label align-left" fm-model="form.hr06.demissionLetterType" ng-bind="form.$pageLang.HrDept">人力资源部</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<br />
+
+
+<span class="control-label" ng-bind="form.$pageLang.FinishHandover"></span>
+<div class="row">
+    <div class="col-xs-12">
+        <!--签名-->
+        <div class="col-xs-6"></div>
+        <span class="col-xs-1 control-label" ng-bind="form.$pageLang.Gragh"></span>
+        <div class="col-xs-2">
+            <span readonly items="form.$state.account"></span>
+        </div>
+        <span class="col-xs-1 control-label" ng-bind="form.$pageLang.Date"></span>
+        <div class="col-xs-2">
+            <!--日期-->
+            <span readonly></span>
+        </div>
+    </div>
+</div>
+<hr />
+<!--附件-->
+<fm-Group-Head class="print-hide" title="{{ 'Attachment' |translate}}"></fm-Group-Head>
+<div class="print-hide row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <fm-attachment form-files="form.$attachments"
+                fm-disabled="form.$pageRight.StartNode !='normal' && form.$pageRight.RepayInterestFreeHouseCarLoanNode !='normal' "
+                fm-normal="form.$pageRight.RepayInterestFreeHouseCarLoanNode=='normal'"
+                field-name="{{'UploadAttachment' |translate}}"
+                fm-model="form.$state.UploadAttachment"
+                link-id="0"
+                draft-id="base.draftId"
+                task-id='base.taskId'
+                node-id="base.nodeId"
+                button-name="{{ 'UploadAttachment' |translate}}"></fm-attachment>
+        </div>
+    </div>
+</div>
+

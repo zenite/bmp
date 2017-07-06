@@ -1,0 +1,1085 @@
+﻿<!--工程更改请求单-->
+<fm-form-title sn-number="{{base.snNumber}}" apply-date="{{base.applyDate}}" sub-title='base.title' fm-model="base.areaCode"></fm-form-title>
+<!--申请人信息-->
+<fm-Group-Head class="print-hide" title="Initiator Information"></fm-Group-Head>
+
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--申请人名字-->
+            <span class="col-xs-2 control-label">Initiator Name</span>
+            <div class="col-xs-4">
+                <div class="input-group" style="width: 100%;">
+                    <span class="form-label">{{base.applicant.userName}}</span>
+                    <!--<span class="input-group-btn" ng-if="!taskid">
+                        <button class="btn btn-default" type="button" ng-click="base.$selectApplicant()">{{ "Choose" | translate }}</button>
+                    </span>-->
+                </div>
+            </div>
+            <!--申请人员工号-->
+            <span class="col-xs-2 control-label">Initiator Work No.</span>
+            <div class="col-xs-4"><span class="form-label">{{base.applicant.employeeNumber}}</span></div>
+        </div>
+    </div>
+    <div class="form-group">
+        <!--申请人部门线-->
+        <div class="col-xs-12">
+            <span class="col-xs-2 control-label">Initiator Org</span>
+            <div class="col-xs-10"><span class="form-label">{{base.applicant.departmentName}}</span></div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--申请人电话-->
+            <span class="col-xs-2 control-label">Initiator Mobile</span>
+            <div class="col-xs-4"><span class="form-label">{{base.applicant.contactNumber}}</span></div>
+            <!--申请人手机-->
+            <span class="col-xs-2 control-label">Initiator Phone</span>
+            <div class="col-xs-4"><span class="form-label">{{base.applicant.mobileNumber}}</span></div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--申请人邮箱-->
+            <span class="col-xs-2 control-label">Email</span>
+            <div class="col-xs-4"><span class="form-label">{{base.applicant.emailAddress}}</span></div>
+            <!--申请人直属领导-->
+            <span class="col-xs-2 control-label">Direct Supervisor</span>
+            <div class="col-xs-4"><span class="form-label">{{base.applicant.directManagerName}}</span></div>
+        </div>
+    </div>
+</div>
+
+<fm-Group-Head title="{{ form.$pageLang.ChangeRequestInformation}}"></fm-Group-Head>
+<!--改变通知消息-->
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--状态-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.EcrStatus"></span>
+            <div class="col-xs-8">
+                <fm-select dataitem="Others>ECR>EcrStatus"
+                           readonly fm-model="form.otr02.ecrStatus"></fm-select>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <table class="table table-bordered table-detail">
+            <thead>
+                <tr>
+                    <th class="checked" style="width: 30px;">
+                        <input type="checkbox" class="uniform" ng-checked="form.otr02pjAllChecked" ng-model="form.otr02pjAllChecked" ng-click="form.$checkAll(form.otr02pjAllChecked,form.otr02pj)" />
+                    </th>
+                    <th class="required">Project Name</th> <!--Project Name-->
+                    <th class="required">Assumed Implement Date</th> <!--Assumed Implement Date-->
+                    <th class="required">Project Manager</th> <!--Project Manager-->
+                    <th >Project Remark</th> <!--Project Remark-->
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in form.otr02pj" ng-class="{ 'active': item.checked}" detail-name="Projects">
+                    <td class="checked">
+                        <input class="uniform"
+                               ng-if="base.pageState==1"
+                               type="checkbox" ng-model="item.checked" />
+                    </td>
+                    <td>
+                        <fm-data-select field-name="Project Name"
+                                        required
+                                        view="GetAllProjNameAndManager"
+                                        class="input-sm"
+                                        readonly
+                                        fm-model="item.projectName"></fm-data-select>
+                        <!--callback-func="form.selectProjectName(selectItem, item)"-->
+                    </td>
+                    <td>
+                        <fm-datetime field-name="Assumed Implement Date"
+                                     required
+                                     date
+                                     class="input-sm"
+                                     fm-model="item.assumedImplementDate"></fm-datetime>
+                    </td>
+                    <td>
+                        <fm-data-select field-name="Project Manager"
+                                        required
+                                        view="Sys_GetUserNamesByJobId"
+                                        class="input-sm"
+                                        fm-model="item.projectManager"></fm-data-select>
+                    </td>
+                    <td>
+                        <fm-text field-name="Project Remark"
+                                 class="input-sm"
+                                 fm-model="item.projectRemark"></fm-text>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="99" style="text-align: right;" ng-if="base.pageState==1">
+                        <fm-data-select class="fm-text-hide"
+                                        fm-model="form.projects"
+                                        view="GetAllProjNameAndManager"
+                                        ismulti
+                                        callback-func="form.chooseProj(selectItem)"
+                                        btntext="Select Project"></fm-data-select>
+                        <!--<input type="button" class="btn btn-sm btn-info" ng-click="form.otr02pj.push({})" value="{{ 'Add' |translate}}" />-->
+                        <input type="button" class="btn btn-sm btn-danger" ng-click="form.deleteOtr02pj()" value="Delete" />
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--Change Type-->
+            <span class="col-xs-2 control-label required">Change Type</span>
+            <div class="col-xs-10">
+                <fm-checklist dataitem="Others>ECR>EcrChangeTypeEn"
+                              fm-code="form.$state.changeTypeCode"
+                              fm-model="form.otr02.changeType"
+                              callback-func="form.refreshChangeType(selectItem,fmModel,fmCode)"
+                              required field-name="Change Type"></fm-checklist>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--SCR Risk Level-->
+            <span class="col-xs-2 control-label" ng-class="{'required':(form.$state.changeTypeCode || '').split(',').indexOf('4') >= 0 }">Scr Risk Level</span>
+            <div class="col-xs-4">
+                <fm-select dataitem="Others>ECR>ScrRiskLevel"
+                           fm-required="(form.$state.changeTypeCode || '').split(',').indexOf('4') >= 0"
+                           fm-model="form.otr02.scrRiskLevel"
+                           fm-code="form.$state.scrRiskLevelCode"
+                           callback-func="form.refreshPdtl(selectItem, fmModel, fmCode)"
+                           field-name="Scr Risk Level"></fm-select>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--Notify Customer--> <!--相关工程师节点 QE填写-->
+            <span class="col-xs-2 control-label required">Notify Customer</span>
+            <div class="col-xs-4">
+                <fm-select dataitem="Common>YesOrNo"
+                           required
+                           fm-normal="form.$state.approvalType == 'Quality'"
+                           fm-disabled="!(form.$state.approvalType == 'Quality')"
+                           field-name="Notify Customer"
+                           fm-model="form.otr02.isNotifyCustomer"></fm-select>
+            </div>
+        </div>
+    </div>
+</div>
+<fm-Group-Head title="Change Reason"></fm-Group-Head>
+<!--变更理由-->
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <fm-textarea fm-model="form.otr02.changeReason" fm-placeholder="Change Reason"></fm-textarea>
+        </div>
+    </div>
+</div>
+<fm-Group-Head title="Content of change"></fm-Group-Head>
+<!--Content of change-->
+<div class="row">
+    <div class="col-xs-12">
+        <div class="fm-detailinfo" ng-class="{'active':i.checked}" ng-repeat="item in form.otr02cc" detail-name="Content of change">
+            <div class="row">
+                <div class="form-group">
+                    <span class="col-xs-2 control-label ">
+                        <input class="uniform"
+                               ng-if="base.pageState==1"
+                               type="checkbox" ng-model="item.checked" />
+                        Change({{($index+1)}})
+                    </span>
+                    <div class="col-xs-4" ng-if="base.pageState==1">
+                        <input type="button" class="btn btn-sm btn-danger" value="Delete" ng-click="form.deleteOtr02cc()" />
+                        <input type="button" class="btn btn-sm btn-info" value="Add Another Content of Change" ng-click="form.addOtr02cc()" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group">
+                    <div class="col-xs-12">
+                        <!--Finish Goods PN-->
+                        <span class="col-xs-2 control-label required">Finish Goods PN</span>
+                        <div class="col-xs-4">
+                            <fm-select dataitem="Others>ECR>ChangeOrNotChange"
+                                       required
+                                       field-name="Finish Goods PN"
+                                       fm-model="item.finishGoodsPN"></fm-select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group">
+                    <div class="col-xs-12">
+                        <!--Current Customer PN-->
+                        <span class="col-xs-2 control-label ">Current Customer PN</span>
+                        <div class="col-xs-4">
+                            <fm-text fm-model="item.currentCustomerPN"></fm-text>
+                        </div>
+                        <!--Current Visteon PN-->
+                        <span class="col-xs-2 control-label ">Current Visteon PN</span>
+                        <div class="col-xs-4">
+                            <fm-text fm-model="item.currentVisteonPN"></fm-text>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group">
+                    <div class="col-xs-12">
+                        <!--New Customer PN-->
+                        <span class="col-xs-2 control-label">New Customer PN</span>
+                        <div class="col-xs-4">
+                            <fm-text fm-model="item.newCustomerPN"></fm-text>
+                        </div>
+                        <!--New Visteon PN-->
+                        <span class="col-xs-2 control-label ">New Visteon PN</span>
+                        <div class="col-xs-4">
+                            <fm-text fm-model="item.newVisteonPN"></fm-text>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group">
+                    <div class="col-xs-12">
+                        <!--Comments-->
+                        <span class="col-xs-2 control-label">Comments</span>
+                        <div class="col-xs-10">
+                            <fm-text fm-model="item.comments"></fm-text>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="fm-detailinfo" ng-class="{'active':other.checked}" ng-repeat="other in form.otr02occ | filter: {refId:item.refId}" detail-name="Other Content of Change">
+                        <div class="row header">
+                            <div class="col-xs-12">
+                                <input class="uniform"
+                                       ng-if="base.pageState==1 "
+                                       type="checkbox" ng-model="other.checked" />
+                                <strong class="input-sm">Other Content of Change{{$index + 1}}</strong>
+                            </div>
+                        </div>
+                        <div class="content">
+                            <div class="row">
+                                <div class="col-xs-4 cell">
+                                    <!--OperateType-->
+                                    <span class="col-xs-4 control-label required">Operate Type</span>
+                                    <div class="col-xs-8">
+                                        <fm-select dataitem="Others>ECR>OperateType"
+                                                   fm-code="other.operateTypeCode"
+                                                   field-name="Operate Type"
+                                                   class="input-sm"
+                                                   required
+                                                   fm-model="other.operateType"></fm-select>
+                                    </div>
+                                </div>
+                                <div class="col-xs-4 cell">
+                                    <!--Symbol-->
+                                    <span class="col-xs-4 control-label">Symbol</span>
+                                    <div class="col-xs-8">
+                                        <fm-text field-name="Symbol"
+                                                 fm-normal="form.$state.approvalType == 'PDTL' || form.$state.approvalType == 'ME'"
+                                                 fm-disabled="!(form.$state.approvalType == 'PDTL' || form.$state.approvalType == 'ME')"
+                                                 class="input-sm"
+                                                 fm-model="other.symbol"></fm-text>
+                                    </div>
+                                </div>
+                                <div class="col-xs-4 cell">
+                                    <!--Tooling Cost -->
+                                    <span class="col-xs-4 control-label">Tooling Cost</span>
+                                    <div class="col-xs-8">
+                                        <fm-text field-name="Tooling Cost"
+                                                 fm-disabled="!(other.operateTypeCode != 'Delete' && form.$state.approvalType == 'Buyer')"
+                                                 fm-normal=" other.operateTypeCode != 'Delete' && form.$state.approvalType == 'Buyer'"
+                                                 class="input-sm"
+                                                 fm-model="other.toolingCost"></fm-text>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-4 cell">
+                                    <!--Old PN-->
+                                    <span class="col-xs-4 control-label">Old PN</span>
+                                    <div class="col-xs-8">
+                                        <fm-text field-name="Old PN"
+                                                 fm-normal="base.pageState==1 && !(other.operateTypeCode == 'Add')"
+                                                 fm-disabled="base.pageState==1 && other.operateTypeCode == 'Add'"
+                                                 class="input-sm"
+                                                 fm-model="other.oldPN"></fm-text>
+                                    </div>
+                                </div>
+                                <div class="col-xs-4 cell">
+                                    <!--Old Usage-->
+                                    <span class="col-xs-4 control-label">Old Usage</span>
+                                    <div class="col-xs-8">
+                                        <fm-number field-name="Old Usage"
+                                                   fm-normal="base.pageState==1 && !(other.operateTypeCode == 'Add')"
+                                                   fm-disabled="base.pageState==1 && other.operateTypeCode == 'Add'"
+                                                   class="input-sm"
+                                                   callback-func="form.sum()"
+                                                   fm-model="other.oldUsage"></fm-number>
+                                    </div>
+                                </div>
+                                <div class="col-xs-4 cell">
+                                    <!--Old Price-->
+                                    <span class="col-xs-4 control-label">Old Price</span>
+                                    <div class="col-xs-8">
+                                        <fm-number field-name="Old Price"
+                                                   fm-disabled="!(other.operateTypeCode != 'Add' && form.$state.approvalType == 'Buyer')"
+                                                   fm-normal="other.operateTypeCode != 'Add' && form.$state.approvalType == 'Buyer'"
+                                                   class="input-sm"
+                                                   callback-func="form.sum()"
+                                                   fm-model="other.oldPrice"></fm-number>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-4 cell">
+                                    <!--New PN-->
+                                    <span class="col-xs-4 control-label">New PN</span>
+                                    <div class="col-xs-8">
+                                        <fm-text field-name="New PN"
+                                                 fm-normal="base.pageState==1 && !(other.operateTypeCode == 'Delete')"
+                                                 fm-disabled="base.pageState==1 && other.operateTypeCode == 'Delete'"
+                                                 class="input-sm"
+                                                 fm-model="other.newPN"></fm-text>
+                                    </div>
+                                </div>
+                                <div class="col-xs-4 cell">
+                                    <!--New Usage-->
+                                    <span class="col-xs-4 control-label">New Usage</span>
+                                    <div class="col-xs-8">
+                                        <fm-number field-name="New Usage"
+                                                   fm-normal="base.pageState==1 && !(other.operateTypeCode == 'Delete')"
+                                                   fm-disabled="other.operateTypeCode == 'Delete'"
+                                                   class="input-sm"
+                                                   callback-func="form.sum()"
+                                                   fm-model="other.newUsage"></fm-number>
+                                    </div>
+                                </div>
+                                <div class="col-xs-4 cell">
+                                    <!--New Price-->
+                                    <span class="col-xs-4 control-label">New Price</span>
+                                    <div class="col-xs-8">
+                                        <fm-number field-name="New Price"
+                                                   fm-disabled="!(other.operateTypeCode != 'Delete' && form.$state.approvalType == 'Buyer')"
+                                                   fm-normal="other.operateTypeCode != 'Delete' && form.$state.approvalType == 'Buyer'"
+                                                   class="input-sm"
+                                                   callback-func="form.sum()"
+                                                   fm-model="other.newPrice"></fm-number>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-4 cell">
+                                    <!--Old Currency-->
+                                    <span class="col-xs-4 control-label">Old Currency</span>
+                                    <div class="col-xs-8">
+                                        <fm-text field-name="Old Currency"
+                                                 fm-disabled="!(other.operateTypeCode != 'Add' && form.$state.approvalType == 'Buyer')"
+                                                 fm-normal="other.operateTypeCode != 'Add' && form.$state.approvalType == 'Buyer'"
+                                                 class="input-sm"
+                                                 fm-model="other.oldCurrency"></fm-text>
+                                    </div>
+                                </div>
+                                <div class="col-xs-4 cell">
+                                    <!--Old Amount-->
+                                    <span class="col-xs-4 control-label">Old Amount</span>
+                                    <div class="col-xs-8">
+                                        <fm-number field-name="Old Amount"
+                                                   class="input-sm"
+                                                   fm-disabled="true"
+                                                   fm-model="other.oldAmount"></fm-number>
+                                    </div>
+                                </div>
+                                <div class="col-xs-4 cell">
+                                    <!--Lead Time-->
+                                    <span class="col-xs-4 control-label">Lead Time</span>
+                                    <div class="col-xs-8">
+                                        <fm-text field-name="Lead Time"
+                                                 fm-normal="other.operateTypeCode != 'Delete' && form.$state.approvalType == 'Buyer'"
+                                                 fm-disabled="!(other.operateTypeCode != 'Delete' && form.$state.approvalType == 'Buyer')"
+                                                 class="input-sm"
+                                                 unit="周"
+                                                 fm-model="other.leadTime"></fm-text>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-4 cell">
+                                    <!--New Currency-->
+                                    <span class="col-xs-4 control-label">New Currency</span>
+                                    <div class="col-xs-8">
+                                        <fm-text field-name="New Currency"
+                                                 fm-disabled="!(other.operateTypeCode != 'Delete' && form.$state.approvalType == 'Buyer')"
+                                                 fm-normal="other.operateTypeCode != 'Delete' && form.$state.approvalType == 'Buyer'"
+                                                 class="input-sm"
+                                                 fm-model="other.newCurrency"></fm-text>
+                                    </div>
+                                </div>
+                                <div class="col-xs-4 cell">
+                                    <!--New Amount-->
+                                    <span class="col-xs-4 control-label">New Amount</span>
+                                    <div class="col-xs-8">
+                                        <fm-text field-name="New Amount"
+                                                 fm-disabled="true"
+                                                 class="input-sm"
+                                                 fm-model="other.newAmount"></fm-text>
+                                    </div>
+                                </div>
+                                <div class="col-xs-4 cell">
+                                    <!--Change Method-->
+                                    <span class="col-xs-4 control-label required">Change Method</span>
+                                    <div class="col-xs-8">
+                                        <fm-select field-name="Change Method"
+                                                   required
+                                                   dataitem="Others>ECR>ChangeMethod"
+                                                   class="input-sm"
+                                                   fm-model="other.changeMethod"></fm-select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-12">
+                            <div class="pull-right">
+                                <input ng-if="base.pageState==1" type="button" class="btn btn-sm btn-info" ng-click="form.addOtr02occ(item.refId)" value="Add" />
+                                <input ng-if="base.pageState==1" type="button" class="btn btn-sm btn-danger" ng-click="form.deleteOtr02occ()" value="Delete" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" ng-if="base.pageState==1">
+    <div class="col-xs-12">
+        <div class="form-group">
+            <div class="col-xs-12">
+                <div class="pull-right">
+                    <input type="button" class="btn btn-sm btn-info" ng-click="form.addOtr02cc()" value="Add Another Content of Change" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<fm-Group-Head title="Change Detail Description"></fm-Group-Head>
+<!--Change Detail Description-->
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--ChangeDetailDescription-->
+            <fm-textarea fm-model="form.otr02.changeDetailDescription" fm-placeholder="Change Detail Description"></fm-textarea>
+        </div>
+    </div>
+</div>
+<fm-Group-Head title="Responsible Person"></fm-Group-Head>
+<!--Responsible Person-->
+<fm-Group-Head title="TC" class="detail"></fm-Group-Head>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--PDTL 1,2,4,6'07a667d4-74a1-4f76-a451-55aa99450653'-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.pdtl"></span>
+            <div class="col-xs-4">
+                <fm-data-select view="GetAllUserByJobId"
+                                filter="{groupId:'DEPT0002V633,DEPT0137Y372,1f159394-b863-438c-9b11-efd47de3f0b6'}"
+                                callback-func="form.checkUser('PDTL')"
+                                field-name="{{form.$pageLang.pdtl}}"
+                                required
+                                fm-normal="form.$state.pdtlChangeType && form.$state.changeTypeCode != 4 || ((form.$state.scrRiskLevelCode == '2' || form.$state.scrRiskLevelCode == '3') && form.$state.changeTypeCode == 4)"
+                                fm-disabled="!(form.$state.pdtlChangeType && form.$state.changeTypeCode != 4 || ((form.$state.scrRiskLevelCode == '2' || form.$state.scrRiskLevelCode == '3') && form.$state.changeTypeCode == 4))"
+                                fm-model="form.otr02.pdtl"></fm-data-select>
+                <!--filter="{groupId:'DEPT008521VQ,DEPT0061JQXF,DEPT0066CR1G,DEPT006843G1,DEPT0074WKH0,DEPT0084BB60,DEPT008521VQ,DEPT00956J0L,DEPT0096ITS2,DEPT0137Y372,1f159394-b863-438c-9b11-efd47de3f0b6'}"-->
+
+                <!--<fm-data-select view="Sys_GetUserNamesByJobId"
+                                callback-func="form.checkUser('PDTL')"
+                                field-name="{{form.$pageLang.pdtl}}"
+                                required
+                                fm-normal="form.$state.pdtlChangeType && form.$state.changeTypeCode != 4 || ((form.$state.scrRiskLevelCode == '2' || form.$state.scrRiskLevelCode == '3') && form.$state.changeTypeCode == 4)"
+                                fm-disabled="!(form.$state.pdtlChangeType && form.$state.changeTypeCode != 4 || ((form.$state.scrRiskLevelCode == '2' || form.$state.scrRiskLevelCode == '3') && form.$state.changeTypeCode == 4))"
+                                fm-model="form.otr02.pdtl"></fm-data-select>-->
+            </div>
+        </div>
+    </div>
+</div>
+<fm-Group-Head title="Plant" class="detail"></fm-Group-Head>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--PCBA 1,3,4,5,6-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.pcba"></span>
+            <div class="col-xs-4">
+                <fm-data-select view="GetAllUserByJobId"
+                                    filter="{groupId:'DEPT0007D36C,704a2240-a09c-446d-8627-46206a9c797f'}"
+                                    callback-func="form.checkUser('PCBA')"
+                                    fm-normal="form.$state.pcbaChangeType"
+                                    fm-disabled="!form.$state.pcbaChangeType"
+                                    required
+                                    field-name="{{form.$pageLang.pcba}}"
+                                    fm-model="form.otr02.pcba"></fm-data-select>
+                <!--<fm-data-select view="Sys_GetUserNamesByJobId"
+                                callback-func="form.checkUser('PCBA')"
+                                fm-normal="form.$state.pcbaChangeType"
+                                fm-disabled="!form.$state.pcbaChangeType"
+                                required
+                                field-name="{{form.$pageLang.pcba}}"
+                                fm-model="form.otr02.pcba"></fm-data-select>-->
+            </div>
+            <!--Quality 1,2,3,4,5,6-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.quality"></span>
+            <div class="col-xs-4">
+                <fm-data-select view="GetAllUserByJobId"
+                                    filter="{groupId:'DEPT0009A0S4,b14e6773-8cc5-4f0f-83b0-12858eda8fee'}"
+                                    callback-func="form.checkUser('Quality')"
+                                    field-name="{{form.$pageLang.quality}}"
+                                    required
+                                    fm-model="form.otr02.quality"></fm-data-select>
+                <!--<fm-data-select view="Sys_GetUserNamesByJobId"
+                                callback-func="form.checkUser('Quality')"
+                                field-name="{{form.$pageLang.quality}}"
+                                required
+                                fm-model="form.otr02.quality"></fm-data-select>-->
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--ME 1,2,3,4,5,6-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.me"></span>
+            <div class="col-xs-4">
+                <fm-data-select view="GetAllUserByJobId"
+                                    filter="{groupId:'DEPT00108M10,dbb527ce-7cac-4ae3-8318-79af2a156eb0'}"
+                                    callback-func="form.checkUser('ME')"
+                                    required
+                                    field-name="{{form.$pageLang.me}}"
+                                    fm-model="form.otr02.me"></fm-data-select>
+                <!--<fm-data-select view="Sys_GetUserNamesByJobId"
+                                callback-func="form.checkUser('ME')"
+                                required
+                                field-name="{{form.$pageLang.me}}"
+                                fm-model="form.otr02.me"></fm-data-select>-->
+            </div>
+            <!--SQE 1,4,6-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.sqe"></span>
+            <div class="col-xs-4">
+                <fm-data-select view="GetAllUserByJobId"
+                                filter="{groupId:'DEPT0009A0S4,b14e6773-8cc5-4f0f-83b0-12858eda8fee'}"
+                                fm-normal="form.$state.sqeChangeType"
+                                fm-disabled="!form.$state.sqeChangeType"
+                                callback-func="form.checkUser('SQE')"
+                                required
+                                field-name="{{form.$pageLang.sqe}}"
+                                fm-model="form.otr02.sqe"></fm-data-select>
+                <!--<fm-data-select view="Sys_GetUserNamesByJobId"
+                                fm-normal="form.$state.sqeChangeType"
+                                fm-disabled="!form.$state.sqeChangeType"
+                                callback-func="form.checkUser('SQE')"
+                                required
+                                field-name="{{form.$pageLang.sqe}}"
+                                fm-model="form.otr02.sqe"></fm-data-select>-->
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--MPL 1，2，4，5，6-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.mpl"></span>
+            <div class="col-xs-4">
+                <fm-data-select view="GetAllUserByJobId"
+                                filter="{groupId:'DEPT0008038U,5bf0cc30-0966-4479-a98a-d5ab7c4fbe12'}"
+                                fm-normal="form.$state.mplChangeType"
+                                fm-disabled="!form.$state.mplChangeType"
+                                callback-func="form.checkUser('MPL')"
+                                required
+                                field-name="{{form.$pageLang.mpl}}"
+                                fm-model="form.otr02.mpl"></fm-data-select>
+                <!--<fm-data-select view="Sys_GetUserNamesByJobId"
+                                fm-normal="form.$state.mplChangeType"
+                                fm-disabled="!form.$state.mplChangeType"
+                                callback-func="form.checkUser('MPL')"
+                                required
+                                field-name="{{form.$pageLang.mpl}}"
+                                fm-model="form.otr02.mpl"></fm-data-select>-->
+            </div>
+            <!--Buyer 1，4，5，6-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.buyer"></span>
+            <div class="col-xs-4">
+                <fm-data-select view="GetAllUserByJobId"
+                                filter="{groupId:'DEPT000536UG,DEPT00996306,DEPT0102AC73,b943b899-a3b7-49a8-a17b-87bae7c0561e'}"
+                                fm-normal="form.$state.buyerChangeType"
+                                fm-disabled="!form.$state.buyerChangeType"
+                                callback-func="form.checkUser('Buyer')"
+                                required
+                                field-name="{{form.$pageLang.buyer}}"
+                                fm-model="form.otr02.buyer"></fm-data-select>
+                <!--<fm-data-select view="Sys_GetUserNamesByJobId"
+                   fm-normal="form.$state.buyerChangeType"
+                   fm-disabled="!form.$state.buyerChangeType"
+                   callback-func="form.checkUser('Buyer')"
+                   required
+                   field-name="{{form.$pageLang.buyer}}"
+                   fm-model="form.otr02.buyer"></fm-data-select>-->
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--IE 5,6-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.ie"></span>
+            <div class="col-xs-4">
+                <fm-data-select view="GetAllUserByJobId"
+                                filter="{groupId:'DEPT0014E7IS,6b12276d-147b-4de3-bda0-02656fcd450f'}"
+                                fm-normal="form.$state.ieChangeType"
+                                fm-disabled="!form.$state.ieChangeType"
+                                callback-func="form.checkUser('IE')"
+                                required
+                                field-name="{{form.$pageLang.ie}}"
+                                fm-model="form.otr02.ie"></fm-data-select>
+                <!--DEPT0014E7IS-->
+                <!--<fm-data-select view="Sys_GetUserNamesByJobId"
+                                fm-normal="form.$state.ieChangeType"
+                                fm-disabled="!form.$state.ieChangeType"
+                                callback-func="form.checkUser('IE')"
+                                required
+                                field-name="{{form.$pageLang.ie}}"
+                                fm-model="form.otr02.ie"></fm-data-select>-->
+            </div>
+            <!--Test 1,2,5,6-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.test"></span>
+            <div class="col-xs-4">
+                <fm-data-select view="GetAllUserByJobId"
+                                filter="{groupId:'DEPT0015Y014'}"
+                                fm-normal="form.$state.testChangeType"
+                                fm-disabled="!form.$state.testChangeType"
+                                callback-func="form.checkUser('Test')"
+                                required
+                                field-name="{{form.$pageLang.test}}"
+                                fm-model="form.otr02.test"></fm-data-select>
+                <!--<fm-data-select view="Sys_GetUserNamesByJobId"
+                    fm-normal="form.$state.testChangeType"
+                    fm-disabled="!form.$state.testChangeType"
+                    callback-func="form.checkUser('Test')"
+                    required
+                    field-name="{{form.$pageLang.test}}"
+                    fm-model="form.otr02.test"></fm-data-select>-->
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--Finance 1,2,3,4,5,6-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.finance"></span>
+            <div class="col-xs-4">
+                <fm-data-select view="GetAllUserByJobId"
+                                    filter="{groupId:'DEPT0013214R,DEPT0004W6S7,6ecf57b4-59a8-4b46-8678-1c66ead54255'}"
+                                    callback-func="form.checkUser('Finance')"
+                                    required
+                                    field-name="{{form.$pageLang.finance}}"
+                                    fm-model="form.otr02.finance"></fm-data-select>
+                <!--<fm-data-select view="Sys_GetUserNamesByJobId"
+                        callback-func="form.checkUser('Finance')"
+                        required
+                        field-name="{{form.$pageLang.finance}}"
+                        fm-model="form.otr02.finance"></fm-data-select>-->
+            </div>
+        </div>
+    </div>
+</div>
+
+<fm-Group-Head title="Other Responsible Person"></fm-Group-Head>
+<!--Other Responsible Person-->
+<div class="row">
+    <div class="col-xs-12">
+        <table class="table table-bordered table-detail">
+            <!--<thead>
+                <tr>
+                    <th class="checked" style="width: 30px;">
+                        <input type="checkbox" class="uniform" ng-checked="form.otr02orpAllChecked" ng-model="form.otr02orpAllChecked" ng-click="form.$checkAll(form.otr02orpAllChecked,form.otr02orp)" />
+                    </th>
+                    <th ng-bind="form.$pageLang.OtherResponsiblePerson"></th>
+                </tr>
+            </thead>-->
+            <tbody>
+                <tr ng-repeat="item in form.otr02orp" ng-class="{ 'active': item.checked}" detail-name="Other Responsible Person">
+                    <td class="checked" style="width: 30px;">
+                        <input class="uniform"
+                               ng-if="base.pageState == 1"
+                               type="checkbox" ng-model="item.checked" />
+                    </td>
+                    <td>
+                        <fm-data-select field-name="Other Responsible Person"
+                                        required
+                                        view="Sys_GetUserNamesByJobId"
+                                        class="input-sm"
+                                        fm-model="item.otherResponsiblePerson"></fm-data-select>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="99" style="text-align:right;">
+                        <input ng-if="base.pageState==1" type="button" class="btn btn-sm btn-info" ng-click="form.otr02orp.push({})" value="Add" />
+                        <input ng-if="base.pageState==1" type="button" class="btn btn-sm btn-danger" ng-click="form.deleteOtr02orp()" value="Delete" />
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+
+<div ng-if="form.otr02ainfo.length > 0">
+    <fm-Group-Head title="Responsible Person Approval Information"></fm-Group-Head>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="fm-detailinfo" ng-repeat="resPerson in form.otr02ainfo" detail-name="Responsible Person Approval Information {{resPerson.type}}">
+                <fm-Group-Head title="{{resPerson.type}}" class="detail"></fm-Group-Head>
+                <div class="row">
+                    <div class="form-group">
+                        <div class="col-xs-12">
+                            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.IsFeasible"></span>
+                            <div class="col-xs-4">
+                                <fm-select dataitem="Others>ECR>FeasibleOrNotFeasible"
+                                           fm-normal="(form.$state.approvalType == resPerson.type && base.pageState == 1) || (form.$state.approvalType == resPerson.type && form.$pageRight.responsiblePersonApproval == 'normal')"
+                                           fm-disabled="!((form.$state.approvalType == resPerson.type && base.pageState == 1) || (form.$state.approvalType == resPerson.type && form.$pageRight.responsiblePersonApproval == 'normal'))"
+                                           field-name="{{form.$pageLang.IsFeasible}}"
+                                           fm-code="resPerson.feasibleCode"
+                                           required
+                                           fm-model="resPerson.isFeasible"></fm-select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <div class="col-xs-12">
+                            <span ng-class="{ 'active': resPerson.feasibleCode == 'NotFeasible'}" class="col-xs-2 control-label" ng-bind="form.$pageLang.Remark"></span>
+                            <div class="col-xs-10">
+                                <fm-textarea fm-model="resPerson.remark"
+                                             field-name="{{form.$pageLang.Remark}}"
+                                             fm-required="resPerson.feasibleCode == 'NotFeasible'"
+                                             fm-normal="(form.$state.approvalType == resPerson.type && base.pageState == 1) || (form.$state.approvalType == resPerson.type && form.$pageRight.responsiblePersonApproval == 'normal')"
+                                             fm-disabled="!((form.$state.approvalType == resPerson.type && base.pageState == 1) || (form.$state.approvalType == resPerson.type && form.$pageRight.responsiblePersonApproval == 'normal'))"></fm-textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <table class="table table-bordered table-detail">
+                            <thead>
+                                <tr>
+                                    <th class="checked" style="width: 30px;">
+                                        <input type="checkbox" class="uniform" ng-checked="form.otr02infodetailAllChecked" ng-model="form.otr02infodetailAllChecked" ng-click="form.$checkAll(form.otr02infodetailAllChecked,form.otr02infodetail)" />
+                                    </th>
+                                    <th class="required">CheckItems</th>
+                                    <th class="required">Others</th>
+                                    <th class="required">Responsibility</th>
+                                    <th>Due Date</th>
+                                    <th class="required">Timing Meet Request</th>
+                                    <th>Working Hc (Hr)</th>
+                                    <th>Remark</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="item in form.otr02infodetail | filter: {refId:resPerson.refId}" ng-class="{ 'active': item.checked}" detail-name="{{resPerson.type}}">
+                                    <td class="checktd">
+                                        <input class="uniform"
+                                               ng-if="(form.$state.approvalType == resPerson.type && base.pageState == 1) || (form.$state.approvalType == resPerson.type && form.$pageRight.responsiblePersonApproval == 'normal')"
+                                               type="checkbox" ng-model="item.checked" />
+                                    </td>
+                                    <td>
+                                        <fm-select field-name="CheckItem"
+                                                   datacode="resPerson.dataItem"
+                                                   dataitem
+                                                   fm-code="item.checkItemsCode"
+                                                   fm-required="(form.$state.approvalType == resPerson.type && base.pageState == 1) || (form.$state.approvalType == resPerson.type && form.$pageRight.responsiblePersonApproval == 'normal')"
+                                                   class="input-sm"
+                                                   fm-normal="(form.$state.approvalType == resPerson.type && base.pageState == 1) || (form.$state.approvalType == resPerson.type && form.$pageRight.responsiblePersonApproval == 'normal')"
+                                                   fm-disabled="!((form.$state.approvalType == resPerson.type && base.pageState == 1) || (form.$state.approvalType == resPerson.type && form.$pageRight.responsiblePersonApproval == 'normal'))"
+                                                   fm-model="item.checkItem"></fm-select>
+                                    </td>
+                                    <td>
+                                        <fm-text class="input-sm"
+                                                 fm-required="(form.$state.approvalType == resPerson.type && base.pageState == 1) || (form.$state.approvalType == resPerson.type && form.$pageRight.responsiblePersonApproval == 'normal')"
+                                                 fm-normal="(form.$state.approvalType == resPerson.type && base.pageState == 1 && item.checkItemsCode == '0') || (form.$state.approvalType == resPerson.type && form.$pageRight.responsiblePersonApproval == 'normal' && item.checkItemsCode == '0')"
+                                                 fm-disabled="!((form.$state.approvalType == resPerson.type && base.pageState == 1 && item.checkItemsCode == '0') || (form.$state.approvalType == resPerson.type && form.$pageRight.responsiblePersonApproval == 'normal' && item.checkItemsCode == '0'))"
+                                                 fm-model="item.others"></fm-text>
+                                    </td>
+                                    <td>
+                                        <fm-data-select field-name="Responsibility"
+                                                        fm-normal="(form.$state.approvalType == resPerson.type && base.pageState == 1) || (form.$state.approvalType == resPerson.type && form.$pageRight.responsiblePersonApproval == 'normal')"
+                                                        fm-disabled="!((form.$state.approvalType == resPerson.type && base.pageState == 1) || (form.$state.approvalType == resPerson.type && form.$pageRight.responsiblePersonApproval == 'normal'))"
+                                                        class="input-sm"
+                                                        view="Sys_GetUserNamesByJobId"
+                                                        fm-required="(form.$state.approvalType == resPerson.type && base.pageState == 1) || (form.$state.approvalType == resPerson.type && form.$pageRight.responsiblePersonApproval == 'normal')"
+                                                        fm-model="item.responsibility"></fm-data-select>
+                                    </td>
+                                    <td>
+                                        <fm-datetime field-name="Due Date"
+                                                     fm-normal="(form.$state.approvalType == resPerson.type && base.pageState == 1) || (form.$state.approvalType == resPerson.type && form.$pageRight.responsiblePersonApproval == 'normal')"
+                                                     fm-disabled="!((form.$state.approvalType == resPerson.type && base.pageState == 1) || (form.$state.approvalType == resPerson.type && form.$pageRight.responsiblePersonApproval == 'normal'))"
+                                                     date
+                                                     class="input-sm"
+                                                     fm-model="item.dueDate"></fm-datetime>
+                                    </td>
+                                    <td>
+                                        <fm-select field-name="Timing Meet Request"
+                                                   fm-normal="(form.$state.approvalType == resPerson.type && base.pageState == 1) || (form.$state.approvalType == resPerson.type && form.$pageRight.responsiblePersonApproval == 'normal')"
+                                                   fm-disabled="!((form.$state.approvalType == resPerson.type && base.pageState == 1) || (form.$state.approvalType == resPerson.type && form.$pageRight.responsiblePersonApproval == 'normal'))"
+                                                   class="input-sm"
+                                                   fm-required="(form.$state.approvalType == resPerson.type && base.pageState == 1) || (form.$state.approvalType == resPerson.type && form.$pageRight.responsiblePersonApproval == 'normal')"
+                                                   dataitem="Common>YesOrNo"
+                                                   fm-model="item.isTimingMeetRequest"></fm-select>
+                                    </td>
+                                    <td>
+                                        <fm-number field-name="WorkingHc"
+                                                   fm-normal="(form.$state.approvalType == resPerson.type && base.pageState == 1) || (form.$state.approvalType == resPerson.type && form.$pageRight.responsiblePersonApproval == 'normal')"
+                                                   fm-disabled="!((form.$state.approvalType == resPerson.type && base.pageState == 1) || (form.$state.approvalType == resPerson.type && form.$pageRight.responsiblePersonApproval == 'normal'))"
+                                                   class="input-sm"
+                                                   fm-model="item.workingHc"></fm-number>
+                                    </td>
+                                    <td>
+                                        <fm-text field-name="Remark"
+                                                 fm-normal="(form.$state.approvalType == resPerson.type && base.pageState == 1) || (form.$state.approvalType == resPerson.type && form.$pageRight.responsiblePersonApproval == 'normal')"
+                                                 fm-disabled="!((form.$state.approvalType == resPerson.type && base.pageState == 1) || (form.$state.approvalType == resPerson.type && form.$pageRight.responsiblePersonApproval == 'normal'))"
+                                                 class="input-sm"
+                                                 fm-model="item.remark"></fm-text>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="99" style="text-align: right;">
+                                        <input ng-if="(form.$state.approvalType == resPerson.type && base.pageState == 1) || (form.$state.approvalType == resPerson.type && form.$pageRight.responsiblePersonApproval == 'normal')" type="button" class="btn btn-sm btn-info" ng-click="form.otr02infodetail.push({ type: resPerson.type, refId: resPerson.refId,responsibility: resPerson.responsibility});" value="{{ 'Add' |translate}}" />
+                                        <input ng-if="(form.$state.approvalType == resPerson.type && base.pageState == 1) || (form.$state.approvalType == resPerson.type && form.$pageRight.responsiblePersonApproval == 'normal')" type="button" class="btn btn-sm btn-danger" ng-click="form.deleteOtr02infodetail()" value="{{ 'Delete' |translate}}" />
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div ng-if="false">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="fm-detailinfo" ng-repeat="item in form.otr02infodetail | filter: {refId:resPerson.refId}" detail-name="{{form.$pageLang.ResponsiblePersonApprovalInformation}}{{resPerson.type}}">
+                <div class="row header">
+                    <div class="col-xs-12">
+                        <!--<input class="uniform"
+                                   ng-if="base.pageState==1 || (form.$pageRight.StartNode == 'normal' && base.pageState==2)"
+                                   type="checkbox" ng-model="item.checked"/>-->
+                        <strong class="input-sm">{{resPerson.type}}{{$index + 1}}</strong>
+                        <div class="pull-right">
+                            <input ng-if="(form.$state.approvalType == resPerson.type && base.pageState == 1) || (form.$state.approvalType == resPerson.type && form.$pageRight.responsiblePersonApproval == 'normal')" type="button" class="btn btn-sm btn-danger" ng-click="form.deleteOtr02infodetail()" value="{{ 'Delete' |translate}}" />
+                        </div>
+                    </div>
+                </div>
+                <div class="content">
+                    <div class="row">
+                        <div class="col-xs-4 cell">
+                            <!--CheckItems-->
+                            <span class="col-xs-4 control-label">CheckItems</span>
+                            <div class="col-xs-8">
+                                <fm-select field-name="CheckItem"
+                                           datacode="resPerson.dataItem"
+                                           dataitem
+                                           fm-code="item.checkItemsCode"
+                                           class="input-sm"
+                                           fm-normal="(form.$state.approvalType == resPerson.type && base.pageState == 1) || (form.$state.approvalType == resPerson.type && form.$pageRight.responsiblePersonApproval == 'normal')"
+                                           fm-disabled="!((form.$state.approvalType == resPerson.type && base.pageState == 1) || (form.$state.approvalType == resPerson.type && form.$pageRight.responsiblePersonApproval == 'normal'))"
+                                           fm-model="item.checkItem"></fm-select>
+                            </div>
+                        </div>
+                        <div class="col-xs-4 cell" ng-if="item.checkItemsCode == '0' || !!item.others">
+                            <!--others-->
+                            <span class="col-xs-4 control-label" ng-bind="form.$pageLang.Others"></span>
+                            <div class="col-xs-8">
+                                <fm-text class="input-sm"
+                                         fm-normal="(form.$state.approvalType == resPerson.type && base.pageState == 1) || (form.$state.approvalType == resPerson.type && form.$pageRight.responsiblePersonApproval == 'normal')"
+                                         fm-disabled="!((form.$state.approvalType == resPerson.type && base.pageState == 1) || (form.$state.approvalType == resPerson.type && form.$pageRight.responsiblePersonApproval == 'normal'))"
+                                         fm-model="item.others"></fm-text>
+                            </div>
+                        </div>
+                        <div class="col-xs-4 cell">
+                            <!--Responsibility-->
+                            <span class="col-xs-4 control-label" ng-class="{'required':(form.$state.approvalType == resPerson.type && base.pageState == 1) || (form.$state.approvalType == resPerson.type && form.$pageRight.responsiblePersonApproval == 'normal') }" ng-bind="form.$pageLang.Responsibility"></span>
+                            <div class="col-xs-8">
+                                <fm-data-select field-name="Responsibility"
+                                                fm-normal="(form.$state.approvalType == resPerson.type && base.pageState == 1) || (form.$state.approvalType == resPerson.type && form.$pageRight.responsiblePersonApproval == 'normal')"
+                                                fm-disabled="!((form.$state.approvalType == resPerson.type && base.pageState == 1) || (form.$state.approvalType == resPerson.type && form.$pageRight.responsiblePersonApproval == 'normal'))"
+                                                view="Sys_GetUserNamesByJobId"
+                                                class="input-sm"
+                                                fm-required="(form.$state.approvalType == resPerson.type && base.pageState == 1) || (form.$state.approvalType == resPerson.type && form.$pageRight.responsiblePersonApproval == 'normal')"
+                                                fm-model="item.responsibility"></fm-data-select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-4 cell">
+                            <!--DueDate-->
+                            <span class="col-xs-4 control-label required" ng-bind="form.$pageLang.DueDate"></span>
+                            <div class="col-xs-8">
+                                <fm-datetime field-name="Due Date"
+                                             fm-normal="(form.$state.approvalType == resPerson.type && base.pageState == 1) || (form.$state.approvalType == resPerson.type && form.$pageRight.responsiblePersonApproval == 'normal')"
+                                             fm-disabled="!((form.$state.approvalType == resPerson.type && base.pageState == 1) || (form.$state.approvalType == resPerson.type && form.$pageRight.responsiblePersonApproval == 'normal'))"
+                                             date
+                                             required
+                                             class="input-sm"
+                                             fm-model="item.dueDate"></fm-datetime>
+                            </div>
+                        </div>
+                        <div class="col-xs-4 cell">
+                            <!--TimingMeetRequest-->
+                            <span class="col-xs-4 control-label required">Timing Meet Request</span>
+                            <div class="col-xs-8">
+                                <fm-select field-name="Timing Meet Request"
+                                           fm-normal="(form.$state.approvalType == resPerson.type && base.pageState == 1) || (form.$state.approvalType == resPerson.type && form.$pageRight.responsiblePersonApproval == 'normal')"
+                                           fm-disabled="!((form.$state.approvalType == resPerson.type && base.pageState == 1) || (form.$state.approvalType == resPerson.type && form.$pageRight.responsiblePersonApproval == 'normal'))"
+                                           class="input-sm"
+                                           dataitem="Common>YesOrNo"
+                                           required
+                                           fm-model="item.timingMeetRequest"></fm-select>
+                            </div>
+                        </div>
+                        <div class="col-xs-4 cell">
+                            <!--Working Hc (Hr)-->
+                            <span class="col-xs-4 control-label">Working Hc (Hr)</span>
+                            <div class="col-xs-8">
+                                <fm-number field-name="WorkingHc"
+                                           fm-normal="(form.$state.approvalType == resPerson.type && base.pageState == 1) || (form.$state.approvalType == resPerson.type && form.$pageRight.responsiblePersonApproval == 'normal')"
+                                           fm-disabled="!((form.$state.approvalType == resPerson.type && base.pageState == 1) || (form.$state.approvalType == resPerson.type && form.$pageRight.responsiblePersonApproval == 'normal'))"
+                                           class="input-sm"
+                                           fm-model="item.workingHc"></fm-number>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 cell">
+                            <!--Remark-->
+                            <span class="col-xs-2 control-label" ng-bind="form.$pageLang.Remark"></span>
+                            <div class="col-xs-10">
+                                <fm-text field-name="Remark"
+                                         fm-normal="(form.$state.approvalType == resPerson.type && base.pageState == 1) || (form.$state.approvalType == resPerson.type && form.$pageRight.responsiblePersonApproval == 'normal')"
+                                         fm-disabled="!((form.$state.approvalType == resPerson.type && base.pageState == 1) || (form.$state.approvalType == resPerson.type && form.$pageRight.responsiblePersonApproval == 'normal'))"
+                                         class="input-sm"
+                                         fm-model="item.remark"></fm-text>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <fm-Group-Head title="{{ form.$pageLang.selectItem}}"></fm-Group-Head>
+    <!--选择科目弹出框-->
+    <div class="row">
+        <div class="form-group">
+            <div class="col-xs-12">
+                <!--项目编号-->
+                <span class="col-xs-1 control-label " ng-bind="form.$pageLang.EcrStatus"></span>
+                <div class="col-xs-2">
+                    <fm-text fm-model="form.otr02.recommendCompany"></fm-text>
+                </div>
+                <!--项目名称-->
+                <span class="col-xs-1 control-label " ng-bind="form.$pageLang.ProjectName"></span>
+                <div class="col-xs-2">
+                    <fm-text fm-model="form.otr02.recommendCompany"></fm-text>
+                </div>
+                <!--项目经理-->
+                <span class="col-xs-1 control-label " ng-bind="form.$pageLang.ProjectManager"></span>
+                <div class="col-xs-2">
+                    <fm-text fm-model="form.otr02.recommendCompany"></fm-text>
+                </div>
+                <input type="button" class="btn btn-danger" value="搜索" />
+                <input type="button" class="btn btn-danger" value="确认" />
+            </div>
+        </div>
+    </div>
+    <div>
+        <table>
+            <tr style="background-color: #5CADAD">
+                <td style="width: 100px;">#</td>
+                <td style="width: 150px;">项目编号</td>
+                <td style="width: 150px;">项目名称</td>
+                <td style="width: 150px;">项目经理</td>
+                <td style="width: 150px;">邮箱</td>
+                <td style="width: 150px;">FT Amount</td>
+                <td style="width: 150px;">RD Amount</td>
+                <td style="width: 150px;">状态</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<!--附件-->
+<fm-Group-Head class="print-hide" title="{{ 'Attachment' |translate}}"></fm-Group-Head>
+<div class="print-hide row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <fm-attachment class="print-hide" form-files="form.$attachments"
+                           link-id="0"
+                           task-id='base.taskId'
+                           node-id="base.nodeId"
+                           draft-id="base.draftId"
+                           state="{{form.$pageRight.StartNode}}"
+                           button-name="{{ 'UploadAttachment' |translate}}"></fm-attachment>
+        </div>
+    </div>
+</div>

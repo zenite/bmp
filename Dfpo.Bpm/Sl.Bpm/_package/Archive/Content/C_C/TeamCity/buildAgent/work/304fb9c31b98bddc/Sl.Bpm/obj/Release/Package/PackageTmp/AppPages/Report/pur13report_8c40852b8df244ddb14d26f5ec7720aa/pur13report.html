@@ -1,0 +1,47 @@
+﻿<!--pur13 SpotPO价格更新报表-->
+<div class="form-group ma-block">
+    <fm-Group-Head title="{{::base.title}}"></fm-Group-Head>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="container">
+                <div class="form-group">
+                    <div class="col-xs-12">
+                        <div class="ma-detailinfo">
+                            <div class="content">
+                                <div class="row">
+                                    <div class="form-group">
+                                        <div class="col-xs-12 cell">
+                                            <div class="col-xs-4 cell">
+                                                <!--申请日期-->
+                                                <span class="col-xs-3 control-label" ng-bind="form.$pageLang.ReqDate"></span>
+                                                <div class="col-xs-9">
+                                                    <fm-datetime class="input-sm" date fm-model="form.filter.applicationTimeStart" fm-readonly></fm-datetime>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-4 cell">
+                                                <span class="col-xs-3 control-label" style="text-align:center;">——</span>
+                                                <div class="col-xs-9">
+                                                    <fm-datetime class="input-sm" date fm-model="form.filter.applicationTimeEnd" fm-readonly></fm-datetime>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-4 cell">
+                                                <button class="btn btn-primary" ng-click="form.select()" ng-bind="form.$pageLang.Query"></button>
+                                                <button class="btn btn-default" ng-click="form.clear()" ng-bind="form.$pageLang.Clear"></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12">
+                <fm-table view='GetAllPur13report' data="form.Pur13Report" refreash-data="form.refreash" excel current-page-data="form.currentData" width="3500px" page="{{form.page}}"
+                          filter="{SnNumber:form.filter.snNumber,ProjectCode:form.filter.projectCode,SupplierCode:form.filter.supplierCode,ProcStatus:form.filter.status,
+                          PartName:form.filter.partName,buyer:form.filter.buyer,PoNo:form.filter.poNo,
+                          ApplicationTimeStart:form.filter.applicationTimeStart,ApplicationTimeEnd:form.filter.applicationTimeEnd}"all-column-filter></fm-table>
+            </div>
+        </div>
+    </div>
+</div>

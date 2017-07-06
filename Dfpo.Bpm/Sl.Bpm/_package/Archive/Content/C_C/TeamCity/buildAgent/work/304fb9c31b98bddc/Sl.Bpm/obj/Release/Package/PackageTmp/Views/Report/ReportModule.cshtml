@@ -1,0 +1,64 @@
+﻿@using System.Web.Optimization
+@{
+    Layout = null;
+}
+
+
+<!DOCTYPE html>
+
+<html ng-app="report">
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/gif" href="../../Content/Images/AppTitle.png">
+    <title ng-bind="title"></title>
+    @Styles.Render("~/SysPages/Css")
+</head>
+<body class="body-login entire-block" ng-controller="ReportCtrl as vm" style="visibility: hidden">
+    <div class="form-container page_content">
+
+        <!--此处会加载表单内容-->
+    </div>
+    @Scripts.Render("~/SysPages/Js")
+
+    <script type="text/javascript">
+        angular.module('report', ['mabp', 'app.shared', 'pascalprecht.translate'])
+            .config([
+                '$translateProvider', function ($translateProvider) {
+                    $translateProvider.translations('en', mabp.localization['Bpm.en']);
+                    $translateProvider.translations('zh-CN', mabp.localization['Bpm.zh-CN']);
+                    $translateProvider.preferredLanguage('zh-CN');
+                }
+            ]).controller('ReportCtrl',
+            [
+                '$scope', 'formHelper', 'mabp.app.file', 'appSession', '$rootScope',
+                function ($scope, formHelper, fileSv, session, $rootScope) {
+                    session.endLoad = function () {
+                        var vm = this;
+                        vm.isLoaded = false;
+                        vm.pageInfo = {
+                            moduleId: '@ViewBag.moduleId',
+                            areaCode: '@ViewBag.areaCode',
+                            pageId: '@ViewBag.pageId',
+                            close: function () { window.close(); }
+                        }
+
+                        //初始化容器对象
+                        var base = $scope.base = formHelper.buildReportBase(vm.pageInfo);
+                        //初始化表单对象
+                        var form = $scope.form = formHelper.buildReportForm($scope);
+                        formHelper.reportStart(base, form, $scope, $rootScope);
+
+                    }
+                }
+            ]);
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+

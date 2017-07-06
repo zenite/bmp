@@ -1,0 +1,85 @@
+﻿<!--pur15框架协议成本节约报表-->
+<div class="form-group ma-block">
+    <fm-Group-Head title="{{::base.title}}"></fm-Group-Head>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="container">
+                <div class="form-group">
+                    <div class="col-xs-12">
+                        <div class="ma-detailinfo">
+                            <div class="content">
+                                <div class="row">
+                                    <div class="form-group">
+                                        <div class="col-xs-4 cell">
+                                            <!--PR单号-->
+                                            <span class="col-xs-3 control-label " ng-bind="form.$pageLang.SnNumber"></span>
+                                            <div class="col-xs-9">
+                                                <fm-text class="input-sm" fm-model="form.filter.snNumber"></fm-text>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-4 cell">
+                                            <!--框架协议编号-->
+                                            <span class="col-xs-3 control-label" ng-bind="form.$pageLang.Fno">{</span>
+                                            <div class="col-xs-9">
+                                                <fm-text class="input-sm" fm-model="form.filter.fno"></fm-text>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-4 cell">
+                                            <!--供应商-->
+                                            <span class="col-xs-3 control-label" ng-bind="form.$pageLang.SupplierCode"></span>
+                                            <div class="col-xs-9">
+                                                <fm-data-select class="input-sm" view="GetAllSupplierReport" fm-model="form.filter.supplier"></fm-data-select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group">
+                                        <div class="col-xs-4 cell">
+                                            <!--采购员-->
+                                            <span class="col-xs-3 control-label " ng-bind="form.$pageLang.Buyer"></span>
+                                            <div class="col-xs-9">
+                                                <fm-data-select i-clear
+                                                                group fm-model="form.filter.buyer"></fm-data-select>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-4 cell">
+                                            <!--日期-->
+                                            <span class="col-xs-3 control-label" ng-bind="form.$pageLang.Date"></span>
+                                            <div class="col-xs-9">
+                                                <fm-datetime class="input-sm"
+                                                             date fm-model="form.filter.applicationTimeStart"
+                                                             fm-readonly></fm-datetime>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-4 cell">
+                                            <span class="col-xs-3 control-label"
+                                                  style="text-align:center;">——</span>
+                                            <div class="col-xs-9">
+                                                <fm-datetime class="input-sm" date fm-model="form.filter.applicationTimeEnd" fm-readonly></fm-datetime>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group">
+                                <div class="col-xs-12" style="text-align:center;">
+                                    <button class="btn btn-primary" ng-click="form.select()" ng-bind="form.$pageLang.Query"></button>
+                                    <button class="btn btn-default" ng-click="form.clear()" ng-bind="form.$pageLang.Clear"></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12">
+                <fm-table view='GetPur15CostSave' data="form.Fin09Report" refreash-data="form.refreash" excel current-page-data="form.currentData" page="{{form.page}}" sortable 
+                          filter="{SnNumber:form.filter.snNumber,Applicant:form.filter.applicant,ApplicantJobCode:form.filter.applicantJobCode,Payee:form.filter.payee,PayeeSn:form.filter.payeeSn
+                          ,Status:form.filter.status,
+                          ApplicationTimeStart:form.filter.applicationTimeStart,ApplicationTimeEnd:form.filter.applicationTimeEnd,IsRecover:form.filter.isRecover,ReceiveDept:form.filter.receiveDept}"></fm-table>
+            </div>
+        </div>
+    </div>
+</div>

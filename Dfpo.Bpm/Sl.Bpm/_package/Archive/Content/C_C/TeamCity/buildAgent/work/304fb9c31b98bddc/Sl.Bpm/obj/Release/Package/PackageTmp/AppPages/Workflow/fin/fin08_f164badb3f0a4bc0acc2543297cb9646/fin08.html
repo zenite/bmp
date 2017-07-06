@@ -1,0 +1,620 @@
+﻿<fm-form-title sn-number="{{base.snNumber}}" apply-date="{{base.applyDate}}" sub-title='base.title' fm-model="base.areaCode"></fm-form-title>
+<!--申请人信息-->
+<fm-Group-Head class="print-hide" title="{{ base.$pageLang.ApplicantInfo }}"></fm-Group-Head>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--申请人名字-->
+            <span class="col-xs-2 control-label">{{ "ApplicantName" | translate }}</span>
+            <div class="col-xs-4">
+                <div class="input-group" style="width: 100%;">
+                    <span class="form-label">{{base.applicant.userName}}</span>
+                    <!--<span class="input-group-btn" ng-if="!taskid">
+                        <button class="btn btn-default" type="button" ng-click="base.$selectApplicant()">{{ "Choose" | translate }}</button>
+                    </span>-->
+                </div>
+            </div>
+            <!--申请人员工号-->
+            <span class="col-xs-2 control-label">{{ "ApplicantEmployeeNumber" | translate }}</span>
+            <div class="col-xs-4"><span class="form-label">{{base.applicant.employeeNumber}}</span></div>
+        </div>
+    </div>
+    <div class="form-group">
+        <!--申请人部门线-->
+        <div class="col-xs-12">
+            <span class="col-xs-2 control-label">{{ "ApplicantDepartment" | translate }}</span>
+            <div class="col-xs-10"><span class="form-label">{{base.applicant.departmentName}}</span></div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--申请人电话-->
+            <span class="col-xs-2 control-label">{{ "ApplicantContactNumber" | translate }}</span>
+            <div class="col-xs-4"><span class="form-label">{{base.applicant.contactNumber}}</span></div>
+            <!--申请人邮箱-->
+            <span class="col-xs-2 control-label">{{ "ApplicantEmail" | translate }}</span>
+            <div class="col-xs-4"><span class="form-label">{{base.applicant.emailAddress}}</span></div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--申请人手机-->
+            <span class="col-xs-2 control-label">{{ "ApplicantMobileNumber" | translate }}</span>
+            <div class="col-xs-4"><span class="form-label">{{base.applicant.mobileNumber}}</span></div>
+            <!--申请人直属领导-->
+            <span class="col-xs-2 control-label">{{ "ApplicantDirectManager" | translate }}</span>
+            <div class="col-xs-4"><span class="form-label">{{base.applicant.directManagerName}}</span></div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--是否因项目出差-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.isProj "></span>
+            <div class="col-xs-4">
+                <fm-select fm-model="form.fin08.isProj"
+                           required
+                           fm-code="form.$state.isProj"
+                           dataitem="Common>YesOrNo"
+                           state="{{form.$pageRight.StartNode}}"
+                           value-member="value"
+                           field-name="{{form.$pageLang.isProj}}"
+                           callback-func="form.ChangeisProj(form.fin08p)"></fm-select>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12" ng-if="form.fin08.isProj=='1'">
+        <table class="table table-bordered table-detail">
+            <thead>
+                <tr>
+                    <th class="checktd" style="width: 5%;"></th>
+                    <th style="width:5%; text-align: center;border:0px; text-align:center;" ng-bind="form.$pageLang.NO"></th> <!--编号-->
+                    <th style="width:20%; text-align: center;border:0px; text-align:center;" ng-bind="form.$pageLang.ProjectCode"></th> <!--项目编号-->
+                    <th style="width:40%; text-align: center;border:0px; text-align:center;" ng-bind="form.$pageLang.ProjectName"></th> <!--项目名称-->
+                    <th style="width:30%; text-align: center;border:0px; text-align:center;" ng-bind="form.$pageLang.ProjectManager "></th> <!--项目经理-->
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in form.fin08p" ng-class="{ 'active': item.checked}" detail-name="{{form.$pageLang.Fare}}">
+                    <td class="checktd">
+                        <input class="uniform"
+                               ng-if="base.pageState==1 || (form.$pageRight.StartNode == 'normal' && base.pageState==2) "
+                               type="checkbox" ng-model="item.checked" />
+                    </td>
+                    <td>
+                        <fm-number ng-if="item.gridOrder!=null" class="input-sm"
+                                   fm-model="item.gridOrder"></fm-number>
+                        <span ng-if="item.gridOrder == null">{{$index + 1}}</span>
+                    </td>
+                    <td>
+                        <fm-data-select field-name="{{form.$pageLang.ProjectCode}}"
+                                        view="GetProjectInfoByTravel"
+                                        ng-if="base.pageState == 1 "
+                                        class="input-sm"
+                                        required
+                                        state="{{form.$pageRight.StartNode}}"
+                                        callback-func="form.chooseProjectCallback(selectItem,item)"
+                                        fm-model="item.projectCode"></fm-data-select>
+                        <fm-text field-name="{{form.$pageLang.ProjectCode}}"
+                                 readonly
+                                 ng-if="base.pageState != 1 "
+                                 class="input-sm"
+                                 state="{{form.$pageRight.StartNode}}"
+                                 fm-model="item.projectCode"></fm-text>
+                    </td>
+                    <td>
+                        <fm-text field-name="{{form.$pageLang.ProjectName}}"
+                                 readonly
+                                 class="input-sm"
+                                 state="{{form.$pageRight.StartNode}}"
+                                 fm-model="item.projectName"></fm-text>
+                    </td>
+                    <td>
+                        <fm-text field-name="{{form.$pageLang.ProjectManager}}"
+                                 readonly
+                                 class="input-sm"
+                                 state="{{form.$pageRight.StartNode}}"
+                                 fm-model="item.projectManager"></fm-text>
+                        <fm-text ng-if="1 != 1 "
+                                 readonly
+                                 class="input-sm"
+                                 fm-model="item.projectManagerJobId"></fm-text>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+
+                    <td style="text-align: right;" colspan="5">
+                        <input ng-if="base.pageState==1 || (form.$pageRight.StartNode == 'normal' && base.pageState==2)" type="button" class="btn btn-sm btn-info" ng-click="form.fin08p.push({})" value="{{form.$pageLang.Add}}" />
+                        <input ng-if="base.pageState==1 || (form.$pageRight.StartNode == 'normal' && base.pageState==2)" type="button" class="btn btn-sm btn-danger" ng-click="form.delete(form.fin08p)" value="{{form.$pageLang.Delete}}" />
+                    </td>
+                </tr>
+
+
+            </tfoot>
+        </table>
+    </div>
+</div>
+<fm-Group-Head title="{{ form.$pageLang.AppliInfo }}"></fm-Group-Head>
+<div class="row">
+    <div class="col-xs-12">
+        <table class="table table-bordered table-detail" style="width:130%;">
+            <thead>
+                <tr>
+                    <th class="checktd" style="width: 2%;"></th>
+                    <th style="width:4%;text-align: center;border:0px;text-align:center;" ng-bind="form.$pageLang.NO"></th> <!--编号-->
+                    <th class="required" style="width:7%;text-align: center;border:0px;text-align:center;" ng-bind="form.$pageLang.TravelLocation"></th> <!--国内国外-->
+                    <th class="required" style="width:8%;text-align: center;border:0px;text-align:center;" ng-bind="form.$pageLang.traveInput"></th> <!--前往地点-->
+                    <th class="required" style="width:8%;text-align: center;border:0px;text-align:center;" ng-bind="form.$pageLang.departureDate"></th> <!--启程日期-->
+                    <th class="required" style="width:8%;text-align: center;border:0px;text-align:center;" ng-bind="form.$pageLang.returnDate "></th> <!--回程日期-->
+                    <th class="required" style="width:8%;text-align: center;border:0px;text-align:center;" ng-bind="form.$pageLang.travelBy "></th> <!--交通工具-->
+                    <th class="required" style="width:7%;text-align: center;border:0px;text-align:center;" ng-bind="form.$pageLang.ticketTime"></th> <!--订票时间？？-->
+                    <th class="required" style="width:10%;text-align: center;border:0px;text-align:center;" ng-bind="form.$pageLang.reserveTicket "></th> <!--订票-->
+                    <th class="required" style="width:10%;text-align: center;border:0px;text-align:center;" ng-bind="form.$pageLang.reserveHotel "></th> <!--订酒店-->
+                    <th class="required" style="width:11%;text-align: center;border:0px; text-align:center;" ng-bind="form.$pageLang.handleVisa"></th> <!--办理签证-->
+                    <th class="required" style="width:13%;text-align: center;border:0px; text-align:center;" ng-bind="form.$pageLang.reasonForTrip"></th> <!--出差事由-->
+                    <th style="width:10%;text-align: center;border:0px;text-align:center;" ng-bind="form.$pageLang.TicketDesc"></th> <!--备注？？-->
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in form.fin08t" ng-class="{ 'active': item.checked}" detail-name="{{form.$pageLang.Fare}}">
+                    <td class="checktd">
+                        <input class="uniform"
+                               ng-if="base.pageState==1 || (form.$pageRight.StartNode == 'normal' && base.pageState==2) "
+                               type="checkbox" ng-model="item.checked" />
+                    </td>
+                    <td>
+                        <fm-number ng-if="item.gridOrder!=null" class="input-sm"
+                                   fm-model="item.gridOrder"></fm-number>
+                        <span ng-if="item.gridOrder == null">{{$index + 1}}</span>
+                    </td>
+                    <td>
+                        <fm-select fm-model="item.travelLocation"
+                                   required
+                                   dataitem="Finance>TravelLocation"
+                                   state="{{form.$pageRight.StartNode}}"
+                                   field-name="{{form.$pageLang.travelLocation}}"
+                                   value-member="value"></fm-select>
+                    </td>
+                    <td>
+                        <fm-text fm-model="item.traveInput"
+                                 required
+                                 ng-if="item.travelLocation=='Domestic'"
+                                 state="{{form.$pageRight.StartNode }}"></fm-text>
+                        <fm-data-select field-name="{{form.$pageLang.traveInput}}"
+                                        dataitem="Finance>TravelLocation>Overseas"
+                                        ng-if="item.travelLocation=='Overseas'"
+                                        class="input-sm"
+                                        required
+                                        value-member="value"
+                                        state="{{form.$pageRight.StartNode && item.travelLocation=='Overseas'}}"
+                                        fm-model="item.traveInput"></fm-data-select>
+                    </td>
+                    <td>
+                        <fm-datetime date
+                                     required
+                                     field-name="{{form.$pageLang.departureDate}}"
+                                     state="{{form.$pageRight.StartNode}}"
+                                     fm-model="item.departureDate"></fm-datetime>
+                    </td>
+                    <td>
+                        <fm-datetime date
+                                     required
+                                     field-name="{{form.$pageLang.returnDate}}"
+                                     state="{{form.$pageRight.StartNode}}"
+                                     fm-model="item.returnDate"></fm-datetime>
+                    </td>
+                    <td>
+                        <fm-select fm-model="item.travelBy"
+                                   required
+                                   field-name="{{form.$pageLang.travelBy}}"
+                                   dataitem="Finance>TravelRequest>Traffic"
+                                   state="{{form.$pageRight.StartNode}}"
+                                   value-member="value"></fm-select>
+                    </td>
+
+                    <td>
+                        <fm-select fm-model="item.departureTime"
+                                   required
+                                   field-name="{{form.$pageLang.ticketTime}}"
+                                   dataitem="Finance>DepartureTime"
+                                   state="{{form.$pageRight.StartNode}}"
+                                   value-member="value"></fm-select>
+                    </td>
+                    <td>
+                        <fm-select fm-model="item.reserveTicket"
+                                   required
+                                   dataitem="Finance>TravelRequest>BookingTicket"
+                                   state="{{form.$pageRight.StartNode}}"
+                                   field-name="{{form.$pageLang.reserveTicket}}"
+                                   value-member="value"></fm-select>
+                    </td>
+                    <td>
+                        <fm-select fm-model="item.reserveHotel"
+                                   required
+                                   dataitem="Finance>TravelRequest>BookingHotel"
+                                   state="{{form.$pageRight.StartNode}}"
+                                   field-name="{{form.$pageLang.reserveHotel}}"
+                                   value-member="value"></fm-select>
+                    </td>
+                    <td>
+                        <fm-select fm-model="item.handleVisa"
+                                   required
+                                   dataitem="Finance>TravelRequest>HandleVisa"
+                                   state="{{form.$pageRight.StartNode}}"
+                                   field-name="{{form.$pageLang.handleVisa}}"
+                                   value-member="value"></fm-select>
+                    </td>
+                    <td>
+                        <fm-select fm-model="item.reasonForTrip"
+                                   required
+                                   dataitem="Finance>TravelRequest>TravelReason"
+                                   state="{{form.$pageRight.StartNode}}"
+                                   field-name="{{form.$pageLang.reasonForTrip}}"
+                                   value-member="value"></fm-select>
+                    </td>
+                    <td>
+                        <fm-text fm-model="item.remark"
+                                 state="{{form.$pageRight.StartNode }}"></fm-text>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td style="text-align: right; " colspan="11">
+                        <input ng-if="base.pageState==1 || (form.$pageRight.StartNode == 'normal' && base.pageState==2)" type="button" class="btn btn-sm btn-info" ng-click="form.fin08t.push({})" value="{{form.$pageLang.Add}}" />
+                        <input ng-if="base.pageState==1 || (form.$pageRight.StartNode == 'normal' && base.pageState==2)" type="button" class="btn btn-sm btn-danger" ng-click="form.delete(form.fin08t)" value="{{form.$pageLang.Delete}}" />
+                    </td>
+                </tr>
+
+
+            </tfoot>
+        </table>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <div class="col-xs-10">
+                <p>(若出差事由为“Training 培训”，必须在下列说明框中填写External Course的申请单号，否则不予审批)</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--说明-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.Description"></span>
+            <div class="col-xs-10">
+                <fm-text fm-model="form.fin08.description"
+                         field-name="{{form.$pageLang.description}}"
+                         required
+                         state="{{form.$pageRight.StartNode}}"></fm-text>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--是否预支-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.needCash"></span>
+            <div class="col-xs-4">
+                <fm-select fm-model="form.fin08.needCash"
+                           required
+                           fm-code="form.$state.NeedCash"
+                           dataitem="Common>YesOrNo"
+                           state="{{form.$pageRight.StartNode}}"
+                           field-name="{{form.$pageLang.needCash}}"
+                           callback-func="form.needCash(selectItem)"
+                           value-member="value"></fm-select>
+            </div>
+            <span class="col-xs-4 control-label required" ng-bind="form.$pageLang.Notice"></span>
+        </div>
+    </div>
+</div>
+<div class="row" ng-if="form.fin08.needCash=='1'">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--货币-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.Currency"></span>
+            <div class="col-xs-4">
+                <fm-select fm-model="form.fin08.currency"
+                           view="GetCurrency"
+                           required
+                           disabled
+                           state="{{form.$pageRight.StartNode}}"
+                           field-name="{{form.$pageLang.currency}}"></fm-select>
+            </div>
+            <span class="col-xs-4 control-label required" ng-bind="form.$pageLang.Noticea"></span>
+        </div>
+    </div>
+</div>
+<div class="row" ng-if="form.fin08.needCash=='1'">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--总金额-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.SumofAmount"></span>
+            <div class="col-xs-4">
+                <fm-number field-name="{{form.$pageLang.PayAmount}}"
+                           cny
+                           required
+                           fm-disabled="form.$state.NeedCash != '1'"
+                           state="{{form.$pageRight.StartNode}}"
+                           fm-model="form.fin08.sumofAmount"></fm-number>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" ng-if="form.fin08.needCash=='1'">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--金额详细说明-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.CurrencyDescription"></span>
+            <div class="col-xs-10">
+                <fm-text fm-model="form.fin08.currencyDescription"
+                         field-name="{{form.$pageLang.currencyDescription}}"
+                         required
+                         fm-disabled="form.$state.NeedCash != '1'"
+                         state="{{form.$pageRight.StartNode}}"></fm-text>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--金额详细说明描述-->
+            <div class="col-xs-10">
+                <span ng-bind="form.$pageLang.CurrencyDescriptiona"></span>
+            </div>
+        </div>
+    </div>
+</div>
+<!--<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            部门经理核准
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.PartManagerApproved"></span>
+            <div class="col-xs-4">
+                <fm-text fm-model="form.fin08.partManager"
+                         required
+                         readonly
+                         state="{{form.$pageRight.StartNode}}"></fm-text>
+            </div>
+        </div>
+    </div>
+</div>-->
+<!--<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            副总经理核准
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.fuManagerApproved"></span>
+            <div class="col-xs-4">
+                <fm-text fm-model="form.fin08.fuManager"
+                         required
+                         readonly
+                         state="{{form.$pageRight.StartNode}}"></fm-text>
+            </div>
+        </div>
+    </div>
+</div>-->
+<!--<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            总经理核准
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.ManagerApproved"></span>
+            <div class="col-xs-4">
+                <fm-text fm-model="form.fin08.manager"
+                         required
+                         readonly
+                         state="{{form.$pageRight.StartNode}}"></fm-text>
+            </div>
+        </div>
+    </div>
+</div>-->
+<!--<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            人事经理核准
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.HRManagerApproved"></span>
+            <div class="col-xs-4">
+                <fm-text fm-model="form.fin08.hRManager"
+                         required
+                         readonly
+                         state="{{form.$pageRight.StartNode}}"></fm-text>
+            </div>
+        </div>
+    </div>
+</div>-->
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--编号-->
+            <span class="col-xs-2 control-label" ng-bind="form.$pageLang.ticketInfoNo"></span>
+            <div class="col-xs-4">
+                <fm-text fm-model="form.fin08.ticketInfoNo"
+                         field-name="{{form.$pageLang.ticketInfoNo}}"
+                         state="{{form.$pageRight.StartNode}}"></fm-text>
+            </div>
+            <!--机票费-->
+            <span class="col-xs-2 control-label" ng-bind="form.$pageLang.TicketExpense "></span>
+            <div class="col-xs-4">
+                <fm-number fm-model="form.fin08.ticketExpense"
+                           field-name="{{form.$pageLang.ticketExpense}}"
+                           cny
+                           state="{{form.$pageRight.StartNode}}"></fm-number>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--日期-->
+            <span class="col-xs-2 control-label" ng-bind="form.$pageLang.LeaveDate"></span>
+            <div class="col-xs-4">
+                <fm-datetime date fm-model="form.fin08.leaveDate"
+                             field-name="{{form.$pageLang.leaveDate}}"
+                             state="{{form.$pageRight.StartNode}}"></fm-datetime>
+
+            </div>
+            <!--时间-->
+            <span class="col-xs-2 control-label" ng-bind="form.$pageLang.LeaveTime"></span>
+            <div class="col-xs-4">
+                <fm-datetime fm-model="form.fin08.leaveTime"
+                             field-name="{{form.$pageLang.leaveTime}}"
+                             time
+                             state="{{form.$pageRight.StartNode}}"></fm-datetime>
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+<!--<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            项目出差核准
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.ProjectAudit"></span>
+            <div class="col-xs-4">
+                <fm-text fm-model="form.fin08.projectAudit"
+                         required
+                         readonly
+                         state="{{form.$pageRight.StartNode}}"></fm-text>
+            </div>
+        </div>
+    </div>
+</div>-->
+<!--<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            项目经理核准
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.ProjectManagerApproved"></span>
+            <div class="col-xs-4">
+                <fm-text fm-model="form.fin08.projectManager"
+                         required
+                         readonly
+                         state="{{form.$pageRight.StartNode}}"></fm-text>
+            </div>
+        </div>
+    </div>
+</div>-->
+<!--<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            财务核准
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.ApprovedbyFinance"></span>
+            <div class="col-xs-4">
+                <fm-text fm-model="form.fin08.approvedbyFinance"
+                         required
+                         readonly
+                         state="{{form.$pageRight.StartNode}}"></fm-text>
+            </div>
+        </div>
+    </div>
+</div>-->
+<!--<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            财务经理核准
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.FinaceManagerApproved"></span>
+            <div class="col-xs-4">
+                <fm-text fm-model="form.fin08.finaceManager"
+                         required
+                         readonly
+                         state="{{form.$pageRight.StartNode}}"></fm-text>
+            </div>
+        </div>
+    </div>
+</div>-->
+<div class="row">
+    <div class="col-xs-12">
+        <table class="table table-bordered table-detail" ng-if="form.$nodeCode=='Cashier'">
+            <thead>
+                <tr>
+                    <th class="checktd" style="width: 5%;"></th>
+                    <th style="width:5%;" ng-bind="form.$pageLang.NO"></th> <!--编号-->
+                    <th style="width:15%;" ng-bind="form.$pageLang.Payer"></th> <!--付款人-->
+                    <th style="width:15%;" ng-bind="form.$pageLang.PayDate"></th> <!--付款日期-->
+                    <th style="width:15%;" ng-bind="form.$pageLang.PayAmount"></th> <!--付款金额-->
+                    <th style="width:25%;" ng-bind="form.$pageLang.PayBank"></th> <!--付款银行-->
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in form.fin08pay" ng-class="{ 'active': item.checked}" detail-name="{{form.$pageLang.Fare}}">
+                    <td class="checktd">
+                        <input class="uniform"
+                               ng-if="base.pageState==1 || (form.$pageRight.StartNode == 'normal' && base.pageState==2) "
+                               type="checkbox" ng-model="item.checked" />
+                    </td>
+                    <td>
+                        <fm-number ng-if="item.gridOrder!=null" class="input-sm"
+                                   fm-model="item.gridOrder"></fm-number>
+                        <span ng-if="item.gridOrder == null">{{$index + 1}}</span>
+                    </td>
+                    <td>
+                        <fm-text field-name="{{form.$pageLang.Payer}}"
+                                 required
+                                 state="{{form.$nodeCode == 'Cashier'}}"
+                                 fm-model="item.payer"></fm-text>
+                    </td>
+                    <td>
+                        <fm-datetime date field-name="{{form.$pageLang.PayDate}}"
+                                     required
+                                     state="{{form.$nodeCode == 'Cashier'}}"
+                                     fm-model="item.payDate"></fm-datetime>
+                    </td>
+                    <td>
+                        <fm-number field-name="{{form.$pageLang.PayAmount}}"
+                                   required
+                                   cny
+                                   state="{{form.$nodeCode == 'Cashier'}}"
+                                   fm-model="item.payAmount"></fm-number>
+                    </td>
+                    <td>
+                        <fm-text field-name="{{form.$pageLang.PayBank}}"
+                                 required
+                                 state="{{form.$nodeCode == 'Cashier'}}"
+                                 fm-model="item.payBank"></fm-text>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td style="text-align: right;" colspan="6">
+                        <input ng-if="base.pageState==1 || (form.$nodeCode == 'Cashier' && base.pageState==2)" type="button" class="btn btn-sm btn-info" ng-click="form.fin08pay.push({})" value="{{form.$pageLang.Add}}" />
+                        <input ng-if="base.pageState==1 || (form.$nodeCode == 'Cashier' && base.pageState==2)" type="button" class="btn btn-sm btn-danger" ng-click="form.delete(form.fin08pay)" value="{{form.$pageLang.Delete}}" />
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+<div class="row" ng-if="base.pageState == 2 ">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--收款人签字-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.ReveivedBy"></span>
+            <div class="col-xs-4">
+                <fm-text fm-model="form.fin08.reveivedBy"
+                         readonly></fm-text>
+            </div>
+            <!--日期-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.Date"></span>
+            <div class="col-xs-4">
+                <fm-datetime date
+                             fm-model="form.fin08.reveivedData"></fm-datetime>
+            </div>
+        </div>
+    </div>
+</div>

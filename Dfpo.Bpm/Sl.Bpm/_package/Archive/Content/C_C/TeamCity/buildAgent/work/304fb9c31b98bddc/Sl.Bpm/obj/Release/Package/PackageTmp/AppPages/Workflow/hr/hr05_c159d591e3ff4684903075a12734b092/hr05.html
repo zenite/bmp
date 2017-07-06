@@ -1,0 +1,440 @@
+﻿<!--劳动合同续签证明-->
+<fm-form-title sn-number="{{base.snNumber}}" apply-date="{{base.applyDate}}" sub-title='base.title' fm-model="base.areaCode"></fm-form-title>
+<fm-Group-Head title="{{ base.$pageLang.ApplicantInfo }}"></fm-Group-Head>
+<fm-applicant jobid='base.applicantJobId' userinfo='base.applicant' taskid='base.taskId' wfid="base.workflowId"></fm-applicant>
+
+<fm-Group-Head title="{{ form.$pageLang.RenewalofEmployeeInformation}}"></fm-Group-Head>
+<!---续签员工信息-->
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--员工工号-->
+            <span class="col-xs-2 control-label" ng-bind="form.$pageLang.StaffNum"></span>
+            <div class="col-xs-4">
+                <fm-data-select view="GetEmployeeWhereTcApHqById"
+                                required
+                                field-name="{{form.$pageLang.StaffNum}}"
+                                callback-func="form.chooseEmployeeNumber(selectItem)"
+                                fm-model="form.hr05.hrNo">
+                </fm-data-select>
+            </div>
+            <!--员工姓名-->
+            <span class="col-xs-2 control-label" ng-bind="form.$pageLang.StaffName"></span>
+            <div class="col-xs-4">
+                <fm-text fm-model="form.hr05.staffName"
+                        
+                         readonly
+                         state="{{form.$pageRight.StartNode}}"></fm-text>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--员工组织-->
+            <span class="col-xs-2 control-label" ng-bind="form.$pageLang.StaffOrganization"></span>
+            <div class="col-xs-4">
+                <fm-text fm-model="form.hr05.staffOrganization"
+                         readonly
+                        ></fm-text>
+            </div>
+            <!--员工岗位-->
+            <span class="col-xs-2 control-label" ng-bind="form.$pageLang.StaffPosition"></span>
+            <div class="col-xs-4">
+                <fm-select fm-model="form.hr05.staffPosition"
+                        view="GetAllJobName"
+                           display-member="jobName"
+                             value-member="id"
+                         readonly
+                         ></fm-select>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--员工邮箱-->
+            <span class="col-xs-2 control-label" ng-bind="form.$pageLang.StaffMail"></span>
+            <div class="col-xs-4">
+                <fm-text fm-model="form.hr05.staffMail"
+                         readonly
+                        ></fm-text>
+            </div>
+            <!--加入公司日期-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.OnboardDate"></span>
+            <div class="col-xs-4">
+                <fm-datetime fm-model="form.hr05.onboardDate"
+                             fm-blur="form.sum(data)"
+                             required
+                             date
+                             field-name="{{form.$pageLang.OnboardDate}}"
+                         state="{{form.$pageRight.StartNode}}"></fm-datetime>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--合同到期日期-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.ContractExpirationDate"></span>
+            <div class="col-xs-4">
+                <fm-datetime field-name="{{form.$pageLang.ContractExpirationDate}}"
+                           fm-blur="form.sum(data)"
+                             date
+                             required
+                           state="{{form.$pageRight.Budget}}"
+                           fm-model="form.hr05.contractExpirationDate"></fm-datetime>
+            </div>
+            <!--司龄-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.JoinYears"></span>
+            <div class="col-xs-4">
+                <fm-number fm-model="form.hr05.joinYears"
+                           readonly
+                           min-value="0.1"
+                           field-name="{{form.$pageLang.JoinYears}}"
+                           unit="年"
+                          ></fm-number>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--绩效结论-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.PerformanceConclusion"></span>
+            <div class="col-xs-4">
+                <fm-text 
+                            field-name="{{form.$pageLang.PerformanceConclusion}}"
+                          readonly
+                           fm-model="form.hr05.yearsFront"></fm-text>
+            </div>
+            <!--123-->
+            <span class="col-xs-2 control-label required"></span>
+            <div class="col-xs-4">
+                <fm-select fm-model="form.hr05.yearsFrontPerformanceConclusion"
+                          dataitem="HRRelated>LaborContractRenewal>Performance"
+                           required
+                           field-name="{{form.$pageLang.PerformanceConclusion}}"></fm-select>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--绩效结论-->
+            <span class="col-xs-2 control-label required" ></span>
+            <div class="col-xs-4">
+                <fm-text  readonly
+                           fm-model="form.hr05.yearsMid"></fm-text>
+            </div>
+            <!--123-->
+            <span class="col-xs-2 control-label required"></span>
+            <div class="col-xs-4">
+                <fm-select fm-model="form.hr05.yearsMidPerformanceConclusion"
+                             required
+                           field-name="{{form.$pageLang.PerformanceConclusion}}"
+                          dataitem="HRRelated>LaborContractRenewal>Performance"></fm-select>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--绩效结论-->
+            <span class="col-xs-2 control-label required" ></span>
+            <div class="col-xs-4">
+                <fm-text  readonly
+                           fm-model="form.hr05.yearsEnd"></fm-text>
+            </div>
+            <!--123-->
+            <span class="col-xs-2 control-label required"></span>
+            <div class="col-xs-4">
+                <fm-select fm-model="form.hr05.yearsEndPerformanceConclusion"
+                             required
+                           field-name="{{form.$pageLang.PerformanceConclusion}}"
+                       dataitem="HRRelated>LaborContractRenewal>Performance"></fm-select>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--续签情况-->
+            <span class="col-xs-2 control-label" ng-bind="form.$pageLang.ContractExtension"></span>
+            <div class="col-xs-10">
+                <fm-radiolist columncount="1" fm-model="form.hr05.renewalCondition" required field-name="{{form.$pageLang.ContractExtension}}" dataitem="HRRelated>LaborContractRenewal>Renew"></fm-radiolist>
+            </div>
+    </div>
+</div>
+    </div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--外派情况-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.IsExpatriate"></span>
+                <div class="col-xs-4">
+                    <fm-radiolist fm-model="form.hr05.isDispatch" callback-func="form.clearexoatrateDueDate()" required field-name="{{form.$pageLang.IsExpatriate}}" dataitem="Common>YesOrNo"></fm-radiolist>
+                 </div>
+            <div ng-if="form.hr05.isDispatch=='D17A7445-9082-4A80-80E4-F47B4D19049E'">
+                <!--外派截止日期-->
+                <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.ExoatrateDueDate"></span>
+                <div class="col-xs-4">
+                    <fm-datetime fm-model="form.hr05.exoatrateDueDate"
+                                 required
+                                 date
+                                 field-name="{{form.$pageLang.ExoatrateDueDate}}"></fm-datetime>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--培训服务期-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.HasTraining"></span>
+            <div class="col-xs-4">
+                <fm-radiolist fm-model="form.hr05.hasTraining" callback-func="form.cleartrainingDueDate()" required field-name="{{form.$pageLang.HasTraining}}" dataitem="Common>YesOrNo"></fm-radiolist>
+            </div>
+            <div ng-if="form.hr05.hasTraining=='D17A7445-9082-4A80-80E4-F47B4D19049E'">
+                <!--服务器截至日期-->
+                <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.TrainingDueDate"></span>
+                <div class="col-xs-4">
+                    <fm-datetime fm-model="form.hr05.trainingDueDate"
+                                 required
+                                 date
+                                  field-name="{{form.$pageLang.TrainingDueDate}}"
+                                ></fm-datetime>
+                </div>
+            </div>
+           
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--备注-->
+            <span class="col-xs-2 control-label " ng-bind="form.$pageLang.Remark"></span>
+            <div class="col-xs-10">
+                <fm-textarea fm-model="form.hr05.remark"
+                              max-length="1000"
+                             state="{{form.$pageRight.StartNode}}"></fm-textarea>
+            </div>
+        </div>
+    </div>
+</div>
+<div>
+    <fm-Group-Head title="{{ form.$pageLang.DepartmentProposal}}"></fm-Group-Head>
+
+    <div class="row">
+        <div class="form-group">
+            <div class="col-xs-12">
+                <!--是否续订-->
+                <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.DeptIsExtending"></span>
+                <div class="col-xs-4">
+                    <fm-radiolist fm-model="form.hr05.deptIsExtending" callback-func="form.cleardeptExtendTerm()" required field-name="{{form.$pageLang.DeptIsExtending}}" dataitem="Common>YesOrNo" fm-disabled="form.$pageRight.Hr05Node1=='readonly'"    fm-normal="form.$pageRight.Hr05Node2=='normal' && base.pageState==2"></fm-radiolist>
+                </div>
+                <div ng-if="form.hr05.deptIsExtending=='D17A7445-9082-4A80-80E4-F47B4D19049E'">
+                    <!--续订期限-->
+                    <span class="col-xs-3 control-label required" ng-bind="form.$pageLang.DeptExtendTerm"></span>
+                    <div class="col-xs-3">
+                        <fm-select dataitem="HRRelated>LaborContractRenewal>ExtentionTerm"
+                                   fm-model="form.hr05.deptExtendTerm" required
+                                   callback-func="form.cleardeptOthersRemark()"
+                                   fm-disabled="form.$pageRight.Hr05Node1=='readonly'"
+                                    fm-normal="form.$pageRight.Hr05Node2=='normal' && base.pageState==2"
+                                   field-name="{{form.$pageLang.DeptExtendTerm}}"></fm-select>
+                    </div>
+                </div>
+               
+            </div>
+        </div>
+    </div>
+    <div class="row" ng-if="form.hr05.deptExtendTerm=='A3B79251-E863-4786-9356-70D9813120D8' && form.hr05.deptIsExtending=='D17A7445-9082-4A80-80E4-F47B4D19049E'">
+        <div class="form-group">
+            <div class="col-xs-12">
+                <!--其他说明-->
+                <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.HrOthersRemark"></span>
+                <div class="col-xs-10">
+                    <fm-textarea fm-model="form.hr05.deptOthersRemark"
+                                 required
+                                 max-length="1000"
+                                  field-name="{{form.$pageLang.HrOthersRemark}}"
+                              fm-disabled="form.$pageRight.Hr05Node1=='readonly'"
+                                  fm-normal="form.$pageRight.Hr05Node2=='normal' && base.pageState==2"
+                                 state="{{form.$pageRight.StartNode}}"></fm-textarea>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div ng-if="form.hr05.deptIsExtending=='D17A7445-9082-4A80-80E4-F47B4D19049E'">
+        <div class="row">
+            <div class="form-group">
+                <div class="col-xs-12">
+                    <!--合同约定条件-->
+                    <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.HrContractTerm"></span>
+                    <div class="col-xs-6">
+                        <fm-radiolist callback-func="form.cleardeptContractTerms()" dataitem="HRRelated>LaborContractRenewal>ContractualConditions" fm-normal="form.$pageRight.Hr05Node2=='normal' && base.pageState==2" fm-disabled="form.$pageRight.Hr05Node1=='readonly'" fm-model="form.hr05.deptContractTerm" required field-name="{{form.$pageLang.HrContractTerm}}"></fm-radiolist>
+                       
+                    </div>
+                    <div class="col-xs-3">
+                        <fm-text 
+                                 fm-normal="form.hr05.deptContractTerm == 'fa029542-bf0a-47a0-a7c0-83a8ee339754'" fm-disabled="form.hr05.deptContractTerm =='5fdd8c05-0e00-47a5-92c7-78c42fe3aa49' || form.$pageRight.Hr05Node1=='readonly'"
+                                 fm-model="form.hr05.deptContractTerms"
+                                 required
+                                  field-name="{{form.$pageLang.ConditionContent}}"
+                                ></fm-text>   
+                    </div>
+                    <span class="col-xs-1 control-label" ng-bind="form.$pageLang.Condition"></span>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    <div class="row" ng-if="form.hr05.deptIsExtending!=null">
+        <div class="form-group">
+            <div class="col-xs-12">
+                <!--条件说明-->
+                <span class="col-xs-2 control-label" ng-class="{ 'required':(form.hr05.deptIsExtending=='51B9F2E4-FBE9-400A-A789-A296E30177BF' || form.hr05.deptContractTerm=='fa029542-bf0a-47a0-a7c0-83a8ee339754')}" ng-bind="form.$pageLang.HrTermRemark"></span>
+                <div class="col-xs-10">
+                    <fm-textarea fm-model="form.hr05.deptTermRemark"
+                                 fm-disabled="form.$pageRight.Hr05Node1=='readonly'"
+                                 max-length="500"
+                                 fm-required="(form.hr05.deptIsExtending=='51B9F2E4-FBE9-400A-A789-A296E30177BF' || form.hr05.deptContractTerm=='fa029542-bf0a-47a0-a7c0-83a8ee339754')"
+                                 fm-normal="form.$pageRight.Hr05Node2=='normal' && base.pageState==2"
+                                 field-name="{{form.$pageLang.HrTermRemark}}"
+                                 state="{{form.$pageRight.StartNode}}"></fm-textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>
+<div>
+    <fm-Group-Head title="{{ form.$pageLang.Humanresources}}"></fm-Group-Head>
+
+    <div class="row">
+        <div class="form-group">
+            <div class="col-xs-12">
+                <!--是否续订-->
+                <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.DeptIsExtending"></span>
+                <div class="col-xs-4">
+                    <fm-radiolist fm-model="form.hr05.hrIsExtending" callback-func="form.clearhrExtendTerm()"  fm-normal="form.$pageRight.Hr05Node3=='normal' && base.pageState==2" fm-disabled="form.$pageRight.Hr05Node1=='readonly'" required field-name="{{form.$pageLang.DeptIsExtending}}" dataitem="Common>YesOrNo"></fm-radiolist>
+                </div >
+                <div ng-if="form.hr05.hrIsExtending=='D17A7445-9082-4A80-80E4-F47B4D19049E'">
+                    <!--续订期限-->
+                    <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.HrextendTerm"></span>
+                    <div class="col-xs-4">
+                        <fm-select fm-model="form.hr05.hrExtendTerm"
+                                   required
+                                   field-name="{{form.$pageLang.HrextendTerm}}"
+                                   callback-func="form.clearhrOthersRemark()"
+                                    fm-normal="form.$pageRight.Hr05Node3=='normal' && base.pageState==2"
+                                   fm-disabled="form.$pageRight.Hr05Node1=='readonly'"
+                                   dataitem="HRRelated>LaborContractRenewal>ExtentionTerm"
+                                   state="{{form.$pageRight.StartNode}}"></fm-select>
+                    </div>
+                </div>
+               
+            </div>
+        </div>
+    </div>
+    <div class="row" ng-if="form.hr05.hrIsExtending=='51B9F2E4-FBE9-400A-A789-A296E30177BF'">
+        <div class="form-group">
+            <div class="col-xs-12">
+                <!--经济补偿金-->
+                <span class="col-xs-2 control-label " ng-bind="form.$pageLang.HrCompensation"></span>
+            </div>
+        </div>
+    </div>
+    <div class="row" ng-if="form.hr05.hrIsExtending=='D17A7445-9082-4A80-80E4-F47B4D19049E' && form.hr05.hrExtendTerm=='A3B79251-E863-4786-9356-70D9813120D8'">
+        <div class="form-group">
+            <div class="col-xs-12">
+                <!--其他说明-->
+                <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.HrOthersRemark"></span>
+                <div class="col-xs-10">
+                    <fm-textarea fm-model="form.hr05.hrOthersRemark"
+                                 required
+                                 max-length="500"
+
+                                  fm-normal="form.$pageRight.Hr05Node3=='normal' && base.pageState==2"
+                                  field-name="{{form.$pageLang.HrOthersRemark}}"
+                                 fm-disabled="form.$pageRight.Hr05Node1=='readonly'"
+                                 state="{{form.$pageRight.StartNode}}"></fm-textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div ng-if="form.hr05.hrIsExtending=='D17A7445-9082-4A80-80E4-F47B4D19049E'">
+        <div class="row">
+            <div class="form-group">
+                <div class="col-xs-12">
+                    <!--合同约定条件1-->
+                    <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.HrContractTerm"></span>
+                    <div class="col-xs-6">
+                        <fm-radiolist callback-func="form.clearhrContractTerm()" dataitem="HRRelated>LaborContractRenewal>ContractualConditions" fm-normal="form.$pageRight.Hr05Node3=='normal' && base.pageState==2" fm-disabled="form.$pageRight.Hr05Node1=='readonly'" fm-model="form.hr05.hrContractTerm" required field-name="{{form.$pageLang.HrContractTerm}}"></fm-radiolist>
+
+                    </div>
+                    <div class="col-xs-3">
+                        <fm-text fm-normal="form.hr05.hrContractTerm == 'fa029542-bf0a-47a0-a7c0-83a8ee339754'" fm-disabled="form.hr05.hrContractTerm =='5fdd8c05-0e00-47a5-92c7-78c42fe3aa49' || form.$pageRight.Hr05Node1=='readonly'"
+                                 fm-model="form.hr05.hrContractTerms"
+                                 required
+                                 field-name="{{form.$pageLang.ConditionContent}}"></fm-text>
+                    </div>
+                    <span class="col-xs-1 control-label" ng-bind="form.$pageLang.Condition"></span>
+                </div>
+              
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group">
+                <div class="col-xs-12">
+                    <!--条件说明-->
+                    <span class="col-xs-2 control-label " ng-bind="form.$pageLang.HrTermRemark"></span>
+                    <div class="col-xs-10">
+                        <fm-textarea fm-model="form.hr05.hrTermRemark"
+                                     field-name="{{form.$pageLang.HrTermRemark}}"
+                                     max-length="500"
+                                     fm-normal="form.$pageRight.Hr05Node3=='normal' && base.pageState==2"
+                                     fm-disabled="form.$pageRight.Hr05Node1=='readonly'"
+                                     state="{{form.$pageRight.StartNode}}"></fm-textarea>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+</div>
+
+<!--附件-->
+<fm-Group-Head class="print-hide" title="{{ 'Attachment' |translate}}"></fm-Group-Head>
+<div class="print-hide row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <div class="col-xs-12">
+                <fm-attachment form-files="form.$attachments"
+                               link-id="0"
+                               task-id='base.taskId'
+                               node-id="base.nodeId"
+                               draft-id="base.draftId"
+                               state="{{form.$pageRight.StartNode}}"
+                               field-name="{{'UploadAttachment' |translate}}"
+                               fm-model="form.$state.UploadAttachment"
+                               button-name="{{ 'UploadAttachment' |translate}}"></fm-attachment>
+            </div>
+        </div>
+    </div>
+</div>

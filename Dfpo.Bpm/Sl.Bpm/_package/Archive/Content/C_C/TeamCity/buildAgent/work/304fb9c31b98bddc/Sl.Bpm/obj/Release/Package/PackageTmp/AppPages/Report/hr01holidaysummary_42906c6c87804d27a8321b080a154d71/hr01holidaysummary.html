@@ -1,0 +1,128 @@
+﻿<!--假期汇总查询-->
+<div class="form-group ma-block">
+    <fm-Group-Head title="{{::base.title}}"></fm-Group-Head>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="container">
+                <div class="form-group">
+                    <div class="col-xs-12">
+                        <div class="ma-detailinfo">
+                            <div class="content">
+                                <div class="row">
+                                    <div class="col-xs-4 cell">
+                                        <span class="col-xs-4 control-label">公司</span>
+                                        <div class="col-xs-8">
+                                            <fm-text class="input-sm" fm-model="form.filter.Area"></fm-text>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-4 cell">
+                                        <span class="col-xs-4 control-label">部门</span>
+                                        <div class="col-xs-8">
+                                            <fm-text class="input-sm" fm-model="form.filter.GroupName"></fm-text>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-4 cell">
+                                        <span class="col-xs-4 control-label">工号</span>
+                                        <div class="col-xs-8">
+                                            <fm-text class="input-sm" fm-model="form.filter.EmployeeNumber"></fm-text>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-4 cell">
+                                        <span class="col-xs-4 control-label">姓名</span>
+                                        <div class="col-xs-8">
+                                            <fm-text class="input-sm" fm-model="form.filter.ApplicationName"></fm-text>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-4 cell">
+                                        <span class="col-xs-3 control-label">请假时间</span>
+                                        <div class="col-xs-9">
+                                            <fm-datetime class="input-sm" date fm-model="form.filter.LeaveDateFrom"></fm-datetime>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-4 cell">
+                                        <span class="col-xs-3 control-label" style="text-align:center;">——</span>
+                                        <div class="col-xs-9">
+                                            <fm-datetime class="input-sm" date fm-model="form.filter.LeaveDateTo"></fm-datetime>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-4 cell">
+                                        <span class="col-xs-3 control-label">审批时间</span>
+                                        <div class="col-xs-9">
+                                            <fm-datetime class="input-sm" date fm-model="form.filter.ApprovestartDate"></fm-datetime>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-4 cell">
+                                        <span class="col-xs-3 control-label" style="text-align:center;">——</span>
+                                        <div class="col-xs-9">
+                                            <fm-datetime class="input-sm" date fm-model="form.filter.ApproveendDate"></fm-datetime>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12" style="text-align:center;">
+                                <button class="btn btn-primary" ng-click="form.select()">{{:: 'Query' | translate}}</button>
+                                <button class="btn btn-default" ng-click="form.clear()">清空</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12">
+                <table class="table table-bordered table-detail">
+                    <thead>
+                        <tr>
+                            <th style="text-align: left; max-width: 300px;" ng-repeat="col in form.$columnText track by $index">{{col}}</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in form.currentPageData track by $index">
+
+                            <td id="{{item.EmployeeNumber}}" style="text-align: left; max-width: 300px" ng-repeat="col in form.$column ">
+                                <span>{{item[col]}}</span>
+                            </td>
+
+                        </tr>
+                    </tbody>
+                    <tfoot style='background-color:#ADADAD' >
+                        <tr>
+                            <td ng-if="form.show=='1'" colspan="4" style="text-align:left;">
+                                <span>Total</span>
+                            </td>
+                            <td ng-if="form.show=='2'" colspan="2" style="text-align:left;">
+                                <span>Total</span>
+                            </td>
+                            <td><span>{{Lieu}}</span></td>
+                            <td><span>{{Medical}}</span></td>
+                            <td><span>{{Vacation}}</span></td>
+                            <td><span>{{Maternity}}</span></td>
+                            <td><span>{{Marriage}}</span></td>
+                            <td><span>{{Bereavement}}</span></td>
+                            <td><span>{{Family}}</span></td>
+                            <td><span>{{Total}}</span></td>
+                        </tr>
+                        <tr></tr>
+                    </tfoot>
+                </table>
+                <div class="col-xs-12">
+                    <div class="col-xs-2" style="text-align: left;" ng-if="form.paging.totalCount > 0">
+                        <button ng-if="form.start == true ||(form.filter.EmployeeNumber != '' && form.filter.EmployeeNumber != null) ||( form.filter.ApplicationName != '' && form.filter.ApplicationName != null)" class="btn btn-info" ng-click="form.$exportExcel('Hr01HolidaySummaryEmpExl',form.filter, 'Seq Asc,EmployeeNumber ', true)">导出</button>
+                        <button ng-if="form.start !=true&&(form.filter.EmployeeNumber==''||form.filter.EmployeeNumber==null)&&(form.filter.ApplicationName==''||form.filter.ApplicationName==null)" class="btn btn-info" ng-click="form.$exportExcel('Hr01HolidaySummaryGroupExl',form.filter, 'Seq Asc,GroupName ', true)">导出</button>
+                    </div>
+                    <div class="col-xs-8" style="text-align: right;">
+                        <ma-pager ng-if="form.paging.totalCount >= form.paging.currentPage" current-page="form.paging.currentPage" load="form.load(true)" total-count="form.paging.totalCount" page-size="form.paging.pageSize"></ma-pager>
+                    </div>
+                    <div class="col-xs-2" style="text-align: right;">
+                        <span class="control-label" style="vertical-align: top; line-height: 32px;">{{ "Count" | translate}}：{{form.paging.totalCount}}</span> &nbsp;&nbsp;&nbsp;
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,42 @@
+﻿<!--Spot PO(by user)-->
+<div class="form-group ma-block">
+    <fm-Group-Head title="{{::base.title}}"></fm-Group-Head>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="container">
+                <div class="form-group">
+                    <div class="col-xs-12">
+                        <div class="ma-detailinfo">
+                            <div class="content">
+                                <div class="row">
+                                    <div class="col-xs-4 cell">
+                                        <span class="col-xs-3 control-label" ng-bind="form.$pageLang.poCreationTime"></span>
+                                        <div class="col-xs-9">
+                                            <fm-datetime class="input-sm" date fm-model="form.filter.applicationTimeStart" fm-readonly></fm-datetime>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-4 cell">
+                                        <span class="col-xs-3 control-label" style="text-align: center;">——</span>
+                                        <div class="col-xs-9">
+                                            <fm-datetime class="input-sm" date fm-model="form.filter.applicationTimeEnd" fm-readonly></fm-datetime>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-4">
+                                        <button class="btn btn-primary" ng-click="form.select()">{{:: 'Query' | translate}}</button>
+                                        <button class="btn btn-default" ng-click="form.clear()">清空</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12">
+                <fm-table view='GetFin06ReportByUser' data="form.Fin06ReportByUser" refreash-data="form.refreash" excel current-page-data="form.currentData" width="2500px"
+                          page="{{form.page}}" sortable
+                          filter="{CurrentUserId:base.currentUserId,ApplicationTimeStart:form.filter.applicationTimeStart,ApplicationTimeEnd:form.filter.applicationTimeEnd}"></fm-table>
+            </div>
+        </div>
+    </div>
+</div>

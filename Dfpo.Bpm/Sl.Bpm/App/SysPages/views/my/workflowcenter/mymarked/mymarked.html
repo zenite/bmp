@@ -1,0 +1,65 @@
+﻿<div ng-controller="syspages.views.my.workflowcenter.mymarked as vm">
+    <!--<ma-header>{{ 'MyMarkedWf' | translate}}</ma-header>-->
+    <div class="row">
+        <div class="modal-user">
+            <div class="">
+                <fm-category isall fm-model="vm.moduleIds" items="vm.moduleTypes" code-member="moduleCount" display-member="moduleName" value-member="moduleId" callback-func="vm.load()"></fm-category>
+            </div>
+            <div class="panel">
+                <div class="panel-heading">
+                    {{ 'SelectTask' | translate}}
+                    <div class="selectTxt icon-search">
+                        <input type="text" value="" placeholder="{{ 'PleaseEnterTheQueryCondition '| translate }}" ng-model="vm.filterText" ng-blur="vm.select()" ng-keydown="vm.event_Keydown($event)" class="ng-pristine ng-untouched ng-valid">
+                    </div>
+                </div>
+                <div class="panel-body" style="min-height: 330px; position: relative;">
+                    <table class="table table-striped table-hover table-condensed">
+                        <thead>
+                        <tr>
+                            <th data-width="150">{{ 'TaskNumber' | translate}}</th>
+                            <th data-width="100">{{ 'WorkflowName' | translate}}</th>
+                            <th data-width="200">{{ 'Sn' | translate}}</th>
+                            <th data-width="100">{{ 'Creator' | translate}}</th>
+                            <th data-width="150" class="flex-col">{{ 'CreationDate' | translate}}</th>
+                            <th data-width="150">{{ 'CurrentStatus' | translate}}</th>
+                            <th data-width="100" class="flex-col">{{ 'WorkflowType' | translate}}</th>
+                            <th data-width="100" class="sort-disabled">{{ 'Operation' | translate}}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="item in vm.models">
+                            <td>{{item.refId}}</td>
+                            <td>{{item.workflowName}}</td>
+                            <td><a class="ink-label" ng-click="vm.edit(item)">{{item.sn}}
+                                    <span ng-if="!!task.areaCode">({{task.areaCode}})</span>
+                                </a></td>
+                            <td>{{item.submitter}}</td>
+                            <td>{{item.creationTime | date : 'yyyy-MM-dd HH:mm:ss'}}</td>
+                            <td ng-if="item.taskStatus > 0">{{item.finishedTime | date:'yyyy-MM-dd HH:mm:ss'}}<span ng-if="item.taskStatus == 1">({{ 'TaskFinishStatus' | translate}})</span><span ng-if="item.taskStatus == 7">({{ 'TaskFinishStatus' | translate}})</span></td>
+                            <td ng-if="item.taskStatus == 0">{{item.procUserName}}</td>
+                            <td>{{item.wfdCategoryName}}</td>
+                            <td>
+                                <!--<i class="icon-edit" ng-click="vm.edit(item)"></i>-->
+                                <i title="标记" class="fa-effect-boris cursor-pointer text-warning" ng-class="{true:'icon icon-star',false:'icon icon-star-empty'}[item.isMarked]" ng-click="vm.mark(item)"></i>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div ng-if="vm.paging.totalCount === undefined">
+                        <div class="content-spinner-bar">
+                            <div class="bounce1"></div>
+                            <div class="bounce2"></div>
+                            <div class="bounce3"></div>
+                        </div>
+                    </div>
+                    <div ng-if="vm.paging.totalCount === 0" style="text-align: center;">
+                        <span class="span1" style="position: absolute; height: 100%; width: 100%; left: 0; top: calc(50% - 14px); font-size: 28px; color: #353535;">{{ 'NoMarked' | translate}}</span>
+                    </div>
+                    <div ng-if="vm.paging.totalCount > vm.paging.pageSize">
+                        <ma-pager current-page="vm.paging.currentPage" load="vm.load()" total-count="vm.paging.totalCount" page-size="vm.paging.pageSize"></ma-pager>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

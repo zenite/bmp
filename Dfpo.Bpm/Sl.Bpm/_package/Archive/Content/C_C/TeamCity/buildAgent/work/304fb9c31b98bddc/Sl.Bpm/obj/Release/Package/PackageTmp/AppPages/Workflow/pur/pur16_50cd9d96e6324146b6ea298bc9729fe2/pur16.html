@@ -1,0 +1,598 @@
+﻿<!--新供应商申请批准表1/2-->
+<fm-form-title sn-number="{{base.snNumber}}" apply-date="{{base.applyDate}}" sub-title='base.title' fm-model="base.areaCode"></fm-form-title>
+<!--<fm-Group-Head class="print-hide" title="{{ base.$pageLang.PostByInfo }}"></fm-Group-Head>
+<fm-initiator class="print-hide" jobid='base.jobId' userinfo='base.initiator' taskid='base.taskId'></fm-initiator>
+<fm-Group-Head title="{{ base.$pageLang.ApplicantInfo }}"></fm-Group-Head>
+<fm-applicant jobid='base.applicantJobId' userinfso='base.applicant' taskid='base.taskId' wfid='base.workflowId'></fm-applicant>-->
+
+<fm-Group-Head class="print-hide" title="{{ form.$pageLang.InstructionAndGlossary }}"></fm-Group-Head>
+<div class="row">
+    <div class="col-xs-12">
+        <button class="btn btn-info btn-sm" ng-click="form.instructionAndGlossary()">{{ form.$pageLang.InstructionAndGlossary}}</button>
+    </div>
+</div>
+<!--申请人信息-->
+<fm-Group-Head class="print-hide" title="{{ base.$pageLang.ApplicantInfo }}"></fm-Group-Head>
+
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--申请人名字-->
+            <span class="col-xs-2 control-label">{{ "ApplicantName" | translate }}</span>
+            <div class="col-xs-4">
+                <div class="input-group" style="width: 100%;">
+                    <span class="form-label">{{base.applicant.userName}}</span>
+                    <!--<span class="input-group-btn" ng-if="!base.taskid">
+                        <button class="btn btn-default" type="button" ng-click="base.$selectApplicant()">{{ "Choose" | translate }}</button>
+                    </span>-->
+                </div>
+            </div>
+            <!--申请人员工号-->
+            <span class="col-xs-2 control-label">{{ "ApplicantEmployeeNumber" | translate }}</span>
+            <div class="col-xs-4"><span class="form-label">{{base.applicant.employeeNumber}}</span></div>
+        </div>
+    </div>
+    <div class="form-group">
+        <!--申请人部门线-->
+        <div class="col-xs-12">
+            <span class="col-xs-2 control-label">{{ "ApplicantDepartment" | translate }}</span>
+            <div class="col-xs-10"><span class="form-label">{{base.applicant.departmentName}}</span></div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--申请人电话-->
+            <span class="col-xs-2 control-label">{{ "ApplicantContactNumber" | translate }}</span>
+            <div class="col-xs-4"><span class="form-label">{{base.applicant.contactNumber}}</span></div>
+            <!--申请人邮箱-->
+            <span class="col-xs-2 control-label">{{ "ApplicantEmail" | translate }}</span>
+            <div class="col-xs-4"><span class="form-label">{{base.applicant.emailAddress}}</span></div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--申请人手机-->
+            <span class="col-xs-2 control-label">{{ "ApplicantMobileNumber" | translate }}</span>
+            <div class="col-xs-4"><span class="form-label">{{base.applicant.mobileNumber}}</span></div>
+            <!--申请人直属领导-->
+            <span class="col-xs-2 control-label">{{ "ApplicantDirectManager" | translate }}</span>
+            <div class="col-xs-4"><span class="form-label">{{base.applicant.directManagerName}}</span></div>
+        </div>
+    </div>
+</div>
+
+<fm-Group-Head title="{{ form.$pageLang.NewSupplierInfo }}"></fm-Group-Head>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--所属单位-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.usedInCompany"></span>
+            <div class="col-xs-4">
+                <fm-select field-name="{{form.$pageLang.usedInCompany}}"
+                           required
+                           view="GetUsedInCompanyForPur16"
+                           fm-model="form.pur16.usedInCompany"></fm-select>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--供应商名称（工商注册）-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.registeredSupplierCNName"></span>
+            <div class="col-xs-4">
+                <fm-text field-name="{{form.$pageLang.registeredSupplierCNName}}"
+                         required
+                         fm-model="form.pur16.registeredSupplierName"></fm-text>
+            </div>
+            <!--供应商名称（参考）-->
+            <span class="col-xs-2 control-label" ng-bind="form.$pageLang.referenceSupplierENName"></span>
+            <div class="col-xs-4">
+                <fm-text fm-model="form.pur16.referenceSupplierName"></fm-text>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--供应商地址/邮编(工商注册)-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.registeredAddressCNPost"></span>
+            <div class="col-xs-4">
+                <fm-text required
+                         field-name="{{form.$pageLang.registeredAddressCNPost}}"
+                         fm-model="form.pur16.registeredAddressPost"></fm-text>
+            </div>
+            <!--供应商地址/邮编(参考)-->
+            <span class="col-xs-2 control-label" ng-bind="form.$pageLang.registeredAddressENPost"></span>
+            <div class="col-xs-4">
+                <fm-text fm-model="form.pur16.referenceAddressPost"></fm-text>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--上一年度销售额-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.Salelastyear"></span>
+            <div class="col-xs-2">
+                <fm-text required
+                         field-name="{{form.$pageLang.Salelastyear}}"
+                         fm-model="form.pur16.saleOfLastYear"></fm-text>
+            </div>
+            <div class="col-xs-2">
+                <fm-select view="GetCurrency"
+                           fm-model="form.pur16.currency"
+                           field-name="{{form.$pageLang.Currency}}"
+                           required></fm-select>
+            </div>
+            <!--供应商成立日期-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.registeredDate"></span>
+            <div class="col-xs-4">
+                <fm-datetime required date
+                             field-name="{{form.$pageLang.registeredDate}}"
+                             fm-model="form.pur16.registeredDate"></fm-datetime>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--最新年检的营业执照副本(上传附件功能在表单最下方) -->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.YearCheck"></span>
+            <div class="col-xs-10">
+                <fm-attachment form-files="form.$attachments"
+                               link-id="1"
+                               task-id='base.taskId'
+                               node-id="base.nodeId"
+                               draft-id="base.draftId"
+                               required
+                               field-name="{{form.$pageLang.YearCheck}}"
+                               fm-model="form.$state.UploadAttachment"
+                               button-name="{{ 'UploadAttachment' |translate}}"></fm-attachment>
+            </div>
+        </div>
+    </div>
+</div>
+
+<fm-Group-Head title="{{ form.$pageLang.ApplicationReation }}"></fm-Group-Head>
+<!--申请理由-->
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--所属物料大类  -->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.Class"></span>
+            <div class="col-xs-4">
+                <fm-select fm-code="form.$state.classCode"
+                           dataitem="PurchaseRelated>NewSupplier>SupplierCategory"
+                           fm-model="form.pur16.class"
+                           required
+                           field-name="{{form.$pageLang.Class}}"
+                           callback-func="form.selectClass(selectItem)"></fm-select>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--所属产品-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.Commodity"></span>
+            <div class="col-xs-4">
+                <fm-select datacode="'PurchaseRelated>NewSupplier>SupplierCategory>'+form.$state.classCode"
+                           fm-model="form.pur16.commodity"
+                           dataitem
+                           required
+                           field-name="{{form.$pageLang.Commodity}}"
+                           callback-func="form.selectCommodity()"></fm-select>
+            </div>
+            <div class="col-xs-6">
+                <fm-text fm-disabled="!form.pur16.commodity"
+                         fm-model="form.pur16.commodityDetailedInfo"></fm-text>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--申请类型-->
+            <span class="col-xs-2 control-label" ng-bind="form.$pageLang.ApplicationType" ng-class="{'required':form.$state.classCode != '3' }"></span>
+            <div class="col-xs-4">
+                <fm-select fm-disabled="form.$state.classCode == '3'"
+                           fm-code="form.$state.applicationTypeCode"
+                           dataitem="PurchaseRelated>NewSupplier>SupplierReqType"
+                           fm-model="form.pur16.applicationType"
+                           callback-func="form.selectApplicationType(selectItem)"
+                           field-name="{{form.$pageLang.ApplicationType}}"
+                           fm-required="form.$state.classCode != '3'"></fm-select>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--产品采购-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.CommodityBuyer"></span>
+            <div class="col-xs-4">
+                <fm-select disabled view="Sys_GetUserNamesByJobId"
+                           field-name="{{form.$pageLang.CommodityBuyer}}"
+                           fm-model="form.pur16.commodityBuyer"
+                           required></fm-select>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--批量生产当年计划采购量-->
+            <span class="col-xs-2 control-label" ng-bind="form.$pageLang.plannedprocurementQty" ng-class="{'required':form.$state.classCode != '3' }"></span>
+            <div class="col-xs-4">
+                <fm-text fm-disabled="form.$state.classCode == '3'"
+                         fm-model="form.pur16.plannedProcurementQty"
+                         fm-required="form.$state.classCode != '3'"
+                         field-name="{{form.$pageLang.plannedprocurementQty}}"></fm-text>
+            </div>
+            <!--新供应商评审结果-->
+            <span class="col-xs-2 control-label" ng-bind="form.$pageLang.AssessmentResult" ng-class="{'required':form.$state.classCode != '3' }"></span>
+            <div class="col-xs-2">
+                <fm-select dataitem="PurchaseRelated>NewSupplier>SupplierEvaluationResultLeft"
+                           fm-disabled="form.$state.classCode == '3' || form.$state.applicationTypeCode == '3'"
+                           fm-model="form.pur16.assessmentResult"
+                           fm-required="form.$state.classCode != '3'"
+                           field-name="{{form.$pageLang.AssessmentResult}}"></fm-select>
+            </div>
+            <div class="col-xs-2">
+                <fm-select dataitem="PurchaseRelated>NewSupplier>SupplierEvaluationResultRight"
+                           fm-disabled="form.$state.classCode == '3' || form.$state.applicationTypeCode !== '1'"
+                           fm-model="form.pur16.assessmentResultLevel"
+                           fm-required="form.$state.classCode != '3'"
+                           field-name="{{form.$pageLang.AssessmentResultLevel}}"></fm-select>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--批量生产当年度计划采购额-->
+            <span class="col-xs-2 control-label" ng-bind="form.$pageLang.PlannedprocurementCost" ng-class="{'required':form.$state.classCode != '3' }"></span>
+            <div class="col-xs-2">
+                <fm-text fm-disabled="form.$state.classCode == '3'"
+                         fm-model="form.pur16.plannedProcurementCost"
+                         fm-required="form.$state.classCode != '3'"
+                         field-name="{{form.$pageLang.PlannedprocurementCost}}"></fm-text>
+            </div>
+            <div class="col-xs-2">
+                <fm-select view="GetCurrency"
+                           fm-disabled="form.$state.classCode == '3'"
+                           fm-model="form.pur16.plannedProcurementCurrency"
+                           fm-required="form.$state.classCode != '3'"
+                           field-name="{{form.$pageLang.PlannedProcurementCurrency}}"></fm-select>
+            </div>
+            <!--是否通过第三方ISO/TS16949认证-->
+            <span class="col-xs-2 control-label" ng-bind="form.$pageLang.IsoTsCertifiedByThirdPparty" ng-class="{'required':form.$state.classCode != '3' }"></span>
+            <div class="col-xs-4">
+                <fm-select dataitem="Common>YesOrNo"
+                           fm-model="form.pur16.isoTsCertifiedByThirdPparty"
+                           fm-required="form.$state.classCode != '3'"
+                           field-name="{{form.$pageLang.IsoTsCertifiedByThirdPparty}}"></fm-select>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--约占所属产品当年采购金额比例-->
+            <span class="col-xs-2 control-label" ng-bind="form.$pageLang.Costpercentageofthecommodity" ng-class="{'required':form.$state.classCode != '3' }"></span>
+            <div class="col-xs-4">
+                <fm-text fm-disabled="form.$state.classCode == '3'"
+                         fm-model="form.pur16.costPercentageOfCommodity"
+                         fm-required="form.$state.classCode != '3'"
+                         field-name="{{form.$pageLang.Costpercentageofthecommodity}}"></fm-text>
+            </div>
+            <!--是否通过第三方ISO14001认证-->
+            <span class="col-xs-2 control-label" ng-bind="form.$pageLang.IsoCertifiedByThirdPparty" ng-class="{'required':form.$state.classCode != '3' }"></span>
+            <div class="col-xs-4">
+                <fm-select dataitem="Common>YesOrNo"
+                           fm-model="form.pur16.isoCertifiedByThirdPparty"
+                           fm-required="form.$state.classCode != '3'"
+                           field-name="{{form.$pageLang.IsoCertifiedByThirdPparty}}"></fm-select>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--是否与申请工厂签订采购协议-->
+            <span class="col-xs-2 control-label" ng-bind="form.$pageLang.SignthePurchasingContractwiththeplant" ng-class="{'required':form.$state.classCode != '3' }"></span>
+            <div class="col-xs-4">
+                <fm-select dataitem="Common>YesOrNo"
+                           fm-model="form.pur16.signthePurchasingContract"
+                           fm-required="form.$state.classCode != '3'"
+                           field-name="{{form.$pageLang.SignthePurchasingContractwiththeplant}}"></fm-select>
+            </div>
+            <!--是否通过第三方OHSAS 18000认证-->
+            <span class="col-xs-2 control-label" ng-bind="form.$pageLang.OhsasCertifiedByThirdPparty" ng-class="{'required':form.$state.classCode != '3' }"></span>
+            <div class="col-xs-4">
+                <fm-select dataitem="Common>YesOrNo"
+                           fm-model="form.pur16.ohsasCertifiedByThirdPparty"
+                           fm-required="form.$state.classCode != '3'"
+                           field-name="{{form.$pageLang.OhsasCertifiedByThirdPparty}}"></fm-select>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--是否与申请工厂签订质量协议-->
+            <span class="col-xs-2 control-label" ng-bind="form.$pageLang.SigntheQualityAssurancewiththeplant" ng-class="{'required':form.$state.classCode != '3' }"></span>
+            <div class="col-xs-4">
+                <fm-select dataitem="Common>YesOrNo"
+                           fm-model="form.pur16.signtheQualityAssurance"
+                           fm-required="form.$state.classCode != '3'"
+                           field-name="{{form.$pageLang.SigntheQualityAssurancewiththeplant}}"></fm-select>
+            </div>
+            <!--是否与申请工厂签订物流协议-->
+            <span class="col-xs-2 control-label" ng-bind="form.$pageLang.SignLogisticplant" ng-class="{'required':form.$state.classCode != '3' }"></span>
+            <div class="col-xs-4">
+                <fm-select dataitem="Common>YesOrNo"
+                           fm-model="form.pur16.signLogisticContract"
+                           fm-required="form.$state.classCode != '3'"
+                           field-name="{{form.$pageLang.SignLogisticplant}}"></fm-select>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" ng-if="form.pur16.usedInCompany == 'YFVIC'">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--是否为子公司代买料供应商-->
+            <span class="col-xs-2 control-label" ng-bind="form.$pageLang.NewSupplierCode" ng-class="{'required':form.$state.classCode != '3' }"></span>
+            <div class="col-xs-4">
+                <fm-select dataitem="Common>YesOrNo"
+                           fm-code="form.$state.supplierForSubsidiaryCode"
+                           fm-model="form.pur16.supplierForSubsidiary"
+                           fm-required="form.$state.classCode != '3'"
+                           field-name="{{form.$pageLang.NewSupplierCode}}"
+                           callback-func="form.SupplierForSubsidiary()"></fm-select>
+            </div>
+            <!--子公司-->
+            <span class="col-xs-2 control-label" ng-class="{'required':form.$state.supplierForSubsidiaryCode == '1' }" ng-bind="form.$pageLang.Subsidiary"></span>
+            <div class="col-xs-4">
+                <fm-select dataitem="PurchaseRelated>NewSupplier>SupplierSubsidiary"
+                           fm-disabled="form.$state.supplierForSubsidiaryCode !== '1'"
+                           fm-model="form.pur16.subsidiary"
+                           fm-code="form.$state.subsidiaryCode"
+                           field-name="{{form.$pageLang.Subsidiary}}"
+                           required></fm-select>
+            </div>
+        </div>
+    </div>
+</div>
+
+<fm-Group-Head title="{{ form.$pageLang.Description }}"></fm-Group-Head>
+<!--描述-->
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--描述-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.Description"></span>
+            <div class="col-xs-10">
+                <fm-textarea fm-model="form.pur16.description"
+                             field-name="{{form.$pageLang.Description}}"
+                             required></fm-textarea>
+            </div>
+        </div>
+    </div>
+</div>
+<fm-Group-Head title="{{ form.$pageLang.OtherInfo }}"></fm-Group-Head>
+<!--其他信息-->
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--生产性/非生产性-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.ProductionOrNon"></span>
+            <div class="col-xs-4">
+                <fm-select disabled
+                           fm-code="form.$state.productionOrNonCode"
+                           dataitem="PurchaseRelated>NewSupplier>SupplierProdProperty"
+                           fm-model="form.pur16.productionOrNon"
+                           field-name="{{form.$pageLang.ProductionOrNon}}"
+                           required></fm-select>
+            </div>
+            <!--一次性/非一次性采购-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.Onetime"></span>
+            <div class="col-xs-4">
+                <fm-select fm-model="form.pur16.oneOrMultiTime"
+                           fm-code="form.$state.oneOrMultiTimeCode"
+                           datacode="'PurchaseRelated>NewSupplier>SupplierProdProperty>'+form.$state.productionOrNonCode"
+                           dataitem
+                           required
+                           field-name="{{form.$pageLang.Onetime}}"
+                           state="{{form.$pageRight.ManagementCode}}"
+                           callback-func="form.selectOneOrMultiTime(selectItem)"></fm-select>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--制造地/发货地/商品/服务-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.ManufactureSide"></span>
+            <div class="col-xs-4">
+                <fm-select datacode="'PurchaseRelated>NewSupplier>SupplierServiceProperty>'+form.$state.productionOrNonCode"
+                           fm-model="form.pur16.manufactureSide"
+                           fm-code="form.$state.manufactureSideCode"
+                           fm-disabled="!!form.pur16.applicationType"
+                           field-name="{{form.$pageLang.ManufactureSide}}"
+                           required
+                           dataitem></fm-select>
+            </div>
+            <!--交易币种-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.DealCurrency"></span>
+            <div class="col-xs-4">
+                <fm-select view="GetCurrency"
+                           fm-model="form.pur16.dealCurrency"
+                           field-name="{{form.$pageLang.DealCurrency}}"
+                           required></fm-select>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--是否GSDB供应商-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.GsdbSupplier"></span>
+            <div class="col-xs-4">
+                <fm-select fm-code="form.$state.gsdbSupplierCode"
+                           dataitem="Common>YesOrNo"
+                           fm-model="form.pur16.gsdbSupplier"
+                           field-name="{{form.$pageLang.GsdbSupplier}}"
+                           required></fm-select>
+            </div>
+            <div class="col-xs-6" ng-if="form.$state.gsdbSupplierCode == '1'">
+                <fm-text required
+                         name="gsdbSupplierText"
+                         field-name="{{form.$pageLang.gsdbSupplierText}}"
+                         fm-model="form.pur16.gsdbSupplierText"></fm-text>
+            </div>
+        </div>
+    </div>
+</div>
+<fm-Group-Head title="{{ form.$pageLang.Supplierestimate }}"></fm-Group-Head>
+<!--采购供应部评价-->
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--是否与采购供应部签订采购-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.Signthe"></span>
+            <div class="col-xs-4">
+                <fm-select dataitem="Common>YesOrNo"
+                           fm-disabled="form.$nodeCode !='PUR16_03'"
+                           fm-model="form.pur16.signWithPAndS"
+                           field-name="{{form.$pageLang.Signthe}}"
+                           required
+                           state="{{form.$pageRight.Purchaser}}"></fm-select>
+            </div>
+            <!--是否符合战略采购-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.purchasingstrategy"></span>
+            <div class="col-xs-4">
+                <fm-select dataitem="PurchaseRelated>NewSupplier>PurchasingStrategy"
+                           fm-model="form.pur16.meetsPurchasingStrategy"
+                           fm-disabled="form.$nodeCode !='PUR16_03'"
+                           field-name="{{form.$pageLang.purchasingstrategy}}"
+                           required
+                           state="{{form.$pageRight.Purchaser}}"></fm-select>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--现有的货源能否满足需求-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.Existingresources"></span>
+            <div class="col-xs-4">
+                <fm-select dataitem="PurchaseRelated>NewSupplier>ContentLevel"
+                           fm-disabled="form.$nodeCode !='PUR16_03'"
+                           fm-model="form.pur16.existingResourcesMeetNeeds"
+                           field-name="{{form.$pageLang.Existingresources}}"
+                           required
+                           state="{{form.$pageRight.Purchaser}}"></fm-select>
+            </div>
+            <!--申请分类-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.Requestlevel"></span>
+            <div class="col-xs-4">
+                <fm-select dataitem="PurchaseRelated>NewSupplier>SupplierReqLevel"
+                           fm-disabled="form.$nodeCode !='PUR16_03'"
+                           fm-model="form.pur16.requestLevel"
+                           field-name="{{form.$pageLang.Requestlevel}}"
+                           required
+                           state="{{form.$pageRight.Purchaser}}"></fm-select>
+            </div>
+        </div>
+    </div>
+</div>
+<fm-Group-Head title="{{ form.$pageLang.GiveSupplierCode }}"></fm-Group-Head>
+<!--发放供应商编码 -->
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--供应商编码-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.SupplierCode"></span>
+            <div class="col-xs-4">
+                <div class="input-group">
+                    <fm-text fm-model="form.pur16.supplierCode"
+                             field-name="{{form.$pageLang.SupplierCode}}"
+                             fm-required="form.$nodeCode =='PUR16_11'"
+                             disabled
+                             name="supplierCode"></fm-text>
+                    <span class="input-group-btn">
+                        <button class="btn btn-info input-sm" type="button"
+                                ng-disabled="form.$nodeCode != 'PUR16_11' || base.pageState == 3 "
+                                ng-click="form.generateSupplierCode()">
+                            {{form.$pageLang.GenerateSupplierCode}}
+                        </button>
+                    </span>
+                    <!--<fm-data-select fm-model="form.pur16.supplierCode"
+                                        field-name="{{form.$pageLang.SupplierCode}}"
+                                        state="{{form.$pageRight.ManagementCode}}"
+                                        required
+                                        disabled
+                                        view="GetSupplier"
+                                        callback-func="form.searchManagementCode()"></fm-data-select>-->
+                </div>
+            </div>
+            <!--管理代码-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.manageCode"></span>
+            <div class="col-xs-4">
+                <!--<fm-data-select fm-model="form.pur16.managementCode"
+                                field-name="{{form.$pageLang.manageCode}}"
+                                state="{{form.$pageRight.ManagementCode}}"
+                                fm-disabled="form.$nodeCode != 'PUR16_11'"
+                                required
+                                size="lg"
+                                view="GetSupplierManagementCode"
+                                callback-func="form.searchManagementCode(selectItem)"></fm-data-select>-->
+                <fm-datatext-select fm-model="form.pur16.managementCode" fm-text-model="form.pur16.managementCodeText"
+                                    field-name="{{form.$pageLang.manageCode}}"
+                                    state="{{form.$pageRight.ManagementCode}}"
+                                    fm-disabled="form.$nodeCode != 'PUR16_11'"
+                                    required
+                                    text-disabled="true"
+                                    size="lg"
+                                    view="GetSupplierManagementCode"
+                                    callback-func="form.searchManagementCode(selectItem)"
+                                    placeholder=""></fm-datatext-select>
+            </div>
+        </div>
+    </div>
+</div>
+<!--附件-->
+<fm-Group-Head class="print-hide" title="{{ 'Attachment' |translate}}"></fm-Group-Head>
+<div class="print-hide row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <fm-attachment form-files="form.$attachments"
+                           link-id="0"
+                           task-id='base.taskId'
+                           node-id="base.nodeId"
+                           draft-id="base.draftId"
+                           state="{{form.$pageRight.SartNode}}"
+                           field-name="{{'UploadAttachment' |translate}}"
+                           fm-model="form.$state.UploadAttachment"
+                           button-name="{{ 'UploadAttachment' |translate}}"></fm-attachment>
+        </div>
+    </div>
+</div>

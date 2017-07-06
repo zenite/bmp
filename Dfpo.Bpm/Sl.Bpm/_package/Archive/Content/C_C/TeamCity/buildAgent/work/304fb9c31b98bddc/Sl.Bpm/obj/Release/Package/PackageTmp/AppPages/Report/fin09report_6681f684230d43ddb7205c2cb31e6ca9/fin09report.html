@@ -1,0 +1,88 @@
+﻿<!--fin09员工商务差旅报告报表-->
+<div class="form-group ma-block">
+    <fm-Group-Head title="{{::base.title}}"></fm-Group-Head>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="container">
+                <div class="form-group">
+                    <div class="col-xs-12">
+                        <div class="ma-detailinfo">
+                            <div class="content">
+                                <div class="row">
+                                    <div class="form-group">
+                                        <div class="col-xs-4 cell">
+                                            <!--单号-->
+                                            <span class="col-xs-3 control-label " ng-bind="form.$pageLang.SnNumber"></span>
+                                            <div class="col-xs-9">
+                                                <fm-text class="input-sm" fm-model="form.filter.snNumber"></fm-text>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-4 cell">
+                                            <!--申请人-->
+                                            <span class="col-xs-3 control-label" ng-bind="form.$pageLang.Applicant">{</span>
+                                            <div class="col-xs-9">
+                                                <fm-text class="input-sm" fm-model="form.filter.applicant"></fm-text>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-4 cell">
+                                            <!--收款人-->
+                                            <span class="col-xs-3 control-label " ng-bind="form.$pageLang.Payee"></span>
+                                            <div class="col-xs-9">
+                                                <fm-job-select  fm-model="form.filter.payee"></fm-job-select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                               
+                                <div class="row">
+                                    <div class="form-group">
+                                        <div class="col-xs-4 cell">
+                                            <!--状态-->
+                                            <span class="col-xs-3 control-label" ng-bind="form.$pageLang.Status"></span>
+                                            <div class="col-xs-9">
+                                                <fm-select dataitem="HRRelated>PersonnelDemand>FormState"
+                                                           display-member="text"
+                                                           value-member="value"
+                                                           fm-model="form.filter.status">
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-4 cell">
+                                            <!--日期-->
+                                            <span class="col-xs-3 control-label" ng-bind="form.$pageLang.Date"></span>
+                                            <div class="col-xs-9">
+                                                <fm-datetime class="input-sm"
+                                                             date fm-model="form.filter.applicationTimeStart"
+                                                             fm-readonly></fm-datetime>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-4 cell">
+                                            <span class="col-xs-3 control-label"
+                                                  style="text-align:center;">——</span>
+                                            <div class="col-xs-9">
+                                                <fm-datetime class="input-sm" date fm-model="form.filter.applicationTimeEnd" fm-readonly></fm-datetime>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group">
+                                <div class="col-xs-12" style="text-align:center;">
+                                    <button class="btn btn-primary" ng-click="form.select()" ng-bind="form.$pageLang.Query"></button>
+                                    <button class="btn btn-default" ng-click="form.clear()" ng-bind="form.$pageLang.Clear"></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12">
+                <fm-table view='GetFin09Report' data="form.Fin09Report" refreash-data="form.refreash" excel current-page-data="form.currentData"  page="{{form.page}}" sortable  width="3500px"
+                          filter="{SnNumber:form.filter.snNumber,Applicant:form.filter.applicant,ApplicantJobCode:form.filter.applicantJobCode,Payee:form.filter.payee,PayeeSn:form.filter.payeeSn
+                          ,ProcStatus:form.filter.status,
+                          ApplicationTimeStart:form.filter.applicationTimeStart,ApplicationTimeEnd:form.filter.applicationTimeEnd,IsRecover:form.filter.isRecover,ReceiveDept:form.filter.receiveDept}"></fm-table>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,72 @@
+﻿<div class="form-group ma-block">
+    <fm-Group-Head title="{{::base.title}}"></fm-Group-Head>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="container">
+                <div class="form-group">
+                    <div class="col-xs-12">
+                        <div class="ma-detailinfo">
+                            <div class="content">
+                                <div class="row">
+                                    <div class="form-group">
+                                        <div class="col-xs-4 cell">
+                                            <!--关闭流程单号-->
+                                            <span class="col-xs-3 control-label required" ng-bind="form.$pageLang.CloseProcessNo"></span>
+                                            <div class="col-xs-9">
+                                                <fm-text class="input-sm" fm-model="form.filter.snNumber"></fm-text>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-4 cell">
+                                            <!--离职单号-->
+                                            <span class="col-xs-3 control-label" ng-bind="form.$pageLang.TurnoverNumber">{</span>
+                                            <div class="col-xs-9">
+                                                <fm-text class="input-sm" fm-model="form.filter.leaveCode"></fm-text>
+                                            </div>
+                                        </div>
+                                        <!--离职人员-->
+                                        <div class="col-xs-4 cell">
+                                            <span class="col-xs-3 control-label" ng-bind="form.$pageLang.StaffTurnover"></span>
+                                            <div class="col-xs-9">
+                                                <fm-text class="input-sm" fm-model="form.filter.leaveStaff"></fm-text>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group">
+                                        <div class="col-xs-4 cell">
+                                            <!--离职日期-->
+                                            <span class="col-xs-3 control-label" ng-bind="form.$pageLang.leaveDate"></span>
+                                            <div class="col-xs-9">
+                                                <fm-datetime class="input-sm" date fm-model="form.filter.applicationTimeStart" fm-readonly></fm-datetime>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-4 cell">
+                                            <span class="col-xs-3 control-label" style="text-align: center;">——</span>
+                                            <div class="col-xs-9">
+                                                <fm-datetime class="input-sm" date fm-model="form.filter.applicationTimeEnd" fm-readonly></fm-datetime>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group">
+                                    <div class="col-xs-12" style="text-align: center;">
+                                        <button class="btn btn-primary" ng-click="form.select()" ng-bind="form.$pageLang.Query"></button>
+                                        <button class="btn btn-default" ng-click="form.clear()" ng-bind="form.$pageLang.Clear"></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12">
+                    <fm-table view='GetIt05Report' data="form.IT05Report" refreash-data="form.refreash" excel current-page-data="form.currentData" page="{{form.page}}" sortable
+                              filter="{SnNumber:form.filter.snNumber,LeaveCode:form.filter.leaveCode,LeaveStaff:form.filter.leaveStaff,
+                          ApplicationTimeStart:form.filter.applicationTimeStart,ApplicationTimeEnd:form.filter.applicationTimeEnd}"></fm-table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

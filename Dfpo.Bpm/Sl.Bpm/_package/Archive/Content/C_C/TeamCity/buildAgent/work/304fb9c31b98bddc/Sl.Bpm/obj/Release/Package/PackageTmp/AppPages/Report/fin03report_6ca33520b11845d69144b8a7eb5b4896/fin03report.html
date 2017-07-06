@@ -1,0 +1,192 @@
+﻿<!--组织调整及管理人员任免报表-->
+<div class="form-group ma-block">
+    <fm-Group-Head title="{{::base.title}}"></fm-Group-Head>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="container">
+                <div class="form-group">
+                    <div class="col-xs-12">
+                        <div class="ma-detailinfo">
+                            <div class="content">
+                                <div class="row">
+                                    <div class="form-group">
+                                        <div class="col-xs-4 cell">
+                                            <!--单号-->
+                                            <span class="col-xs-3 control-label " ng-bind="form.$pageLang.SnNumber"></span>
+                                            <div class="col-xs-9">
+                                                <fm-text class="input-sm" fm-model="form.filter.snNumber"></fm-text>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-4 cell">
+                                            <!--申请人-->
+                                            <span class="col-xs-3 control-label" ng-bind="form.$pageLang.ApplyName">{</span>
+                                            <div class="col-xs-9">
+                                                <fm-text class="input-sm" fm-model="form.filter.applyName"></fm-text>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-4 cell">
+                                            <!--申请人工号-->
+                                            <span class="col-xs-3 control-label" ng-bind="form.$pageLang.ApplyEmployeeNumber"></span>
+                                            <div class="col-xs-9">
+                                                <fm-text class="input-sm" fm-model="form.filter.applyEmployeeNumber"></fm-text>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group">
+                                        <div class="col-xs-4 cell">
+                                            <!--申请人部门-->
+                                            <span class="col-xs-3 control-label " ng-bind="form.$pageLang.GroupName"></span>
+                                            <div class="col-xs-9">
+                                               
+                                                <fm-data-select i-clear
+                                                           
+                                                                group fm-model="form.filter.groupName"></fm-data-select>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-4 cell">
+                                            <!--资产名称-->
+                                            <span class="col-xs-3 control-label" ng-bind="form.$pageLang.FixAssetName">{</span>
+                                            <div class="col-xs-9">
+                                                <fm-text class="input-sm" fm-model="form.filter.fixAssetName"></fm-text>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-4 cell">
+                                            <!--资产编号-->
+                                            <span class="col-xs-3 control-label" ng-bind="form.$pageLang.FixAssetId"></span>
+                                            <div class="col-xs-9">
+                                                <fm-text class="input-sm" fm-model="form.filter.fixAssetId"></fm-text>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group">
+                                        <div class="col-xs-4 cell">
+                                            <!--原值-->
+                                            <span class="col-xs-3 control-label " ng-bind="form.$pageLang.CostValue"></span>
+                                            <div class="col-xs-9">
+                                                <fm-text class="input-sm" fm-model="form.filter.costValue"></fm-text>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-4 cell">
+                                            <!--净值-->
+                                            <span class="col-xs-3 control-label" ng-bind="form.$pageLang.NetValue">{</span>
+                                            <div class="col-xs-9">
+                                                <fm-text class="input-sm" fm-model="form.filter.netValue"></fm-text>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-4 cell">
+                                            <!--使用地点-->
+                                            <span class="col-xs-3 control-label" ng-bind="form.$pageLang.Location"></span>
+                                            <div class="col-xs-9">
+                                                <fm-text class="input-sm" fm-model="form.filter.location"></fm-text>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group">
+                                        <div class="col-xs-4 cell">
+                                            <!--责任人-->
+                                            <span class="col-xs-3 control-label " ng-bind="form.$pageLang.ChiefEngineer"></span>
+                                            <div class="col-xs-9">
+                                                <fm-text class="input-sm" fm-model="form.filter.chiefEngineer"></fm-text>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-4 cell">
+                                            <!--是否属于设备-->
+                                            <span class="col-xs-3 control-label" ng-bind="form.$pageLang.IsEquipment">{</span>
+                                            <div class="col-xs-9">
+                                                <fm-text class="input-sm" fm-model="form.filter.isEquipment"></fm-text>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-4 cell">
+                                            <!--设备编号-->
+                                            <span class="col-xs-3 control-label" ng-bind="form.$pageLang.EquipmentNo"></span>
+                                            <div class="col-xs-9">
+                                                <fm-text class="input-sm" fm-model="form.filter.equipmentNo"></fm-text>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group">
+
+                                        <div class="col-xs-4 cell">
+                                            <!--日期-->
+                                            <span class="col-xs-3 control-label" ng-bind="form.$pageLang.Date"></span>
+                                            <div class="col-xs-9">
+                                                <fm-datetime class="input-sm"
+                                                             date fm-model="form.filter.applicationTimeStart"
+                                                             fm-readonly></fm-datetime>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-4 cell">
+                                            <span class="col-xs-3 control-label"
+                                                  style="text-align:center;">——</span>
+                                            <div class="col-xs-9">
+                                                <fm-datetime class="input-sm" date fm-model="form.filter.applicationTimeEnd" fm-readonly></fm-datetime>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-4 cell">
+                                            <!--是否海关监管-->
+                                            <span class="col-xs-3 control-label" ng-bind="form.$pageLang.IsCustControl"></span>
+                                            <div class="col-xs-9">
+                                                <fm-select fm-model="form.filter.isCustControl"
+                                                           dataitem="Common>YesOrNo"
+                                                           display-member="text"
+                                                           value-member="text"></fm-select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="row">
+                                    <div class="form-group">
+                                        <div class="col-xs-4 cell">
+                                            <!--是否回收利用-->
+                                            <span class="col-xs-3 control-label " ng-bind="form.$pageLang.IsRecover"></span>
+                                            <div class="col-xs-9">
+                                             
+                                                <fm-select fm-model="form.filter.isRecover"
+                                                           dataitem="Common>YesOrNo"
+                                                           display-member="text"
+                                                           value-member="text"
+                                                          ></fm-select>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-4 cell">
+                                            <!--接收部门-->
+                                            <span class="col-xs-3 control-label" ng-bind="form.$pageLang.ReceiveDept">{</span>
+                                            <div class="col-xs-9">
+                                                <fm-data-select i-clear
+                                                                group fm-model="form.filter.receiveDept"></fm-data-select>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group">
+                                <div class="col-xs-12" style="text-align:center;">
+                                    <button class="btn btn-primary" ng-click="form.select()" ng-bind="form.$pageLang.Query"></button>
+                                    <button class="btn btn-default" ng-click="form.clear()" ng-bind="form.$pageLang.Clear"></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12">
+                <fm-table view='Getfin03FixedAssetsScrappedReport' data="form.fin03Report" refreash-data="form.refreash" excel current-page-data="form.currentData"   page="{{form.page}}"
+                          filter="{SnNumber:form.filter.snNumber,ApplyName:form.filter.applyName,ApplyEmployeeNumber:form.filter.applyEmployeeNumber,GroupName:form.filter.groupName,FixAssetName:form.filter.fixAssetName
+                          ,FixAssetId:form.filter.fixAssetId,CostValue:form.filter.costValue,NetValue:form.filter.netValue,Location:form.filter.location,ChiefEngineer:form.filter.chiefEngineer,IsEquipment:form.filter.isEquipment,EquipmentNo:form.filter.equipmentNo
+                          ,IsCustControl:form.filter.isCustControl,ApplicationTimeStart:form.filter.applicationTimeStart,ApplicationTimeEnd:form.filter.applicationTimeEnd,IsRecover:form.filter.isRecover,ReceiveDept:form.filter.receiveDept}"></fm-table>
+            </div>
+        </div>
+    </div>
+</div>

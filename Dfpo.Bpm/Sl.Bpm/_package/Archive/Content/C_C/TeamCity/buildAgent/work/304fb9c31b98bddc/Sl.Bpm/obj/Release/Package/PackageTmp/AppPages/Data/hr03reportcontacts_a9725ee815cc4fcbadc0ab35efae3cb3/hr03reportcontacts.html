@@ -1,0 +1,64 @@
+﻿<!--维护对象审批人基础数据-->
+<div class="row">
+    <div class="col-xs-12">
+        <!--<div class="form-group form-horizontal">
+            <div class="row">
+                <div class="col-xs-4">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="icon-search"></i></span>
+                        <input type="text" class="form-control" ng-model="vm.selectTxt" placeholder="输入检索条件" ng-blur="vm.load()" ng-keydown="vm.event_KeyDown_SelectUser($event)">
+                        <span class="input-group-btn">
+                            <button class="btn btn-primary" type="button" ng-click="vm.load()">查询</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>-->
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-bordered table-detail">
+                    <thead>
+                        <tr></tr>
+                        <tr>
+                            <th style="width: 30px"></th>
+                           
+                            <th style="width: 30px;text-align:center">公司名称</th>
+                            <th style="width: 30px;text-align:center">联系人</th>
+                           
+                            <th style="width: 50px;text-align:center">
+                                <input class="btn btn-sm btn-success" type="button" value="新增" ng-click="form.form.$edit('hr03reportcontacts.edit', null)" />
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody fm-cache>
+                        <tr ng-repeat="item in form.reportcontacts" detail-name="类型" ng-class="{ 'active': item.checked}">
+                            <td class="statetd"></td>
+                            <td>
+                                <fm-select field-name="公司名称"
+                                           view="GetAllCompany"
+                                           display-member="text"
+                                           value-member="id"
+                                          
+                                           fm-model="item.company"></fm-select>
+                            </td>
+                            <td>
+                                <fm-data-select class="input-sm" ismulti field-name="联系人"
+                                                view="GetAllJobName"
+                                                i-clear
+                                               
+                                                fm-model="item.contacts"></fm-data-select>
+                            </td>
+                            <td>
+                                <input class="btn btn-sm btn-primary" type="button" value="编辑" ng-click="form.$edit('hr03reportcontacts.edit', item)" />
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12" style="text-align: right;" ng-if="form.paging.totalCount > 10">
+        <span class="control-label" style="vertical-align: top; line-height: 32px;">{{ "Count" | translate}}：{{form.paging.totalCount}}</span> &nbsp;&nbsp;&nbsp;
+        <ma-pager current-page="form.paging.currentPage" load="form.$load()" total-count="form.paging.totalCount" page-size="form.paging.pageSize"></ma-pager>
+    </div>
+</div>

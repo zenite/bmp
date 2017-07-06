@@ -1,0 +1,390 @@
+﻿<!--FIN01.机械设备设施工程 验收报告-->
+<fm-form-title sn-number="{{base.snNumber}}" apply-date="{{base.applyDate}}" sub-title='base.title' fm-model="base.areaCode"></fm-form-title>
+<fm-Group-Head title="{{ base.$pageLang.PostByInfo }}"></fm-Group-Head>
+<fm-initiator jobid='base.jobId' userinfo='base.initiator' taskid='base.taskId'></fm-initiator>
+<fm-Group-Head title="{{ form.$pageLang.ApplicantInfo }}"></fm-Group-Head>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--设备编号-->
+            <span class="col-xs-2 control-label" ng-bind="form.$pageLang.EquipmentNO"></span>
+            <div class="col-xs-4">
+                <fm-text fm-model="form.fin01.equipmentNo"
+                         fm-disabled="form.$pageRight.EquipmentDept !='normal'"
+                         fm-normal="form.$pageRight.EquipmentDept=='normal'"
+                         state="{{form.$pageRight.EquipmentDept}}"
+                         required></fm-text>
+            </div>
+            <!--订单编号-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.PurchaseOrder"></span>
+            <div class="col-xs-4">
+                <fm-data-select required
+                                fm-model="form.fin01.poNumber"
+                                view="GetPOInfoForFin01"
+                                state="{{form.$pageRight.StartNode}}"
+                                callback-func="form.getPOInfos(selectItem)"
+                                field-name="{{form.$pageLang.PurchaseOrder}}"></fm-data-select>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--到达日期-->
+            <span class="col-xs-2 control-label" ng-bind="form.$pageLang.ArrivalDate"></span>
+            <div class="col-xs-4">
+                <fm-datetime date
+                             state="{{form.$pageRight.StartNode}}"
+                             field-name="{{form.$pageLang.ArrivalDate}}"
+                             fm-model="form.fin01.arrivalDate"></fm-datetime>
+            </div>
+            <!--验收日期-->
+            <span class="col-xs-2 control-label" ng-bind="form.$pageLang.CheckAcceptDate"></span>
+            <div class="col-xs-4">
+                <fm-datetime date
+                             state="{{form.$pageRight.StartNode}}"
+                             field-name="{{form.$pageLang.CheckAcceptDate}}"
+                             fm-model="form.fin01.checkAcceptDate"></fm-datetime>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--供应商及联系信息-->
+            <span class="col-xs-2 control-label" ng-bind="form.$pageLang.SupplierInformation"></span>
+            <div class="col-xs-4">
+                <fm-text fm-model="form.fin01.supplierInformation"
+                         readonly
+                         state="{{form.$pageRight.StartNode}}">></fm-text>
+            </div>
+            <!--责任人所属部门-->
+            <span class="col-xs-2 control-label" ng-bind="form.$pageLang.ChiefEngineer"></span>
+            <div class="col-xs-4">
+                <fm-text fm-model="form.fin01.chiefEngineer"
+                         readonly
+                         state="{{form.$pageRight.StartNode}}"></fm-text>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--预计使用年限-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.ExpectedServiceLife"></span>
+            <div class="col-xs-4">
+                <fm-select fm-model="form.fin01.expectedServiceLife"
+                           items="[{id:'0',text:'1-2yr'},{id:'1',text:'3yr'},{id:'2',text:'5yr'},{id:'3',text:'7yr'},{id:'4',text:'10yr'},{id:'5',text:'Others'}]"
+                           display-member="text"
+                           value-member="id"
+                           required
+                           state="{{form.$pageRight.StartNode}}"
+                           field-name="{{form.$pageLang.ExpectedServiceLife}}"></fm-select>
+            </div>
+            <!--项目编号-->
+            <span class="col-xs-2 control-label" ng-bind="form.$pageLang.ProjectNo"></span>
+            <div class="col-xs-4">
+                <fm-text fm-model="form.fin01.projectNo"
+                         readonly
+                         state="{{form.$pageRight.StartNode}}"></fm-text>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--类别-->
+            <span class="col-xs-2 control-label" ng-bind="form.$pageLang.Classification"></span>
+            <div class="col-xs-4">
+                <fm-select fm-model="form.fin01.classification"
+                           items="[{id:'0',text:'一般'},{id:'1',text:'重要'},{id:'2',text:'关键'}]"
+                           display-member="text"
+                           value-member="id"
+                           fm-disabled="form.$pageRight.Environmental !='normal' "
+                           fm-normal="form.$pageRight.Environmental=='normal'"
+                           state="{{form.$pageRight.Environmental}}"
+                           field-name="{{form.$pageLang.Classification}}"></fm-select>
+
+            </div>
+            <!--安全等级-->
+            <span class="col-xs-2 control-label" ng-bind="form.$pageLang.SafeLevel"></span>
+            <div class="col-xs-4">
+                <fm-select fm-model="form.fin01.safeLevel"
+                           items="[{id:'0',text:'一级'},{id:'1',text:'二级'},{id:'2',text:'三级'}]"
+                           display-member="text"
+                           value-member="id"
+                           fm-disabled="form.$pageRight.Environmental !='normal' "
+                           fm-normal="form.$pageRight.Environmental=='normal'"
+                           state="{{form.$pageRight.Environmental}}"
+                           field-name="{{form.$pageLang.SafeLevel}}"></fm-select>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--采购员-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.Buyer"></span>
+            <div class="col-xs-4">
+                <fm-text fm-model="form.fin01.buyer"
+                         readonly
+                         state="{{form.$pageRight.StartNode}}"></fm-text>
+            </div>
+            <!--投入使用日期-->
+            <span class="col-xs-2 control-label" ng-bind="form.$pageLang.OperationStartDate"></span>
+            <div class="col-xs-4">
+                <fm-datetime date
+                             state="{{form.$pageRight.StartNode}}"
+                             field-name="{{form.$pageLang.OperationStartDate}}"
+                             fm-model="form.fin01.operationStartDate"></fm-datetime>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <table class="table table-bordered table-detail">
+            <thead>
+                <tr>
+                    <th style="width:50px;text-align:center;  border:0px;" ng-bind="form.$pageLang.No"></th> <!--编号-->
+                    <th class="required" style="width:150px;text-align:center;  border:0px;" ng-bind="form.$pageLang.EquipmentName"></th> <!--设备/工程名称-->
+                    <th class="required" style="width:150px;text-align:center;  border:0px;" ng-bind="form.$pageLang.Model"></th> <!--型号-->
+                    <th style="width:150px;text-align:center;  border:0px;" ng-bind="form.$pageLang.OrderQuantity"></th> <!--订单数量-->
+                    <th style="width:150px;text-align:center;  border:0px;" ng-bind="form.$pageLang.RestQuantity"></th> <!--剩余数量-->
+                    <th class="required" style="width:150px;text-align:center;  border:0px;" ng-bind="form.$pageLang.Quantity"></th> <!--验收数量-->
+                    <th class="required" style="width:150px;text-align:center;  border:0px;" ng-bind="form.$pageLang.StorageLocation"></th> <!--存放区域-->
+                    <th class="required" style="width:150px;text-align:center;  border:0px;" ng-bind="form.$pageLang.FixAssetsID"></th> <!--资产编号-->
+                    <th class="required" style="width:150px;text-align:center;  border:0px;" ng-bind="form.$pageLang.FixAssetsClassification"></th> <!--固定资产分类-->
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in form.fin01details" ng-class="{'active': item.checked}" detail-name="{{form.$pageLang.Fare}}">
+                    <td>
+                        <strong class="input-sm">{{ $index + 1}}</strong>
+                    </td>
+                    <td>
+                        <fm-text class="input-sm"
+                                 fm-model="item.equipmentName"
+                                 state="{{form.$pageRight.StartNode}}"
+                                 field-name="{{form.$pageLang.EquipmentName}}"
+                                 required></fm-text>
+                    </td>
+                    <td>
+                        <fm-text class="input-sm"
+                                 fm-model="item.model"
+                                 state="{{form.$pageRight.StartNode}}"
+                                 field-name="{{form.$pageLang.Model}}"
+                                 required></fm-text>
+                    </td>
+                    <td>
+                        <fm-number class="input-sm"
+                                   fm-model="item.orderQty"
+                                   state="{{form.$pageRight.StartNode}}"
+                                   field-name="{{form.$pageLang.OrderQuantity}}"
+                                   readonly></fm-number>
+                    </td>
+                    <td>
+                        <fm-number class="input-sm"
+                                   fm-model="item.restQty"
+                                   state="{{form.$pageRight.StartNode}}"
+                                   field-name="{{form.$pageLang.RestQuantity}}"
+                                   readonly></fm-number>
+                    </td>
+                    <td>
+                        <fm-number class="input-sm"
+                                   scale="2"
+                                   fm-model="item.qty"
+                                   state="{{form.$pageRight.StartNode}}"
+                                   field-name="{{form.$pageLang.Quantity}}"
+                                   fm-blur="form.CheckQty(item)"
+                                   required></fm-number>
+                    </td>
+                    <td>
+                        <fm-text class="input-sm"
+                                 fm-model="item.storageLocation"
+                                 state="{{form.$pageRight.StartNode}}"
+                                 field-name="{{form.$pageLang.StorageLocation}}"
+                                 required></fm-text>
+                    </td>
+                    <td>
+                        <fm-text class="input-sm"
+                                 fm-model="item.fixAssetsId"
+                                 fm-disabled="form.$pageRight.AssetAccountant !='normal'"
+                                 fm-normal="form.$pageRight.AssetAccountant=='normal'"
+                                 state="{{form.$pageRight.AssetAccountant=='normal'}}"
+                                 field-name="{{form.$pageLang.FixAssetsID}}"
+                                 required></fm-text>
+                    </td>
+                    <td>
+                        <fm-select fm-model="item.fixAssetsClassification"
+                                   field-name="{{form.$pageLang.FixAssetsClassification}}"
+                                   items="[{id:'F03',text:'房屋建筑物'},
+                                           {id:'D01',text:'递延资产'},
+                                           {id:'F04',text:'电子类生产设备'},
+                                           {id:'F06',text:'电子类动力设备'},
+                                           {id:'F08',text:'材料搬运工具'},
+                                           {id:'F10',text:'电子类办公家具及设备'},
+                                           {id:'F11',text:'电脑类'},
+                                           {id:'F13',text:'模具夹具'},
+                                           {id:'F14',text:'开模费'},
+                                           {id:'F15',text:'通用类生产设备'},
+                                           {id:'F16',text:'通用类动力设备'},
+                                           {id:'F17',text:'通用搬运工具'},
+                                           {id:'F18',text:'通用类办公设备'},
+                                           {id:'I0102',text:'无形资产'}]"
+                                   display-member="text"
+                                   value-member="id"
+                                   fm-disabled="form.$pageRight.AssetAccountant !='normal'"
+                                   fm-normal="form.$pageRight.AssetAccountant=='normal'"
+                                   state="{{form.$pageRight.AssetAccountant=='normal'}}"></fm-select>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--特点及注意事项-->
+            <span class="col-xs-2 required control-label" ng-bind="form.$pageLang.MarkItem"></span>
+            <div class="col-xs-10">
+                <fm-textarea fm-model="form.fin01.markItem" required field-name="{{form.$pageLang.MarkItem}}"></fm-textarea>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <table class="table table-bordered table-detail" >
+            <thead>
+                <tr>
+                    <th style="width:150px; text-align:center; border:0px;" ng-bind="form.$pageLang.ContentsforCheck"></th> <!--验收内容-->
+                    <th style="width:150px; text-align:center; border:0px;" ng-bind="form.$pageLang.Result"></th> <!--验收结果-->
+                    <th style="width:150px; text-align:center; border:0px;" ng-bind="form.$pageLang.Remark"></th> <!--备注-->
+                </tr>
+                <!--工艺部门-->
+                <tr>
+                    <td ><span ng-bind="form.$pageLang.Fuction"></span></td>
+                    <td>
+                        <fm-checklist fm-model="form.fin01.result1"
+                                      items="[{id:'0',text:'功能'},{id:'1',text:'尺寸'},
+                                            {id:'2',text:'材料'},
+                                            {id:'3',text:'软件'},
+                                            {id:'4',text:'Cmk'},
+                                            {id:'5',text:'操作指导'},
+                                            {id:'6',text:'应力'},
+                                            {id:'7',text:'ESD'}]"></fm-checklist>
+                    </td>
+                    <td>    <fm-textarea fm-model="form.fin01.remark1"
+                             ></fm-textarea></td>
+                </tr>
+                <!--设备部门-->
+                <tr>
+                    <td ><span required ng-bind="form.$pageLang.Installation"></span></td>
+                    <td>
+                        <fm-checklist fm-disabled="form.$pageRight.EquipmentDept !='normal'"
+                                      fm-normal="form.$pageRight.EquipmentDept=='normal'"
+                                      fm-model="form.fin01.result2"
+                                      items="[{id:'0',text:'安装'},{id:'1',text:'图纸'},
+                                                {id:'2',text:'说明书'},
+                                                {id:'3',text:'保养手册'},
+                                                {id:'4',text:'备件'},
+                                                {id:'5',text:'TEM系统'},
+                                                {id:'6',text:'服务合同'}]"></fm-checklist>
+
+                    </td>
+                    <td>    <fm-textarea fm-disabled="form.$nodeCode!='ND07'"
+                                         fm-normal="form.$pageRight.EquipmentDept=='normal'"
+                                         fm-model="form.fin01.remark2"
+                             ></fm-textarea></td>
+                </tr>
+                <!--计量部门-->
+                <tr>
+                    <td ><span ng-bind="form.$pageLang.Calibration"></span></td>
+                    <td>
+                        <fm-checklist fm-disabled="form.$pageRight.AssetAdmin !='normal'"
+                                      fm-normal="form.$pageRight.AssetAdmin=='normal'"
+                                      state="{{form.$pageRight.AssetAdmin=='normal'}}"
+                                      fm-model="form.fin01.result3" items="[{id:'0',text:'计量'}]"></fm-checklist>
+
+                    </td>
+                    <td>    <fm-textarea fm-disabled="form.$nodeCode!='ND08'"
+                                         fm-normal="form.$pageRight.AssetAdmin=='normal'"
+                                         fm-model="form.fin01.remark3"></fm-textarea></td>
+                </tr>
+                <!--工厂工程部门-->
+                <tr>
+                    <td ><span ng-bind="form.$pageLang.PowerAir"></span></td>
+                    <td>
+                        <fm-checklist fm-model="form.fin01.result4" items="[{id:'0',text:'动力供应'}]"
+                                      fm-disabled="form.$pageRight.FacProject !='normal'"
+                                      fm-normal="form.$pageRight.FacProject=='normal'"
+                                      state="{{form.$pageRight.FacProject=='normal'}}"></fm-checklist>
+
+                    </td>
+                    <td>    <fm-textarea fm-model="form.fin01.remark4"
+                                         fm-disabled="form.$nodeCode!='ND10'"></fm-textarea></td>
+                </tr>
+                <!--安环部门-->
+                <tr>
+                    <td ><span ng-bind="form.$pageLang.Environmental"></span></td>
+                    <td>
+                        <fm-checklist fm-disabled="form.$pageRight.Environmental !='normal' "
+                                      fm-normal="form.$pageRight.Environmental=='normal'"
+                                      fm-model="form.fin01.result5" 
+                                      items="[{id:'0',text:'环境'},{id:'1',text:'健康'},
+                                               {id:'2',text:'四新一移'},
+                                               {id:'3',text:'安全等级'},
+                                               {id:'4',text:'类别'},
+                                               {id:'5',text:'年限'}]"></fm-checklist>
+
+                    </td>
+                    <td>    <fm-textarea fm-model="form.fin01.remark5"
+                                         fm-disabled="form.$pageRight.Environmental !='normal' "
+                                         fm-normal="form.$pageRight.Environmental=='normal'"></fm-textarea></td>
+                </tr>
+                <!--档案室-->
+                <tr ng-if="base.areaCode == 'YFVSJ'">
+                    <td><span ng-bind="form.$pageLang.Archives"></span></td>
+                    <td>
+                        <fm-checklist fm-model="form.fin01.result6"
+                                      items="[{id:'0',text:'图纸'},
+                                               {id:'1',text:'说明书'},
+                                               {id:'2',text:'保养手册'},
+                                               {id:'3',text:'备件'},
+                                               {id:'4',text:'TEM系统'},
+                                               {id:'5',text:'服务合同'}]"></fm-checklist>
+
+                    </td>
+                    <td>    <fm-textarea fm-model="form.fin01.remark6"></fm-textarea></td>
+                </tr>
+                <!--保养手册-->
+                <tr ng-if="base.areaCode == 'YFVSJ'">
+                    <td><span ng-bind="form.$pageLang. MaintenanceManual"></span></td>
+                    <td colspan="2">
+                        <fm-radiolist fm-model="form.fin01.result7"
+                                      items="[{id:'0',text:'不需要'},{id:'1',text:'需要'}]"></fm-radiolist>
+                    </td>
+                </tr>
+            </thead>            
+        </table>
+    </div>
+</div>
+<fm-Group-Head title="{{ form.$pageLang.Remark}}"></fm-Group-Head>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+                <fm-textarea fm-model="form.fin01.Remark"
+                             fm-placeholder="{{form.$pageLang.ManualInput}}"></fm-textarea>
+        </div>
+    </div>
+</div>

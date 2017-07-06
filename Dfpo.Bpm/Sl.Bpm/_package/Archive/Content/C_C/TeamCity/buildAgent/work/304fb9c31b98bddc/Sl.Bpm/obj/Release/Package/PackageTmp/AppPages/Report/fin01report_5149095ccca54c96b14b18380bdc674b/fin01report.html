@@ -1,0 +1,13 @@
+﻿<!--验收报告报表-->
+<div class="form-group ma-block">
+    <fm-Group-Head title="{{::base.title}}"></fm-Group-Head>
+    <div class="row">
+        <div class="col-xs-12">
+            
+            <div class="col-xs-12">
+                <fm-table view='GetExaminationReport' data="form.Fin01Report" refreash-data="form.refreash" excel current-page-data="form.currentData" page="{{form.page}}" sortable 
+                  ></fm-table>
+            </div>
+        </div>
+    </div>
+</div>

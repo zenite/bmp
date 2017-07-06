@@ -1,0 +1,254 @@
+﻿<!--名片申请审批-->
+<fm-form-title sn-number="{{base.snNumber}}" apply-date="{{base.applyDate}}" sub-title='base.title' fm-model="base.areaCode"></fm-form-title>
+<fm-Group-Head title="{{ base.$pageLang.ApplicantInfo }}"></fm-Group-Head>
+<fm-applicant jobid='base.applicantJobId' userinfo='base.applicant' taskid='base.taskId' wfid="base.workflowId"></fm-applicant>
+
+<fm-Group-Head title="{{ form.$pageLang.BusinessCardInformation}}"></fm-Group-Head>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--申请数量-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.PrintQuantity"></span>
+            <div class="col-xs-4">
+                <fm-number 
+                         fm-model="form.yfvich09ca.printQuantity"  required unit="{{form.$pageLang.Box}}"
+                                 field-name="{{form.$pageLang.PrintQuantity}}" max-length="1000"></fm-number>
+            </div>
+            <!--printQuantity-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.PrintQuantityEn"></span>
+            <div class="col-xs-4">
+                <fm-number fm-model="form.yfvich09ca.printQuantityEn" required unit="{{form.$pageLang.BoxEn}}"
+                           field-name="{{form.$pageLang.PrintQuantity}}" max-length="1000"></fm-number>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--姓名-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.Name"></span>
+            <div class="col-xs-4">
+                <fm-text required
+                          field-name="{{form.$pageLang.Name}}"
+                         fm-model="form.yfvich09ca.nameCn"></fm-text>
+            </div>
+            <!--Name-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.Nam"></span>
+            <div class="col-xs-4">
+                <fm-text 
+                         required
+                                 field-name="{{form.$pageLang.Name}}"
+                          max-length="50"
+                         fm-model="form.yfvich09ca.nameEn"></fm-text>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--电子邮箱地址-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.Email"></span>
+            <div class="col-xs-4">
+                <fm-text fm-model="form.yfvich09ca.emailCn"  required
+                          max-length="200"
+                                 field-name="{{form.$pageLang.Email}}" pattern="^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$"></fm-text>
+            </div>
+            <!--Email Adresss-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.EmailEng"></span>
+            <div class="col-xs-4">
+                <fm-text  fm-model="form.yfvich09ca.emailEn" required
+                          max-length="200"
+                                 field-name="{{form.$pageLang.EmailEng}}" pattern="^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$"></fm-text>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--手机号-->
+            <span class="col-xs-2 control-label" ng-bind="form.$pageLang.MobilePhone"></span>
+            <div class="col-xs-4">
+                <fm-text fm-model="form.yfvich09ca.mobilePhoneCn" pattern="^1[3|4|5|7|8]\d{9}$"  max-length="50"></fm-text>
+            </div>
+            <!--Mobile Phone-->
+            <span class="col-xs-2 control-label" ng-bind="form.$pageLang.MobilePhon"></span>
+            <div class="col-xs-4">
+                <fm-text fm-model="form.yfvich09ca.mobilePhoneEn" pattern="^1[3|4|5|7|8]\d{9}$" max-length="50"></fm-text>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--工作电话-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.OfficeTel"></span>
+            <div class="col-xs-4">
+                <fm-text fm-model="form.yfvich09ca.officeTelCn"  required
+                                 field-name="{{form.$pageLang.OfficeTel}}" max-length="50" pattern="^((0\d{2,3})-)(\d{7,8})(-(\d{3,}))?$"></fm-text>
+            </div>
+            <!--Office Tel-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.OfficeTe"></span>
+            <div class="col-xs-4">
+                <fm-text fm-model="form.yfvich09ca.officeTelEn"  required
+                                 field-name="{{form.$pageLang.OfficeTe}}" max-length="50" pattern="^((0\d{2,3})-)(\d{7,8})(-(\d{3,}))?$"></fm-text>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--公司名称-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.CompanyName"></span>
+            <div class="col-xs-4">
+                <fm-select view="GetHQ/TC/APInfo"  required
+                                  display-member="text"
+                                 fm-disabled="base.areaCode=='YFVSX' || base.areaCode=='SHTC'"
+                                  value-member="id"
+                                 field-name="{{form.$pageLang.CompanyName}}" callback-func="form.chooseCompanyName(selectItem)" fm-model="form.yfvich09ca.companyNameCn"></fm-select>
+            </div>
+            <!--Company Name-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.CompanyNam"></span>
+            <div class="col-xs-4">
+                <fm-text readonly
+                         fm-model="form.yfvich09ca.companyNameEn" ></fm-text>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--公司联系地址-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.CompanyAddress"></span>
+            <div class="col-xs-4">
+                <fm-select   required
+                            view="GetHQ/TC/APInfo" display-member="address"
+                                  value-member="id"
+                                    fm-disabled="base.areaCode=='YFVSX' || base.areaCode=='SHTC'"
+                                 field-name="{{form.$pageLang.CompanyAddress}}" callback-func="form.chooseCompanyAddress(selectItem)" fm-model="form.yfvich09ca.companyAddressCn"></fm-select>
+            </div>
+            <!--Company Adress-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.CompanyAddres"></span>
+            <div class="col-xs-4">
+                <fm-text readonly
+                         fm-model="form.yfvich09ca.companyAddressEn"></fm-text>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--部门-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.Department"></span>
+            <div class="col-xs-4">
+                <fm-text fm-model="form.yfvich09ca.departmentCn"  required
+                         max-length="100"
+                         fm-placeholder="{{form.$pageLang.Placeholder}}"
+                                 field-name="{{form.$pageLang.Department}}"></fm-text>
+            </div>
+            <!--Departmennt-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.Departmen"></span>
+            <div class="col-xs-4">
+                <fm-text fm-model="form.yfvich09ca.departmentEn"  required
+                         fm-placeholder="Please input full name"
+                         max-length="100"
+                                 field-name="{{form.$pageLang.Departmen}}"></fm-text>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--岗位-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.Position"></span>
+            <div class="col-xs-4">
+                <fm-text fm-model="form.yfvich09ca.positionCn"  required
+                         max-length="50"
+                                 fm-placeholder="{{form.$pageLang.Placeholder}}"
+                                 field-name="{{form.$pageLang.Position}}"></fm-text>
+            </div>
+            <!--Position-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.Positio"></span>
+            <div class="col-xs-4">
+                <fm-text fm-model="form.yfvich09ca.positionEn"  required
+                         max-length="50"
+                         fm-placeholder="Please input full name"
+                                 field-name="{{form.$pageLang.Positio}}"></fm-text>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--专家称号-->
+            <span class="col-xs-2 control-label " ng-bind="form.$pageLang.TitleCn"></span>
+            <div class="col-xs-4">
+                <fm-select dataitem="HRRelated>CardRequest>Title" 
+                           field-name="{{form.$pageLang.CompanyAddress}}" fm-model="form.yfvich09ca.titleCn"></fm-select>
+            </div>
+            <!--Title-->
+            <span class="col-xs-2 control-label " ng-bind="form.$pageLang.TitleEn"></span>
+            <div class="col-xs-4">
+                <fm-select dataitem="HRRelated>CardRequest>TitleEng" 
+                           field-name="{{form.$pageLang.CompanyAddress}}" fm-model="form.yfvich09ca.titleEn"></fm-select>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--传真-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.Fax"></span>
+            <div class="col-xs-4">
+                <fm-select dataitem="HRRelated>CardRequest>Fax"
+                           fm-model="form.yfvich09ca.faxCn"  required
+                            fm-disabled="base.areaCode=='YFVSX' || base.areaCode=='SHTC'"
+                                 field-name="{{form.$pageLang.Fax}}"></fm-select>
+            </div>
+            <!--Position-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.Fa"></span>
+            <div class="col-xs-4">
+                <fm-select dataitem="HRRelated>CardRequest>Fax"
+                            fm-disabled="base.areaCode=='YFVSX' || base.areaCode=='SHTC'"
+                           fm-model="form.yfvich09ca.faxEn"  required
+                                 field-name="{{form.$pageLang.Fa}}"></fm-select>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--印制岗位信息与实际岗位信息不一致事由-->
+            <span class="col-xs-2 control-label" ng-bind="form.$pageLang.DifferentPositionReason"></span>
+            <div class="col-xs-10">
+                <fm-textarea fm-model="form.yfvich09ca.differentPositionReason" max-length="2000"></fm-textarea>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--备注-->
+            <span class="col-xs-2 control-label" ng-bind="form.$pageLang.Remarks"></span>
+            <div class="col-xs-10">
+                <fm-textarea fm-model="form.yfvich09ca.remarks" max-length="2000"></fm-textarea>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+

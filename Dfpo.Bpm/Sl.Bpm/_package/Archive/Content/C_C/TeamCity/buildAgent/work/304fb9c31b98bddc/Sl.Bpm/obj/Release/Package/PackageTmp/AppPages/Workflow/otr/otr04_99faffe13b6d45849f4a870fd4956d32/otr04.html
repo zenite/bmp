@@ -1,0 +1,353 @@
+﻿<!--印签申报表-->
+<fm-form-title sn-number="{{base.snNumber}}" apply-date="{{base.applyDate}}" sub-title='base.title' fm-model="base.areaCode"></fm-form-title>
+
+<fm-Group-Head title="{{ base.$pageLang.ApplicantInfo }}"></fm-Group-Head>
+<fm-applicant jobid='base.applicantJobId' userinfo='base.applicant' taskid='base.taskId' wfid='base.workflowId' fm-model="base.areaCode"></fm-applicant>
+
+<!--发起人信息-->
+<fm-Group-Head title="{{ form.$pageLang.FileInformation }}"></fm-Group-Head>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--文件类型-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.FileType"></span>
+            <div class="col-xs-4">
+                <fm-select fm-model="form.otr04.fileType"
+                           required
+                           callback-func="form.clearData()"
+                           field-name="{{form.$pageLang.FileType}}"
+                           dataitem="Others>Signature>SignatureType"></fm-select>
+            </div>
+          
+            <div class="col-xs-6" ng-if="form.otr04.fileType=='5D02BB7E-964C-4BE8-9992-A37E7D14F6F0'">
+                <fm-data-select  class="fm-text-hide"
+                                fm-model="form.otr04.gg"
+                                view="GetContractreviewInfo"
+                                callback-func="form.chooseContractreview(selectItem)"
+                                ></fm-data-select>
+            </div>
+            </div>
+    </div>
+</div>
+<div class="row" ng-if="form.otr04.fileType=='5D02BB7E-964C-4BE8-9992-A37E7D14F6F0'">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--合同评审编号-->
+            <span class="col-xs-2 control-label " ng-bind="form.$pageLang.ContractFormCode"></span>
+            <div class="col-xs-4">
+                <fm-text readonly
+                         fm-model="form.otr04.fileName"></fm-text>
+            </div>
+        </div>
+    </div>
+</div>
+<fm-Group-Head title="{{ form.$pageLang.RequireApprovalType }}"></fm-Group-Head>
+<!--审批类型-->
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.RequireApprovalType"></span>
+            <fm-checklist  fm-model="form.otr04.requireApprovalType"
+                            field-name="{{form.$pageLang.RequireApprovalType}}"
+                            callback-func="form.changeview(selectItem,fmModel)"
+                          dataitem="Others>Signature>SealSignatureApprovalType"
+                            required>
+
+            </fm-checklist>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--是否外带-->
+             <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.Bring"></span>
+            <div class="col-xs-4">
+                <fm-select dataitem="Common>YesOrNo" required  field-name="{{form.$pageLang.Bring}}" fm-model="form.otr04.isSealTakenOut"></fm-select>
+            </div>
+        </div>
+    </div>
+</div>
+<fm-Group-Head title="{{ form.$pageLang.ApplyCompany }}"></fm-Group-Head>
+<!--申请公司-->
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.ApplyCompany"></span>
+            <div class="col-xs-10">
+                <fm-checklist fm-model="form.otr04.applyCompany"
+                              columncount="3"
+                              callback-func="form.bindingcompany()"
+                              field-name="{{form.$pageLang.ApplyCompany}}"
+                              view="GetAllCompany" display-member="text" value-member="id"
+                              required>
+
+                </fm-checklist>
+            </div>
+        </div>
+    </div>
+</div>
+<div ng-if="form.otr04.fileType=='5D02BB7E-964C-4BE8-9992-A37E7D14F6F0' || form.otr04.fileType=='99527111-d167-4f16-ac66-aa57ca0ff748' || form.otr04.fileType=='4DE59D91-AEEA-4149-93C9-466E3D1FC82B'">
+    <fm-Group-Head title="{{ form.$pageLang.Documenta}}"></fm-Group-Head>
+    <div  ng-if="form.otr04.fileType=='5D02BB7E-964C-4BE8-9992-A37E7D14F6F0'">
+        <div class="row">
+            <div class="form-group">
+                <div class="col-xs-12">
+                    <!--合同类型-->
+                    <span class="col-xs-2 control-label " ng-bind="form.$pageLang.ContractType"></span>
+                    <div class="col-xs-4">
+
+                        <fm-radiolist columncount="3"
+                                      field-name="{{form.$pageLang.ContractType}}"
+                                      fm-model="form.otr04.contractType"
+                                      required
+                                      dataitem="Others>Signature>ContractType">
+
+                        </fm-radiolist>
+                    </div>
+                    <!--项目名称-->
+                    <span class="col-xs-2 control-label " ng-bind="form.$pageLang.ProjectName"></span>
+                    <div class="col-xs-4">
+                        <fm-text fm-model="form.otr04.projectName" fm-placeholder="{{form.$pageLang.Chooswrite}}" max-length="50"></fm-text>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group">
+                <div class="col-xs-12">
+                    <!--缔约公司主体-->
+                    <span class="col-xs-2 control-label " ng-bind="form.$pageLang.ContractOurParty"></span>
+                    <div class="col-xs-4">
+                        <fm-select fm-model="form.otr04.contractOurParty"
+                                   view="GetAllCompany" display-member="text"
+                                   readonly
+                                   value-member="id"></fm-select>
+                    </div>
+
+                    <!--缔约方（他方）-->
+                    <span class="col-xs-2 control-label " ng-bind="form.$pageLang.ContractOtherParty"></span>
+                    <div class="col-xs-4">
+                        <fm-text readonly fm-model="form.otr04.contractOtherParty"></fm-text>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group">
+                <div class="col-xs-12">
+                    <!--金额-->
+                    <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.vAmount"></span>
+                    <div class="col-xs-4">
+                        <fm-number min-value="0" required fm-model="form.otr04.amount" max-value="100000000" field-name="{{form.$pageLang.vAmount}}"></fm-number>
+                    </div>
+                    <!--有效期-->
+                    <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.ValidPeriod"></span>
+                    <div class="col-xs-4">
+                        <fm-text required field-name="{{form.$pageLang.ValidPeriod}}" fm-model="form.otr04.validPeriod" max-length="50"></fm-text>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group">
+                <div class="col-xs-12">
+                    <!--其他-->
+                    <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.Others"></span>
+                    <div class="col-xs-10">
+                        <fm-textarea fm-model="form.otr04.others" required field-name="{{form.$pageLang.Others}}" fm-placeholder="请填写合同背景/项目背景/或其他与合同签署有关的情况" max-length="500"></fm-textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group">
+            <div class="col-xs-12">
+                <!--打印份数-->
+                <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.PrintCopyNumber"></span>
+                <div class="col-xs-4">
+                    <fm-number fm-model="form.otr04.printCopyNumber" min-value="1" max-value="100000000" required field-name="{{form.$pageLang.PrintCopyNumber}}"></fm-number>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div ng-if="form.otr04.fileType=='8B8988C3-3ED7-4211-95A6-63B7A85CDFFB'">
+    <fm-Group-Head title="{{ form.$pageLang.Documentb }}"></fm-Group-Head>
+    <!--文件简述-董事会决议-->
+    <div class="row">
+        <div class="form-group">
+            <div class="col-xs-12">
+                <!--公司-->
+                <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.BoardCompany"></span>
+                <div class="col-xs-4">
+                    <fm-select required view="GetAllCompany" display-member="text" ismulti value-member="id" fm-model="form.otr04.boardCompany" field-name="{{form.$pageLang.BoardCompany}}"></fm-select>
+                </div>
+                <!--年度-->
+                <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.BoardYear"></span>
+                <div class="col-xs-4">
+                    <fm-text required fm-model="form.otr04.boardYear" max-length="50" field-name="{{form.$pageLang.BoardYear}}"></fm-text>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group">
+            <div class="col-xs-12">
+                <!--签署方式-->
+                <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.Signway"></span>
+                <div class="col-xs-6">
+                    <fm-checklist fm-model="form.otr04.signway"
+                                  columncount="3"
+                                  field-name="{{form.$pageLang.Signway}}"
+                                  dataitem="Others>Signature>Signway"
+                                  required>
+
+                    </fm-checklist>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group">
+            <div class="col-xs-12">
+                <!--决议事项-->
+                <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.ResolutionDes"></span>
+                <div class="col-xs-10">
+                    <fm-textarea max-length="100" required fm-model="form.otr04.resolutionDes" fm-placeholder="请输入决议内容，例如任命2015年外部审计公司" field-name="{{form.$pageLang.ResolutionDes}}"></fm-textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div ng-if="form.otr04.fileType=='ACE5E4C4-F8CE-4E62-8387-9E207AA1B1C2'">
+    <fm-Group-Head title="{{ form.$pageLang.Documentc }}"></fm-Group-Head>
+    <!--文件简述-报价单-->
+    <div class="row">
+        <div class="form-group">
+            <div class="col-xs-12">
+                <!--报价客户-->
+                <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.PriceListCustomer"></span>
+                <div class="col-xs-4">
+                    <fm-text fm-model="form.otr04.priceListCustomer" required max-length="50" field-name="{{form.$pageLang.PriceListCustomer}}"></fm-text>
+                </div>
+                <!--报价项目-->
+                <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.PriceListProject"></span>
+                <div class="col-xs-4">
+                    <fm-text fm-model="form.otr04.priceListProject" max-length="50" required field-name="{{form.$pageLang.PriceListProject}}"></fm-text>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group">
+            <div class="col-xs-12">
+                <!--产品-->
+                <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.PriceListProduct"></span>
+                <div class="col-xs-10">
+                    <fm-textarea required fm-model="form.otr04.priceListProduct" max-length="200" field-name="{{form.$pageLang.PriceListProduct}}"></fm-textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div ng-if="form.showJustice && form.otr04.fileType=='4DE59D91-AEEA-4149-93C9-466E3D1FC82B'">
+    <fm-Group-Head title="{{ form.$pageLang.Documentd }}"></fm-Group-Head>
+    <!--文件简述-其他-法务类-->
+    <div class="row">
+        <div class="form-group">
+            <div class="col-xs-12">
+                <!-公司-->
+                <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.OtherCompany"></span>
+                <div class="col-xs-4">
+                    <fm-select required view="GetAllCompany" display-member="text" value-member="id" fm-model="form.otr04.legalOtherCompany" field-name="{{form.$pageLang.OtherCompany}}"></fm-select>
+                </div>
+                <!--年度-->
+                <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.OtherYear"></span>
+                <div class="col-xs-4">
+                    <fm-text required fm-model="form.otr04.legalOtherYear" max-length="50" unit="年" field-name="{{form.$pageLang.OtherYear}}"></fm-text>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group">
+            <div class="col-xs-12">
+                <!--背景介绍-->
+                <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.BackgroundDes"></span>
+                <div class="col-xs-10">
+                    <fm-textarea required fm-model="form.otr04.legalBackgroundDes" fm-placeholder="请填写背景介绍" max-length="500" field-name="{{form.$pageLang.BackgroundDes}}"></fm-textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group">
+            <div class="col-xs-12">
+                <!--内容概述-->
+                <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.ContentDes"></span>
+                <div class="col-xs-10">
+                    <fm-textarea required fm-model="form.otr04.legalContentDes" fm-placeholder="请填写内容概述" max-length="500" field-name="{{form.$pageLang.ContentDes}}"></fm-textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div ng-if="(form.showordinary && form.otr04.fileType=='4DE59D91-AEEA-4149-93C9-466E3D1FC82B') || form.otr04.fileType=='D4B5D121-DC50-4107-8E48-0AC16D296927'">
+    <fm-Group-Head title="{{ form.$pageLang.Documente }}"></fm-Group-Head>
+    <!--文件简述-其他-普通类-->
+    <div class="row">
+        <div class="form-group">
+            <div class="col-xs-12">
+                <!--文件名称-->
+                <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.DocumentName"></span>
+                <div class="col-xs-10">
+                    <fm-text required fm-model="form.otr04.otherDocName" field-name="{{form.$pageLang.DocumentName}}" max-length="50"></fm-text>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group">
+            <div class="col-xs-12">
+                <!--文件概述-->
+                <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.DocumentOutlines"></span>
+                <div class="col-xs-10">
+                    <fm-textarea required fm-model="form.otr04.otherContentDes" fm-placeholder="请概述申请目的，文件内容" max-length="500" field-name="{{form.$pageLang.DocumentOutlines}}"></fm-textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!--其他附件-->
+<div ng-if="form.otr04.fileType=='8B8988C3-3ED7-4211-95A6-63B7A85CDFFB' || fm-normal=='form.$pageRight.Otr04Node1'">
+    <fm-Group-Head class="print-hide" title="{{ 'Attachment' |translate}}"></fm-Group-Head>
+    <div class="print-hide row">
+        <div class="form-group"
+            <div class="col-xs-12">
+                <div class="col-xs-12">
+                    <fm-attachment form-files="form.$attachments"
+                                   link-id="0"
+                                   task-id='base.taskId'
+                                   node-id="base.nodeId"
+                                   draft-id="base.draftId"
+                                   required
+                                   fm-normal="form.$pageRight.Otr04Node1"
+                                   state="{{form.$pageRight.StartNode}}"
+                                   field-name="{{'UploadAttachment' |translate}}"
+                                   fm-model="form.$state.UploadAttachment"
+                                   button-name="{{ 'UploadAttachment' |translate}}"></fm-attachment>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

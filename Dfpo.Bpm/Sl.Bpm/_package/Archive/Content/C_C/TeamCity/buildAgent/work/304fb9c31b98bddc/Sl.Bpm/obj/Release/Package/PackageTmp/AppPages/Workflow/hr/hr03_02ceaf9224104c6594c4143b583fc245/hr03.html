@@ -1,0 +1,280 @@
+﻿<!--人员需求流程-->
+<fm-form-title sn-number="{{base.snNumber}}" apply-date="{{base.applyDate}}" sub-title='base.title' fm-model="base.areaCode"></fm-form-title>
+<fm-Group-Head title="{{ base.$pageLang.ApplicantInfo }}"></fm-Group-Head>
+<fm-applicant jobid='base.applicantJobId' userinfo='base.applicant' taskid='base.taskId' wfid="base.workflowId"></fm-applicant>
+<fm-Group-Head title="{{ form.$pageLang.DemandAppInfo }}"></fm-Group-Head>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--职能-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.Function"></span>
+            <div class="col-xs-4">
+                <fm-select  fm-model="form.hr03.function" required  field-name="{{form.$pageLang.Function}}" dataitem="HRRelated>PersonnelDemand>Function"></fm-select>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--人数-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.Hc"></span>
+            <div class="col-xs-4">
+                <fm-number field-name="{{form.$pageLang.Hc}}"
+                           required
+                             min-value="1"
+                           scale="0"
+                           fm-model="form.hr03.hc" max-length="100000000"></fm-number>
+            </div>
+            <!--招聘岗位-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.Position"></span>
+            <div class="col-xs-4">
+                <fm-text fm-model="form.hr03.recruitPositionChi"
+                         required
+                          field-name="{{form.$pageLang.Position}}" fm-placeholder="{{form.$pageLang.Chinesepost}}" max-length="200"></fm-text>
+                <fm-text fm-model="form.hr03.recruitPositionEng"
+                         required
+                          field-name="{{form.$pageLang.PositionEng}}" pattern="^[a-zA-Z]+$" fm-placeholder="{{form.$pageLang.Englishpost}}" max-length="200"></fm-text>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--员工类别-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.StaffType"></span>
+            <div class="col-xs-4">
+                <fm-select dataitem="HRRelated>PersonnelDemand>StaffType" fm-model="form.hr03.staffType"  required  field-name="{{form.$pageLang.StaffType}}"></fm-select>
+            </div>
+            <!--招聘原因-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.RecruitReason"></span>
+            <div class="col-xs-4">
+                <fm-select  dataitem="HRRelated>PersonnelDemand>RecruitReason"  fm-model="form.hr03.recruitReason"  callback-func="form.clearData()" required  field-name="{{form.$pageLang.RecruitReason}}"></fm-select>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" ng-if="form.hr03.recruitReason=='5E80A9C7-7198-42FC-80B8-214AE550D62A'">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--预算人数-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.BudgetHc"></span>
+            <div class="col-xs-4">
+                <fm-number fm-model="form.hr03.budgetHc"
+                         required
+                           min-value="1"
+                           scale="0"
+                       field-name="{{form.$pageLang.BudgetHc}}" max-length="100000000"></fm-number>
+            </div>
+            <!--实际人数-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.ActualHc"  ></span>
+            <div class="col-xs-4">
+                <fm-number fm-model="form.hr03.actualHc"
+                         required
+                            min-value="1"
+                           scale="0"
+                         field-name="{{form.$pageLang.ActualHc}}" max-length="100000000" ></fm-number>
+            </div>
+        </div>
+    </div>
+</div>
+<div ng-if="form.hr03.recruitReason=='131CDCD4-5DED-447B-8F30-A9A629ACFFB1'">
+    <div class="row">
+        <div class="form-group">
+            <div class="col-xs-12">
+                <!--离职/调动人员姓名-->
+                <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.ResignTransferStaffName"></span>
+                <div class="col-xs-4">
+                    <fm-text fm-model="form.hr03.resignTransferStaffNameChi"
+                             required
+                             field-name="{{form.$pageLang.ResignTransferStaffName}}" fm-placeholder="{{form.$pageLang.Chinesename}}" max-length="100"></fm-text>
+                    <fm-text fm-model="form.hr03.resignTransferStaffNameEng"
+                             required
+                             field-name="{{form.$pageLang.ResignTransferStaffName}}"  pattern="^[a-zA-Z]+$" fm-placeholder="{{form.$pageLang.Englishname}}" max-length="100"></fm-text>
+                </div>
+                <!--离职/调动岗位-->
+                <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.ResignTransferStaffJob"></span>
+                <div class="col-xs-4">
+                    <fm-text fm-model="form.hr03.resignTransferStaffJobChi"
+                             required
+                             field-name="{{form.$pageLang.ResignTransferStaffJob}}" fm-placeholder="{{form.$pageLang.ChineseResignTransferStaffJob}}" max-length="200"></fm-text>
+                    <fm-text fm-model="form.hr03.resignTransferStaffJobEng"
+                             required
+                             field-name="{{form.$pageLang.ResignTransferStaffJob}}"  pattern="^[a-zA-Z]+$" fm-placeholder="{{form.$pageLang.EnglishResignTransferStaffJob}}" max-length="200"></fm-text>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group">
+            <div class="col-xs-12">
+                <!--离职/调动时间-->
+                <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.ResignTransferTime"></span>
+                <div class="col-xs-4">
+                    <fm-datetime fm-model="form.hr03.resignTransferTime"
+                                 date
+                             required
+                                  field-name="{{form.$pageLang.ResignTransferTime}}"
+                             ></fm-datetime>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group">
+            <div class="col-xs-12">
+                <!--离职/调动原因-->
+                <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.ResignTransferReason"></span>
+                <div class="col-xs-10">
+                    <fm-textarea fm-model="form.hr03.resignTransferReasonChi"
+                                 required
+                                 field-name="{{form.$pageLang.ResignTransferReason}}" fm-placeholder="{{form.$pageLang.ChineseResignTransferReason}}" max-length="2000"></fm-textarea>
+                    <fm-textarea fm-model="form.hr03.resignTransferReasonEng"
+                                 required
+                                 field-name="{{form.$pageLang.ResignTransferReason}}"  pattern="^[a-zA-Z]+$" fm-placeholder="{{form.$pageLang.EnglishResignTransferReason}}" max-length="2000"></fm-textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" ng-if="form.hr03.recruitReason=='A2BC7505-F23C-44E0-8449-AA9CB51CA75A'">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--原因-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.OverBudgetReason"></span>
+            <div class="col-xs-10">
+                <fm-textarea fm-model="form.hr03.overBudgetReasonChi"
+                             required
+                             fm-placeholder="{{form.$pageLang.ChineseReason}}"
+                             field-name="{{form.$pageLang.OverBudgetReason}}"
+                             max-length="2000"
+                            ></fm-textarea>
+                <fm-textarea fm-model="{{form.hr03.overBudgetReasonEng}}"
+                             required
+                             fm-placeholder="{{form.$pageLang.EnglishReason}}"
+                              pattern="^[a-zA-Z]+$"
+                             field-name="{{form.$pageLang.OverBudgetReason}}"
+                             max-length="2000"
+                            ></fm-textarea>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--招聘到岗日-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.ExpectedOnboardDateType"></span>
+            <div class="col-xs-4">
+                <fm-select dataitem="HRRelated>PersonnelDemand>RecruitmentToThePost"  fm-model="form.hr03.expectedOnboardDateType" required  field-name="{{form.$pageLang.ExpectedOnboardDateType}}"></fm-select>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--招聘类别-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.RecruitType"></span>
+            <div class="col-xs-4">
+                <fm-checklist dataitem="HRRelated>PersonnelDemand>RecruitType" fm-model="form.hr03.recruitType" required field-name="{{form.$pageLang.RecruitType}}"></fm-checklist>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--招聘要求-->
+            <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.RecruitNotes"></span>
+            <div class="col-xs-10">
+                <fm-textarea fm-model="form.hr03.recruitNotes"
+                             required
+                             fm-placeholder="{{form.$pageLang.ChineseRecruitNotes}}"
+                             field-name="{{form.$pageLang.RecruitNotes}}"
+                             max-length="2000"
+                            ></fm-textarea>
+                <fm-textarea fm-model="form.hr03.recruitNotesEng"
+                             required
+                             pattern="^[a-zA-Z]+$"
+                               fm-placeholder="{{form.$pageLang.EnglishRecruitNotes}}"
+                             field-name="{{form.$pageLang.RecruitNotes}}"
+                             max-length="2000"
+                            ></fm-textarea>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <!--岗位标准-->
+            <span class="col-xs-2 control-label required"></span>
+            <div class="col-xs-4">
+                <fm-select field-name="{{form.$pageLang.Poststandard}}"
+                           dataitem="HRRelated>PersonnelDemand>PostStandard"
+                           required
+                           callback-func="form.showDialog(selectItem,fmModel)"
+                           fm-model="form.hr03.poststandard"></fm-select>
+            </div>
+        </div>
+    </div>
+</div>
+<div ng-if="form.$pageRight.Hr03Node1=='normal'">
+    <div class="row">
+        <div class="form-group">
+            <div class="col-xs-12">
+                <!--总部人力资源部审批-->
+                <span class="col-xs-2 control-label required" ng-bind="form.$pageLang.HQHRApproval"></span>
+                <div class="col-xs-4">
+                    <fm-select field-name="{{form.$pageLang.HQHRApproval}}"
+                               dataitem="HRRelated>PersonnelDemand>DepartmentApproval"
+                               required
+                                 fm-normal="form.$pageRight.Hr03Node1=='normal' && base.pageState==2"
+                               fm-model="form.hr03.hqhrApproval"></fm-select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group">
+            <div class="col-xs-12">
+                <!--此项-->
+                <span class="col-xs-2 control-label required"></span>
+                <div class="col-xs-4">
+                    <fm-select field-name="{{form.$pageLang.This}}"
+                               dataitem="HRRelated>PersonnelDemand>Circulation"
+                               required
+                              fm-normal="form.$pageRight.Hr03Node1=='normal' && base.pageState==2"
+                               fm-model="form.hr03.hqHrApprovalEcType"></fm-select>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--附件-->
+<div>
+    <fm-Group-Head class="print-hide" title="{{ 'Attachment' |translate}}"></fm-Group-Head>
+    <div class="print-hide row">
+        <div class="form-group">
+            <div class="col-xs-12">
+            
+                <div class="col-xs-12">
+                    <fm-attachment form-files="form.$attachments"
+                                   link-id="0"
+                                   task-id='base.taskId'
+                                   node-id="base.nodeId"
+                                   draft-id="base.draftId"
+                                   fm-required="form.hr03.poststandard=='A1491210-51A1-4FBE-A61F-20CE8F6BB04C'"
+                                   state="{{form.$pageRight.StartNode}}"
+                                   field-name="{{'UploadAttachment' |translate}}"
+                                   fm-model="form.$state.UploadAttachment"
+                                   button-name="{{ 'UploadAttachment' |translate}}"></fm-attachment>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
